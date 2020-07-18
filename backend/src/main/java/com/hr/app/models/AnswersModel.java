@@ -15,7 +15,7 @@ public class AnswersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FK_answerQuestion"))
     @JsonBackReference(value = "answer-question")
     @JsonIgnore
     private QuestionsModel FK_answerQuestion;

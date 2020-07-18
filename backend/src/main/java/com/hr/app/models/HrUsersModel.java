@@ -14,19 +14,19 @@ public class HrUsersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_hrUserUser"))
     @JsonBackReference(value = "hrUser-user")
     @JsonIgnore
     private UsersModel FK_hrUserUser;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_hrUserCompany"))
     @JsonBackReference(value = "hrUser-company")
     @JsonIgnore
     private CompaniesModel FK_hrUserCompany;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "FK_hrUserDepartment"))
     @JsonBackReference(value = "hrUser-department")
     @JsonIgnore
     private DepartmentsModel FK_hrUserDepartment;

@@ -14,25 +14,25 @@ public class UserAnswersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_userIduserAnswer"))
     @JsonBackReference(value = "user_id_user_answer")
     @JsonIgnore
     private UsersModel FK_userIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FK_questionIduserAnswer"))
     @JsonBackReference(value = "question_id_user_answer")
     @JsonIgnore
     private UsersModel FK_questionIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "answer_id")
+    @JoinColumn(name = "answer_id", foreignKey = @ForeignKey(name = "FK_answerIduserAnswer"))
     @JsonBackReference(value = "answer_id_user_answer")
     @JsonIgnore
     private UsersModel FK_answerIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "test_id")
+    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FK_testIduserAnswer"))
     @JsonBackReference(value = "test_id_user_answer")
     @JsonIgnore
     private UsersModel FK_testIduserAnswer;

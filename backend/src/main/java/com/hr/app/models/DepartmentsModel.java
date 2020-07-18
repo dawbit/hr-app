@@ -15,7 +15,7 @@ public class DepartmentsModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_departmentCompany"))
     @JsonBackReference(value = "departments-company")
     @JsonIgnore
     private CompaniesModel FK_departmentCompany;
