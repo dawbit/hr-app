@@ -14,7 +14,7 @@ public class CompanyPicturesModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_picturesCompany"))
     @JsonBackReference(value = "picture-company")
     @JsonIgnore
     private CompaniesModel FK_picturesCompany;

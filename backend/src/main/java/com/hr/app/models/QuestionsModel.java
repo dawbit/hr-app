@@ -15,7 +15,7 @@ public class QuestionsModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "test_id")
+    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FK_questionTest"))
     @JsonBackReference(value = "question-test")
     @JsonIgnore
     private UsersModel FK_questionTest;

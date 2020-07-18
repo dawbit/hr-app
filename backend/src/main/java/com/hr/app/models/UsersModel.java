@@ -36,7 +36,7 @@ public class UsersModel {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_userAccountTypes"))
     @JsonBackReference(value = "user-role")
     @JsonIgnore
     private AccountTypesModel FK_userAccountTypes;
@@ -73,10 +73,10 @@ public class UsersModel {
     @JsonBackReference(value = "hrUser-user")
     private List<HrUsersModel> hrUsers;
 
+
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
-
 
     public long getId() {
         return id;

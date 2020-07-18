@@ -14,13 +14,13 @@ public class CeosModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_ceoUser"))
     @JsonBackReference(value = "ceo-user")
     @JsonIgnore
     private UsersModel FK_ceoUser;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_ceoCompany"))
     @JsonBackReference(value = "ceo-company")
     @JsonIgnore
     private CompaniesModel FK_ceoCompany;

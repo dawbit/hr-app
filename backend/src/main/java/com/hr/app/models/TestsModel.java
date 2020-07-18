@@ -19,13 +19,13 @@ public class TestsModel {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_hr_id")
+    @JoinColumn(name = "user_hr_id", foreignKey = @ForeignKey(name = "FK_testUserHr"))
     @JsonBackReference(value = "test-user-hr")
     @JsonIgnore
     private UsersModel FK_testUserHr;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_testCompany"))
     @JsonBackReference(value = "test-company")
     @JsonIgnore
     private UsersModel FK_testCompany;
