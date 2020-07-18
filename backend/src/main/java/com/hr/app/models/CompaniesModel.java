@@ -30,6 +30,10 @@ public class CompaniesModel {
     private byte[] image;
 
 
+    // =========================================
+    // RELATIONSHIPS
+    // =========================================
+
     @OneToMany(mappedBy = "FK_picturesCompany")
     @JsonBackReference(value = "pictures-company")
     private List<CompanyPicturesModel> companyPictures;
@@ -46,6 +50,16 @@ public class CompaniesModel {
     @JsonBackReference(value = "test-company")
     private List<TestsModel> tests;
 
+    @OneToMany(mappedBy = "FK_hrUserCompany")
+    @JsonBackReference(value = "hrUser-company")
+    private List<HrUsersModel> hrUsers;
+
+
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
+
     public long getId() {
         return id;
     }
@@ -60,6 +74,30 @@ public class CompaniesModel {
 
     public String getAbout() {
         return about;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public List<CompanyPicturesModel> getCompanyPictures() {
+        return companyPictures;
+    }
+
+    public List<CeosModel> getCeo() {
+        return ceo;
+    }
+
+    public List<DepartmentsModel> getDepartments() {
+        return departments;
+    }
+
+    public List<TestsModel> getTests() {
+        return tests;
+    }
+
+    public List<HrUsersModel> getHrUsers() {
+        return hrUsers;
     }
 
     public void setName(String name) {
@@ -78,16 +116,40 @@ public class CompaniesModel {
         this.image = image;
     }
 
-    public byte[] getImage() {
-        return image;
+    public void setCompanyPictures(List<CompanyPicturesModel> companyPictures) {
+        this.companyPictures = companyPictures;
     }
 
-    protected CompaniesModel() {}
+    public void setCeo(List<CeosModel> ceo) {
+        this.ceo = ceo;
+    }
 
-    public CompaniesModel(String name, String location, String about, byte[] image) {
+    public void setDepartments(List<DepartmentsModel> departments) {
+        this.departments = departments;
+    }
+
+    public void setTests(List<TestsModel> tests) {
+        this.tests = tests;
+    }
+
+    public void setHrUsers(List<HrUsersModel> hrUsers) {
+        this.hrUsers = hrUsers;
+    }
+
+    protected CompaniesModel() { }
+
+    public CompaniesModel(String name, String location, String about, byte[] image,
+                          List<CompanyPicturesModel> companyPictures, List<CeosModel> ceo,
+                          List<DepartmentsModel> departments, List<TestsModel> tests,
+                          List<HrUsersModel> hrUsers) {
         this.name = name;
         this.location = location;
         this.about = about;
         this.image = image;
+        this.companyPictures = companyPictures;
+        this.ceo = ceo;
+        this.departments = departments;
+        this.tests = tests;
+        this.hrUsers = hrUsers;
     }
 }

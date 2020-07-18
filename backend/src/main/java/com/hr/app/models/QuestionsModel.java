@@ -24,6 +24,10 @@ public class QuestionsModel {
     private String text;
 
 
+    // =========================================
+    // RELATIONSHIPS
+    // =========================================
+
     @OneToMany(mappedBy = "FK_answerQuestion")
     @JsonBackReference(value = "answer-question")
     private List<AnswersModel> answers;
@@ -31,4 +35,55 @@ public class QuestionsModel {
     @OneToMany(mappedBy = "FK_questionIduserAnswer")
     @JsonBackReference(value = "question_id_user_answer")
     private List<UserAnswersModel> userAnswers;
+
+
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
+    public long getId() {
+        return id;
+    }
+
+    public UsersModel getFK_questionTest() {
+        return FK_questionTest;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public List<AnswersModel> getAnswers() {
+        return answers;
+    }
+
+    public List<UserAnswersModel> getUserAnswers() {
+        return userAnswers;
+    }
+
+    public void setFK_questionTest(UsersModel FK_questionTest) {
+        this.FK_questionTest = FK_questionTest;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAnswers(List<AnswersModel> answers) {
+        this.answers = answers;
+    }
+
+    public void setUserAnswers(List<UserAnswersModel> userAnswers) {
+        this.userAnswers = userAnswers;
+    }
+
+    protected QuestionsModel() { }
+
+    public QuestionsModel(UsersModel FK_questionTest, String text, List<AnswersModel> answers,
+                          List<UserAnswersModel> userAnswers) {
+        this.FK_questionTest = FK_questionTest;
+        this.text = text;
+        this.answers = answers;
+        this.userAnswers = userAnswers;
+    }
 }

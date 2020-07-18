@@ -26,4 +26,49 @@ public class CvsModel {
     @Column(name = "file_name")
     private String fileName;
 
+    // =========================================
+    // RELATIONSHIPS
+    // =========================================
+
+
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
+
+    public long getId() {
+        return id;
+    }
+
+    public UsersModel getFK_cvUser() {
+        return FK_cvUser;
+    }
+
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFK_cvUser(UsersModel FK_cvUser) {
+        this.FK_cvUser = FK_cvUser;
+    }
+
+    public void setCurrent(boolean current) {
+        isCurrent = current;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    protected CvsModel() { }
+
+    public CvsModel(UsersModel FK_cvUser, boolean isCurrent, String fileName) {
+        this.FK_cvUser = FK_cvUser;
+        this.isCurrent = isCurrent;
+        this.fileName = fileName;
+    }
 }

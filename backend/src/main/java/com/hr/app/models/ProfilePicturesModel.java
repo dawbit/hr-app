@@ -26,4 +26,49 @@ public class ProfilePicturesModel {
     @Column(name = "file_name")
     private String fileName;
 
+
+    // =========================================
+    // RELATIONSHIPS
+    // =========================================
+
+
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
+    public long getId() {
+        return id;
+    }
+
+    public UsersModel getFK_profilePictureUser() {
+        return FK_profilePictureUser;
+    }
+
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFK_profilePictureUser(UsersModel FK_profilePictureUser) {
+        this.FK_profilePictureUser = FK_profilePictureUser;
+    }
+
+    public void setCurrent(boolean current) {
+        isCurrent = current;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    protected ProfilePicturesModel() { }
+
+    public ProfilePicturesModel(UsersModel FK_profilePictureUser, boolean isCurrent, String fileName) {
+        this.FK_profilePictureUser = FK_profilePictureUser;
+        this.isCurrent = isCurrent;
+        this.fileName = fileName;
+    }
 }
