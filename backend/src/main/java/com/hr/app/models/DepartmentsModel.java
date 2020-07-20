@@ -20,7 +20,7 @@ public class DepartmentsModel {
     @JsonIgnore
     private CompaniesModel FK_departmentCompany;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
 

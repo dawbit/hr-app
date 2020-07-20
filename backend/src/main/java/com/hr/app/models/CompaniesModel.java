@@ -14,13 +14,13 @@ public class CompaniesModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "location")
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "about")
+    @Column(name = "about", nullable = false)
     private String about;
 
     // TODO: nazwa pliku + upload, lub plik jako byte[]

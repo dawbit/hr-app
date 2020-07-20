@@ -2,6 +2,7 @@ package com.hr.app.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,6 +23,12 @@ public class QuestionsModel {
 
     @Column(name = "text")
     private String text;
+
+    // TODO: nazwa pliku + upload, lub plik jako byte[]
+    @Lob
+    @Column(name = "image")
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] image;
 
 
     // =========================================
@@ -53,6 +60,10 @@ public class QuestionsModel {
         return text;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
     public List<AnswersModel> getAnswers() {
         return answers;
     }
@@ -69,6 +80,10 @@ public class QuestionsModel {
         this.text = text;
     }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public void setAnswers(List<AnswersModel> answers) {
         this.answers = answers;
     }
@@ -79,10 +94,11 @@ public class QuestionsModel {
 
     protected QuestionsModel() { }
 
-    public QuestionsModel(UsersModel FK_questionTest, String text, List<AnswersModel> answers,
+    public QuestionsModel(UsersModel FK_questionTest, String text, byte[] image, List<AnswersModel> answers,
                           List<UserAnswersModel> userAnswers) {
         this.FK_questionTest = FK_questionTest;
         this.text = text;
+        this.image = image;
         this.answers = answers;
         this.userAnswers = userAnswers;
     }
