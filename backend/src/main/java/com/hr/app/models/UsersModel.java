@@ -114,7 +114,7 @@ public class UsersModel {
         return FK_userAccountTypes;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
@@ -174,7 +174,7 @@ public class UsersModel {
         this.FK_userAccountTypes = FK_userAccountTypes;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
