@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,25 +18,29 @@ public class UsersModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
+    @Email
+    @NotBlank //Ponoc samo nullable nie dziala z @Email
     private String email;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true, nullable = false)
+    @Size(min = 8, max = 16)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
+    @Size(min = 8, max = 16)
     private String password;
 
     @ManyToOne
