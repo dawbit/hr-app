@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.hr.app.models.UsersModel;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,6 +63,10 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.user.getIsActive() == true;
+        if (this.user == null || this.user.getIsActive() == null) {
+            throw new UsernameNotFoundException("username not found");
+        } else {
+            return this.user.getIsActive() == true;
+        }
     }
 }
