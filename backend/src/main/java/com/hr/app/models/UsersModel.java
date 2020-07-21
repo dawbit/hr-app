@@ -42,7 +42,7 @@ public class UsersModel {
     private AccountTypesModel FK_userAccountTypes;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
 
     // =========================================
@@ -114,7 +114,7 @@ public class UsersModel {
         return FK_userAccountTypes;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
@@ -174,7 +174,7 @@ public class UsersModel {
         this.FK_userAccountTypes = FK_userAccountTypes;
     }
 
-    public void setIsActive(boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 
@@ -205,7 +205,7 @@ public class UsersModel {
     protected UsersModel() { }
 
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
-                      String login, String password, AccountTypesModel FK_userAccountTypes, boolean isActive,
+                      String login, String password, AccountTypesModel FK_userAccountTypes, Boolean isActive,
                       List<CvsModel> cvs, List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
                       List<TestsModel> tests, List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers) {
         this.firstName = firstName;
