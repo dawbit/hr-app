@@ -1,5 +1,6 @@
 package com.hr.app.security;
 
+import com.hr.app.models.AccountTypesModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,17 +21,16 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-//        // Extract list of permissions (name)
-//        this.user.getPermissionList().forEach(p -> {
-//            GrantedAuthority authority = new SimpleGrantedAuthority(p);
-//            authorities.add(authority);
-//        });
+        String userRoleString = "";
+        String userRole = this.user.getFK_userAccountTypes().getRoleName();
+        if (userRole.equals("admin")) userRoleString = "ADMIN";
+        else if (userRole.equals("hr_user")) userRoleString = "HR";
+        else if (userRole.equals("ceo")) userRoleString = "CEO";
+        else if (userRole.equals("user")) userRoleString = "USER";
+        else userRoleString = "NOT_FOUND";
 
-        // Extract list of roles (ROLE_name)
-//        this.user.getRoleList().forEach(r -> {
-//            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
-//            authorities.add(authority);
-//        });
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+ userRoleString);
+        authorities.add(authority);
 
         return authorities;
     }
@@ -62,8 +62,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        //System.out.println(this.user.getIsActive());
-        return true;
-        //return this.user.getIsActive() == true;
+        return this.user.getIsActive() == true;
     }
 }
