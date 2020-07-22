@@ -33,6 +33,10 @@ public class AccountTypesModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+    public long getId() {
+        return id;
+    }
+
     public long getRoleId() {
         return roleId;
     }
