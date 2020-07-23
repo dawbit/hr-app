@@ -18,16 +18,16 @@ public class UsersModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     @Email
     @NotBlank //Ponoc samo nullable nie dziala z @Email
     private String email;
@@ -35,8 +35,8 @@ public class UsersModel {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "login")
-    //@Size(min = 8, max = 16)
+    @Column(name = "login", unique = true, nullable = false)
+    @Size(min = 8)
     private String login;
 
     @Column(name = "password")
@@ -44,7 +44,7 @@ public class UsersModel {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_userAccountTypes"))
     @JsonBackReference(value = "user-role")
     @JsonIgnore
     private AccountTypesModel FK_userAccountTypes;
