@@ -6,6 +6,7 @@
     <mdb-navbar-brand><a class="navbar-brand" href="#">HR APP</a></mdb-navbar-brand>
 
     <!-- Collapsible content -->
+    <!-- Left side links -->
     <links>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown" dropdown>
@@ -19,9 +20,26 @@
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="admin-panel">
+            <mdb-icon fas icon="cog"></mdb-icon> Admin Panel
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="hr-panel">
+            <mdb-icon fas icon="cog"></mdb-icon> HR Panel
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="user-panel">
+            <mdb-icon fas icon="cog"></mdb-icon> User Panel
+            <!-- {{'User Panel' | translate }} -->
+          </a>
+        </li>
       </ul>
+      <!-- Left side links -->
 
-      <!-- Links -->
+      <!-- Right side links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a class="nav-link waves-light" mdbWavesEffect>
@@ -46,7 +64,7 @@
         </li>
 
       </ul>
-      <!-- Links -->
+      <!-- Right side links -->
     </links>
     <!-- Collapsible content -->
 
