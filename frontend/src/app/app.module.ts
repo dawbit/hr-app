@@ -30,6 +30,11 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 // import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
 
+// ngx translate
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -42,7 +47,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     CompanyPanelComponent,
     UserPanelComponent,
     QuizCreatePanelComponent,
-    QuizPanelComponent
+    QuizPanelComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     MatButtonModule,
@@ -68,3 +82,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }
+
+// AOT compilation support
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

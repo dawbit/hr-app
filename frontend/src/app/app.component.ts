@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+// import { RouterModule } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent {
   title = 'HR app';
+
+  constructor(
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'pl']);
+    translate.setDefaultLang('en');
+  }
 }
