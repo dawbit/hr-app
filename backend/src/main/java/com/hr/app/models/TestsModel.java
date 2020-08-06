@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +19,7 @@ public class TestsModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne
@@ -33,22 +37,26 @@ public class TestsModel {
     @Column(name = "is_possible_to_back")
     private boolean isPossibleToBack;
 
-    @Column(name = "test_code")
+    @Column(name = "test_code", nullable = false)
     private String testCode;
 
-    @Column(name = "test_type")
+    @Column(name = "test_type", nullable = false)
     private String testType;
 
     @Column(name = "is_active")
     private boolean isActive;
 
     @Column(name = "start_date")
+    @FutureOrPresent
     private Date startDate;
 
     @Column(name = "end_date")
+    @Future
     private Date endDate;
 
-    @Column(name = "time_for_test")
+    @Column(name = "time_for_test", nullable = false)
+    @Positive
+    @Max(value = 32700)
     private short timeForTest;
 
 

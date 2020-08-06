@@ -23,7 +23,7 @@ public class CvsModel {
     private boolean isCurrent;
 
     // TODO: nazwa pliku + upload, lub plik jako byte[]
-    @Column(name = "file_name")
+    @Column(name = "file_name", nullable = false)
     private String fileName;
 
     // =========================================

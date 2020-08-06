@@ -13,10 +13,10 @@ public class AccountTypesModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "role_id")
+    @Column(name = "role_id", nullable = false)
     private long roleId;
 
-    @Column(name = "role_name")
+    @Column(name = "role_name", nullable = false)
     private String roleName;
 
 
@@ -32,6 +32,10 @@ public class AccountTypesModel {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+    public long getId() {
+        return id;
+    }
 
     public long getRoleId() {
         return roleId;

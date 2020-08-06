@@ -1,0 +1,41 @@
+<h3>Sign up!</h3>
+<div [hidden]="submitted" style="width: 400px;">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" class="form-control" formControlName="login" id="login" required [(ngModel)]="user.login" name="login">
+        <mat-error *ngIf="validError('login', 'required')"></mat-error>
+        <mat-error *ngIf="validError('login', 'pattern')">Incorrect format!</mat-error>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" formControlName="password" id="password" required [(ngModel)]="user.password" name="password">
+        <mat-error *ngIf="validError('password', 'required')"></mat-error>
+        <mat-error *ngIf="validError('password', 'pattern')">Incorrect format! Password should be at least 6 characters long.</mat-error>
+    </div>
+    <div class="form-group">
+        <label for="fname">First name</label>
+        <input type="text" class="form-control" formControlName="fname" id="fname" required [(ngModel)]="user.fname" name="fname">
+        <mat-error *ngIf="validError('fname', 'required')"></mat-error>
+        <mat-error *ngIf="validError('fname', 'pattern')">Incorrect format!</mat-error>
+    </div>
+    <div class="form-group">
+        <label for="lname">Last name</label>
+        <input type="text" class="form-control" formControlName="lname" id="lname" required [(ngModel)]="user.lname" name="lname">
+        <mat-error *ngIf="validError('lname', 'required')"></mat-error>
+        <mat-error *ngIf="validError('lname', 'pattern')">Incorrect format!</mat-error>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You created successfully!</h4>
+</div>
+
+<div [hidden]="!error">
+  <h4> Something is wrong!</h4>
+</div>
