@@ -5,7 +5,16 @@
 html, body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.app-flex-columns {
+  width: 50% !important;
+}
+
+.app-flex-2-columns {
+  width: 50% !important;
 }

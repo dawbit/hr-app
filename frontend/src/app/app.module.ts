@@ -23,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
 // angular forms module
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+// angular flex
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 // animations module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -67,6 +70,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -33,7 +33,7 @@ export class LoginRegisterComponent implements OnInit {
     });
   }
 
-  switchS() {
+  switchForm() {
     if (this.selectedForm === 'login') {
       this.selectedForm = 'register';
     }
