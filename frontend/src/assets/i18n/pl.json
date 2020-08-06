@@ -1,3 +1,27 @@
 {
-  "homepage": "HR APP"
+  "homepage": "HR APP",
+  "sign-in": "Logowanie",
+  "sign-in!": "Zaloguj się!",
+  "sign-in-with": "lub zaloguj się za pomocą:",
+  "sign-up-with": "lub dołącz do nas z:",
+  "sign-up": "Rejestracja",
+  "sign-up!": "Zarejestruj się!",
+  "login": "Nazwa użytkownika",
+  "password": "Hasło",
+  "a-member": "Masz już u nas konto?",
+  "remember-me": "Zapamiętaj mnie",
+  "password-forgot": "Zapomniałeś hasła?",
+  "not-a-member": "Nie masz jeszcze konta?",
+  "first-name": "Imię",
+  "middle-name": "Drugie imię",
+  "last-name": "Nazwisko",
+  "e-mail": "E-mail",
+  "e-mail-confirm": "Potwierdź e-mail",
+  "password-minimum-length": "Przynajmniej 6 znaków",
+  "password-confirm": "Potwierdź hasło",
+  "phone-number": "Numer telefonu",
+  "subscribe-newsletter": "Subskrybuj nasz newsletter",
+  "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",
+  "term-of-service": "polityka prywatności",
+  "term-of-service-s": "politykę prywatności"
 }

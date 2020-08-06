@@ -1,3 +1,27 @@
 {
-  "homepage": "HR APP"
+  "homepage": "HR APP",
+  "sign-in": "Sign in",
+  "sign-in!": "Sign in!",
+  "sign-in-with": "or sign in with:",
+  "sign-up-with": "or sign up with:",
+  "sign-up": "Sign up",
+  "sign-up!": "Register!",
+  "login": "User name",
+  "password": "Password",
+  "remember-me": "Remember me",
+  "password-forgot": "Forgot password?",
+  "not-a-member": "Not a member?",
+  "a-member": "You are a member?",
+  "first-name": "First name",
+  "middle-name": "Middle name",
+  "last-name": "Last name",
+  "e-mail": "E-mail",
+  "e-mail-confirm": "Confirm e-mail",
+  "password-minimum-length": "At least 6 characters",
+  "password-confirm": "Confirm password",
+  "phone-number": "Phone number",
+  "subscribe-newsletter": "Subscribe to our newsletter",
+  "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;",
+  "term-of-service": "term of service",
+  "term-of-service-s": "term of service"
 }
