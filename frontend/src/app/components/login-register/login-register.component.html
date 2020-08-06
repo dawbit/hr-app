@@ -1,8 +1,8 @@
 <!-- Material form login -->
 <div *ngIf="selectedForm=='login'" class="card">
 
-  <h5 class="card-header info-color white-text text-center py-4">
-    <strong>Sign in</strong>
+  <h5 class="card-header dark purple lighten-1 white-text text-center py-4">
+    <strong>{{'sign-in' | translate}}</strong>
   </h5>
 
   <!--Card content-->
@@ -11,16 +11,16 @@
     <!-- Form -->
     <form class="text-center" style="color: #757575;" action="#!">
 
-      <!-- Email -->
+      <!-- Login -->
       <div class="md-form">
-        <input mdbInput type="email" id="materialLoginFormEmail" class="form-control">
-        <label for="materialLoginFormEmail">E-mail</label>
+        <input mdbInput type="email" id="materialLoginFormLogin" class="form-control">
+        <label for="materialLoginFormEmail">{{'login' | translate}}</label>
       </div>
 
       <!-- Password -->
-      <div class="md-form">
+      <div class="md-form mt-0">
         <input mdbInput type="password" id="materialLoginFormPassword" class="form-control">
-        <label for="materialLoginFormPassword">Password</label>
+        <label for="materialLoginFormPassword">{{'password' | translate}}</label>
       </div>
 
       <div class="d-flex justify-content-around">
@@ -28,26 +28,27 @@
           <!-- Remember me -->
           <div class="form-check">
             <input mdbInput type="checkbox" class="form-check-input" id="materialLoginFormRemember">
-            <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+            <label class="form-check-label" for="materialLoginFormRemember">{{'remember-me' | translate}}</label>
           </div>
         </div>
         <div>
           <!-- Forgot password -->
-          <a href="">Forgot password?</a>
+          <a href="">{{'password-forgot' | translate}}</a>
         </div>
       </div>
 
       <!-- Sign in button -->
-      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
-        in</button>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">
+        {{'sign-in!' | translate}}
+      </button>
 
       <!-- Register -->
-      <p>Not a member?
-        <a (click)="switchForm()">Register</a>
+      <p>{{'not-a-member' | translate}}
+        <a (click)="switchForm()">{{'sign-up!' | translate}}</a>
       </p>
 
       <!-- Social login -->
-      <p>or sign in with:</p>
+      <p>{{'sign-in-with' | translate}}</p>
       <a type="button" class="btn-floating btn-fb btn-sm">
         <i class="fab fa-facebook-f"></i>
       </a>
@@ -72,8 +73,8 @@
 <!-- Material form register -->
 <div *ngIf="selectedForm=='register'" class="card">
 
-  <h5 class="card-header info-color white-text text-center py-4">
-    <strong>Sign up</strong>
+  <h5 class="card-header dark purple lighten-1 white-text text-center py-4">
+    <strong>{{'sign-up' | translate}}</strong>
   </h5>
 
   <!--Card content-->
@@ -87,48 +88,75 @@
           <!-- First name -->
           <div class="md-form">
             <input mdbInput type="text" id="materialRegisterFormFirstName" class="form-control">
-            <label for="materialRegisterFormFirstName">First name</label>
+            <label for="materialRegisterFormFirstName">{{'first-name' | translate}}</label>
           </div>
         </div>
         <div class="col">
-          <!-- Last name -->
+          <!-- Middle name -->
           <div class="md-form">
-            <input mdbInput type="email" id="materialRegisterFormLastName" class="form-control">
-            <label for="materialRegisterFormLastName">Last name</label>
+            <input mdbInput type="text" id="materialRegisterFormMiddleName" class="form-control">
+            <label for="materialRegisterFormLastName">{{'middle-name' | translate}}</label>
           </div>
         </div>
       </div>
 
-      <!-- E-mail -->
+      <!-- Last name -->
       <div class="md-form mt-0">
-        <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control">
-        <label for="materialRegisterFormEmail">E-mail</label>
+        <input mdbInput type="text" id="materialRegisterLastName" class="form-control">
+        <label for="materialRegisterFormEmail">{{'last-name' | translate}}</label>
       </div>
 
-      <!-- Password -->
-      <div class="md-form">
-        <input mdbInput type="password" id="materialRegisterFormPassword" class="form-control"
-          aria-describedby="materialRegisterFormPasswordHelpBlock">
-        <label for="materialRegisterFormPassword">Password</label>
-        <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-          At least 8 characters and 1 digit
-        </small>
+      <div class="form-row">
+        <!-- E-mail -->
+        <div class="col">
+          <div class="md-form mt-0">
+            <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control">
+            <label for="materialRegisterFormEmail">{{'e-mail' | translate}}</label>
+          </div>
+        </div>
+        <!-- E-mail confirmation -->
+        <div class="col">
+          <div class="md-form mt-0">
+            <input mdbInput type="email" id="materialRegisterFormEmailConformation" class="form-control">
+            <label for="materialRegisterFormEmailConforimation">{{'e-mail-confirm' | translate}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!-- Password -->
+        <div class="col">
+          <div class="md-form mt-0">
+            <input mdbInput type="password" id="materialRegisterFormPassword" class="form-control"
+              aria-describedby="materialRegisterFormPasswordHelpBlock">
+            <label for="materialRegisterFormPassword">{{'password' | translate}}</label>
+            <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+              {{'password-minimum-length' | translate}}
+            </small>
+          </div>
+        </div>
+        <!-- Password confirmation -->
+        <div class="col">
+          <div class="md-form mt-0">
+            <input mdbInput type="password" id="materialRegisterFormPasswordConfirmation" class="form-control"
+              aria-describedby="materialRegisterFormPasswordHelpBlock">
+            <label for="materialRegisterFormPasswordConfirmation">{{'password-confirm' | translate}}</label>
+          </div>
+        </div>
       </div>
 
       <!-- Phone number -->
-      <div class="md-form">
-        <input mdbInput type="password" id="materialRegisterFormPhone" class="form-control"
+      <div class="md-form mt-0">
+        <input mdbInput type="text" id="materialRegisterFormPhone" class="form-control"
           aria-describedby="materialRegisterFormPhoneHelpBlock">
-        <label for="materialRegisterFormPhone">Phone number</label>
-        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-          Optional - for two step authentication
-        </small>
+        <label for="materialRegisterFormPhone">{{'phone-number' | translate}}</label>
       </div>
 
       <!-- Newsletter -->
       <div class="form-check">
         <input mdbInput type="checkbox" class="form-check-input" id="materialRegisterFormNewsletter">
-        <label class="form-check-label" for="materialRegisterFormNewsletter">Subscribe to our newsletter</label>
+        <label class="form-check-label"
+          for="materialRegisterFormNewsletter">{{'subscribe-newsletter' | translate}}</label>
       </div>
 
       <!-- Sign up button -->
@@ -136,12 +164,12 @@
         up</button>
 
       <!-- Register -->
-      <p>You are a member?
-        <a (click)="switchForm()">Log in</a>
+      <p>{{'a-member' | translate}}
+        <a (click)="switchForm()">{{'sign-in!' | translate}}</a>
       </p>
 
       <!-- Social register -->
-      <p>or sign up with:</p>
+      <p>{{'sign-up-with' | translate}}</p>
 
       <a type="button" class="btn-floating btn-fb btn-sm">
         <i class="fab fa-facebook-f"></i>
@@ -159,10 +187,11 @@
       <hr>
 
       <!-- Terms of service -->
-      <p>By clicking
-        <em>Sign up</em> you agree to our
-        <a href="" target="_blank">terms of service</a>
-
+      <div class="app-inline-flex">
+        <p [innerHTML]="'term-of-service-tag' | translate">
+        </p>
+        <a href="" target="_blank">{{'term-of-service-s' | translate}}</a>
+      </div>
     </form>
     <!-- Form -->
 

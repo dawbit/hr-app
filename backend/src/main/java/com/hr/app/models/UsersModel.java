@@ -40,7 +40,7 @@ public class UsersModel {
     private String login;
 
     @Column(name = "password")
-    //@Size(min = 8, max = 16)
+    @Size(min = 6)
     private String password;
 
     @ManyToOne
