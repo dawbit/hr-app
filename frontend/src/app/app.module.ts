@@ -11,6 +11,7 @@ import { CompanyPanelComponent } from './components/panels/company-panel/company
 import { UserPanelComponent } from './components/panels/user-panel/user-panel.component';
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
 import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
+import { LoginRegisterComponent } from './components/login-register/login-register.component';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,6 +19,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+
+// angular forms module
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // animations module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +52,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     UserPanelComponent,
     QuizCreatePanelComponent,
     QuizPanelComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
