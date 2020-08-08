@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,25 +18,29 @@ public class UsersModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
+    @Email
+    @NotBlank //Ponoc samo nullable nie dziala z @Email
     private String email;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true, nullable = false)
+    @Size(min = 8)
     private String login;
 
     @Column(name = "password")
+    @Size(min = 6)
     private String password;
 
     @ManyToOne
@@ -42,7 +50,7 @@ public class UsersModel {
     private AccountTypesModel FK_userAccountTypes;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
 
     // =========================================
@@ -114,7 +122,7 @@ public class UsersModel {
         return FK_userAccountTypes;
     }
 
-    public boolean isActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
@@ -174,7 +182,7 @@ public class UsersModel {
         this.FK_userAccountTypes = FK_userAccountTypes;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 
@@ -205,7 +213,7 @@ public class UsersModel {
     protected UsersModel() { }
 
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
-                      String login, String password, AccountTypesModel FK_userAccountTypes, boolean isActive,
+                      String login, String password, AccountTypesModel FK_userAccountTypes, Boolean isActive,
                       List<CvsModel> cvs, List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
                       List<TestsModel> tests, List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers) {
         this.firstName = firstName;
