@@ -20,7 +20,7 @@ export class LoginRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // TODO
@@ -51,12 +51,11 @@ export class LoginRegisterComponent implements OnInit {
   get onBlur() { return this.registerForm.get('onBlur'); }
   get emailReg() { return this.registerForm.get('emailReg'); }
   get passwordLengthReg() { return this.registerForm.get('passwordLengthReg'); }
-  get fnameReg() {return this.registerForm.get('fnameReg'); }
-  get lnameReg() {return this.registerForm.get('lnameReg'); }
-  get phoneNumberReg() {return this.registerForm.get('phoneNumberReg'); }
-  get LoginReg() {return this.registerForm.get('LoginReg'); }
+  get fnameReg() { return this.registerForm.get('fnameReg'); }
+  get lnameReg() { return this.registerForm.get('lnameReg'); }
+  get phoneNumberReg() { return this.registerForm.get('phoneNumberReg'); }
+  get LoginReg() { return this.registerForm.get('LoginReg'); }
   // get emailConfirmationReg() {return this.registerForm.get('emailConfirmationReg'); }
-
 
 
   switchForm() {
