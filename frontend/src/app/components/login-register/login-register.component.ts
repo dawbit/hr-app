@@ -11,6 +11,7 @@ export class LoginRegisterComponent implements OnInit {
   // TODO
   loginForm: FormGroup;
   registerForm: FormGroup;
+
   formValidation: FormGroup;
   onBlurSubmitValidation: FormGroup;
   validationRegisterForm: FormGroup;
