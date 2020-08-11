@@ -8,7 +8,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class LoginRegisterComponent implements OnInit {
 
-  // TODO
   loginForm: FormGroup;
   registerForm: FormGroup;
 
@@ -27,13 +26,6 @@ export class LoginRegisterComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       login: [''],
       password: ['']
-    });
-
-    this.registerForm = this.formBuilder.group({
-      login: [''],
-      password: [''],
-      fname: [''],
-      lname: ['']
     });
 
     this.registerForm = new FormGroup({
@@ -55,7 +47,6 @@ export class LoginRegisterComponent implements OnInit {
   get lnameReg() { return this.registerForm.get('lnameReg'); }
   get phoneNumberReg() { return this.registerForm.get('phoneNumberReg'); }
   get LoginReg() { return this.registerForm.get('LoginReg'); }
-  // get emailConfirmationReg() {return this.registerForm.get('emailConfirmationReg'); }
 
 
   switchForm() {
