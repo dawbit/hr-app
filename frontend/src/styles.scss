@@ -8,6 +8,7 @@ html, body {
 
 body {
   margin: 0;
+  padding-top: 50px;
   background-image: linear-gradient(45deg, rgba(42, 27, 161, 0.6), rgba(29, 210, 177, 0.6) 100%),
                     url("https://mdbootstrap.com/img/Photos/Others/architecture.jpg");
   background-size: cover;
@@ -15,8 +16,14 @@ body {
 }
 
 @media (max-width: 768px) {
+  body {
+    padding-top: 5vh;
+  }
   .navbar:not(.top-nav-collapse) {
     background: #3f51b5 !important;
+  }
+  .navbar:not(.top-nav-collapse) {
+    background: transparent none;
   }
 }
 
