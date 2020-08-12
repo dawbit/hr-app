@@ -81,17 +81,21 @@
   <div class="card-body px-lg-5 pt-0">
 
     <!-- Form -->
-    <form [formGroup]="registerForm" class="text-center" style="color: #757575;" action="#!">
+    <form [formGroup]="registerForm" class="text-center" style="color: #757575;" (ngSubmit)="registerSubmit()"
+      action="#!">
 
       <div class="form-row">
         <div class="col">
           <!-- Login -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterFormLogin" class="form-control" formControlName="LoginReg">
+            <input mdbInput type="text" id="materialRegisterFormLogin" class="form-control" [(ngModel)]="user.login"
+              [ngModelOptions]="{standalone: true}" formControlName="LoginReg">
             <label for="materialRegisterFormLogin">{{'login' | translate}}</label>
-            <mdb-error *ngIf="LoginReg.invalid && (LoginReg.dirty || LoginReg.touched)">{{'login-required' | translate}}
+            <mdb-error *ngIf="f.LoginReg.invalid && (f.LoginReg.dirty || f.LoginReg.touched)">
+              {{'login-required' | translate}}
             </mdb-error>
-            <mdb-success *ngIf="LoginReg.valid && (LoginReg.dirty || LoginReg.touched)">{{'login-valid' | translate}}
+            <mdb-success *ngIf="f.LoginReg.valid && (f.LoginReg.dirty || f.LoginReg.touched)">
+              {{'login-valid' | translate}}
             </mdb-success>
           </div>
         </div>
@@ -99,22 +103,22 @@
           <!-- First name -->
           <div class="md-form">
             <input mdbInput type="text" id="materialRegisterFormFirstName" class="form-control"
-              formControlName="fnameReg">
+              [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" formControlName="fnameReg">
             <label for="materialRegisterFormFirstName">{{'first-name' | translate}}</label>
-            <mdb-error *ngIf="fnameReg.invalid && (fnameReg.dirty || fnameReg.touched)">
-              <span *ngIf="fnameReg.errors.required">{{'first-name-required' | translate}}</span>
+            <mdb-error *ngIf="f.fnameReg.invalid && (f.fnameReg.dirty || f.fnameReg.touched)">
+              <span *ngIf="f.fnameReg.errors.required">{{'first-name-required' | translate}}</span>
             </mdb-error>
-            <mdb-success *ngIf="fnameReg.valid && (fnameReg.dirty || fnameReg.touched)">
+            <mdb-success *ngIf="f.fnameReg.valid && (f.fnameReg.dirty || f.fnameReg.touched)">
               {{'first-name-required-valid' | translate}}</mdb-success>
           </div>
         </div>
       </div>
-
       <div class="form-row">
         <div class="col">
           <!-- Middle name -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterFormMiddleName" class="form-control">
+            <input mdbInput type="text" id="materialRegisterFormMiddleName" class="form-control"
+              [(ngModel)]="user.middleName" [ngModelOptions]="{standalone: true}">
             <label for="materialRegisterFormMiddleName">{{'middle-name' | translate}}</label>
           </div>
         </div>
@@ -122,12 +126,13 @@
         <div class="col">
           <!-- Last name -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterLastName" class="form-control" formControlName="lnameReg">
+            <input mdbInput type="text" id="materialRegisterLastName" class="form-control" [(ngModel)]="user.surname"
+              [ngModelOptions]="{standalone: true}" formControlName="lnameReg">
             <label for="materialRegisterFormLastName">{{'last-name' | translate}}</label>
-            <mdb-error *ngIf="lnameReg.invalid && (lnameReg.dirty || lnameReg.touched)">
-              <span *ngIf="lnameReg.errors.required">{{'last-name-required' | translate}}</span>
+            <mdb-error *ngIf="f.lnameReg.invalid && (f.lnameReg.dirty || f.lnameReg.touched)">
+              <span *ngIf="f.lnameReg.errors.required">{{'last-name-required' | translate}}</span>
             </mdb-error>
-            <mdb-success *ngIf="lnameReg.valid && (lnameReg.dirty || lnameReg.touched)">
+            <mdb-success *ngIf="f.lnameReg.valid && (f.lnameReg.dirty || f.lnameReg.touched)">
               {{'last-name-required-valid' | translate}}</mdb-success>
           </div>
         </div>
@@ -137,13 +142,15 @@
         <!-- E-mail -->
         <div class="col">
           <div class="md-form mt-0">
-            <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control" formControlName="emailReg">
+            <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control" [(ngModel)]="user.email"
+              [ngModelOptions]="{standalone: true}" formControlName="emailReg">
             <label for="materialRegisterFormEmail">{{'e-mail' | translate}}</label>
-            <mdb-error *ngIf="emailReg.invalid && (emailReg.dirty || emailReg.touched)">
-              <span *ngIf="emailReg.errors.required">{{'e-mail-required' | translate}}</span>
-              <span *ngIf="emailReg.errors.email">{{'e-mail-invalid' | translate}}</span>
+            <mdb-error *ngIf="f.emailReg.invalid && (f.emailReg.dirty || f.emailReg.touched)">
+              <span *ngIf="f.emailReg.errors.required">{{'e-mail-required' | translate}}</span>
+              <span *ngIf="f.emailReg.errors.email">{{'e-mail-invalid' | translate}}</span>
             </mdb-error>
-            <mdb-success *ngIf="emailReg.valid && (emailReg.dirty || emailReg.touched)">{{'e-mail-valid' | translate}}
+            <mdb-success *ngIf="f.emailReg.valid && (f.emailReg.dirty || f.emailReg.touched)">
+              {{'e-mail-valid' | translate}}
             </mdb-success>
           </div>
         </div>
@@ -151,8 +158,18 @@
         <div class="col">
           <div class="md-form mt-0">
             <input mdbInput type="email" id="materialRegisterFormEmailConformation" class="form-control"
-              formControlName="emailConfirmationReg">
+              formControlName="emailConfirmReg">
             <label for="materialRegisterFormEmailConformation">{{'e-mail-confirm' | translate}}</label>
+            <mdb-error *ngIf="f.emailConfirmReg.invalid && (f.emailConfirmReg.dirty || f.emailConfirmReg.touched)">
+              <span *ngIf="f.emailConfirmReg.errors.required">{{'e-mail-required' | translate}}</span>
+              <span
+                *ngIf="f.emailConfirmReg.errors.email && !f.emailConfirmReg.errors.mustMatch">{{'e-mail-invalid' | translate}}</span>
+              <span
+                *ngIf="f.emailConfirmReg.errors.mustMatch && !f.emailConfirmReg.errors.email">{{'e-mail-must-match' | translate}}</span>
+            </mdb-error>
+            <mdb-success *ngIf="f.emailConfirmReg.valid && (f.emailConfirmReg.dirty || f.emailConfirmReg.touched)">
+              {{'e-mail-valid' | translate}}
+            </mdb-success>
           </div>
         </div>
       </div>
@@ -162,12 +179,14 @@
         <div class="col">
           <div class="md-form mt-0">
             <input mdbInput type="password" id="materialRegisterFormPassword" class="form-control"
-              aria-describedby="materialRegisterFormPasswordHelpBlock" formControlName="passwordLengthReg">
+              aria-describedby="materialRegisterFormPasswordHelpBlock" [(ngModel)]="user.password"
+              [ngModelOptions]="{standalone: true}" formControlName="passwordLengthReg">
             <label for="materialRegisterFormPassword">{{'password' | translate}}</label>
-            <!-- <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">{{'password-minimum-length' | translate}}</small> -->
-            <mdb-error *ngIf="passwordLengthReg.invalid && (passwordLengthReg.dirty || passwordLengthReg.touched)">
+            <mdb-error
+              *ngIf="f.passwordLengthReg.invalid && (f.passwordLengthReg.dirty || f.passwordLengthReg.touched)">
               {{'password-minimum-length' | translate}}</mdb-error>
-            <mdb-success *ngIf="passwordLengthReg.valid && (passwordLengthReg.dirty || passwordLengthReg.touched)">
+            <mdb-success
+              *ngIf="f.passwordLengthReg.valid && (f.passwordLengthReg.dirty || f.passwordLengthReg.touched)">
               {{'password-valid' | translate}}</mdb-success>
           </div>
         </div>
@@ -175,8 +194,17 @@
         <div class="col">
           <div class="md-form mt-0">
             <input mdbInput type="password" id="materialRegisterFormPasswordConfirmation" class="form-control"
-              aria-describedby="materialRegisterFormPasswordHelpBlock">
+              aria-describedby="materialRegisterFormPasswordHelpBlock" formControlName="passwordConfirmReg">
             <label for="materialRegisterFormPasswordConfirmation">{{'password-confirm' | translate}}</label>
+            <mdb-error *ngIf="f.passwordConfirmReg.invalid && (f.passwordConfirmReg.dirty || f.passwordConfirmReg.touched)
+              && !(f.passwordConfirmReg.errors && f.passwordConfirmReg.errors.mustMatch)">
+              {{'password-minimum-length' | translate}}</mdb-error>
+            <mdb-error *ngIf="f.passwordConfirmReg.errors && f.passwordConfirmReg.errors.mustMatch &&
+              (f.passwordConfirmReg.dirty || f.passwordConfirmReg.touched)">
+              {{'password-must-match' | translate}}</mdb-error>
+            <mdb-success *ngIf="f.passwordConfirmReg.valid && (f.passwordConfirmReg.dirty || f.passwordConfirmReg.touched) &&
+              !(f.passwordConfirmReg.errors && f.passwordConfirmReg.errors.mustMatch)">
+              {{'password-valid' | translate}}</mdb-success>
           </div>
         </div>
       </div>
@@ -184,11 +212,12 @@
       <!-- Phone number -->
       <div class="md-form mt-0">
         <input mdbInput type="text" id="materialRegisterFormPhone" class="form-control"
-          aria-describedby="materialRegisterFormPhoneHelpBlock" formControlName="phoneNumberReg">
+          aria-describedby="materialRegisterFormPhoneHelpBlock" [(ngModel)]="user.phoneNumber"
+          [ngModelOptions]="{standalone: true}" formControlName="phoneNumberReg">
         <label for="materialRegisterFormPhone">{{'phone-number' | translate}}</label>
-        <mdb-error *ngIf="phoneNumberReg.invalid && (phoneNumberReg.dirty || phoneNumberReg.touched)">
+        <mdb-error *ngIf="f.phoneNumberReg.invalid && (f.phoneNumberReg.dirty || f.phoneNumberReg.touched)">
           {{'phone-number-invalid' | translate}}</mdb-error>
-        <mdb-success *ngIf="phoneNumberReg.valid && (phoneNumberReg.dirty || phoneNumberReg.touched)">
+        <mdb-success *ngIf="f.phoneNumberReg.valid && (f.phoneNumberReg.dirty || f.phoneNumberReg.touched)">
           {{'phone-number-valid' | translate}}</mdb-success>
       </div>
 
@@ -200,10 +229,10 @@
       </div>
 
 
-
       <!-- Sign up button -->
-      <button class="btn btn-indigo btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
-        up</button>
+      <button class="btn btn-info btn-block my-4" type="submit" [disabled]="!registerForm.valid">
+        {{'sign-up!' | translate}}
+      </button>
 
       <!-- Register -->
       <p>{{'a-member' | translate}}
