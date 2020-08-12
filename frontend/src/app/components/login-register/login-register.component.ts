@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MustMatch } from 'src/app/validators/must-match';
 
 @Component({
   selector: 'app-login-register',
@@ -28,25 +29,23 @@ export class LoginRegisterComponent implements OnInit {
       password: ['']
     });
 
-    this.registerForm = new FormGroup({
-      emailReg: new FormControl(null, [Validators.required, Validators.email]),
-      onBlur: new FormControl(null, Validators.required),
-      passwordLengthReg: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      fnameReg: new FormControl(null, Validators.required),
-      lnameReg: new FormControl(null, Validators.required),
-      phoneNumberReg: new FormControl(null, [Validators.required, Validators.minLength(9), Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
-      LoginReg: new FormControl(null, Validators.required)
-    }, { updateOn: 'blur' });
+    this.registerForm = this.formBuilder.group({
+      emailReg: ['', [Validators.required, Validators.email]],
+      emailConfirmReg: ['', [Validators.required, Validators.email]],
+      passwordLengthReg: ['', [Validators.required, Validators.minLength(6)]],
+      passwordConfirmReg: ['', [Validators.required, Validators.minLength(6)]],
+      fnameReg: ['', Validators.required],
+      lnameReg: ['', Validators.required],
+      phoneNumberReg: ['', [Validators.required, Validators.minLength(9),
+      Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]
+      ],
+      LoginReg: ['', Validators.required]
+    }, { validator: [MustMatch('passwordLengthReg', 'passwordConfirmReg'), MustMatch('emailReg', 'emailConfirmReg')] });
 
   }
 
-  get onBlur() { return this.registerForm.get('onBlur'); }
-  get emailReg() { return this.registerForm.get('emailReg'); }
-  get passwordLengthReg() { return this.registerForm.get('passwordLengthReg'); }
-  get fnameReg() { return this.registerForm.get('fnameReg'); }
-  get lnameReg() { return this.registerForm.get('lnameReg'); }
-  get phoneNumberReg() { return this.registerForm.get('phoneNumberReg'); }
-  get LoginReg() { return this.registerForm.get('LoginReg'); }
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
 
 
   switchForm() {
@@ -58,4 +57,7 @@ export class LoginRegisterComponent implements OnInit {
     }
   }
 
+  registerSubmit() {
+    console.log(this.registerForm);
+  }
 }
