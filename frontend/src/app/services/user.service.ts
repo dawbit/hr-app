@@ -16,7 +16,6 @@ export class UserService {
 
   // tslint:disable-next-line: ban-types
   createUser(User: Object): Observable<Object> {
-    console.log(this.baseUrl);
     return this.http.post(this.baseUrl + '/register', User);
   }
 }

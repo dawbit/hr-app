@@ -66,13 +66,9 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   registerSubmit() {
-    console.log(this.registerForm.value);
-    //this.user = new User();
     this.user.fk_userAccountTypes = new AccountTypes();
     this.user.fk_userAccountTypes.id = 1;
 
     this.userService.createUser(this.user).subscribe();
-
-    console.log(this.user);
   }
 }
