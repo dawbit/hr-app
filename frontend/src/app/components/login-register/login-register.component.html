@@ -88,7 +88,8 @@
         <div class="col">
           <!-- Login -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterFormLogin" class="form-control" formControlName="LoginReg">
+            <input mdbInput type="text" id="materialRegisterFormLogin" class="form-control" [(ngModel)]="user.login"
+              [ngModelOptions]="{standalone: true}" formControlName="LoginReg">
             <label for="materialRegisterFormLogin">{{'login' | translate}}</label>
             <mdb-error *ngIf="f.LoginReg.invalid && (f.LoginReg.dirty || f.LoginReg.touched)">
               {{'login-required' | translate}}
@@ -102,7 +103,7 @@
           <!-- First name -->
           <div class="md-form">
             <input mdbInput type="text" id="materialRegisterFormFirstName" class="form-control"
-              formControlName="fnameReg">
+              [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" formControlName="fnameReg">
             <label for="materialRegisterFormFirstName">{{'first-name' | translate}}</label>
             <mdb-error *ngIf="f.fnameReg.invalid && (f.fnameReg.dirty || f.fnameReg.touched)">
               <span *ngIf="f.fnameReg.errors.required">{{'first-name-required' | translate}}</span>
@@ -112,12 +113,12 @@
           </div>
         </div>
       </div>
-
       <div class="form-row">
         <div class="col">
           <!-- Middle name -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterFormMiddleName" class="form-control">
+            <input mdbInput type="text" id="materialRegisterFormMiddleName" class="form-control"
+              [(ngModel)]="user.middleName" [ngModelOptions]="{standalone: true}">
             <label for="materialRegisterFormMiddleName">{{'middle-name' | translate}}</label>
           </div>
         </div>
@@ -125,7 +126,8 @@
         <div class="col">
           <!-- Last name -->
           <div class="md-form">
-            <input mdbInput type="text" id="materialRegisterLastName" class="form-control" formControlName="lnameReg">
+            <input mdbInput type="text" id="materialRegisterLastName" class="form-control" [(ngModel)]="user.surname"
+              [ngModelOptions]="{standalone: true}" formControlName="lnameReg">
             <label for="materialRegisterFormLastName">{{'last-name' | translate}}</label>
             <mdb-error *ngIf="f.lnameReg.invalid && (f.lnameReg.dirty || f.lnameReg.touched)">
               <span *ngIf="f.lnameReg.errors.required">{{'last-name-required' | translate}}</span>
@@ -140,7 +142,8 @@
         <!-- E-mail -->
         <div class="col">
           <div class="md-form mt-0">
-            <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control" formControlName="emailReg">
+            <input mdbInput type="email" id="materialRegisterFormEmail" class="form-control" [(ngModel)]="user.email"
+              [ngModelOptions]="{standalone: true}" formControlName="emailReg">
             <label for="materialRegisterFormEmail">{{'e-mail' | translate}}</label>
             <mdb-error *ngIf="f.emailReg.invalid && (f.emailReg.dirty || f.emailReg.touched)">
               <span *ngIf="f.emailReg.errors.required">{{'e-mail-required' | translate}}</span>
@@ -176,7 +179,8 @@
         <div class="col">
           <div class="md-form mt-0">
             <input mdbInput type="password" id="materialRegisterFormPassword" class="form-control"
-              aria-describedby="materialRegisterFormPasswordHelpBlock" formControlName="passwordLengthReg">
+              aria-describedby="materialRegisterFormPasswordHelpBlock" [(ngModel)]="user.password"
+              [ngModelOptions]="{standalone: true}" formControlName="passwordLengthReg">
             <label for="materialRegisterFormPassword">{{'password' | translate}}</label>
             <mdb-error
               *ngIf="f.passwordLengthReg.invalid && (f.passwordLengthReg.dirty || f.passwordLengthReg.touched)">
@@ -208,7 +212,8 @@
       <!-- Phone number -->
       <div class="md-form mt-0">
         <input mdbInput type="text" id="materialRegisterFormPhone" class="form-control"
-          aria-describedby="materialRegisterFormPhoneHelpBlock" formControlName="phoneNumberReg">
+          aria-describedby="materialRegisterFormPhoneHelpBlock" [(ngModel)]="user.phoneNumber"
+          [ngModelOptions]="{standalone: true}" formControlName="phoneNumberReg">
         <label for="materialRegisterFormPhone">{{'phone-number' | translate}}</label>
         <mdb-error *ngIf="f.phoneNumberReg.invalid && (f.phoneNumberReg.dirty || f.phoneNumberReg.touched)">
           {{'phone-number-invalid' | translate}}</mdb-error>
