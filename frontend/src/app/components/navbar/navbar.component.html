@@ -4,24 +4,54 @@
   <!-- Navbar brand -->
   <mdb-navbar-brand><a class="navbar-brand font-weight-bold" href="#">{{"homepage" | translate}}</a></mdb-navbar-brand>
 
-  <!-- Collapsible content -->W
+  <!-- Collapsible content -->
   <!-- Left side links -->
   <links>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          Basic dropdown<span class="caret"></span></a>
+          {{'companies.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.best' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.industries' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.list' | translate}}</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.add' | translate}}</a>
         </div>
       </li>
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          {{'jobs.basic' | translate}}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'jobs.list' | translate}}</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'jobs.add' | translate}}</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          {{'recruitment.basic' | translate}}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light bold" mdbWavesEffect href="#">{{'recruitment.solveTestB' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.pre' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.open' | translate}}</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.add' | translate}}</a>
+        </div>
+      </li>
+    </ul>
+    <!-- Left side links -->
+
+    <!-- Right side links -->
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link waves-light" mdbWavesEffect routerLink="admin-panel">
           <mdb-icon fas icon="cog"></mdb-icon> Admin Panel
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="ceo-panel">
+          <mdb-icon fas icon="cog"></mdb-icon> CEO Panel
         </a>
       </li>
       <li class="nav-item">
@@ -29,35 +59,20 @@
           <mdb-icon fas icon="cog"></mdb-icon> HR Panel
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="user-panel">
-          <mdb-icon fas icon="cog"></mdb-icon> User Panel
-          <!-- {{'User Panel' | translate }} -->
-        </a>
-      </li>
-    </ul>
-    <!-- Left side links -->
-
-    <!-- Right side links -->
-    <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
         <a class="nav-link waves-light" mdbWavesEffect>
           <mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect>
-          <mdb-icon fas icon="cog"></mdb-icon> Settings
-        </a>
-      </li>
-
       <!-- Dropdown -->
       <li class="nav-item dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <!-- TODO currentUser and currentUserAvatar -->
           <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span>
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Settings</a>
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
         </div>
       </li>

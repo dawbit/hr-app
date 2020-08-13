@@ -1,5 +1,12 @@
 {
   "a-member": "You are a member?",
+  "companies": {
+    "add": "Add your company!",
+    "basic": "Companies",
+    "best": "Best companies",
+    "industries": "Company industries",
+    "list": "List of companies"
+  },
   "e-mail": "E-mail",
   "e-mail-confirm": "Confirm e-mail",
   "e-mail-invalid": "E-mail is invalid",
@@ -10,6 +17,11 @@
   "first-name-required": "Your name is required",
   "first-name-required-valid": "Your name is valid",
   "homepage": "HR APP",
+  "jobs": {
+    "add": "Add your offer!",
+    "basic": "Jobs",
+    "list": "Job offers"
+  },
   "last-name": "Last name",
   "last-name-required": "Your last name is required",
   "last-name-required-valid": "Your last name name is valid",
@@ -27,6 +39,13 @@
   "phone-number": "Phone number",
   "phone-number-invalid": "At least 9 digits",
   "phone-number-valid": "Valid phone number",
+  "recruitment": {
+    "add": "Add your recruitment quiz!",
+    "basic": "Recruitment",
+    "open": "Open recruitments",
+    "pre": "Pre-recruitments",
+    "solveTestB": "SOLVE THE TEST"
+  },
   "remember-me": "Remember me",
   "sign-in": "Sign in",
   "sign-in!": "Sign in!",

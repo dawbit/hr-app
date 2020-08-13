@@ -1,5 +1,12 @@
 {
   "a-member": "Masz już u nas konto?",
+  "companies": {
+    "add": "Dodaj swoją firmę!",
+    "basic": "Firmy",
+    "best": "Najlepsze firmy",
+    "industries": "Branże",
+    "list": "Lista firm"
+  },
   "e-mail": "E-mail",
   "e-mail-confirm": "Potwierdź e-mail",
   "e-mail-invalid": "Podany e-mail jest niepoprawny",
@@ -10,6 +17,11 @@
   "first-name-required": "Wpisz swoje imię",
   "first-name-required-valid": "Poprane imię",
   "homepage": "HR APP",
+  "jobs": {
+    "add": "Dodaj swoją ofertę!",
+    "basic": "Praca",
+    "offers": "Lista ofert pracy"
+  },
   "last-name": "Nazwisko",
   "last-name-required": "Wpisz swoje nazwisko",
   "last-name-required-valid": "Poprawne nazwisko",
@@ -27,6 +39,13 @@
   "phone-number": "Numer telefonu",
   "phone-number-invalid": "Przynajmniej 9 cyfr",
   "phone-number-valid": "Poprawny numer",
+  "recruitment": {
+    "add": "Dodaj swój test rekrutacyjny!",
+    "basic": "Rekrutacja",
+    "open": "Otwarte rekrutacje",
+    "pre": "Rekrutacja wstępna",
+    "solveTestB": "ROZWIĄŻ TEST REKRUTACYJNY"
+  },
   "remember-me": "Zapamiętaj mnie",
   "sign-in": "Logowanie",
   "sign-in!": "Zaloguj się!",
