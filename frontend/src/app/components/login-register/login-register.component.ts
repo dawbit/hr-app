@@ -31,7 +31,6 @@ export class LoginRegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // TODO
     this.loginForm = this.formBuilder.group({
       login: [''],
       password: ['']
@@ -65,10 +64,29 @@ export class LoginRegisterComponent implements OnInit {
     }
   }
 
+  loginSubmit() {
+    console.log(this.loginForm);
+    console.log(this.loginForm.value);
+    this.userService.login(this.loginForm.value).subscribe(res => {
+      const testHeaderInfo = res.headers.get('authorization');
+      console.log(testHeaderInfo);
+
+      console.log(res);
+    })
+  }
+
   registerSubmit() {
     this.user.fk_userAccountTypes = new AccountTypes();
     this.user.fk_userAccountTypes.id = 1;
 
-    this.userService.createUser(this.user).subscribe();
+    this.userService.register(this.user).subscribe(res => {
+
+      console.log(res);
+      const testHeaderInfo = res.headers.get('content-type');
+      console.log(testHeaderInfo);
+      if (res.ok && res.status === 200) {
+        console.log('zarejestrowano');
+      }
+    })
   }
 }

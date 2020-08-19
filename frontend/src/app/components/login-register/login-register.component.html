@@ -9,17 +9,17 @@
   <div class="card-body px-lg-5 pt-0">
 
     <!-- Form -->
-    <form class="text-center" style="color: #757575;" action="#!">
+    <form [formGroup]="loginForm" class="text-center" style="color: #757575;" (ngSubmit)="loginSubmit()" action="#!">
 
       <!-- Login -->
       <div class="md-form">
-        <input mdbInput type="text" id="materialLoginFormLogin" class="form-control">
+        <input mdbInput type="text" id="materialLoginFormLogin" class="form-control" formControlName="login">
         <label for="materialLoginFormLogin">{{'login' | translate}}</label>
       </div>
 
       <!-- Password -->
       <div class="md-form mt-0">
-        <input mdbInput type="password" id="materialLoginFormPassword" class="form-control">
+        <input mdbInput type="password" id="materialLoginFormPassword" class="form-control" formControlName="password">
         <label for="materialLoginFormPassword">{{'password' | translate}}</label>
       </div>
 
