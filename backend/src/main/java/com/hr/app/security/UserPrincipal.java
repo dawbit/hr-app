@@ -13,6 +13,7 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
     private UsersModel user;
+    String userRoleString = "";
 
     public UserPrincipal(UsersModel user){
         this.user = user;
@@ -22,7 +23,6 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        String userRoleString = "";
         String userRole = this.user.getFK_userAccountTypes().getRoleName();
         if (userRole.equals("admin")) userRoleString = "ADMIN";
         else if (userRole.equals("hr_user")) userRoleString = "HR";
@@ -68,5 +68,9 @@ public class UserPrincipal implements UserDetails {
         } else {
             return this.user.getIsActive() == true;
         }
+    }
+
+    public String getRole() {
+        return this.userRoleString;
     }
 }
