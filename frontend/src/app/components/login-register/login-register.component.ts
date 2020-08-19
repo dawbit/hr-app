@@ -1,11 +1,10 @@
 import { AccountTypes } from './../../classes/account-types';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MustMatch } from 'src/app/validators/must-match';
+import { MustMatch } from 'src/app/helpers/must-match';
 import { UserService } from './../../services/user.service';
 import { User } from './../../classes/user';
-//import { AccountTypes }
+import { TokenStorageService } from './../../services/token-storage.service';
 
 @Component({
   selector: 'app-login-register',
@@ -27,7 +26,7 @@ export class LoginRegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private tokenStorage: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -65,28 +64,22 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   loginSubmit() {
-    console.log(this.loginForm);
-    console.log(this.loginForm.value);
     this.userService.login(this.loginForm.value).subscribe(res => {
-      const testHeaderInfo = res.headers.get('authorization');
-      console.log(testHeaderInfo);
-
-      console.log(res);
-    })
+      if (res && res.ok && res.status === 200) {
+        const authorizationInfo = res.headers.get('authorization');
+        this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
+      }
+    });
   }
 
   registerSubmit() {
     this.user.fk_userAccountTypes = new AccountTypes();
-    this.user.fk_userAccountTypes.id = 1;
+    this.user.fk_userAccountTypes.id = 1; // tymczasowo admin
 
     this.userService.register(this.user).subscribe(res => {
-
-      console.log(res);
-      const testHeaderInfo = res.headers.get('content-type');
-      console.log(testHeaderInfo);
-      if (res.ok && res.status === 200) {
-        console.log('zarejestrowano');
+      if (res && res.ok && res.status === 200) {
+        // TODO
       }
-    })
+    });
   }
 }
