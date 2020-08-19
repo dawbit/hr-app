@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { GlobalConstants } from './../common/global-constants';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  private apiURL = GlobalConstants.apiURL;
   private baseUrl = GlobalConstants.apiURL + '/user';
   private httpOptions = GlobalConstants.httpOptions;
 
   constructor(private http: HttpClient) { }
 
-  // tslint:disable-next-line: ban-types
-  createUser(User: Object): Observable<Object> {
-    return this.http.post(this.baseUrl + '/register', User);
+  login(credentials): Observable<any> {
+    return this.http.post(this.apiURL + '/login', {
+      login: credentials.login,
+      password: credentials.password
+    }, { observe: 'response' });
+  }
+
+  register(user: User): Observable<any> {
+    return this.http.post(this.baseUrl + '/register', user, { observe: 'response' });
   }
 }

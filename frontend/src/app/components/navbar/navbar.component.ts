@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenStorageService } from './../../services/token-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private tokenStorage: TokenStorageService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.tokenStorage.deleteUserFromLocalStorage();
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/homepage']);
   }
 
 }
