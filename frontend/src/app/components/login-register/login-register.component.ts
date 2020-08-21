@@ -68,6 +68,7 @@ export class LoginRegisterComponent implements OnInit {
       if (res && res.ok && res.status === 200) {
         const authorizationInfo = res.headers.get('authorization');
         this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
+        window.location.reload();
       }
     });
   }

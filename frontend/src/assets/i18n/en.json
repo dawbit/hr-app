@@ -7,6 +7,7 @@
     "industries": "Company industries",
     "list": "List of companies"
   },
+  "contact": "Contact",
   "e-mail": "E-mail",
   "e-mail-confirm": "Confirm e-mail",
   "e-mail-invalid": "E-mail is invalid",
@@ -25,11 +26,18 @@
   "last-name": "Last name",
   "last-name-required": "Your last name is required",
   "last-name-required-valid": "Your last name name is valid",
+  "log-out": "Log out",
   "login": "Login",
   "login-required": "Login is required",
   "login-valid": "Login is valid",
   "middle-name": "Middle name",
+  "my-account": "My Account",
   "not-a-member": "Not a member?",
+  "panel": {
+    "admin": "Admin Panel",
+    "ceo": "CEO Panel",
+    "hr": "HR Panel"
+  },
   "password": "Password",
   "password-confirm": "Confirm password",
   "password-forgot": "Forgot password?",
@@ -39,6 +47,7 @@
   "phone-number": "Phone number",
   "phone-number-invalid": "At least 9 digits",
   "phone-number-valid": "Valid phone number",
+  "profile": "Profile",
   "recruitment": {
     "add": "Add your recruitment quiz!",
     "basic": "Recruitment",
@@ -47,6 +56,7 @@
     "solveTestB": "SOLVE THE TEST"
   },
   "remember-me": "Remember me",
+  "settings": "Settings",
   "sign-in": "Sign in",
   "sign-in!": "Sign in!",
   "sign-in-with": "or sign in with:",

@@ -43,37 +43,39 @@
     <!-- Left side links -->
 
     <!-- Right side links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" *ngIf="isLogged">
       <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="admin-panel">
-          <mdb-icon fas icon="cog"></mdb-icon> Admin Panel
+        <a class="nav-link waves-light" *ngIf="isLogged && userRole=='ADMIN'" mdbWavesEffect routerLink="admin-panel">
+          <mdb-icon fas icon="cog"></mdb-icon> {{'panel.admin' | translate}}
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="ceo-panel">
-          <mdb-icon fas icon="cog"></mdb-icon> CEO Panel
+        <a class="nav-link waves-light" *ngIf="isLogged && (userRole=='CEO' || userRole=='ADMIN')" mdbWavesEffect
+          routerLink="ceo-panel">
+          <mdb-icon fas icon="cog"></mdb-icon> {{'panel.ceo' | translate}}
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="hr-panel">
-          <mdb-icon fas icon="cog"></mdb-icon> HR Panel
+        <a class="nav-link waves-light" *ngIf="isLogged && (userRole=='HR' || userRole=='ADMIN' || userRole=='CEO')"
+          mdbWavesEffect routerLink="hr-panel">
+          <mdb-icon fas icon="cog"></mdb-icon> {{'panel.hr' | translate}}
         </a>
       </li>
       <li class="nav-item active">
         <a class="nav-link waves-light" mdbWavesEffect>
-          <mdb-icon fas icon="envelope"></mdb-icon> Contact<span class="sr-only">(current)</span>
+          <mdb-icon fas icon="envelope"></mdb-icon>{{'contact' | translate}}<span class="sr-only">(current)</span>
         </a>
       </li>
       <!-- Dropdown -->
       <li class="nav-item dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           <!-- TODO currentUser and currentUserAvatar -->
-          <mdb-icon fas icon="user"></mdb-icon> Profile<span class="caret"></span>
+          <mdb-icon fas icon="user"></mdb-icon>{{'profile' | translate}}<span class="caret"></span>
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Settings</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">Log out</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'my-account' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'settings' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{'log-out' | translate}}</a>
         </div>
       </li>
 

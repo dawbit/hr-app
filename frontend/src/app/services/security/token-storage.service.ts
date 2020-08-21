@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import decode from 'jwt-decode';
 
@@ -66,9 +65,8 @@ export class TokenStorageService {
     const token = localStorage.getItem(TOKEN_KEY);
 
     // Check if the token is expired and return true or false
-    console.log(!this.jwtHelper.isTokenExpired(token));
+    console.log('HEJ');
     return !this.jwtHelper.isTokenExpired(token);
-
   }
 
 }
