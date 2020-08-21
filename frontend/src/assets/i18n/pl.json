@@ -7,6 +7,7 @@
     "industries": "Branże",
     "list": "Lista firm"
   },
+  "contact": "Kontakt",
   "e-mail": "E-mail",
   "e-mail-confirm": "Potwierdź e-mail",
   "e-mail-invalid": "Podany e-mail jest niepoprawny",
@@ -25,11 +26,18 @@
   "last-name": "Nazwisko",
   "last-name-required": "Wpisz swoje nazwisko",
   "last-name-required-valid": "Poprawne nazwisko",
+  "log-out": "Wyloguj się",
   "login": "Nazwa użytkownika",
   "login-required": "Wpisz swój login",
   "login-valid": "Poprawny login",
   "middle-name": "Drugie imię",
+  "my-account": "Moje konto",
   "not-a-member": "Nie masz jeszcze konta?",
+  "panel": {
+    "admin": "Panel Administratora",
+    "ceo": "Panel CEO",
+    "hr": "Panel HR"
+  },
   "password": "Hasło",
   "password-confirm": "Potwierdź hasło",
   "password-forgot": "Zapomniałeś hasła?",
@@ -39,6 +47,7 @@
   "phone-number": "Numer telefonu",
   "phone-number-invalid": "Przynajmniej 9 cyfr",
   "phone-number-valid": "Poprawny numer",
+  "profile": "Profil",
   "recruitment": {
     "add": "Dodaj swój test rekrutacyjny!",
     "basic": "Rekrutacja",
@@ -47,6 +56,7 @@
     "solveTestB": "ROZWIĄŻ TEST REKRUTACYJNY"
   },
   "remember-me": "Zapamiętaj mnie",
+  "settings": "Ustawienia",
   "sign-in": "Logowanie",
   "sign-in!": "Zaloguj się!",
   "sign-in-with": "lub zaloguj się za pomocą:",

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/helpers/must-match';
 import { UserService } from './../../services/user.service';
 import { User } from './../../classes/user';
-import { TokenStorageService } from './../../services/token-storage.service';
+import { TokenStorageService } from './../../services/security/token-storage.service';
 
 @Component({
   selector: 'app-login-register',
@@ -68,6 +68,7 @@ export class LoginRegisterComponent implements OnInit {
       if (res && res.ok && res.status === 200) {
         const authorizationInfo = res.headers.get('authorization');
         this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
+        window.location.reload();
       }
     });
   }
