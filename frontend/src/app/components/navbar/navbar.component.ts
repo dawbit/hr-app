@@ -19,9 +19,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.tokenStorage.deleteUserFromLocalStorage();
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/homepage']);
+    this.router.navigate(['/home']);
   }
 
 }

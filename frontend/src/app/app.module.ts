@@ -42,6 +42,14 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthModule } from './security/auth.module';
+
+// JWT
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+
+// Interceptors
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './security/token.interceptor';
 
 
 @NgModule({
@@ -79,7 +87,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         useFactory: httpTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    AuthModule
   ],
   exports: [
     MatButtonModule,
@@ -88,7 +97,18 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatIconModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
