@@ -4,8 +4,7 @@ import {
   CanActivate,
   ActivatedRouteSnapshot
 } from '@angular/router';
-
-import { TokenStorageService } from './../services/token-storage.service';
+import { TokenStorageService } from './token-storage.service';
 import decode from 'jwt-decode';
 
 const TOKEN_KEY = 'auth-token';

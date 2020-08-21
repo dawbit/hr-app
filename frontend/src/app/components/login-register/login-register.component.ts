@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/helpers/must-match';
 import { UserService } from './../../services/user.service';
 import { User } from './../../classes/user';
-import { TokenStorageService } from './../../services/token-storage.service';
+import { TokenStorageService } from './../../services/security/token-storage.service';
 
 @Component({
   selector: 'app-login-register',

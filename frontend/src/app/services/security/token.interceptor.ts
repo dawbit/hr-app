@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { TokenStorageService } from './../services/token-storage.service';
+import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

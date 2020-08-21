@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
-import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
-import { RoleGuardService as RoleGuard } from './security/role-guard.service';
+import { AuthGuardService as AuthGuard } from './services/security/auth-guard.service';
+import { RoleGuardService as RoleGuard } from './services/security/role-guard.service';
 
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { AdminPanelComponent } from './components/panels/admin-panel/admin-panel.component';

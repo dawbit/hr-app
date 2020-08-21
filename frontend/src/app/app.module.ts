@@ -49,7 +49,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 // Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './security/token.interceptor';
+import { TokenInterceptor } from './services/security/token.interceptor';
 
 
 @NgModule({
