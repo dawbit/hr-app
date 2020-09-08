@@ -14,22 +14,22 @@ public class HrUsersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_hrUserUser"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKhrUserUser"))
     @JsonBackReference(value = "hrUser-user")
     @JsonIgnore
-    private UsersModel FK_hrUserUser;
+    private UsersModel FKhrUserUser;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_hrUserCompany"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FKhrUserCompany"))
     @JsonBackReference(value = "hrUser-company")
     @JsonIgnore
-    private CompaniesModel FK_hrUserCompany;
+    private CompaniesModel FKhrUserCompany;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "FK_hrUserDepartment"))
+    @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "FKhrUserDepartment"))
     @JsonBackReference(value = "hrUser-department")
     @JsonIgnore
-    private DepartmentsModel FK_hrUserDepartment;
+    private DepartmentsModel FKhrUserDepartment;
 
     // =========================================
     // RELATIONSHIPS
@@ -44,35 +44,35 @@ public class HrUsersModel {
         return id;
     }
 
-    public UsersModel getFK_hrUserUser() {
-        return FK_hrUserUser;
+    public UsersModel getFKhrUserUser() {
+        return FKhrUserUser;
     }
 
-    public CompaniesModel getFK_hrUserCompany() {
-        return FK_hrUserCompany;
+    public CompaniesModel getFKhrUserCompany() {
+        return FKhrUserCompany;
     }
 
-    public DepartmentsModel getFK_hrUserDepartment() {
-        return FK_hrUserDepartment;
+    public DepartmentsModel getFKhrUserDepartment() {
+        return FKhrUserDepartment;
     }
 
-    public void setFK_hrUserUser(UsersModel FK_hrUserUser) {
-        this.FK_hrUserUser = FK_hrUserUser;
+    public void setFKhrUserUser(UsersModel FKhrUserUser) {
+        this.FKhrUserUser = FKhrUserUser;
     }
 
-    public void setFK_hrUserCompany(CompaniesModel FK_hrUserCompany) {
-        this.FK_hrUserCompany = FK_hrUserCompany;
+    public void setFKhrUserCompany(CompaniesModel FKhrUserCompany) {
+        this.FKhrUserCompany = FKhrUserCompany;
     }
 
-    public void setFK_hrUserDepartment(DepartmentsModel FK_hrUserDepartment) {
-        this.FK_hrUserDepartment = FK_hrUserDepartment;
+    public void setFKhrUserDepartment(DepartmentsModel FKhrUserDepartment) {
+        this.FKhrUserDepartment = FKhrUserDepartment;
     }
 
     protected HrUsersModel() { }
 
-    public HrUsersModel(UsersModel FK_hrUserUser, CompaniesModel FK_hrUserCompany, DepartmentsModel FK_hrUserDepartment) {
-        this.FK_hrUserUser = FK_hrUserUser;
-        this.FK_hrUserCompany = FK_hrUserCompany;
-        this.FK_hrUserDepartment = FK_hrUserDepartment;
+    public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany, DepartmentsModel FKhrUserDepartment) {
+        this.FKhrUserUser = FKhrUserUser;
+        this.FKhrUserCompany = FKhrUserCompany;
+        this.FKhrUserDepartment = FKhrUserDepartment;
     }
 }

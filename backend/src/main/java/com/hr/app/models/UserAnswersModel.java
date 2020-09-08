@@ -14,28 +14,28 @@ public class UserAnswersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_userIduserAnswer"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKuserIduserAnswer"))
     @JsonBackReference(value = "user_id_user_answer")
     @JsonIgnore
-    private UsersModel FK_userIduserAnswer;
+    private UsersModel FKuserIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FK_questionIduserAnswer"))
+    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FKquestionIduserAnswer"))
     @JsonBackReference(value = "question_id_user_answer")
     @JsonIgnore
-    private UsersModel FK_questionIduserAnswer;
+    private UsersModel FKquestionIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "answer_id", foreignKey = @ForeignKey(name = "FK_answerIduserAnswer"))
+    @JoinColumn(name = "answer_id", foreignKey = @ForeignKey(name = "FKanswerIduserAnswer"))
     @JsonBackReference(value = "answer_id_user_answer")
     @JsonIgnore
-    private UsersModel FK_answerIduserAnswer;
+    private UsersModel FKanswerIduserAnswer;
 
     @ManyToOne
-    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FK_testIduserAnswer"))
+    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FKtestIduserAnswer"))
     @JsonBackReference(value = "test_id_user_answer")
     @JsonIgnore
-    private UsersModel FK_testIduserAnswer;
+    private UsersModel FKtestIduserAnswer;
 
 
     // =========================================
@@ -51,45 +51,45 @@ public class UserAnswersModel {
         return id;
     }
 
-    public UsersModel getFK_userIduserAnswer() {
-        return FK_userIduserAnswer;
+    public UsersModel getFKuserIduserAnswer() {
+        return FKuserIduserAnswer;
     }
 
-    public UsersModel getFK_questionIduserAnswer() {
-        return FK_questionIduserAnswer;
+    public UsersModel getFKquestionIduserAnswer() {
+        return FKquestionIduserAnswer;
     }
 
-    public UsersModel getFK_answerIduserAnswer() {
-        return FK_answerIduserAnswer;
+    public UsersModel getFKanswerIduserAnswer() {
+        return FKanswerIduserAnswer;
     }
 
-    public UsersModel getFK_testIduserAnswer() {
-        return FK_testIduserAnswer;
+    public UsersModel getFKtestIduserAnswer() {
+        return FKtestIduserAnswer;
     }
 
-    public void setFK_userIduserAnswer(UsersModel FK_userIduserAnswer) {
-        this.FK_userIduserAnswer = FK_userIduserAnswer;
+    public void setFKuserIduserAnswer(UsersModel FKuserIduserAnswer) {
+        this.FKuserIduserAnswer = FKuserIduserAnswer;
     }
 
-    public void setFK_questionIduserAnswer(UsersModel FK_questionIduserAnswer) {
-        this.FK_questionIduserAnswer = FK_questionIduserAnswer;
+    public void setFKquestionIduserAnswer(UsersModel FKquestionIduserAnswer) {
+        this.FKquestionIduserAnswer = FKquestionIduserAnswer;
     }
 
-    public void setFK_answerIduserAnswer(UsersModel FK_answerIduserAnswer) {
-        this.FK_answerIduserAnswer = FK_answerIduserAnswer;
+    public void setFKanswerIduserAnswer(UsersModel FKanswerIduserAnswer) {
+        this.FKanswerIduserAnswer = FKanswerIduserAnswer;
     }
 
-    public void setFK_testIduserAnswer(UsersModel FK_testIduserAnswer) {
-        this.FK_testIduserAnswer = FK_testIduserAnswer;
+    public void setFKtestIduserAnswer(UsersModel FKtestIduserAnswer) {
+        this.FKtestIduserAnswer = FKtestIduserAnswer;
     }
 
     protected UserAnswersModel() { }
 
-    public UserAnswersModel(UsersModel FK_userIduserAnswer, UsersModel FK_questionIduserAnswer,
-                            UsersModel FK_answerIduserAnswer, UsersModel FK_testIduserAnswer) {
-        this.FK_userIduserAnswer = FK_userIduserAnswer;
-        this.FK_questionIduserAnswer = FK_questionIduserAnswer;
-        this.FK_answerIduserAnswer = FK_answerIduserAnswer;
-        this.FK_testIduserAnswer = FK_testIduserAnswer;
+    public UserAnswersModel(UsersModel FKuserIduserAnswer, UsersModel FKquestionIduserAnswer,
+                            UsersModel FKanswerIduserAnswer, UsersModel FKtestIduserAnswer) {
+        this.FKuserIduserAnswer = FKuserIduserAnswer;
+        this.FKquestionIduserAnswer = FKquestionIduserAnswer;
+        this.FKanswerIduserAnswer = FKanswerIduserAnswer;
+        this.FKtestIduserAnswer = FKtestIduserAnswer;
     }
 }

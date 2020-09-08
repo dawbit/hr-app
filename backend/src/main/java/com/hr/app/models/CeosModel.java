@@ -14,16 +14,16 @@ public class CeosModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_ceoUser"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKceoUser"))
     @JsonBackReference(value = "ceo-user")
     @JsonIgnore
-    private UsersModel FK_ceoUser;
+    private UsersModel FKceoUser;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_ceoCompany"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FKceoCompany"))
     @JsonBackReference(value = "ceo-company")
     @JsonIgnore
-    private CompaniesModel FK_ceoCompany;
+    private CompaniesModel FKceoCompany;
 
     // =========================================
     // RELATIONSHIPS
@@ -39,26 +39,26 @@ public class CeosModel {
         return id;
     }
 
-    public UsersModel getFK_ceoUser() {
-        return FK_ceoUser;
+    public UsersModel getFKceoUser() {
+        return FKceoUser;
     }
 
-    public CompaniesModel getFK_ceoCompany() {
-        return FK_ceoCompany;
+    public CompaniesModel getFKceoCompany() {
+        return FKceoCompany;
     }
 
-    public void setFK_ceoUser(UsersModel FK_ceoUser) {
-        this.FK_ceoUser = FK_ceoUser;
+    public void setFKceoUser(UsersModel FKceoUser) {
+        this.FKceoUser = FKceoUser;
     }
 
-    public void setFK_ceoCompany(CompaniesModel FK_ceoCompany) {
-        this.FK_ceoCompany = FK_ceoCompany;
+    public void setFKceoCompany(CompaniesModel FKceoCompany) {
+        this.FKceoCompany = FKceoCompany;
     }
 
     protected CeosModel() { }
 
-    public CeosModel(UsersModel FK_ceoUser, CompaniesModel FK_ceoCompany) {
-        this.FK_ceoUser = FK_ceoUser;
-        this.FK_ceoCompany = FK_ceoCompany;
+    public CeosModel(UsersModel FKceoUser, CompaniesModel FKceoCompany) {
+        this.FKceoUser = FKceoUser;
+        this.FKceoCompany = FKceoCompany;
     }
 }
