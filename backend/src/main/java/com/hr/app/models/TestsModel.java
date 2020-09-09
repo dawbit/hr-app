@@ -23,16 +23,16 @@ public class TestsModel {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_hr_id", foreignKey = @ForeignKey(name = "FK_testUserHr"))
+    @JoinColumn(name = "user_hr_id", foreignKey = @ForeignKey(name = "FKtestUserHr"))
     @JsonBackReference(value = "test-user-hr")
     @JsonIgnore
-    private UsersModel FK_testUserHr;
+    private UsersModel FKtestUserHr;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_testCompany"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FKtestCompany"))
     @JsonBackReference(value = "test-company")
     @JsonIgnore
-    private UsersModel FK_testCompany;
+    private CompaniesModel FKtestCompany;
 
     @Column(name = "is_possible_to_back")
     private boolean isPossibleToBack;
@@ -64,11 +64,11 @@ public class TestsModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_questionTest")
+    @OneToMany(mappedBy = "FKquestionTest")
     @JsonBackReference(value = "questionTest")
     private List<QuestionsModel> questions;
 
-    @OneToMany(mappedBy = "FK_testIduserAnswer")
+    @OneToMany(mappedBy = "FKtestIduserAnswer")
     @JsonBackReference(value = "test_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
@@ -85,12 +85,12 @@ public class TestsModel {
         return name;
     }
 
-    public UsersModel getFK_testUserHr() {
-        return FK_testUserHr;
+    public UsersModel getFKtestUserHr() {
+        return FKtestUserHr;
     }
 
-    public UsersModel getFK_testCompany() {
-        return FK_testCompany;
+    public CompaniesModel getFKtestCompany() {
+        return FKtestCompany;
     }
 
     public boolean isPossibleToBack() {
@@ -133,12 +133,12 @@ public class TestsModel {
         this.name = name;
     }
 
-    public void setFK_testUserHr(UsersModel FK_testUserHr) {
-        this.FK_testUserHr = FK_testUserHr;
+    public void setFKtestUserHr(UsersModel FKtestUserHr) {
+        this.FKtestUserHr = FKtestUserHr;
     }
 
-    public void setFK_testCompany(UsersModel FK_testCompany) {
-        this.FK_testCompany = FK_testCompany;
+    public void setFKtestCompany(CompaniesModel FKtestCompany) {
+        this.FKtestCompany = FKtestCompany;
     }
 
     public void setPossibleToBack(boolean possibleToBack) {
@@ -179,12 +179,12 @@ public class TestsModel {
 
     protected TestsModel() {}
 
-    public TestsModel(String name, UsersModel FK_testUserHr, UsersModel FK_testCompany, boolean isPossibleToBack,
+    public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
                       String testCode, String testType, boolean isActive, Date startDate, Date endDate,
                       short timeForTest, List<QuestionsModel> questions, List<UserAnswersModel> userAnswers) {
         this.name = name;
-        this.FK_testUserHr = FK_testUserHr;
-        this.FK_testCompany = FK_testCompany;
+        this.FKtestUserHr = FKtestUserHr;
+        this.FKtestCompany = FKtestCompany;
         this.isPossibleToBack = isPossibleToBack;
         this.testCode = testCode;
         this.testType = testType;

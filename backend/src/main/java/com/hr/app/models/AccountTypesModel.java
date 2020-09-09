@@ -24,7 +24,7 @@ public class AccountTypesModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_userAccountTypes")
+    @OneToMany(mappedBy = "FKuserAccountTypes")
     @JsonBackReference(value = "user-role")
     private List<UsersModel> userAccountTypes;
 

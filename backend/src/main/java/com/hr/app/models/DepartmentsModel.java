@@ -15,10 +15,10 @@ public class DepartmentsModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_departmentCompany"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FKdepartmentCompany"))
     @JsonBackReference(value = "departments-company")
     @JsonIgnore
-    private CompaniesModel FK_departmentCompany;
+    private CompaniesModel FKdepartmentCompany;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -28,7 +28,7 @@ public class DepartmentsModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_hrUserDepartment")
+    @OneToMany(mappedBy = "FKhrUserDepartment")
     @JsonBackReference(value = "hrUser-department")
     private List<HrUsersModel> hrUsers;
 
@@ -41,8 +41,8 @@ public class DepartmentsModel {
         return id;
     }
 
-    public CompaniesModel getFK_departmentCompany() {
-        return FK_departmentCompany;
+    public CompaniesModel getFKdepartmentCompany() {
+        return FKdepartmentCompany;
     }
 
     public String getName() {
@@ -53,8 +53,8 @@ public class DepartmentsModel {
         return hrUsers;
     }
 
-    public void setFK_departmentCompany(CompaniesModel FK_departmentCompany) {
-        this.FK_departmentCompany = FK_departmentCompany;
+    public void setFKdepartmentCompany(CompaniesModel FKdepartmentCompany) {
+        this.FKdepartmentCompany = FKdepartmentCompany;
     }
 
     public void setName(String name) {
@@ -67,8 +67,8 @@ public class DepartmentsModel {
 
     protected DepartmentsModel() {}
 
-    public DepartmentsModel(CompaniesModel FK_departmentCompany, String name, List<HrUsersModel> hrUsers) {
-        this.FK_departmentCompany = FK_departmentCompany;
+    public DepartmentsModel(CompaniesModel FKdepartmentCompany, String name, List<HrUsersModel> hrUsers) {
+        this.FKdepartmentCompany = FKdepartmentCompany;
         this.name = name;
         this.hrUsers = hrUsers;
     }
