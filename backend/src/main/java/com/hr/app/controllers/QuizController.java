@@ -6,10 +6,7 @@ import org.apache.catalina.mbeans.UserMBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -36,6 +33,9 @@ public class QuizController {
 
     @Autowired
     private ICompaniesRepository companiesRepository;
+
+    @Autowired
+    private ITestCodeRepository testCodeRepository;
 
     @Transactional
     @PostMapping("quiz/add")
@@ -91,6 +91,22 @@ public class QuizController {
             }
         }
     }
+
+    //TODO Poki co nie wiem jak xD
+//    @GetMapping("quiz/{testcode}")
+//    public TestsModel getQuiz(@PathVariable String testcode){
+//        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+//        try {
+//            UsersModel user = usersRepository.findByLogin(name);
+//            TestCodeModel testCode = testCodeRepository.findByCode(testcode);
+//            if(testCode.getFKuser().getId()==user.getId()){
+//                return testCode.getFKtest();
+//            }
+//        } catch (Exception e) {
+//            return null;
+//        }
+//
+//    }
 
     private void saveQuestion(TestsModel testsModel, QuestionJsonModel questionJsonModels) {
         QuestionsModel questionsModel = questionJsonModels.getQuestionsModel();
