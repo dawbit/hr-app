@@ -7,4 +7,6 @@ public interface ICeosRepository extends JpaRepository<CeosModel, Long> {
 
     CeosModel findById(long id);
 
+    CeosModel findByFKceoUserId(long id);
+
 }

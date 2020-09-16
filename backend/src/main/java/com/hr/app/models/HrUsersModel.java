@@ -75,4 +75,9 @@ public class HrUsersModel {
         this.FKhrUserCompany = FKhrUserCompany;
         this.FKhrUserDepartment = FKhrUserDepartment;
     }
+
+    public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany) {
+        this.FKhrUserUser = FKhrUserUser;
+        this.FKhrUserCompany = FKhrUserCompany;
+    }
 }
