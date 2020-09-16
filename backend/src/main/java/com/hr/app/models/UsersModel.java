@@ -84,6 +84,10 @@ public class UsersModel {
     @JsonBackReference(value = "hrUser-user")
     private List<HrUsersModel> hrUsers;
 
+    @OneToMany(mappedBy = "FKtestCodeuser")
+    @JsonBackReference(value = "user_id")
+    private List<TestCodeModel> FKtestCodeuser;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
