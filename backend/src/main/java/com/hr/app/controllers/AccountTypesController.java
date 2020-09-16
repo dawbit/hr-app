@@ -43,7 +43,7 @@ public class AccountTypesController {
 
         try{
             //TODO cos tu nie dziala
-            long id = usersRepository.findByLogin(name).getId();
+            long id = usersRepository.findByLogin(name).getFKuserAccountTypes().getRoleId();
         }
         catch (Exception e){
             return false;
