@@ -42,7 +42,6 @@ public class AccountTypesController {
         AccountTypesModel accountTypeModel;
 
         try{
-            //TODO cos tu nie dziala
             long id = usersRepository.findByLogin(name).getFKuserAccountTypes().getRoleId();
         }
         catch (Exception e){
