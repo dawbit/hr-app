@@ -1,0 +1,26 @@
+{
+    "testId": 56,
+    "companyId" : 1,
+    "questionsModel" :
+        {
+            "text": "question t42ext1"
+        },
+    "answersModel" : 
+        [
+            {
+                "is_correct" : false,
+                "points": 10,
+                "text": "kozak"
+            },
+            {
+                "is_correct" : false,
+                "points": 10,
+                "text": "kozak"
+            },
+            {
+                "is_correct" : false,
+                "points": 10,
+                "text": "kozak"
+            }
+        ]
+}

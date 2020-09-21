@@ -1,0 +1,7 @@
+1
+
+
+
+
+
+// po prostu wysyłamy ID usera którego chcemy dodać jako HR do naszej firmy. Resztą zajmuje się serwer. Tzn serwer wszystko rozpoznaje
