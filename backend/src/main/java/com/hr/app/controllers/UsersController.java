@@ -6,12 +6,14 @@ import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @CrossOrigin
@@ -27,7 +29,7 @@ public class UsersController {
     IAccountTypesRepository accountTypes;
 
     @Autowired
-    IUsersRepository user;
+    IUsersRepository usersRepository;
 
     @PostMapping("/user/register")
     @ResponseBody
@@ -40,7 +42,7 @@ public class UsersController {
             }
             else {
                 userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
-                user.save(userModel);
+                usersRepository.save(userModel);
                 return new ResponseTransfer("User saved");
             }
         }
@@ -50,11 +52,25 @@ public class UsersController {
         }
     }
 
+        @GetMapping("users/getall")
+    public List<UsersModel> getQuiz(){
+            String name = SecurityContextHolder.getContext().getAuthentication().getName();
+            UsersModel user = usersRepository.findByLogin(name);
+
+            if(user.getFKuserAccountTypes().getRoleId()!=1){
+                return null;
+            }
+            else {
+                return usersRepository.findAll();
+            }
+    }
+
+
     private UsersModel getUserByIdForSave(long id) {
-        return user.findById(id);
+        return usersRepository.findById(id);
     }
 
     private boolean doesUserExist(String login) {
-        return (user.findByLogin(login) != null);
+        return (usersRepository.findByLogin(login) != null);
     }
 }
