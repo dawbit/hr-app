@@ -14,6 +14,9 @@ import java.util.List;
 @Table(name = "users")
 public class UsersModel {
 
+    @OneToMany(mappedBy = "FKcvUser")
+    private List<CvsModel> listOfcvsModels;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -44,10 +47,10 @@ public class UsersModel {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_userAccountTypes"))
+    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FKuserAccountTypes"))
     @JsonBackReference(value = "user-role")
     @JsonIgnore
-    private AccountTypesModel FK_userAccountTypes;
+    private AccountTypesModel FKuserAccountTypes;
 
     @Column(name = "is_active")
     private Boolean isActive;
@@ -57,27 +60,27 @@ public class UsersModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_cvUser")
+    @OneToMany(mappedBy = "FKcvUser")
     @JsonBackReference(value = "cv-user")
     private List<CvsModel> cvs;
 
-    @OneToMany(mappedBy = "FK_profilePictureUser")
-    @JsonBackReference(value = "profile_pictures-user")
+    @OneToMany(mappedBy = "FKprofilePictureUser")
+    @JsonBackReference(value = "profilepictures-user")
     private List<ProfilePicturesModel> profilePictures;
 
-    @OneToMany(mappedBy = "FK_ceoUser")
+    @OneToMany(mappedBy = "FKceoUser")
     @JsonBackReference(value = "ceo-user")
     private List<CeosModel> ceo;
 
-    @OneToMany(mappedBy = "FK_testUserHr")
+    @OneToMany(mappedBy = "FKtestUserHr")
     @JsonBackReference(value = "test-user-hr")
     private List<TestsModel> tests;
 
-    @OneToMany(mappedBy = "FK_userIduserAnswer")
+    @OneToMany(mappedBy = "FKuserIduserAnswer")
     @JsonBackReference(value = "user_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
-    @OneToMany(mappedBy = "FK_hrUserUser")
+    @OneToMany(mappedBy = "FKhrUserUser")
     @JsonBackReference(value = "hrUser-user")
     private List<HrUsersModel> hrUsers;
 
@@ -118,8 +121,8 @@ public class UsersModel {
         return password;
     }
 
-    public AccountTypesModel getFK_userAccountTypes() {
-        return FK_userAccountTypes;
+    public AccountTypesModel getFKuserAccountTypes() {
+        return FKuserAccountTypes;
     }
 
     public Boolean getIsActive() {
@@ -178,8 +181,8 @@ public class UsersModel {
         this.password = password;
     }
 
-    public void setFK_userAccountTypes(AccountTypesModel FK_userAccountTypes) {
-        this.FK_userAccountTypes = FK_userAccountTypes;
+    public void setFKuserAccountTypes(AccountTypesModel FKuserAccountTypes) {
+        this.FKuserAccountTypes = FKuserAccountTypes;
     }
 
     public void setIsActive(Boolean active) {
@@ -213,7 +216,7 @@ public class UsersModel {
     protected UsersModel() { }
 
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
-                      String login, String password, AccountTypesModel FK_userAccountTypes, Boolean isActive,
+                      String login, String password, AccountTypesModel FKuserAccountTypes, Boolean isActive,
                       List<CvsModel> cvs, List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
                       List<TestsModel> tests, List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers) {
         this.firstName = firstName;
@@ -223,7 +226,7 @@ public class UsersModel {
         this.phoneNumber = phoneNumber;
         this.login = login;
         this.password = password;
-        this.FK_userAccountTypes = FK_userAccountTypes;
+        this.FKuserAccountTypes = FKuserAccountTypes;
         this.isActive = isActive;
         this.cvs = cvs;
         this.profilePictures = profilePictures;

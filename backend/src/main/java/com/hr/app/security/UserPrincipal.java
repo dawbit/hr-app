@@ -23,7 +23,7 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        String userRole = this.user.getFK_userAccountTypes().getRoleName();
+        String userRole = this.user.getFKuserAccountTypes().getRoleName();
         if (userRole.equals("admin")) userRoleString = "ADMIN";
         else if (userRole.equals("hr_user")) userRoleString = "HR";
         else if (userRole.equals("ceo")) userRoleString = "CEO";

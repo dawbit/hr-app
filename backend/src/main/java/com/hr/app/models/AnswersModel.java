@@ -15,16 +15,16 @@ public class AnswersModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FK_answerQuestion"))
+    @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FKanswerQuestion"))
     @JsonBackReference(value = "answer-question")
     @JsonIgnore
-    private QuestionsModel FK_answerQuestion;
+    private QuestionsModel FKanswerQuestion;
 
     @Column(name = "text")
     private String text;
 
     @Column(name = "is_correct")
-    private String isCorrect;
+    private boolean isCorrect;
 
     @Column(name = "points")
     private int points;
@@ -34,7 +34,7 @@ public class AnswersModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_answerIduserAnswer")
+    @OneToMany(mappedBy = "FKanswerIduserAnswer")
     @JsonBackReference(value = "answer_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
@@ -48,15 +48,15 @@ public class AnswersModel {
         return id;
     }
 
-    public QuestionsModel getFK_answerQuestion() {
-        return FK_answerQuestion;
+    public QuestionsModel getFKanswerQuestion() {
+        return FKanswerQuestion;
     }
 
     public String getText() {
         return text;
     }
 
-    public String getIsCorrect() {
+    public boolean getIsCorrect() {
         return isCorrect;
     }
 
@@ -68,15 +68,15 @@ public class AnswersModel {
         return userAnswers;
     }
 
-    public void setFK_answerQuestion(QuestionsModel FK_answerQuestion) {
-        this.FK_answerQuestion = FK_answerQuestion;
+    public void setFKanswerQuestion(QuestionsModel FKanswerQuestion) {
+        this.FKanswerQuestion = FKanswerQuestion;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
-    public void setIsCorrect(String isCorrect) {
+    public void setIsCorrect(boolean isCorrect) {
         this.isCorrect = isCorrect;
     }
 
@@ -90,9 +90,9 @@ public class AnswersModel {
 
     protected AnswersModel() { }
 
-    public AnswersModel(QuestionsModel FK_answerQuestion, String text, String isCorrect,
+    public AnswersModel(QuestionsModel FKanswerQuestion, String text, boolean isCorrect,
                         int points, List<UserAnswersModel> userAnswers) {
-        this.FK_answerQuestion = FK_answerQuestion;
+        this.FKanswerQuestion = FKanswerQuestion;
         this.text = text;
         this.isCorrect = isCorrect;
         this.points = points;

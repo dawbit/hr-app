@@ -9,6 +9,6 @@ export class User {
   'phoneNumber': string;
   'login': string;
   'password': string;
-  'fk_userAccountTypes': AccountTypes;
+  'FKuserAccountTypes': AccountTypes;
   'isActive' = true;
 }

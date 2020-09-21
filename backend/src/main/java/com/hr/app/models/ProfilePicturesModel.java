@@ -14,10 +14,10 @@ public class ProfilePicturesModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_profilePictureUser"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKprofilePictureUser"))
     @JsonBackReference(value = "profile_picture-user")
     @JsonIgnore
-    private UsersModel FK_profilePictureUser;
+    private UsersModel FKprofilePictureUser;
 
     @Column(name = "is_current")
     private boolean isCurrent;
@@ -40,8 +40,8 @@ public class ProfilePicturesModel {
         return id;
     }
 
-    public UsersModel getFK_profilePictureUser() {
-        return FK_profilePictureUser;
+    public UsersModel getFKprofilePictureUser() {
+        return FKprofilePictureUser;
     }
 
     public boolean isCurrent() {
@@ -52,8 +52,8 @@ public class ProfilePicturesModel {
         return fileName;
     }
 
-    public void setFK_profilePictureUser(UsersModel FK_profilePictureUser) {
-        this.FK_profilePictureUser = FK_profilePictureUser;
+    public void setFKprofilePictureUser(UsersModel FKprofilePictureUser) {
+        this.FKprofilePictureUser = FKprofilePictureUser;
     }
 
     public void setCurrent(boolean current) {
@@ -66,8 +66,8 @@ public class ProfilePicturesModel {
 
     protected ProfilePicturesModel() { }
 
-    public ProfilePicturesModel(UsersModel FK_profilePictureUser, boolean isCurrent, String fileName) {
-        this.FK_profilePictureUser = FK_profilePictureUser;
+    public ProfilePicturesModel(UsersModel FKprofilePictureUser, boolean isCurrent, String fileName) {
+        this.FKprofilePictureUser = FKprofilePictureUser;
         this.isCurrent = isCurrent;
         this.fileName = fileName;
     }

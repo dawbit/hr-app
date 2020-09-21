@@ -14,10 +14,10 @@ public class CvsModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_cvUser"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKcvUser"))
     @JsonBackReference(value = "cv-user")
     @JsonIgnore
-    private UsersModel FK_cvUser;
+    private UsersModel FKcvUser;
 
     @Column(name = "is_current")
     private boolean isCurrent;
@@ -40,8 +40,8 @@ public class CvsModel {
         return id;
     }
 
-    public UsersModel getFK_cvUser() {
-        return FK_cvUser;
+    public UsersModel getFKcvUser() {
+        return FKcvUser;
     }
 
     public boolean isCurrent() {
@@ -52,8 +52,8 @@ public class CvsModel {
         return fileName;
     }
 
-    public void setFK_cvUser(UsersModel FK_cvUser) {
-        this.FK_cvUser = FK_cvUser;
+    public void setFKcvUser(UsersModel FKcvUser) {
+        this.FKcvUser = FKcvUser;
     }
 
     public void setCurrent(boolean current) {
@@ -66,8 +66,8 @@ public class CvsModel {
 
     protected CvsModel() { }
 
-    public CvsModel(UsersModel FK_cvUser, boolean isCurrent, String fileName) {
-        this.FK_cvUser = FK_cvUser;
+    public CvsModel(UsersModel FKcvUser, boolean isCurrent, String fileName) {
+        this.FKcvUser = FKcvUser;
         this.isCurrent = isCurrent;
         this.fileName = fileName;
     }

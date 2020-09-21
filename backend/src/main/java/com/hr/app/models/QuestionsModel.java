@@ -16,10 +16,10 @@ public class QuestionsModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FK_questionTest"))
+    @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FKquestionTest"))
     @JsonBackReference(value = "question-test")
     @JsonIgnore
-    private UsersModel FK_questionTest;
+    private TestsModel FKquestionTest;
 
     @Column(name = "text")
     private String text;
@@ -35,11 +35,11 @@ public class QuestionsModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_answerQuestion")
+    @OneToMany(mappedBy = "FKanswerQuestion")
     @JsonBackReference(value = "answer-question")
     private List<AnswersModel> answers;
 
-    @OneToMany(mappedBy = "FK_questionIduserAnswer")
+    @OneToMany(mappedBy = "FKquestionIduserAnswer")
     @JsonBackReference(value = "question_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
@@ -52,8 +52,8 @@ public class QuestionsModel {
         return id;
     }
 
-    public UsersModel getFK_questionTest() {
-        return FK_questionTest;
+    public TestsModel getFKquestionTest() {
+        return FKquestionTest;
     }
 
     public String getText() {
@@ -72,8 +72,8 @@ public class QuestionsModel {
         return userAnswers;
     }
 
-    public void setFK_questionTest(UsersModel FK_questionTest) {
-        this.FK_questionTest = FK_questionTest;
+    public void setFKquestionTest(TestsModel FKquestionTest) {
+        this.FKquestionTest = FKquestionTest;
     }
 
     public void setText(String text) {
@@ -94,9 +94,9 @@ public class QuestionsModel {
 
     protected QuestionsModel() { }
 
-    public QuestionsModel(UsersModel FK_questionTest, String text, byte[] image, List<AnswersModel> answers,
+    public QuestionsModel(TestsModel FKquestionTest, String text, byte[] image, List<AnswersModel> answers,
                           List<UserAnswersModel> userAnswers) {
-        this.FK_questionTest = FK_questionTest;
+        this.FKquestionTest = FKquestionTest;
         this.text = text;
         this.image = image;
         this.answers = answers;

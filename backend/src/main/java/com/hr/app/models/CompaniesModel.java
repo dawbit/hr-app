@@ -34,23 +34,23 @@ public class CompaniesModel {
     // RELATIONSHIPS
     // =========================================
 
-    @OneToMany(mappedBy = "FK_picturesCompany")
+    @OneToMany(mappedBy = "FKpicturesCompany")
     @JsonBackReference(value = "pictures-company")
     private List<CompanyPicturesModel> companyPictures;
 
-    @OneToMany(mappedBy = "FK_ceoCompany")
+    @OneToMany(mappedBy = "FKceoCompany")
     @JsonBackReference(value = "ceo-company")
     private List<CeosModel> ceo;
 
-    @OneToMany(mappedBy = "FK_departmentCompany")
+    @OneToMany(mappedBy = "FKdepartmentCompany")
     @JsonBackReference(value = "departments-company")
     private List<DepartmentsModel> departments;
 
-    @OneToMany(mappedBy = "FK_testCompany")
+    @OneToMany(mappedBy = "FKtestCompany")
     @JsonBackReference(value = "test-company")
     private List<TestsModel> tests;
 
-    @OneToMany(mappedBy = "FK_hrUserCompany")
+    @OneToMany(mappedBy = "FKhrUserCompany")
     @JsonBackReference(value = "hrUser-company")
     private List<HrUsersModel> hrUsers;
 

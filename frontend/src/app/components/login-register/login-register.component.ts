@@ -74,8 +74,8 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   registerSubmit() {
-    this.user.fk_userAccountTypes = new AccountTypes();
-    this.user.fk_userAccountTypes.id = 1; // tymczasowo admin
+    this.user.FKuserAccountTypes = new AccountTypes();
+    this.user.FKuserAccountTypes.id = 1; // tymczasowo admin
 
     this.userService.register(this.user).subscribe(res => {
       if (res && res.ok && res.status === 200) {

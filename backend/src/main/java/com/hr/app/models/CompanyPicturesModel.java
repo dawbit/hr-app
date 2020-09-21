@@ -14,10 +14,10 @@ public class CompanyPicturesModel {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FK_picturesCompany"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "FKpicturesCompany"))
     @JsonBackReference(value = "picture-company")
     @JsonIgnore
-    private CompaniesModel FK_picturesCompany;
+    private CompaniesModel FKpicturesCompany;
 
     @Column(name = "is_current")
     private boolean isCurrent;
@@ -56,8 +56,8 @@ public class CompanyPicturesModel {
         return id;
     }
 
-    public CompaniesModel getFK_picturesCompany() {
-        return FK_picturesCompany;
+    public CompaniesModel getFKpicturesCompany() {
+        return FKpicturesCompany;
     }
 
     public boolean isCurrent() {
@@ -84,8 +84,8 @@ public class CompanyPicturesModel {
         return thirdPicture;
     }
 
-    public void setFK_picturesCompany(CompaniesModel FK_picturesCompany) {
-        this.FK_picturesCompany = FK_picturesCompany;
+    public void setFKpicturesCompany(CompaniesModel FKpicturesCompany) {
+        this.FKpicturesCompany = FKpicturesCompany;
     }
 
     public void setCurrent(boolean current) {
@@ -114,10 +114,10 @@ public class CompanyPicturesModel {
 
     protected CompanyPicturesModel() { }
 
-    public CompanyPicturesModel(CompaniesModel FK_picturesCompany, boolean isCurrent, String logo,
+    public CompanyPicturesModel(CompaniesModel FKpicturesCompany, boolean isCurrent, String logo,
                                 String backgroundPicture, String firstPicture, String secondPicture,
                                 String thirdPicture) {
-        this.FK_picturesCompany = FK_picturesCompany;
+        this.FKpicturesCompany = FKpicturesCompany;
         this.isCurrent = isCurrent;
         this.logo = logo;
         this.backgroundPicture = backgroundPicture;
