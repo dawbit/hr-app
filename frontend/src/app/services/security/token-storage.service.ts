@@ -65,7 +65,6 @@ export class TokenStorageService {
     const token = localStorage.getItem(TOKEN_KEY);
 
     // Check if the token is expired and return true or false
-    console.log('HEJ');
     return !this.jwtHelper.isTokenExpired(token);
   }
 

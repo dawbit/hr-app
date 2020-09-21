@@ -26,8 +26,6 @@ export class RoleGuardService {
       return false;
     }
     const tokenPayload = decode(token);
-    console.log(tokenPayload);
-    console.log(tokenPayload.role);
     if (!this.auth.isAuthenticated() || tokenPayload.role !== expectedRole.find(x => x === tokenPayload.role)) {
       this.router.navigate(['/home']);
       return false;
