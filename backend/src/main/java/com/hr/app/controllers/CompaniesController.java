@@ -1,8 +1,7 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.CeosModel;
-import com.hr.app.models.CompaniesModel;
-import com.hr.app.models.ResponseTransfer;
+import com.hr.app.models.*;
+import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.ICeosRepository;
 import com.hr.app.repositories.ICompaniesRepository;
 import com.hr.app.repositories.IUsersRepository;
@@ -26,6 +25,9 @@ public class CompaniesController {
     @Autowired
     ICeosRepository ceosRepository;
 
+    @Autowired
+    IAccountTypesRepository accountTypesRepository;
+
     @GetMapping("/companies/all")
     public List<CompaniesModel> getAllCompanies() {
         return companiesRepository.findAll();
@@ -36,12 +38,17 @@ public class CompaniesController {
     public ResponseTransfer addCompanies(@RequestBody CompaniesModel companiesModel) {
         CompaniesModel company = companiesModel;
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        UsersModel user = usersRepository.findByLogin(name);
         try {
             if (getCompanyById(company.getId()) != null) {
                 return new ResponseTransfer("nie udalo sie");
             } else {
                 companiesRepository.save(company);
-                ceosRepository.save(new CeosModel(usersRepository.findByLogin(name), company));
+                if(user.getFKuserAccountTypes().getRoleId()!=1) {
+                    user.setFKuserAccountTypes(accountTypesRepository.findByRoleId(2));
+                }
+                ceosRepository.save(new CeosModel(user, company));
                 return new ResponseTransfer("Udalo sie");
             }
         }
