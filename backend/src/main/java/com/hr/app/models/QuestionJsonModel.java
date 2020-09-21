@@ -7,6 +7,10 @@ public class QuestionJsonModel {
     private QuestionsModel questionsModel;
     private List<AnswersModel> answersModel;
 
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
     public long getTestId() {
         return testId;
     }

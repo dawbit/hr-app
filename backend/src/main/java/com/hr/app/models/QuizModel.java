@@ -9,6 +9,10 @@ public class QuizModel {
     private TestsModel testsModel;
     private List<QuestionJsonModel> questionsJsonModel;
 
+    // =========================================
+    // GETTERS, SETTERS, CONSTRUCTORS
+    // =========================================
+
     public List<QuestionJsonModel> getQuestionsModel() {
         return questionsJsonModel;
     }

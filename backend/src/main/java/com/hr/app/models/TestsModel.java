@@ -37,11 +37,11 @@ public class TestsModel {
     @Column(name = "is_possible_to_back")
     private boolean isPossibleToBack;
 
-    @Column(name = "test_code", nullable = false)
-    private String testCode;
-
-    @Column(name = "test_type", nullable = false)
-    private String testType;
+    @ManyToOne
+    @JoinColumn(name = "test_type_id", foreignKey = @ForeignKey(name = "FKtestCodetest"))
+    @JsonBackReference(value = "test-type")
+    @JsonIgnore
+    private TestTypeModel FKtestType;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -72,6 +72,10 @@ public class TestsModel {
     @JsonBackReference(value = "test_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
+    @OneToMany(mappedBy = "FKtestCodeuser")
+    @JsonBackReference(value = "test-id")
+    private List<TestCodeModel> FKtestCodeuser;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -97,12 +101,8 @@ public class TestsModel {
         return isPossibleToBack;
     }
 
-    public String getTestCode() {
-        return testCode;
-    }
-
-    public String getTestType() {
-        return testType;
+    public TestTypeModel getFKtestType() {
+        return FKtestType;
     }
 
     public boolean isActive() {
@@ -145,12 +145,8 @@ public class TestsModel {
         isPossibleToBack = possibleToBack;
     }
 
-    public void setTestCode(String testCode) {
-        this.testCode = testCode;
-    }
-
-    public void setTestType(String testType) {
-        this.testType = testType;
+    public void setFKtestType(TestTypeModel FKtestType) {
+        this.FKtestType = FKtestType;
     }
 
     public void setActive(boolean active) {
@@ -163,6 +159,18 @@ public class TestsModel {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<TestCodeModel> getFKtest() {
+        return FKtestCodeuser;
+    }
+
+    public void setFKtest(List<TestCodeModel> FKtestCodeuser) {
+        this.FKtestCodeuser = FKtestCodeuser;
     }
 
     public void setTimeForTest(short timeForTest) {
@@ -180,14 +188,12 @@ public class TestsModel {
     protected TestsModel() {}
 
     public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
-                      String testCode, String testType, boolean isActive, Date startDate, Date endDate,
-                      short timeForTest, List<QuestionsModel> questions, List<UserAnswersModel> userAnswers) {
+                      boolean isActive, Date startDate, Date endDate, short timeForTest, List<QuestionsModel> questions,
+                      List<UserAnswersModel> userAnswers) {
         this.name = name;
         this.FKtestUserHr = FKtestUserHr;
         this.FKtestCompany = FKtestCompany;
         this.isPossibleToBack = isPossibleToBack;
-        this.testCode = testCode;
-        this.testType = testType;
         this.isActive = isActive;
         this.startDate = startDate;
         this.endDate = endDate;
