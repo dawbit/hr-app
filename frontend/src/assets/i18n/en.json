@@ -1,11 +1,20 @@
 {
   "a-member": "You are a member?",
+  "accountTypes": {
+    "add": "Add account type",
+    "addConfirm": "Add",
+    "name": "Name"
+  },
   "companies": {
+    "about": "Tell us something about your company ... This will help other users find your company in our search engine!",
     "add": "Add your company!",
+    "addForm": "Company registration form in the database",
     "basic": "Companies",
     "best": "Best companies",
     "industries": "Company industries",
-    "list": "List of companies"
+    "list": "List of companies",
+    "location": "Location: Country/City",
+    "name": "Name"
   },
   "contact": "Contact",
   "e-mail": "E-mail",

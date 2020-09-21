@@ -1,0 +1,35 @@
+<!--Card content-->
+<div class="card-body px-lg-5 pt-0">
+
+  <h6 class="text-center">{{"companies.addForm" | translate | uppercase}}</h6>
+
+  <!-- Form -->
+  <form [formGroup]="companyForm" class="text-center" style="color: #757575;" (ngSubmit)="registerCompany()"
+    action="#!">
+
+    <!-- Name -->
+    <div class="md-form">
+      <input mdbInput type="text" id="materialNameCompany" class="form-control" formControlName="name">
+      <label for="materialNameCompany">{{"companies.name" | translate}}</label>
+    </div>
+
+    <!-- Location  -->
+    <div class="md-form">
+      <input mdbInput type="text" id="materialLocationCompany" class="form-control" formControlName="location">
+      <label for="materialLocationCompany">{{"companies.location" | translate}}</label>
+    </div>
+
+    <!-- About  -->
+    <div class="md-form">
+      <textarea mdbInput type="text" id="materialAboutCompany" class="form-control md-textarea form-control"
+        formControlName="about"></textarea>
+      <label for="materialAboutCompany">{{"companies.about" | translate}}</label>
+    </div>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">
+      {{"companies.add" | translate}}
+    </button>
+
+  </form>
+</div>

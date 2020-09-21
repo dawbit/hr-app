@@ -1,3 +1,5 @@
 export class AccountTypes {
-  'id' = 1;
+  'id': number;
+  'roleId': number;
+  'roleName': string;
 }

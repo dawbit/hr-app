@@ -1,11 +1,20 @@
 {
   "a-member": "Masz już u nas konto?",
+  "accountTypes": {
+    "add": "Dodaj typ konta",
+    "addConfirm": "Dodaj",
+    "name": "Nazwa"
+  },
   "companies": {
+    "about": "Powiedz nam coś o swojej firmie... Pomoże to wyszukać twoją firmę innym użytkownikom w naszej wyszukiwarce!",
     "add": "Dodaj swoją firmę!",
+    "addForm": "Formularz rejestracji firmy w bazie",
     "basic": "Firmy",
     "best": "Najlepsze firmy",
     "industries": "Branże",
-    "list": "Lista firm"
+    "list": "Lista firm",
+    "location": "Miejsce: Kraj/Miasto",
+    "name": "Nazwa"
   },
   "contact": "Kontakt",
   "e-mail": "E-mail",
