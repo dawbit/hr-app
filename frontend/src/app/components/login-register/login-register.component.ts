@@ -77,6 +77,11 @@ export class LoginRegisterComponent implements OnInit {
     this.user.FKuserAccountTypes = new AccountTypes();
     this.user.FKuserAccountTypes.id = 1; // tymczasowo admin
 
+    // 1 - ADMIN
+    // 2 - CEO
+    // 3 - HR
+    // 4 - USER
+
     this.userService.register(this.user).subscribe(res => {
       if (res && res.ok && res.status === 200) {
         // TODO
