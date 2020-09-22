@@ -52,6 +52,9 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/security/token.interceptor';
 
+// Toasts
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -78,6 +81,7 @@ import { TokenInterceptor } from './services/security/token.interceptor';
     MatCardModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
     FlexLayoutModule,

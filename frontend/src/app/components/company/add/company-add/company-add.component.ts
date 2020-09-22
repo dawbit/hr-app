@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CompanyService } from './../../../../services/company.service';
+import { ToastService } from './../../../../services/toast.service';
 
 @Component({
   selector: 'app-company-add',
@@ -19,7 +20,8 @@ export class CompanyAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,9 @@ export class CompanyAddComponent implements OnInit {
   registerCompany() {
     this.companyService.add(this.companyForm.value).subscribe(res => {
       if (res && res.ok && res.status === 200) {
-        // TODO
+        this.toast.showSuccess('message.companyAdded');
+      } else {
+        this.toast.showError('message.companyNotAdded');
       }
     });
   }
