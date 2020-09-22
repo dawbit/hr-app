@@ -26,12 +26,24 @@ public class AccountTypesModel {
 
     @OneToMany(mappedBy = "FKuserAccountTypes")
     @JsonBackReference(value = "user-role")
-    private List<UsersModel> userAccountTypes;
+    private List<UsersModel> FKuserAccountTypes;
 
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<UsersModel> getFKuserAccountTypes() {
+        return FKuserAccountTypes;
+    }
+
+    public void setFKuserAccountTypes(List<UsersModel> FKuserAccountTypes) {
+        this.FKuserAccountTypes = FKuserAccountTypes;
+    }
 
     public long getId() {
         return id;
@@ -46,7 +58,7 @@ public class AccountTypesModel {
     }
 
     public List<UsersModel> getUserAccountTypes() {
-        return userAccountTypes;
+        return FKuserAccountTypes;
     }
 
     public void setRoleId(long roleId) {
@@ -59,9 +71,9 @@ public class AccountTypesModel {
 
     protected AccountTypesModel() { }
 
-    public AccountTypesModel(long roleId, String roleName, List<UsersModel> userAccountTypes) {
+    public AccountTypesModel(long roleId, String roleName, List<UsersModel> FKuserAccountTypes) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.userAccountTypes = userAccountTypes;
+        this.FKuserAccountTypes = FKuserAccountTypes;
     }
 }

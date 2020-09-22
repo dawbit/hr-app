@@ -49,7 +49,6 @@ public class UsersModel {
     @ManyToOne
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FKuserAccountTypes"))
     @JsonBackReference(value = "user-role")
-    @JsonIgnore
     private AccountTypesModel FKuserAccountTypes;
 
     @Column(name = "is_active")
@@ -59,6 +58,7 @@ public class UsersModel {
     // =========================================
     // RELATIONSHIPS
     // =========================================
+
 
     @OneToMany(mappedBy = "FKcvUser")
     @JsonBackReference(value = "cv-user")
@@ -92,6 +92,35 @@ public class UsersModel {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
+    public List<CvsModel> getListOfcvsModels() {
+        return listOfcvsModels;
+    }
+
+    public void setListOfcvsModels(List<CvsModel> listOfcvsModels) {
+        this.listOfcvsModels = listOfcvsModels;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public List<TestCodeModel> getFKtestCodeuser() {
+        return FKtestCodeuser;
+    }
+
+    public void setFKtestCodeuser(List<TestCodeModel> FKtestCodeuser) {
+        this.FKtestCodeuser = FKtestCodeuser;
+    }
 
     public long getId() {
         return id;
