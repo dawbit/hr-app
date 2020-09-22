@@ -18,16 +18,16 @@ import java.util.List;
 @RestController
 public class UsersController {
     @Autowired
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    IAccountTypesRepository accountTypes;
+    private IAccountTypesRepository accountTypes;
 
     @Autowired
-    IUsersRepository usersRepository;
+    private IUsersRepository usersRepository;
 
     @PostMapping("/user/register")
     @ResponseBody

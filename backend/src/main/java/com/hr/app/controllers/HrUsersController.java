@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HrUsersController {
 
     @Autowired
-    IHrUsersRepository hrUsersRepository;
+    private IHrUsersRepository hrUsersRepository;
 
     @Autowired
-    IUsersRepository usersRepository;
+    private IUsersRepository usersRepository;
 
     @Autowired
-    ICeosRepository ceosRepository;
+    private ICeosRepository ceosRepository;
 
     @PostMapping("hrusers/add")
     public ResponseTransfer addNewHrUser(@RequestBody long userId){
