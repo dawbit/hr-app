@@ -1,7 +1,6 @@
 package com.hr.app.repositories;
 
-import com.hr.app.models.AccountTypesModel;
-import com.hr.app.models.CompaniesModel;
+import com.hr.app.models.database.AccountTypesModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IAccountTypesRepository extends JpaRepository<AccountTypesModel, Long> {

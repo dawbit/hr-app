@@ -1,16 +1,19 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.*;
+import com.hr.app.models.api_helpers.QuestionJsonModel;
+import com.hr.app.models.api_helpers.QuizModel;
+import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.database.AnswersModel;
+import com.hr.app.models.database.HrUsersModel;
+import com.hr.app.models.database.QuestionsModel;
+import com.hr.app.models.database.TestsModel;
 import com.hr.app.repositories.*;
-import org.apache.catalina.mbeans.UserMBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Objects;
 
 @CrossOrigin
 @RestController

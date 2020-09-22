@@ -1,6 +1,9 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.*;
+import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.database.CeosModel;
+import com.hr.app.models.database.CompaniesModel;
+import com.hr.app.models.database.HrUsersModel;
 import com.hr.app.repositories.ICeosRepository;
 import com.hr.app.repositories.IHrUsersRepository;
 import com.hr.app.repositories.IUsersRepository;

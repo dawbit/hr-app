@@ -1,9 +1,7 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.AccountTypesModel;
-import com.hr.app.models.QuizModel;
-import com.hr.app.models.ResponseTransfer;
-import com.hr.app.models.UsersModel;
+import com.hr.app.models.database.AccountTypesModel;
+import com.hr.app.models.api_helpers.ResponseTransfer;
 import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.hr.app.repositories;
 
-import com.hr.app.models.CeosModel;
+import com.hr.app.models.database.CeosModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICeosRepository extends JpaRepository<CeosModel, Long> {

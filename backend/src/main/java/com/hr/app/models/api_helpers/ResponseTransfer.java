@@ -1,4 +1,4 @@
-package com.hr.app.models;
+package com.hr.app.models.api_helpers;
 
 public class ResponseTransfer {
     private String message;

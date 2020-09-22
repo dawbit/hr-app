@@ -1,4 +1,7 @@
-package com.hr.app.models;
+package com.hr.app.models.api_helpers;
+
+import com.hr.app.models.database.AnswersModel;
+import com.hr.app.models.database.QuestionsModel;
 
 import java.util.List;
 

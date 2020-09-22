@@ -1,6 +1,8 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.*;
+import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.api_helpers.UserToDepartmentModel;
+import com.hr.app.models.database.*;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
