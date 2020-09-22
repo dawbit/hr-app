@@ -1,11 +1,8 @@
 package com.hr.app.repositories;
 
-import com.hr.app.models.AccountTypesModel;
-import com.hr.app.models.UsersModel;
+import com.hr.app.models.database.UsersModel;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 
 @Repository

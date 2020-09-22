@@ -1,7 +1,8 @@
-package com.hr.app.models;
+package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.database.CompaniesModel;
 
 import javax.persistence.*;
 

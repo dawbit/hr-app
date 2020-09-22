@@ -1,6 +1,6 @@
 package com.hr.app.repositories;
 
-import com.hr.app.models.CvsModel;
+import com.hr.app.models.database.CvsModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

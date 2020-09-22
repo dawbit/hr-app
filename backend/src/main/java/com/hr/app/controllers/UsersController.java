@@ -1,14 +1,12 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.ResponseTransfer;
-import com.hr.app.models.UsersModel;
+import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.database.UsersModel;
 import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;

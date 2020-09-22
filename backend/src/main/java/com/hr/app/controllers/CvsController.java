@@ -1,6 +1,6 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.CvsModel;
+import com.hr.app.models.database.CvsModel;
 import com.hr.app.repositories.ICvsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

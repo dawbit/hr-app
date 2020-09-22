@@ -1,10 +1,9 @@
 package com.hr.app.security;
 
-import com.hr.app.models.AccountTypesModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.hr.app.models.UsersModel;
+import com.hr.app.models.database.UsersModel;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;

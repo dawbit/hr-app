@@ -1,14 +1,14 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.AccountTypesModel;
-import com.hr.app.models.QuizModel;
-import com.hr.app.models.ResponseTransfer;
-import com.hr.app.models.UsersModel;
+import com.hr.app.models.database.AccountTypesModel;
+import com.hr.app.models.api_helpers.ResponseTransfer;
 import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin
 @RestController
@@ -21,19 +21,27 @@ public class AccountTypesController {
     private IUsersRepository usersRepository;
 
     @PostMapping("accounttype/add")
-    public ResponseTransfer addAccountType(@RequestBody AccountTypesModel accountTypesModel) {
-
+    public ResponseTransfer addAccountType(@RequestBody AccountTypesModel accountTypesModel, HttpServletResponse response) {
         if(checkIfUserIsAdmin()){
             try{
-                accountTypesRepository.save(accountTypesModel);
+                if(checkIfAccountTypeIdOdNameAlreadyExists(accountTypesModel)){
+                    response.setStatus(HttpServletResponse.SC_CONFLICT); //409
+                    return new ResponseTransfer("Account type id or name already exists");
+                }
+                else {
+                    response.setStatus(HttpServletResponse.SC_OK); //200
+                    accountTypesRepository.save(accountTypesModel);
+                    return new ResponseTransfer("Saved successfully");
+                }
             }
             catch (Exception e){
-                return new ResponseTransfer("Nie udało się zapisać");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+                return new ResponseTransfer("Something went wrong");
             }
-            return new ResponseTransfer("Udało się");
         }
         else {
-            return new ResponseTransfer("Nie masz uprawnień");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //409
+            return new ResponseTransfer("No permission");
         }
     }
 
@@ -48,5 +56,11 @@ public class AccountTypesController {
             return false;
         }
         return true;
+    }
+
+    private boolean checkIfAccountTypeIdOdNameAlreadyExists(AccountTypesModel accountTypesModel){
+        return (accountTypesRepository.findByRoleId(accountTypesModel.getRoleId())!=null
+                ||
+                accountTypesRepository.findByRoleName(accountTypesModel.getRoleName()) != null);
     }
 }

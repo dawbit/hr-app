@@ -1,6 +1,7 @@
-package com.hr.app.models;
+package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.hr.app.models.database.TestsModel;
 
 import javax.persistence.*;
 import java.util.List;

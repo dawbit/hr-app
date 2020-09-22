@@ -1,6 +1,6 @@
 package com.hr.app.repositories;
 
-import com.hr.app.models.DepartmentsModel;
+import com.hr.app.models.database.DepartmentsModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
