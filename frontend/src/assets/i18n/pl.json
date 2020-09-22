@@ -39,6 +39,18 @@
   "login": "Nazwa użytkownika",
   "login-required": "Wpisz swój login",
   "login-valid": "Poprawny login",
+  "message": {
+    "accountTypeAdded": "Dodano typ konta",
+    "accountTypeAlreadyExist": "Podany typ konta już istnieje",
+    "accountTypeNotAdded": "Błąd podczas dodawania typu konta",
+    "companyAdded": "Firma została poprawnie dodana do naszej bazy!",
+    "companyNotAdded": "Wystąpił błąd podczas dodawania firmy do naszej bazy",
+    "logged": "Zalogowano pomyślnie!",
+    "notLogged": "Błąd podczas logowania",
+    "notRegistered": "Błąd podczas rejestracji. Skontaktuj się z administratorem.",
+    "registered": "Zarejestrowano pomyślnie!",
+    "userAlreadyExists": "Użytkownik już istnieje"
+  },
   "middle-name": "Drugie imię",
   "my-account": "Moje konto",
   "not-a-member": "Nie masz jeszcze konta?",
@@ -75,5 +87,11 @@
   "subscribe-newsletter": "Subskrybuj nasz newsletter",
   "term-of-service": "polityka prywatności",
   "term-of-service-s": "politykę prywatności",
-  "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;"
+  "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",
+  "toast": {
+    "error": "Błąd!",
+    "info": "Informacja",
+    "success": "Sukces!",
+    "warning": "Ostrzeżenie!"
+  }
 }

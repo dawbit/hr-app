@@ -5,6 +5,7 @@ import { MustMatch } from 'src/app/helpers/must-match';
 import { UserService } from './../../services/user.service';
 import { User } from './../../classes/user';
 import { TokenStorageService } from './../../services/security/token-storage.service';
+import { ToastService } from './../../services/toast.service';
 
 @Component({
   selector: 'app-login-register',
@@ -26,7 +27,8 @@ export class LoginRegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +71,9 @@ export class LoginRegisterComponent implements OnInit {
         const authorizationInfo = res.headers.get('authorization');
         this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
         window.location.reload();
+        this.toast.showSuccess('message.logged');
+      } else {
+        this.toast.showError('message.notLogged');
       }
     });
   }
@@ -85,6 +90,11 @@ export class LoginRegisterComponent implements OnInit {
     this.userService.register(this.user).subscribe(res => {
       if (res && res.ok && res.status === 200) {
         // TODO
+        this.toast.showSuccess('message.registered');
+      } else if (res && res.status === 409) {
+        this.toast.showWarning('message.userAlreadyExists');
+      } else {
+        this.toast.showError('message.notRegistered');
       }
     });
   }
