@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AccountTypesService } from './../../../services/account-types.service';
 import { ToastService } from './../../../services/toast.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-panel',
@@ -11,8 +12,10 @@ import { ToastService } from './../../../services/toast.service';
 export class AdminPanelComponent implements OnInit {
 
   newAccountType: FormGroup;
+  users = [];
 
   constructor(
+    private http: HttpClient,
     private formBuilder: FormBuilder,
     private accountTypes: AccountTypesService,
     private toast: ToastService
@@ -21,6 +24,19 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
     this.newAccountType = this.formBuilder.group({
       roleName: ['']
+    });
+    this.getAllUsers();
+  }
+
+  getAllUsers(){
+    this.http.get('http://localhost:8080/users/getall').toPromise().then(data => {
+      // console.log(data);
+
+      for (let key in data){
+        if (data.hasOwnProperty(key)) {
+          this.users.push(data[key]);
+        }
+      }
     });
   }
 

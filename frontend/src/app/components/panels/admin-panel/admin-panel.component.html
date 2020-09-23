@@ -4,18 +4,21 @@
 </button>
 
 <div class="" mdbCollapse #test="bs-collapse">
-  <!-- Form -->
-  <form [formGroup]="newAccountType" class="text-center" style="color: #757575;" (ngSubmit)="addAccountType()"
-    action="#!">
+    <!-- Form -->
+    <form [formGroup]="newAccountType" class="text-center" style="color: #757575;" (ngSubmit)="addAccountType()" action="#!">
 
-    <!-- Name -->
-    <div class="md-form">
-      <input mdbInput type="text" id="materialnewAccountTypeName" class="form-control" formControlName="roleName">
-      <label for="materialnewAccountTypeName">{{"accountTypes.name" | translate}}</label>
-    </div>
+        <!-- Name -->
+        <div class="md-form">
+            <input mdbInput type="text" id="materialnewAccountTypeName" class="form-control" formControlName="roleName">
+            <label for="materialnewAccountTypeName">{{"accountTypes.name" | translate}}</label>
+        </div>
 
-    <button class="btn btn-info btn-block my-4" type="submit">
+        <button class="btn btn-info btn-block my-4" type="submit">
       {{"accountTypes.addConfirm" | translate | uppercase}}
     </button>
-  </form>
+    </form>
 </div>
+
+<div *ngFor="let user of users">{{user.firstName + ' ' + user.surname + ' ' + user.email}}</div>
+
+<app-editable-user-list></app-editable-user-list>

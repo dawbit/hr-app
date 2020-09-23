@@ -54,6 +54,7 @@ import { TokenInterceptor } from './services/security/token.interceptor';
 
 // Toasts
 import { ToastrModule } from 'ngx-toastr';
+import { EditableUserListComponent } from './components/panels/admin-panel/editable-user-list/editable-user-list.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ToastrModule } from 'ngx-toastr';
     QuizPanelComponent,
     NavbarComponent,
     LoginRegisterComponent,
-    CompanyAddComponent
+    CompanyAddComponent,
+    EditableUserListComponent
   ],
   imports: [
     BrowserModule,
