@@ -40,10 +40,6 @@ public class CvsModel {
         return id;
     }
 
-    public UsersModel getFKcvUser() {
-        return FKcvUser;
-    }
-
     public boolean isCurrent() {
         return isCurrent;
     }

@@ -79,7 +79,7 @@ public class QuizController {
         }
         else {
             TestsModel testsModel = testsRepository.findById(questionJsonModel.getTestId());
-            if(testsModel.getId()==questionJsonModel.getTestId()){   //
+            if(testsModel.getId()==questionJsonModel.getTestId()){
                 try{
                     saveQuestion(testsModel, questionJsonModel);
                     return new ResponseTransfer("Pytanie zostało dodane");

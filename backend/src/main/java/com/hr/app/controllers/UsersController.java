@@ -17,6 +17,9 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class UsersController {
+
+    private final String serviceUrlParam = "/user";
+
     @Autowired
     private EntityManager entityManager;
 
@@ -29,7 +32,7 @@ public class UsersController {
     @Autowired
     private IUsersRepository usersRepository;
 
-    @PostMapping("/user/register")
+    @PostMapping(serviceUrlParam + "/register")
     @ResponseBody
     public ResponseTransfer saveUser(@RequestBody UsersModel userModel, HttpServletResponse response) {
         try {
@@ -50,21 +53,18 @@ public class UsersController {
         }
     }
 
-        @GetMapping("users/getall")
+    @GetMapping(serviceUrlParam + "/getall")
     public List<UsersModel> getQuiz(){
-            String name = SecurityContextHolder.getContext().getAuthentication().getName();
-            UsersModel user = usersRepository.findByLogin(name);
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        UsersModel user = usersRepository.findByLogin(name);
 
-            if(user.getFKuserAccountTypes().getRoleId()!=1){
-                return null;
-            }
-            else {
-                List<UsersModel> allUsers = usersRepository.findAll();
-                for(UsersModel object : allUsers) {
-                    object.setFKuserAccountTypes(null);
-                }
-                return usersRepository.findAll();
-            }
+        if(user.getFKuserAccountTypes().getRoleId()!=1){
+            return null;
+        }
+        else {
+            List<UsersModel> allUsers = usersRepository.findAll();
+            return usersRepository.findAll();
+        }
     }
 
 
