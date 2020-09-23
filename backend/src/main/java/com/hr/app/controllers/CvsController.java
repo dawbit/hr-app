@@ -12,7 +12,7 @@ import java.util.List;
 public class CvsController {
 
     @Autowired
-    ICvsRepository cvsRepository;
+    private ICvsRepository cvsRepository;
 
     @GetMapping("/cvs/byid/{id}")
     public CvsModel getCvId(@PathVariable long id) {

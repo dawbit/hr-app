@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentsController {
 
     @Autowired
-    IDepartmentsRepository departmentsRepository;
+    private IDepartmentsRepository departmentsRepository;
 
     @Autowired
-    IUsersRepository usersRepository;
+    private IUsersRepository usersRepository;
 
     @Autowired
-    ICeosRepository ceosRepository;
+    private ICeosRepository ceosRepository;
 
     @Autowired
-    ICompaniesRepository companiesRepository;
+    private ICompaniesRepository companiesRepository;
 
     @Autowired
-    IHrUsersRepository hrUsersRepository;
+    private IHrUsersRepository hrUsersRepository;
 
     @PostMapping("departments/add")
     public ResponseTransfer addDepartment(@RequestBody DepartmentsModel departmentsModel){

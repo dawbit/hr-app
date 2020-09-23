@@ -20,16 +20,16 @@ import java.util.List;
 public class CompaniesController {
 
     @Autowired
-    ICompaniesRepository companiesRepository;
+    private ICompaniesRepository companiesRepository;
 
     @Autowired
-    IUsersRepository usersRepository;
+    private IUsersRepository usersRepository;
 
     @Autowired
-    ICeosRepository ceosRepository;
+    private ICeosRepository ceosRepository;
 
     @Autowired
-    IAccountTypesRepository accountTypesRepository;
+    private IAccountTypesRepository accountTypesRepository;
 
     @GetMapping("/companies/all")
     public List<CompaniesModel> getAllCompanies() {
