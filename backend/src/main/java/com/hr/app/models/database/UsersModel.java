@@ -49,7 +49,6 @@ public class UsersModel {
     @ManyToOne
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FKuserAccountTypes"))
     @JsonBackReference(value = "user-role")
-    @JsonIgnore
     private AccountTypesModel FKuserAccountTypes;
 
     @Column(name = "is_active")
