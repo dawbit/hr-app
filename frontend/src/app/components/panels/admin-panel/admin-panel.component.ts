@@ -18,25 +18,12 @@ export class AdminPanelComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private accountTypes: AccountTypesService,
-    private toast: ToastService
+    private toast: ToastService,
   ) { }
 
   ngOnInit(): void {
     this.newAccountType = this.formBuilder.group({
       roleName: ['']
-    });
-    this.getAllUsers();
-  }
-
-  getAllUsers(){
-    this.http.get('http://localhost:8080/users/getall').toPromise().then(data => {
-      // console.log(data);
-
-      for (let key in data){
-        if (data.hasOwnProperty(key)) {
-          this.users.push(data[key]);
-        }
-      }
     });
   }
 

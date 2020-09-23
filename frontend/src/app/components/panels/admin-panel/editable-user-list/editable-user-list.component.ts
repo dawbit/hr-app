@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './editable-user-list.component.html',
   styleUrls: ['./editable-user-list.component.scss']
 })
+
 export class EditableUserListComponent implements OnInit, AfterViewInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;

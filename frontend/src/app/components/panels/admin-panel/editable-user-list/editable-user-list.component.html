@@ -1,6 +1,8 @@
-<p>editable-user-list works!</p>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="search.toggle()" (click)="searchItems()" mdbWavesEffect>
+  {{"admin-panel.search-users" | translate | uppercase}}
+</button>
 
-<div class="container">
+<div class="container" mdbCollapse #search="bs-collapse">
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="md-form">
@@ -18,15 +20,10 @@
             </thead>
             <tbody #row>
                 <tr mdbTableCol *ngFor="let el of elements; let i = index">
-                    <!-- <td>{{i + ' ' + mdbTablePagination.firstItemIndex + ' ' + mdbTablePagination.lastItemIndex}}</td> -->
                     <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.id}}</th>
                     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="red-text">{{el.firstName}}</td>
                     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.surname}}</td>
                     <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.email}}</td>
-                    <!-- <th scope="row">{{el.id}}</th>
-                    <td class="red-text">{{el.firstName}}</td>
-                    <td>{{el.surname}}</td>
-                    <td>{{el.email}}</td> -->
                 </tr>
             </tbody>
             <tfoot class="grey lighten-5 w-100">
@@ -39,4 +36,3 @@
         </table>
     </div>
 </div>
-<!-- <div *ngFor="let user of users">{{user.firstName + ' ' + user.surname + ' ' + user.email}}</div> -->
