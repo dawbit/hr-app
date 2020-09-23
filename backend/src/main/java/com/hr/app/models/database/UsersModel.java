@@ -1,6 +1,7 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hr.app.models.database.*;
 
 import javax.persistence.*;
@@ -48,6 +49,7 @@ public class UsersModel {
     @ManyToOne
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FKuserAccountTypes"))
     @JsonBackReference(value = "user-role")
+    @JsonIgnore
     private AccountTypesModel FKuserAccountTypes;
 
     @Column(name = "is_active")

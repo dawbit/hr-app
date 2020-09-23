@@ -59,6 +59,10 @@ public class UsersController {
                 return null;
             }
             else {
+                List<UsersModel> allUsers = usersRepository.findAll();
+                for(UsersModel object : allUsers) {
+                    object.setFKuserAccountTypes(null);
+                }
                 return usersRepository.findAll();
             }
     }
