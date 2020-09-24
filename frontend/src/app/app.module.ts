@@ -56,6 +56,8 @@ import { TokenInterceptor } from './services/security/token.interceptor';
 // Toasts
 import { ToastrModule } from 'ngx-toastr';
 
+// JwPagination
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,7 @@ import { ToastrModule } from 'ngx-toastr';
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    JwPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
