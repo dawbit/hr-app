@@ -1,15 +1,15 @@
 <!-- Collapse buttons -->
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="addAcountType.toggle()" mdbWavesEffect>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('accountTypes.add')"
+  mdbWavesEffect>
   {{"accountTypes.add" | translate | uppercase}}
 </button>
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="userList.toggle()" mdbWavesEffect>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('users.list')" mdbWavesEffect>
   {{"users.list" | translate | uppercase}}
 </button>
 
-<div class="" mdbCollapse #addAcountType="bs-collapse">
+<div class="slide-element" *ngIf="selectedBookmark === 'accountTypes.add'">
   <!-- Form -->
-  <form [formGroup]=" newAccountType" class="text-center" style="color: #757575;" (ngSubmit)="addAccountType()"
-    action="#!">
+  <form [formGroup]=" newAccountType" class="text-center" (ngSubmit)="addAccountType()" action="#!">
 
     <!-- Name -->
     <div class="md-form">
@@ -23,6 +23,6 @@
   </form>
 </div>
 
-<div class="" mdbCollapse #userList="bs-collapse">
+<div class="slide-element" *ngIf="selectedBookmark === 'users.list'">
   <app-user-list></app-user-list>
 </div>
