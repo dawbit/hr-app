@@ -13,6 +13,7 @@ import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/
 import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
+import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -69,7 +70,8 @@ import { ToastrModule } from 'ngx-toastr';
     QuizPanelComponent,
     NavbarComponent,
     LoginRegisterComponent,
-    CompanyAddComponent
+    CompanyAddComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

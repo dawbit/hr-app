@@ -11,6 +11,7 @@ import { ToastService } from './../../../services/toast.service';
 export class AdminPanelComponent implements OnInit {
 
   newAccountType: FormGroup;
+  users = [];
 
   constructor(
     private formBuilder: FormBuilder,

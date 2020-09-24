@@ -93,5 +93,8 @@
     "info": "Informacja",
     "success": "Sukces!",
     "warning": "Ostrzeżenie!"
+  },
+  "users": {
+    "list": "Lista użytkowników"
   }
 }

@@ -25,4 +25,9 @@ export class UserService {
   register(user: User): Observable<any> {
     return this.http.post(this.baseUrl + '/register', user, { observe: 'response' });
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + '/getall', this.httpOptions);
+  }
+
 }
