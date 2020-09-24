@@ -66,16 +66,19 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   loginSubmit() {
-    this.userService.login(this.loginForm.value).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        const authorizationInfo = res.headers.get('authorization');
-        this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
-        window.location.reload();
-        this.toast.showSuccess('message.logged');
-      } else {
+    this.userService.login(this.loginForm.value).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          const authorizationInfo = res.headers.get('authorization');
+          this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
+          window.location.reload();
+          this.toast.showSuccess('message.logged');
+        }
+      },
+      err => {
         this.toast.showError('message.notLogged');
       }
-    });
+    );
   }
 
   registerSubmit() {
@@ -87,15 +90,20 @@ export class LoginRegisterComponent implements OnInit {
     // 3 - HR
     // 4 - USER
 
-    this.userService.register(this.user).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        // TODO
-        this.toast.showSuccess('message.registered');
-      } else if (res && res.status === 409) {
-        this.toast.showWarning('message.userAlreadyExists');
-      } else {
-        this.toast.showError('message.notRegistered');
+    this.userService.register(this.user).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          // TODO
+          this.toast.showSuccess('message.registered');
+        }
+      },
+      err => {
+        if (err && err.status === 409) {
+          this.toast.showWarning('message.userAlreadyExists');
+        } else {
+          this.toast.showError('message.notRegistered');
+        }
       }
-    });
+    );
   }
 }
