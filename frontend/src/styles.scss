@@ -37,6 +37,16 @@ h6 {
   font-size: 1.6rem;
 }
 
+td {
+  color: #fff;
+}
+
+tfoot, th {
+  background-color: #4285f4 !important;
+  opacity: 0.5;
+  color: #fff;
+}
+
 .app-inline-flex {
   display: inline-flex;
 }
