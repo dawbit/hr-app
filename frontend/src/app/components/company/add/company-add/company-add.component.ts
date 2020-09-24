@@ -33,13 +33,16 @@ export class CompanyAddComponent implements OnInit {
   }
 
   registerCompany() {
-    this.companyService.add(this.companyForm.value).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        this.toast.showSuccess('message.companyAdded');
-      } else {
+    this.companyService.add(this.companyForm.value).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          this.toast.showSuccess('message.companyAdded');
+        }
+      },
+      err => {
         this.toast.showError('message.companyNotAdded');
       }
-    });
+    );
   }
 
   getUserLocation() {

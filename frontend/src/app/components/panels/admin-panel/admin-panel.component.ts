@@ -12,6 +12,7 @@ export class AdminPanelComponent implements OnInit {
 
   newAccountType: FormGroup;
   users = [];
+  selectedBookmark: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,18 +26,27 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
+  showBookmark(bookmark): string {
+    return this.selectedBookmark = bookmark;
+  }
+
   addAccountType() {
     const object = this.newAccountType.value;
     object.roleId = (Math.floor(Math.random() * 16) + 5000) * (Math.floor(Math.random() * 16) + 1000) + 2137;
-    this.accountTypes.add(object).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        this.toast.showSuccess('message.accountTypeAdded');
-      } else if (res && res.status === 409) {
-        this.toast.showWarning('message.accountTypeAlreadyExist');
-      } else {
-        this.toast.showError('message.accountTypeNotAdded');
+    this.accountTypes.add(object).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          this.toast.showSuccess('message.accountTypeAdded');
+        }
+      },
+      err => {
+        if (err && err.status === 409) {
+          this.toast.showWarning('message.accountTypeAlreadyExist');
+        } else {
+          this.toast.showError('message.accountTypeNotAdded');
+        }
       }
-    });
+    );
   }
 
 }

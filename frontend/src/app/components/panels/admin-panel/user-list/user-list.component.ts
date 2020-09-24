@@ -13,8 +13,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   users: any = [];
-  elements: any = [];
-  headElements = ['id', 'firstName', 'surname', 'email'];
+  headUsers = ['id', 'login', 'email', 'firstName', 'surname'];
 
   searchText = '';
   previous: string;
@@ -45,11 +44,17 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.userService.getAllUsers().subscribe(data => {
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
-          this.elements.push({ id: data[key].id, firstName: data[key].firstName, surname: data[key].surname, email: data[key].email });
+          this.users.push({
+            id: data[key].id,
+            login: data[key].login,
+            email: data[key].email,
+            firstName: data[key].firstName,
+            surname: data[key].surname
+          });
         }
       }
-      this.mdbTable.setDataSource(this.elements);
-      this.elements = this.mdbTable.getDataSource();
+      this.mdbTable.setDataSource(this.users);
+      this.users = this.mdbTable.getDataSource();
       this.previous = this.mdbTable.getDataSource();
     });
   }
@@ -59,11 +64,11 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     if (!this.searchText) {
       this.mdbTable.setDataSource(this.previous);
-      this.elements = this.mdbTable.getDataSource();
+      this.users = this.mdbTable.getDataSource();
     }
 
     if (this.searchText) {
-      this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.users = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
 

@@ -12,27 +12,27 @@ export class ToastService {
     private translate: TranslateService
   ) { }
 
-  showSuccess(minor) {
-    this.toastr.success(this.translate.instant('toast.success'), this.translate.instant(minor), {
-      timeOut: 2000
+  showSuccess(major) {
+    this.toastr.success(this.translate.instant(major), this.translate.instant('toast.success'), {
+      timeOut: 3000
     });
   }
 
-  showError(minor) {
-    this.toastr.error(this.translate.instant('toast.error'), this.translate.instant(minor), {
-      timeOut: 2000
+  showError(major) {
+    this.toastr.error(this.translate.instant(major), this.translate.instant('toast.error'), {
+      timeOut: 3000
     });
   }
 
-  showWarning(minor) {
-    this.toastr.warning(this.translate.instant('toast.warning'), this.translate.instant(minor), {
-      timeOut: 2000
+  showWarning(major) {
+    this.toastr.warning(this.translate.instant(major), this.translate.instant('toast.warning'), {
+      timeOut: 3000
     });
   }
 
-  showInfo(minor) {
-    this.toastr.info(this.translate.instant('toast.info'), this.translate.instant(minor), {
-      timeOut: 2000
+  showInfo(major) {
+    this.toastr.info(this.translate.instant(major), this.translate.instant('toast.info'), {
+      timeOut: 3000
     });
   }
 
