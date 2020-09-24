@@ -16,7 +16,7 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private accountTypes: AccountTypesService,
-    private toast: ToastService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
