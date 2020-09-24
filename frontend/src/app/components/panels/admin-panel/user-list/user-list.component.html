@@ -10,27 +10,30 @@
     <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
       <thead class="sticky-top">
         <tr>
-          <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="elements" [sortBy]="headElements[i]"
-            scope="col">{{head | titlecase}}
+          <th *ngFor="let head of headUsers; let i = index" [mdbTableSort]="users" [sortBy]="headUsers[i]" scope="col">
+            {{head | titlecase}}
             <mdb-icon fas icon="sort"></mdb-icon>
           </th>
         </tr>
       </thead>
       <tbody #row>
-        <tr mdbTableCol *ngFor="let el of elements; let i = index">
+        <tr mdbTableCol *ngFor="let user of users; let i = index">
           <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-            {{el.id}}</th>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-            {{el.firstName}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.surname}}
+            {{user.id}}</th>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{user.login}}
           </td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.email}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{user.email}}
+          </td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            {{user.firstName}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{user.surname}}
+          </td>
         </tr>
       </tbody>
       <tfoot class="primary lighten-5 w-100">
         <tr>
-          <td colspan="4">
-            <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="elements">
+          <td colspan="5">
+            <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="users">
             </mdb-table-pagination>
           </td>
         </tr>
