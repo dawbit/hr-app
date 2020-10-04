@@ -15,7 +15,7 @@ public class ProfilePicturesModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FKprofilePictureUser"))
-    @JsonBackReference(value = "profile_picture-user")
+    @JsonBackReference(value = "profilepictures-user")
     @JsonIgnore
     private UsersModel FKprofilePictureUser;
 

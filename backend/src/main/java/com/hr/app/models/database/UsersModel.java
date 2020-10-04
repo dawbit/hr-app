@@ -85,7 +85,7 @@ public class UsersModel {
     private List<HrUsersModel> hrUsers;
 
     @OneToMany(mappedBy = "FKtestCodeuser")
-    @JsonBackReference(value = "user_id")
+    @JsonBackReference(value = "user-id")
     private List<TestCodeModel> FKtestCodeuser;
 
 

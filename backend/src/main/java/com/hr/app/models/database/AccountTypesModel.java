@@ -1,6 +1,7 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +27,7 @@ public class AccountTypesModel {
 
     @OneToMany(mappedBy = "FKuserAccountTypes")
     @JsonBackReference(value = "user-role")
+    @JsonIgnore
     private List<UsersModel> FKuserAccountTypes;
 
 
@@ -33,47 +35,39 @@ public class AccountTypesModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public List<UsersModel> getFKuserAccountTypes() {
-        return FKuserAccountTypes;
-    }
-
-    public void setFKuserAccountTypes(List<UsersModel> FKuserAccountTypes) {
-        this.FKuserAccountTypes = FKuserAccountTypes;
-    }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getRoleId() {
         return roleId;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public List<UsersModel> getUserAccountTypes() {
-        return FKuserAccountTypes;
-    }
-
     public void setRoleId(long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
     }
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    public void setFKuserAccountTypes(List<UsersModel> FKuserAccountTypes) {
+        this.FKuserAccountTypes = FKuserAccountTypes;
+    }
+
     protected AccountTypesModel() { }
 
-    public AccountTypesModel(long roleId, String roleName, List<UsersModel> FKuserAccountTypes) {
+    public AccountTypesModel(long roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.FKuserAccountTypes = FKuserAccountTypes;
     }
 }
