@@ -2,6 +2,7 @@ package com.hr.app.controllers;
 
 import com.hr.app.models.api_helpers.ResponseTransfer;
 import com.hr.app.models.database.UsersModel;
+import com.hr.app.models.dto.UserDto;
 import com.hr.app.repositories.IAccountTypesRepository;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,25 @@ public class UsersController {
             List<UsersModel> allUsers = usersRepository.findAll();
             return usersRepository.findAll();
         }
+    }
+
+    @GetMapping(serviceUrlParam + "/getUser/{userid}")
+    public UserDto getUser(@PathVariable long userid){
+        UsersModel user = usersRepository.findById(userid);
+        return new UserDto(user);
+    }
+
+    @PutMapping(serviceUrlParam + "/edituser")
+    public ResponseTransfer updateUser(@RequestBody UserDto userDto) {
+        usersRepository.save(new UsersModel(userDto));
+        return new ResponseTransfer("udało się albo nie");
+    }
+
+    @DeleteMapping(serviceUrlParam + "/deleteuser/{userid}")
+    public ResponseTransfer deleteUser(@PathVariable long userid) {
+        UsersModel user = usersRepository.findById(userid);
+        usersRepository.delete(user);
+        return new ResponseTransfer("udało się albo nie");
     }
 
 
