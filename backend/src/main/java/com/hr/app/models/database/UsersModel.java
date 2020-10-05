@@ -3,6 +3,7 @@ package com.hr.app.models.database;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hr.app.models.database.*;
+import com.hr.app.models.dto.UserDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -267,5 +268,16 @@ public class UsersModel {
         this.tests = tests;
         this.userAnswers = userAnswers;
         this.hrUsers = hrUsers;
+    }
+
+    public UsersModel(UserDto userDto){
+        this.id = userDto.getId();
+        this.firstName = userDto.getFirstName();
+        this.middleName = userDto.getMiddleName();
+        this.surname = userDto.getSurname();
+        this.email = userDto.getEmail();
+        this.phoneNumber = userDto.getPhoneNumber();
+        this.login = userDto.getLogin();
+        this.isActive = userDto.isActive();
     }
 }
