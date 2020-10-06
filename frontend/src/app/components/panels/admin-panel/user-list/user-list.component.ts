@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { UserService } from '../../../../services/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +14,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   users: any = [];
-  headUsers = ['id', 'login', 'email', 'firstName', 'surname'];
+  headUsers = ['id', 'login', 'email', 'firstName', 'surname', 'Actions'];
 
   searchText = '';
   previous: string;
@@ -22,7 +23,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   @HostListener('input') oninput() {
@@ -79,5 +81,19 @@ export class UserListComponent implements OnInit, AfterViewInit {
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
     });
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe();
+  }
+
+  userDetails(id: number) {
+    this.router.navigate([this.router.url + '/details', id]);
+    console.log('Detale');
+  }
+
+  updateUser(id: number) {
+    this.router.navigate([this.router.url + '/update', id]);
+    console.log('apdejt');
   }
 }

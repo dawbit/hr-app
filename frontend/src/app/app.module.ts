@@ -58,6 +58,8 @@ import { ToastrModule } from 'ngx-toastr';
 
 // JwPagination
 import { JwPaginationModule } from 'jw-angular-pagination';
+import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
+import { UserDetailsComponent } from './components/panels/admin-panel/user-list/user/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     NavbarComponent,
     LoginRegisterComponent,
     CompanyAddComponent,
-    UserListComponent
+    UserListComponent,
+    UserUpdateComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
