@@ -14,6 +14,9 @@ import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.co
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
 import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
+import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
+import { UserDetailsComponent } from './components/panels/admin-panel/user-list/user/user-details/user-details.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -58,8 +61,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 // JwPagination
 import { JwPaginationModule } from 'jw-angular-pagination';
-import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
-import { UserDetailsComponent } from './components/panels/admin-panel/user-list/user/user-details/user-details.component';
+import { CompanyListSingleElementComponent } from './components/company-list/company-list-single-element/company-list-single-element.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { UserDetailsComponent } from './components/panels/admin-panel/user-list/
     CompanyAddComponent,
     UserListComponent,
     UserUpdateComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    CompanyListComponent,
+    CompanyListSingleElementComponent,
   ],
   imports: [
     BrowserModule,

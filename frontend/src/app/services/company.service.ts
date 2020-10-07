@@ -18,4 +18,12 @@ export class CompanyService {
   add(company: Company): Observable<any> {
     return this.http.post(this.baseUrl + '/add', company, { observe: 'response' });
   }
+
+  getAllCompanies(): Observable<any> {
+    return this.http.get(this.baseUrl + '/getall', this.httpOptions);
+  }
+
+  getCompany(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getCompany/${id}`);
+  }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, 
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { UserService } from '../../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-list',
@@ -24,7 +26,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   @HostListener('input') oninput() {
@@ -84,7 +87,23 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe();
+    swal({
+      title: this.translate.instant('delete-title'),
+      text: this.translate.instant('delete-text'),
+      icon: 'warning',
+      buttons: [this.translate.instant('delete-deny'), this.translate.instant('delete-confirm')],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal(this.translate.instant('delete-confirmation'), {
+          icon: 'success',
+        });
+        // this.userService.deleteUser(id).subscribe();
+      } else {
+        swal(this.translate.instant('delete-cancelled'));
+      }
+    });
   }
 
   userDetails(id: number) {
