@@ -12,6 +12,7 @@ import { UserPanelComponent } from './components/panels/user-panel/user-panel.co
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
 import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
+import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -42,6 +43,12 @@ const routes: Routes = [
   },
   {
     path: 'user-panel', component: UserPanelComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
+  {
+    path: 'settings-panel', component: SettingsPanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
     }
