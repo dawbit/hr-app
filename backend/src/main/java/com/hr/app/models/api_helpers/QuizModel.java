@@ -36,4 +36,10 @@ public class QuizModel {
         this.questionsJsonModel=questionsModel;
         this.testsModel=testsModel;
     }
+
+    public List<QuestionJsonModel> getQuestionsJsonModel() {
+        return questionsJsonModel;
+    }
+
+
 }

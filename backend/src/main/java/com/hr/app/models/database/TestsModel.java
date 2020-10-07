@@ -35,6 +35,7 @@ public class TestsModel {
     private CompaniesModel FKtestCompany;
 
     @Column(name = "is_possible_to_back")
+    @JsonBackReference(value = "is_possible_to_back")
     private boolean isPossibleToBack;
 
     @ManyToOne
@@ -44,6 +45,7 @@ public class TestsModel {
     private TestTypeModel FKtestType;
 
     @Column(name = "is_active")
+    @JsonBackReference(value = "is_active")
     private boolean isActive;
 
     @Column(name = "start_date")
@@ -186,6 +188,8 @@ public class TestsModel {
     }
 
     protected TestsModel() {}
+
+
 
     public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
                       boolean isActive, Date startDate, Date endDate, short timeForTest, List<QuestionsModel> questions,

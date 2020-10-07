@@ -3,6 +3,7 @@ package com.hr.app.models.dto;
 import com.hr.app.models.database.AnswersModel;
 import com.hr.app.models.database.QuestionsModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDto {
@@ -19,11 +20,16 @@ public class QuestionDto {
         this.image=questionsModel.getImage();
     }
 
-    public QuestionDto(QuestionsModel questionsModel, List<AnswerDto> listOfAnswers){
+    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel){
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
-        this.answers = listOfAnswers;
+
+        ArrayList<AnswerDto> listOfAnswersDto = new ArrayList<>();
+        for (AnswersModel answer: listOfAnswersModel) {
+            listOfAnswersDto.add(new AnswerDto(answer));
+        }
+        this.answers = listOfAnswersDto;
     }
 
     public long getId() {
