@@ -32,6 +32,11 @@
     "basic": "Praca",
     "offers": "Lista ofert pracy"
   },
+  "language": {
+    "en": "angielski",
+    "pl": "polski",
+    "select": "Ustawienia językowe"
+  },
   "last-name": "Nazwisko",
   "last-name-required": "Wpisz swoje nazwisko",
   "last-name-required-valid": "Poprawne nazwisko",

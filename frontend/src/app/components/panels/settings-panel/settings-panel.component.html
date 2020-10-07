@@ -1,0 +1,15 @@
+<!-- Collapse buttons -->
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('language')" mdbWavesEffect>
+  {{"language.select" | translate | uppercase}}
+</button>
+
+<div class="slide-element" *ngIf="selectedBookmark === 'language'">
+  <div class="custom-control" *ngFor="let language of languages">
+    <label class="custom-radio" for="{{language}}">
+      <input id="language.{{language}}" [value]="language" type="radio" name="languages" [(ngModel)]="selectedLanguage">
+      <span class="flag-icon flag-icon-{{language | transformFlag}}"></span>
+      {{"language." + language | translate}}
+    </label>
+  </div>
+  <button type="button" class="btn btn-primary" (click)='switchLanguage()'>Checked value of radio button</button>
+</div>
