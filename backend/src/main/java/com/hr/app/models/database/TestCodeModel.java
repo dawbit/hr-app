@@ -2,6 +2,7 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 
@@ -27,6 +28,9 @@ public class TestCodeModel {
 
     @Column(name = "test_code")
     private String code;
+
+    @Column(name = "currentQuestionNumber")
+    private long questionNumber = 0;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -65,12 +69,30 @@ public class TestCodeModel {
         this.code = code;
     }
 
+    public long getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(long questionNumber) {
+        this.questionNumber = questionNumber;
+    }
+
+    public void setQuestionNumberPlusOne() {
+        this.questionNumber+=1;
+    }
+
     protected TestCodeModel(){};
 
-    public TestCodeModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code) {
+    public TestCodeModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code, long questionNumber) {
         this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
         this.code = code;
+        this.questionNumber=questionNumber;
+    }
+
+    public TestCodeModel( TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
+        this.FKtestCodetest = FKtestCodetest;
+        this.FKtestCodeuser = FKtestCodeuser;
     }
 }
