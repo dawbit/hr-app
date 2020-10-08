@@ -1,5 +1,6 @@
 package com.hr.app.controllers;
 
+import com.hr.app.enums.ResponseEnum;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
 import com.hr.app.models.api_helpers.QuestionJsonModel;
 import com.hr.app.models.api_helpers.QuizModel;
@@ -99,22 +100,6 @@ public class QuizController {
         }
     }
 
-    //TODO Poki co nie wiem jak xD
-//    @GetMapping("quiz/{testcode}")
-//    public TestsModel getQuiz(@PathVariable String testcode){
-//        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-//        try {
-//            UsersModel user = usersRepository.findByLogin(name);
-//            TestCodeModel testCode = testCodeRepository.findByCode(testcode);
-//            if(testCode.getFKuser().getId()==user.getId()){
-//                return testCode.getFKtest();
-//            }
-//        } catch (Exception e) {
-//            return null;
-//        }
-//
-//    }
-
     // Jeśli chodzi o apkę to tylko z tego korzystamy, nawet jak nie można cofać
     @GetMapping("quiz/backpossible/{quizid}")
     public CompleteQuizDto getInitialQuiz(@PathVariable long quizid){
@@ -155,7 +140,7 @@ public class QuizController {
 
         if(testsModel ==null || usersModel == null) {
             response.setStatus(403);
-            return null;
+            return new QuestionDto(ResponseEnum.BAD_REQUEST);
         }
 
         boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
@@ -165,23 +150,35 @@ public class QuizController {
 
         if(checkIfTestIsActive(testsModel)) {
 
+            /////////////////////////////////////////////
+            //TEST Z MOZLIWOSCIA POWROTU I DLA WSZYSTKICH
+            /////////////////////////////////////////////
             if(isBackPossible && isOpenForEveryone){
                 return getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel);
             }
+
+            /////////////////////////////////////////////////
+            //TEST Z MOZLIWOSCIA POWROTU I NIE DLA WSZYSTKICH
+            /////////////////////////////////////////////////
             else if(isBackPossible && !isOpenForEveryone) {
                 TestCodeModel testCodeModel;
                 if(quizQuestionCommandDto.getTestCode()!= null) {
                     testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
                     if(testCodeModel==null) {
                         response.setStatus(403);
-                        return null;
+                        return new QuestionDto(ResponseEnum.SERVER_ERROR);
                     }
                     else {
                         return getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
                     }
                 }
-                return null;
+                response.setStatus(403);
+                return new QuestionDto(ResponseEnum.BAD_REQUEST);
             }
+
+            ////////////////////////////////////////////////
+            //TEST BEZ MOZLIWOSCIA POWROTU I  DLA WSZYSTKICH
+            ////////////////////////////////////////////////
             else if (!isBackPossible && isOpenForEveryone) {
                 TestCodeModel testCodeModel;
                 if(checkIfTestCodeForUserAlreadyExists(testsModel,usersModel)){
@@ -191,81 +188,35 @@ public class QuizController {
                     testCodeModel= saveNewTestCodeToDataBase(testsModel, usersModel);
                 }
                 if(testCodeModel==null) {
-                    return null;
+                    response.setStatus(500);
+                    return new QuestionDto(ResponseEnum.SERVER_ERROR);
                 }
                 return getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testCodeModel);
             }
+
+
+            ///////////////////////////////////////////////////
+            //TEST BEZ MOZLIWOSCI POWROTU I  NIE DLA WSZYSTKICH
+            ///////////////////////////////////////////////////
             else {
                 TestCodeModel testCodeModel;
                 if(quizQuestionCommandDto.getTestCode()!= null) {
                     testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
                     if(testCodeModel==null) {
                         response.setStatus(403);
-                        return null;
+                        return new QuestionDto(ResponseEnum.SERVER_ERROR);
                     }
                     else {
                         return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
                     }
                 }
-                return null;
+                return new QuestionDto(ResponseEnum.SERVER_ERROR);
             }
-
-//            if(checkIfQuizIsBackPossible(testsModel)){
-//
-//                if(checkIfQuizIsOpenForEveryone(testsModel)){
-//                    return getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel);
-//                }
-//                else {
-//                    TestCodeModel testCodeModel;
-//                    if(quizQuestionCommandDto.getTestCode()!= null) {
-//                        testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
-//                        if(testCodeModel==null) {
-//                            response.setStatus(403);
-//                            return null;
-//                        }
-//                        else {
-//                            return getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
-//                        }
-//                    }
-//                    return null;
-//                }
-//
-//            }
-//            else {
-//                if(checkIfQuizIsOpenForEveryone(testsModel)){
-//                    TestCodeModel testCodeModel;
-//                    if(checkIfTestCodeForUserAlreadyExists(testsModel,usersModel)){
-//                        testCodeModel = getTestCodeModel(usersModel.getId(), testsModel.getId());
-//                    }
-//                    else {
-//                        testCodeModel= saveNewTestCodeToDataBase(testsModel, usersModel);
-//                    }
-//                    if(testCodeModel==null) {
-//                        return null;
-//                    }
-//                    return getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testCodeModel);
-//                }
-//                else {
-//                    TestCodeModel testCodeModel;
-//                    if(quizQuestionCommandDto.getTestCode()!= null) {
-//                        testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
-//                        if(testCodeModel==null) {
-//                            response.setStatus(403);
-//                            return null;
-//                        }
-//                        else {
-//                            return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
-//                        }
-//                    }
-//                    return null;
-//                }
-//            }
         }
-
         //test nieaktywny czyli brak dostepu. wyrzucamy 403
         else {
             response.setStatus(403);
-            return null;
+            return new QuestionDto(ResponseEnum.INACTIVE_QUIZ);
         }
     }
 
@@ -278,7 +229,6 @@ public class QuizController {
             return false;
         }
     }
-
     private TestCodeModel saveNewTestCodeToDataBase(TestsModel  testsModel, UsersModel usersModel){
         TestCodeModel testCodeModel = new TestCodeModel(testsModel, usersModel);
         try
@@ -290,7 +240,6 @@ public class QuizController {
             return null;
         }
     }
-
     private UsersModel getUsersModel(){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
@@ -345,7 +294,6 @@ public class QuizController {
             return null;
         }
     }
-
     private void saveQuestion(TestsModel testsModel, QuestionJsonModel questionJsonModels) {
         QuestionsModel questionsModel = questionJsonModels.getQuestionsModel();
         List<AnswersModel> answersModels =questionJsonModels.getAnswersModel();
@@ -358,7 +306,6 @@ public class QuizController {
             answersRepository.save(answerObject);
         }
     }
-
     private long getUserCompanyId(){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(usersRepository.findByLogin(name).getId());
@@ -369,24 +316,18 @@ public class QuizController {
             return hrUsersModel.getFKhrUserCompany().getId();
         }
     }
-
     private boolean checkIfQuizIsBackPossible(TestsModel testsModel) {
         return testsModel.isPossibleToBack();
     }
-
     private boolean checkIfTestCodeIsCorrect(TestCodeModel testCodeModel, String testCode) {
         return testCodeModel.getCode().equals(testCode);
     }
-
     private boolean checkIfTestIsActive(TestsModel testsModel ) {
         return testsModel.isActive();
     }
-
-    //TODO
     private boolean checkIfQuizIsOpenForEveryone(TestsModel testsModel){
         return testsModel.isOpenForEveryone();
     }
-
     private Long getNextQuestionNumber(TestCodeModel testCodeModel){
         long questionNumber = testCodeModel.getQuestionNumber();
         testCodeModel.setQuestionNumberPlusOne();
@@ -402,7 +343,7 @@ public class QuizController {
     private QuestionDto getBackPossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto, TestsModel testsModel) {
         QuestionsModel questionsModel = getExpectedQuestion(testsModel.getId(), quizQuestionCommandDto.getQuestionnumber());
         if(questionsModel==null) {
-            return null;
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
         }
         else {
             return getQuestionDtoModel(questionsModel);
@@ -413,25 +354,25 @@ public class QuizController {
         if(checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())){
             QuestionsModel questionsModel = getExpectedQuestion(testsModel.getId(), quizQuestionCommandDto.getQuestionnumber());
             if(questionsModel==null) {
-                return null;
+                return new QuestionDto(ResponseEnum.SERVER_ERROR);
             }
             else {
                 return getQuestionDtoModel(questionsModel);
             }
         }
         else {
-            return null;
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
         }
     }
 
     private QuestionDto getBackImpossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto, TestCodeModel testCodeModel) {
         Long nextQuestionNumber = getNextQuestionNumber(testCodeModel);
         if(nextQuestionNumber== null) {
-            return null;
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
         }
         QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuizid(), nextQuestionNumber);
         if(questionsModel==null) {
-            return null;
+            return new QuestionDto(ResponseEnum.BAD_TEST_CODE);
         }
         else {
             return getQuestionDtoModel(questionsModel);
@@ -442,28 +383,28 @@ public class QuizController {
         if(checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())){
             Long nextQuestionNumber = getNextQuestionNumber(testCodeModel);
             if(nextQuestionNumber== null) {
-                return null;
+                return new QuestionDto(ResponseEnum.SERVER_ERROR);
             }
             QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuizid(), nextQuestionNumber);
             if(questionsModel==null) {
-                return null;
+                return new QuestionDto(ResponseEnum.SERVER_ERROR);
             }
             else {
                 return getQuestionDtoModel(questionsModel);
             }
         }
         else {
-            return null;
+            return new QuestionDto(ResponseEnum.BAD_TEST_CODE);
         }
     }
 
     private QuestionDto getQuestionDtoModel(QuestionsModel questionsModel){
         List<AnswersModel> answersModelList = getAnswersForQuestion(questionsModel.getId());
         if(answersModelList == null) {
-            return null;
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
         }
         else {
-            return new QuestionDto(questionsModel, answersModelList);
+            return new QuestionDto(questionsModel, answersModelList, ResponseEnum.SUCCESS);
         }
 
     }
