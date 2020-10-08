@@ -30,7 +30,7 @@ public class TestCodeModel {
     private String code;
 
     @Column(name = "currentQuestionNumber")
-    private long questionNumber = 0;
+    private long questionNumber = 1;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
