@@ -1,6 +1,7 @@
 package com.hr.app.controllers;
 
 import com.hr.app.enums.ResponseEnum;
+import com.hr.app.enums.ResponseEnumToInt;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
 import com.hr.app.models.api_helpers.QuestionJsonModel;
 import com.hr.app.models.api_helpers.QuizModel;
@@ -9,6 +10,7 @@ import com.hr.app.models.database.*;
 import com.hr.app.models.dto.AnswerDto;
 import com.hr.app.models.dto.CompleteQuizDto;
 import com.hr.app.models.dto.QuestionDto;
+import com.hr.app.models.dto.QuizInformationsDto;
 import com.hr.app.repositories.*;
 import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +133,97 @@ public class QuizController {
         return completeQuizDto;
     }
 
+    @GetMapping("quiz/getQuizInformations/{quizcode}")
+    public QuizInformationsDto getQuizInformations(@PathVariable String quizcode, HttpServletResponse response) {
+
+        TestCodeModel testCodeModel;
+        UsersModel usersModel;
+        TestsModel testsModel;
+        List<QuestionsModel> listOfQuestions;
+
+        try {
+            testCodeModel = getTestCodeModelByTestCode(quizcode);
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
+        }
+
+        if(testCodeModel == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+        }
+
+        try {
+            testsModel = getTestModelByTestId(testCodeModel.getFKtest().getId());
+            usersModel = getUserModel();
+            listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+        }
+
+        if(!testsModel.isActive()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.INACTIVE_QUIZ));
+        }
+
+        if(usersModel==null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+        }
+        else if(!checkIfUserCanSolveThisQuiz(usersModel, testCodeModel.getFKuser().getId())){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+        }
+
+        if(checkIfUserAlreadySolvedThisQuiz(testCodeModel)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
+        }
+
+
+        response.setStatus(HttpServletResponse.SC_OK); // 200
+        return new QuizInformationsDto(testCodeModel.getId(),
+                listOfQuestions.size(),
+                testsModel.isPossibleToBack(),
+                ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SUCCESS));
+    }
+
+//    @GetMapping("quiz/{quizcode}")
+//    public QuestionDto getQuizQuestionWithQuizCode(@RequestParam String quizcode, HttpServletResponse response){
+//        UsersModel usersModel;
+//        TestsModel testsModel;
+//        List<QuestionsModel> listOfQuestions;
+//        TestCodeModel testCodeModel;
+//
+//        try {
+//            testCodeModel = getTestCodeModelByTestCode(quizcode);
+//        }
+//        catch (Exception e) {
+//            //TODO
+//        }
+//        if(testCodeModel == null ) {
+//            //TODO
+//        }
+//
+//        try {
+//            testsModel = getTestModelByTestId(testCodeModel.getFKtest().getId());
+//            usersModel = getUserModel();
+//            listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
+//        }
+//        catch (Exception e) {
+//            //TODO
+//        }
+//
+//        boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
+//
+//        if(isBackPossible) {
+//
+//        }
+//    }
+
     //TODO change enum respons
     @GetMapping("quiz/quizquestion")
     public QuestionDto getQuizQuestion(@RequestBody QuizQuestionCommandDto quizQuestionCommandDto, HttpServletResponse response){
@@ -193,6 +286,14 @@ public class QuizController {
         else {
             return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
         }
+    }
+
+    private boolean checkIfUserAlreadySolvedThisQuiz(TestCodeModel testCodeModel){
+        return testCodeModel.getQuestionNumber()!=1;
+    }
+
+    private boolean checkIfUserCanSolveThisQuiz(UsersModel usersModel, long testCodeModelUserId) {
+        return usersModel.getId() == testCodeModelUserId;
     }
 
     private QuestionDto getBackPossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto,
@@ -424,89 +525,6 @@ public class QuizController {
         return questionNumber;
     }
 
-    //TODO check if needed
-    private boolean checkIfTestCodeForUserAlreadyExists(TestsModel testsModel, UsersModel usersModel) {
-        try {
-            TestCodeModel testCodeModel = testCodeRepository.findByFKtestCodeuserIdAndFKtestCodetestId(usersModel.getId(), testsModel.getId());
-            return testCodeModel != null;
-        }
-        catch (Exception e) {
-            return false;
-        }
-    }
-
-    private TestCodeModel saveNewTestCodeToDataBase(TestsModel  testsModel, UsersModel usersModel){
-        TestCodeModel testCodeModel = new TestCodeModel(testsModel, usersModel);
-        try
-        {
-            testCodeRepository.save(testCodeModel);
-            return testCodeModel;
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
-
-    private UsersModel getUsersModel(){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        try {
-            return usersRepository.findByLogin(name);
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
-
-    private TestsModel getTest(long testId) {
-        try {
-            return testsRepository.findById(testId);
-        }
-        catch (Exception e ) {
-            return null;
-        }
-
-    }
-
-    private List<AnswersModel> getAnswersForQuestion(long questionId){
-        try {
-            return  answersRepository.findAllByFKanswerQuestionId(questionId);
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
-
-    private List<QuestionsModel> getAllQuizQuestions(long quizId) {
-        try {
-            return questionsRepository.findAllByFKquestionTestId(quizId);
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
-
-    private QuestionsModel getExpectedQuestion(long quizId,long questionNumber) {
-        List<QuestionsModel> listofQuestions = getAllQuizQuestions(quizId);
-        if(listofQuestions==null) {
-            return null;
-        }
-        else if (listofQuestions.size() < questionNumber) {
-            return null;
-        }
-        else {
-            return getAllQuizQuestions(quizId).get((int) questionNumber-1);
-        }
-    }
-
-    private TestCodeModel getTestCodeModel (long userId, long testId){
-        try{
-            return testCodeRepository.findByFKtestCodeuserIdAndFKtestCodetestId(userId, testId);
-        }
-        catch (Exception e){
-            return null;
-        }
-    }
-
     private void saveQuestion(TestsModel testsModel, QuestionJsonModel questionJsonModels) {
         QuestionsModel questionsModel = questionJsonModels.getQuestionsModel();
         List<AnswersModel> answersModels =questionJsonModels.getAnswersModel();
@@ -547,15 +565,8 @@ public class QuizController {
     private QuestionDto getQuestionDtoModel(QuestionsModel questionsModel, List<AnswersModel> answersModelList){
         return new QuestionDto(questionsModel, answersModelList, ResponseEnum.SUCCESS);
     }
+
+    private TestCodeModel getTestCodeModelByTestCode(String testCode) {
+        return testCodeRepository.findByCode(testCode);
+    }
 }
-
-
-//    private QuestionDto getBackPossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto, TestsModel testsModel) {
-//        QuestionsModel questionsModel = getExpectedQuestion(testsModel.getId(), quizQuestionCommandDto.getQuestionnumber());
-//        if(questionsModel==null) {
-//            return new QuestionDto(ResponseEnum.SERVER_ERROR);
-//        }
-//        else {
-//            return getQuestionDtoModel(questionsModel);
-//        }
-//    }
