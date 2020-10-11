@@ -16,6 +16,7 @@ public class UserDto {
     protected UserDto(){}
 
     public UserDto(UsersModel usersModel) {
+        this.id = usersModel.getId();
         this.email = usersModel.getEmail();
         this.firstName = usersModel.getFirstName();
         this.middleName = usersModel.getMiddleName();
