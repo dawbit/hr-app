@@ -32,6 +32,11 @@
     "basic": "Jobs",
     "list": "Job offers"
   },
+  "language": {
+    "en": "english",
+    "pl": "polish",
+    "select": "Language settings"
+  },
   "last-name": "Last name",
   "last-name-required": "Your last name is required",
   "last-name-required-valid": "Your last name name is valid",
@@ -77,6 +82,7 @@
     "solveTestB": "SOLVE THE TEST"
   },
   "remember-me": "Remember me",
+  "save": "Save",
   "settings": "Settings",
   "sign-in": "Sign in",
   "sign-in!": "Sign in!",

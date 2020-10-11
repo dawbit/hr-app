@@ -75,7 +75,7 @@
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'my-account' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'settings' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="settings-panel">{{'settings' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{'log-out' | translate}}</a>
         </div>
       </li>

@@ -32,6 +32,11 @@
     "basic": "Praca",
     "offers": "Lista ofert pracy"
   },
+  "language": {
+    "en": "angielski",
+    "pl": "polski",
+    "select": "Ustawienia językowe"
+  },
   "last-name": "Nazwisko",
   "last-name-required": "Wpisz swoje nazwisko",
   "last-name-required-valid": "Poprawne nazwisko",
@@ -77,6 +82,7 @@
     "solveTestB": "ROZWIĄŻ TEST REKRUTACYJNY"
   },
   "remember-me": "Zapamiętaj mnie",
+  "save": "Zapisz",
   "settings": "Ustawienia",
   "sign-in": "Logowanie",
   "sign-in!": "Zaloguj się!",

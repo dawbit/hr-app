@@ -14,6 +14,10 @@ import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.co
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
 import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
+import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
+
+// modules
+import { PipesModule } from './modules/pipes.module';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -73,7 +77,8 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     NavbarComponent,
     LoginRegisterComponent,
     CompanyAddComponent,
-    UserListComponent
+    UserListComponent,
+    SettingsPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +104,8 @@ import { JwPaginationModule } from 'jw-angular-pagination';
         deps: [HttpClient]
       }
     }),
-    AuthModule
+    AuthModule,
+    PipesModule
   ],
   exports: [
     MatButtonModule,
