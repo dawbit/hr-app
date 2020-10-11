@@ -15,7 +15,7 @@ public class QuestionDto {
 
     private List<AnswerDto> answers;
 
-    private ResponseEnum requestResult;
+    private int responseCode;
 
     public QuestionDto(QuestionsModel questionsModel) {
         this.id = questionsModel.getId();
@@ -23,7 +23,7 @@ public class QuestionDto {
         this.image=questionsModel.getImage();
     }
 
-    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel ,ResponseEnum requestResult){
+    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel ,int responseCode){
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
@@ -33,11 +33,31 @@ public class QuestionDto {
             listOfAnswersDto.add(new AnswerDto(answer));
         }
         this.answers = listOfAnswersDto;
-        this.requestResult = requestResult;
+        this.responseCode = responseCode;
     }
 
-    public QuestionDto(ResponseEnum requestResult) {
-        this.requestResult = requestResult;
+    public QuestionDto(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
     public long getId() {
