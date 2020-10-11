@@ -7,23 +7,23 @@ import com.hr.app.models.database.QuestionsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDto {
-
+public class ClosedQuizQuestionDto {
     private long id;
     private String text;
     private byte[] image;
+    private long amountOfQuestions;
 
     private List<AnswerDto> answers;
 
     private ResponseEnum requestResult;
 
-    public QuestionDto(QuestionsModel questionsModel) {
+    public ClosedQuizQuestionDto(QuestionsModel questionsModel) {
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
     }
 
-    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel ,ResponseEnum requestResult){
+    public ClosedQuizQuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , ResponseEnum requestResult){
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
@@ -36,7 +36,7 @@ public class QuestionDto {
         this.requestResult = requestResult;
     }
 
-    public QuestionDto(ResponseEnum requestResult) {
+    public ClosedQuizQuestionDto(ResponseEnum requestResult) {
         this.requestResult = requestResult;
     }
 

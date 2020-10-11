@@ -1,5 +1,7 @@
 package com.hr.app.controllers;
 
+import com.hr.app.enums.ResponseEnum;
+import com.hr.app.enums.ResponseEnumToInt;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
 import com.hr.app.models.api_helpers.QuestionJsonModel;
 import com.hr.app.models.api_helpers.QuizModel;
@@ -8,6 +10,7 @@ import com.hr.app.models.database.*;
 import com.hr.app.models.dto.AnswerDto;
 import com.hr.app.models.dto.CompleteQuizDto;
 import com.hr.app.models.dto.QuestionDto;
+import com.hr.app.models.dto.QuizInformationsDto;
 import com.hr.app.repositories.*;
 import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,22 +102,6 @@ public class QuizController {
         }
     }
 
-    //TODO Poki co nie wiem jak xD
-//    @GetMapping("quiz/{testcode}")
-//    public TestsModel getQuiz(@PathVariable String testcode){
-//        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-//        try {
-//            UsersModel user = usersRepository.findByLogin(name);
-//            TestCodeModel testCode = testCodeRepository.findByCode(testcode);
-//            if(testCode.getFKuser().getId()==user.getId()){
-//                return testCode.getFKtest();
-//            }
-//        } catch (Exception e) {
-//            return null;
-//        }
-//
-//    }
-
     // Jeśli chodzi o apkę to tylko z tego korzystamy, nawet jak nie można cofać
     @GetMapping("quiz/backpossible/{quizid}")
     public CompleteQuizDto getInitialQuiz(@PathVariable long quizid){
@@ -146,135 +133,396 @@ public class QuizController {
         return completeQuizDto;
     }
 
+    @GetMapping("quiz/getQuizInformations/{quizcode}")
+    public QuizInformationsDto getQuizInformations(@PathVariable String quizcode, HttpServletResponse response) {
+
+        TestCodeModel testCodeModel;
+        UsersModel usersModel;
+        TestsModel testsModel;
+        List<QuestionsModel> listOfQuestions;
+
+        try {
+            testCodeModel = getTestCodeModelByTestCode(quizcode);
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
+        }
+
+        if(testCodeModel == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+        }
+
+        try {
+            testsModel = getTestModelByTestId(testCodeModel.getFKtest().getId());
+            usersModel = getUserModel();
+            listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
+        }
+        catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+        }
+
+        if(!testsModel.isActive()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.INACTIVE_QUIZ));
+        }
+
+        if(usersModel==null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+        }
+        else if(!checkIfUserCanSolveThisQuiz(usersModel, testCodeModel.getFKuser().getId())){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+        }
+
+        if(checkIfUserAlreadySolvedThisQuiz(testCodeModel)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
+        }
+
+
+        response.setStatus(HttpServletResponse.SC_OK); // 200
+        return new QuizInformationsDto(testCodeModel.getId(),
+                listOfQuestions.size(),
+                testsModel.isPossibleToBack(),
+                ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SUCCESS));
+    }
+
+//    @GetMapping("quiz/{quizcode}")
+//    public QuestionDto getQuizQuestionWithQuizCode(@RequestParam String quizcode, HttpServletResponse response){
+//        UsersModel usersModel;
+//        TestsModel testsModel;
+//        List<QuestionsModel> listOfQuestions;
+//        TestCodeModel testCodeModel;
+//
+//        try {
+//            testCodeModel = getTestCodeModelByTestCode(quizcode);
+//        }
+//        catch (Exception e) {
+//            //TODO
+//        }
+//        if(testCodeModel == null ) {
+//            //TODO
+//        }
+//
+//        try {
+//            testsModel = getTestModelByTestId(testCodeModel.getFKtest().getId());
+//            usersModel = getUserModel();
+//            listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
+//        }
+//        catch (Exception e) {
+//            //TODO
+//        }
+//
+//        boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
+//
+//        if(isBackPossible) {
+//
+//        }
+//    }
+
+    //TODO change enum respons
     @GetMapping("quiz/quizquestion")
     public QuestionDto getQuizQuestion(@RequestBody QuizQuestionCommandDto quizQuestionCommandDto, HttpServletResponse response){
         //inicjalizacja niezbednych zmiennych modeli
-        UsersModel usersModel = getUsersModel();
-        TestsModel testsModel = getTest(quizQuestionCommandDto.getQuizid());
 
-        if(testsModel ==null || usersModel == null) {
+        UsersModel usersModel;
+        TestsModel testsModel;
+        List<QuestionsModel> listOfQuestions;
+
+        //wprowadzenie zmiennych
+        try {
+            usersModel = getUserModel();
+            testsModel = getTestModelByTestId(quizQuestionCommandDto.getQuizid());
+            listOfQuestions = getAllQuestionFromQuizId(quizQuestionCommandDto.getQuizid());
+        } catch (Exception e) {
+            response.setStatus(500);
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+
+        //jesli ktoras jest nullem to nie znaleziono testu
+        if(testsModel==null || usersModel==null || listOfQuestions == null) {
+            response.setStatus(409);
+            return new QuestionDto(ResponseEnum.TEST_NOT_FOUND);
+        }
+
+        boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
+        boolean isOpenForEveryone = checkIfQuizIsOpenForEveryone(testsModel);
+
+        //nieaktywny test? wywalamy blad
+        if(!checkIfTestIsActive(testsModel)) {
             response.setStatus(403);
-            return null;
+            return new QuestionDto(ResponseEnum.INACTIVE_QUIZ);
         }
 
-        //jesli wyslany jest kod, to sprawdzenie czy istnieje w bazie. jesli nie ma w bazie to juz na starcie wywalamy brak dostepu
-
-        if(checkIfTestIsActive(testsModel)) {
-
-            if(checkIfQuizIsBackPossible(testsModel)){
-
-                if(checkIfQuizIsOpenForEveryone()){
-                    return getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel);
-                }
-                else {
-                    TestCodeModel testCodeModel;
-                    if(quizQuestionCommandDto.getTestCode()!= null) {
-                        testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
-                        if(testCodeModel==null) {
-                            response.setStatus(403);
-                            return null;
-                        }
-                        else {
-                            return getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
-                        }
-                    }
-                    return null;
-                }
-
-            }
-            else {
-                if(checkIfQuizIsOpenForEveryone()){
-                    TestCodeModel testCodeModel;
-                    if(quizQuestionCommandDto.getTestCode()!= null) {
-
-                        testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
-                        if(testCodeModel==null) {
-                            response.setStatus(403);
-                            return null;
-                        }
-                        else {
-                            return getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testCodeModel);
-                        }
-                    }
-                    return null;
-                }
-                else {
-                    TestCodeModel testCodeModel;
-                    if(quizQuestionCommandDto.getTestCode()!= null) {
-                        testCodeModel = getTestCodeModel(usersModel.getId(), quizQuestionCommandDto.getQuizid());
-                        if(testCodeModel==null) {
-                            response.setStatus(403);
-                            return null;
-                        }
-                        else {
-                            return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, testCodeModel);
-                        }
-                    }
-                    return null;
-                }
-            }
+        /////////////////////////////////////////////
+        //TEST Z MOZLIWOSCIA POWROTU I DLA WSZYSTKICH
+        /////////////////////////////////////////////
+        if(isBackPossible && isOpenForEveryone){
+            return getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, listOfQuestions);
         }
 
-        //test nieaktywny czyli brak dostepu. wyrzucamy 403
+        /////////////////////////////////////////////////
+        //TEST Z MOZLIWOSCIA POWROTU I NIE DLA WSZYSTKICH
+        /////////////////////////////////////////////////
+        else if(isBackPossible && !isOpenForEveryone) {
+            return getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+        }
+
+        ////////////////////////////////////////////////
+        //TEST BEZ MOZLIWOSCIA POWROTU I  DLA WSZYSTKICH
+        ////////////////////////////////////////////////
+        else if (!isBackPossible && isOpenForEveryone) {
+            return getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+        }
+
+
+        ///////////////////////////////////////////////////
+        //TEST BEZ MOZLIWOSCI POWROTU I  NIE DLA WSZYSTKICH
+        ///////////////////////////////////////////////////
         else {
-            response.setStatus(403);
-            return null;
+            return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
         }
     }
 
-    private UsersModel getUsersModel(){
+    private boolean checkIfUserAlreadySolvedThisQuiz(TestCodeModel testCodeModel){
+        return testCodeModel.getQuestionNumber()!=1;
+    }
+
+    private boolean checkIfUserCanSolveThisQuiz(UsersModel usersModel, long testCodeModelUserId) {
+        return usersModel.getId() == testCodeModelUserId;
+    }
+
+    private QuestionDto getBackPossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto,
+                                                               TestsModel testsModel ,
+                                                               List<QuestionsModel> listOfQuestions) {
+        if(!checkIfQuestionExistsInQuiz(listOfQuestions, quizQuestionCommandDto.getQuestionnumber())) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+
+        QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, quizQuestionCommandDto.getQuestionnumber());
+
+        if(questionsModel==null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        List<AnswersModel> listOfAnswersModel;
+
+        try {
+            listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(listOfAnswersModel == null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        return getQuestionDtoModel(questionsModel, listOfAnswersModel);
+    }
+
+    private QuestionDto getBackPossibleQuizQuestionWithCode(QuizQuestionCommandDto quizQuestionCommandDto,
+                                                            TestsModel testsModel,
+                                                            UsersModel usersModel,
+                                                            List<QuestionsModel> listOfQuestions) {
+        if(quizQuestionCommandDto.getTestCode() == null) {
+            return new QuestionDto(ResponseEnum.BAD_REQUEST);
+        }
+
+        TestCodeModel testCodeModel;
+
+        try {
+            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(testCodeModel==null) {
+            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+        }
+
+        if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
+            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+        }
+
+        if(!checkIfQuestionExistsInQuiz(listOfQuestions, quizQuestionCommandDto.getQuestionnumber())) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+
+        QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, quizQuestionCommandDto.getQuestionnumber());
+
+        if(questionsModel==null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        List<AnswersModel> listOfAnswersModel;
+
+        try {
+            listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(listOfAnswersModel == null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        return getQuestionDtoModel(questionsModel, listOfAnswersModel);
+    }
+
+    private QuestionDto getBackImpossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto,
+                                                                 TestsModel testsModel,
+                                                                 UsersModel usersModel,
+                                                                 List<QuestionsModel> listOfQuestions) {
+
+        TestCodeModel testCodeModel;
+
+        try {
+            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(testCodeModel == null) {
+            try{
+                testCodeModel = saveAndGetNewTestCodeModel(testsModel, usersModel);
+            } catch (Exception e) {
+                return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            }
+        }
+        long questionNumber;
+        try {
+            questionNumber = getNextQuestionNumber(testCodeModel);
+        }
+         catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+         }
+
+        if(!checkIfQuestionExistsInQuiz(listOfQuestions, questionNumber)) {
+            return new QuestionDto(ResponseEnum.QUIZ_AREADY_SOLVED);
+        }
+
+        QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, questionNumber);
+
+        if(questionsModel==null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+
+        List<AnswersModel> listOfAnswersModel;
+
+        try {
+            listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(listOfAnswersModel == null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        return getQuestionDtoModel(questionsModel, listOfAnswersModel);
+    }
+
+    private QuestionDto getBackImpossibleQuizQuestionWithCode(QuizQuestionCommandDto quizQuestionCommandDto,
+                                                              TestsModel testsModel,
+                                                              UsersModel usersModel,
+                                                              List<QuestionsModel> listOfQuestions) {
+
+        if(quizQuestionCommandDto.getTestCode() == null) {
+            return new QuestionDto(ResponseEnum.BAD_REQUEST);
+        }
+
+        TestCodeModel testCodeModel;
+
+        try {
+            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(testCodeModel==null) {
+            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+        }
+        if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
+            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+        }
+
+        long questionNumber;
+        try {
+            questionNumber = getNextQuestionNumber(testCodeModel);
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+
+        if(!checkIfQuestionExistsInQuiz(listOfQuestions, questionNumber)) {
+            return new QuestionDto(ResponseEnum.QUIZ_AREADY_SOLVED);
+        }
+
+        QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, questionNumber);
+
+        if(questionsModel==null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+
+        List<AnswersModel> listOfAnswersModel;
+
+        try {
+            listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
+        }
+        catch (Exception e) {
+            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+        }
+        if(listOfAnswersModel == null) {
+            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+        }
+        return getQuestionDtoModel(questionsModel, listOfAnswersModel);
+    }
+
+
+    private TestCodeModel getTestCodeModelByTestAndUser(TestsModel testsModel, UsersModel usersModel) {
+        return testCodeRepository.findByFKtestCodeuserIdAndFKtestCodetestId(usersModel.getId(), testsModel.getId());
+    }
+
+    private TestCodeModel saveAndGetNewTestCodeModel(TestsModel  testsModel, UsersModel usersModel) {
+        TestCodeModel testCodeModel = new TestCodeModel(testsModel, usersModel);;
+        testCodeRepository.save(testCodeModel);
+        return testCodeModel;
+    }
+
+    private UsersModel getUserModel() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        try {
-            return usersRepository.findByLogin(name);
-        }
-        catch (Exception e) {
-            return null;
-        }
+        return usersRepository.findByLogin(name);
     }
-    private TestsModel getTest(long testId) {
-        try {
-            return testsRepository.findById(testId);
-        }
-        catch (Exception e ) {
-            return null;
-        }
 
+    private TestsModel getTestModelByTestId(long testId) {
+        return testsRepository.findById(testId);
     }
-    private List<AnswersModel> getAnswersForQuestion(long questionId){
-        try {
-            return  answersRepository.findAllByFKanswerQuestionId(questionId);
-        }
-        catch (Exception e) {
-            return null;
-        }
+
+    private List<AnswersModel> getAnswersByQuestionId(long questionId) {
+        return answersRepository.findAllByFKanswerQuestionId(questionId);
     }
-    private List<QuestionsModel> getAllQuizQuestions(long quizId) {
-        try {
-            return questionsRepository.findAllByFKquestionTestId(quizId);
-        }
-        catch (Exception e) {
-            return null;
-        }
+
+    private List<QuestionsModel> getAllQuestionFromQuizId(long quizId) {
+        return questionsRepository.findAllByFKquestionTestId(quizId);
     }
-    private QuestionsModel getExpectedQuestion(long questionNumber, long quizId) {
-        List<QuestionsModel> listofQuestions = getAllQuizQuestions(quizId);
-        if(listofQuestions==null) {
-            return null;
-        }
-        else if (listofQuestions.size() < questionNumber) {
-            return null;
+
+    private boolean checkIfQuestionExistsInQuiz(List<QuestionsModel> listofQuestions, long questionNumber) {
+        if(listofQuestions.size() >= questionNumber) {
+            return true;
         }
         else {
-            return getAllQuizQuestions(quizId).get((int) questionNumber);
+            return false;
         }
     }
-    private TestCodeModel getTestCodeModel (long userId, long testId){
-        try{
-            return testCodeRepository.findByFKtestCodeuserIdAndFKtestCodetestId(userId, testId);
-        }
-        catch (Exception e){
-            return null;
-        }
+
+    private QuestionsModel getExpectedQuestionModel(List<QuestionsModel> listofQuestions, long questionNumber) {
+        return listofQuestions.get((int) questionNumber -1);
+    }
+
+    private long getNextQuestionNumber(TestCodeModel testCodeModel){
+        long questionNumber = testCodeModel.getQuestionNumber();
+        testCodeModel.setQuestionNumberPlusOne();
+        testCodeRepository.save(testCodeModel);
+        return questionNumber;
     }
 
     private void saveQuestion(TestsModel testsModel, QuestionJsonModel questionJsonModels) {
@@ -304,98 +552,21 @@ public class QuizController {
     private boolean checkIfQuizIsBackPossible(TestsModel testsModel) {
         return testsModel.isPossibleToBack();
     }
-
     private boolean checkIfTestCodeIsCorrect(TestCodeModel testCodeModel, String testCode) {
         return testCodeModel.getCode().equals(testCode);
     }
-
     private boolean checkIfTestIsActive(TestsModel testsModel ) {
         return testsModel.isActive();
     }
-
-    //TODO
-    private boolean checkIfQuizIsOpenForEveryone(){
-        return true;
+    private boolean checkIfQuizIsOpenForEveryone(TestsModel testsModel){
+        return testsModel.isOpenForEveryone();
     }
 
-    private Long getNextQuestionNumber(TestCodeModel testCodeModel){
-        long questionNumber = testCodeModel.getQuestionNumber();
-        testCodeModel.setQuestionNumberPlusOne();
-        try {
-            testCodeRepository.save(testCodeModel);
-            return questionNumber;
-        }
-        catch (Exception e) {
-            return null;
-        }
+    private QuestionDto getQuestionDtoModel(QuestionsModel questionsModel, List<AnswersModel> answersModelList){
+        return new QuestionDto(questionsModel, answersModelList, ResponseEnum.SUCCESS);
     }
 
-    private QuestionDto getBackPossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto, TestsModel testsModel) {
-        QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuestionnumber(), testsModel.getId() );
-        if(questionsModel==null) {
-            return null;
-        }
-        else {
-            return getQuestionDtoModel(questionsModel);
-        }
-    }
-
-    private QuestionDto getBackPossibleQuizQuestionWithCode(QuizQuestionCommandDto quizQuestionCommandDto, TestsModel testsModel, TestCodeModel testCodeModel) {
-        if(checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())){
-            QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuestionnumber(), testsModel.getId() );
-            if(questionsModel==null) {
-                return null;
-            }
-            else {
-                return getQuestionDtoModel(questionsModel);
-            }
-        }
-        else {
-            return null;
-        }
-    }
-
-    private QuestionDto getBackImpossibleQuizQuestionWithoutCode(QuizQuestionCommandDto quizQuestionCommandDto, TestCodeModel testCodeModel) {
-        Long nextQuestionNumber = getNextQuestionNumber(testCodeModel);
-        if(nextQuestionNumber== null) {
-            return null;
-        }
-        QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuizid(), nextQuestionNumber);
-        if(questionsModel==null) {
-            return null;
-        }
-        else {
-            return getQuestionDtoModel(questionsModel);
-        }
-    }
-
-    private QuestionDto getBackImpossibleQuizQuestionWithCode(QuizQuestionCommandDto quizQuestionCommandDto, TestsModel testsModel, TestCodeModel testCodeModel) {
-        if(checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())){
-            Long nextQuestionNumber = getNextQuestionNumber(testCodeModel);
-            if(nextQuestionNumber== null) {
-                return null;
-            }
-            QuestionsModel questionsModel = getExpectedQuestion(quizQuestionCommandDto.getQuizid(), nextQuestionNumber);
-            if(questionsModel==null) {
-                return null;
-            }
-            else {
-                return getQuestionDtoModel(questionsModel);
-            }
-        }
-        else {
-            return null;
-        }
-    }
-
-    private QuestionDto getQuestionDtoModel(QuestionsModel questionsModel){
-        List<AnswersModel> answersModelList = getAnswersForQuestion(questionsModel.getId());
-        if(answersModelList == null) {
-            return null;
-        }
-        else {
-            return new QuestionDto(questionsModel, answersModelList);
-        }
-
+    private TestCodeModel getTestCodeModelByTestCode(String testCode) {
+        return testCodeRepository.findByCode(testCode);
     }
 }
