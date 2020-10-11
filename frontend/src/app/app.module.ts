@@ -12,6 +12,12 @@ import { UserPanelComponent } from './components/panels/user-panel/user-panel.co
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
 import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
+import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
+import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
+import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
+
+// modules
+import { PipesModule } from './modules/pipes.module';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -51,6 +57,11 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/security/token.interceptor';
 
+// Toasts
+import { ToastrModule } from 'ngx-toastr';
+
+// JwPagination
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -64,7 +75,10 @@ import { TokenInterceptor } from './services/security/token.interceptor';
     QuizCreatePanelComponent,
     QuizPanelComponent,
     NavbarComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    CompanyAddComponent,
+    UserListComponent,
+    SettingsPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,11 +90,13 @@ import { TokenInterceptor } from './services/security/token.interceptor';
     MatCardModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
+    ToastrModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    JwPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -88,7 +104,8 @@ import { TokenInterceptor } from './services/security/token.interceptor';
         deps: [HttpClient]
       }
     }),
-    AuthModule
+    AuthModule,
+    PipesModule
   ],
   exports: [
     MatButtonModule,

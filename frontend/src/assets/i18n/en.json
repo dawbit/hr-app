@@ -1,11 +1,20 @@
 {
   "a-member": "You are a member?",
+  "accountTypes": {
+    "add": "Add account type",
+    "addConfirm": "Add",
+    "name": "Name"
+  },
   "companies": {
+    "about": "Tell us something about your company ... This will help other users find your company in our search engine!",
     "add": "Add your company!",
+    "addForm": "Company registration form in the database",
     "basic": "Companies",
     "best": "Best companies",
     "industries": "Company industries",
-    "list": "List of companies"
+    "list": "List of companies",
+    "location": "Location: Country/City",
+    "name": "Name"
   },
   "contact": "Contact",
   "e-mail": "E-mail",
@@ -23,6 +32,11 @@
     "basic": "Jobs",
     "list": "Job offers"
   },
+  "language": {
+    "en": "english",
+    "pl": "polish",
+    "select": "Language settings"
+  },
   "last-name": "Last name",
   "last-name-required": "Your last name is required",
   "last-name-required-valid": "Your last name name is valid",
@@ -30,6 +44,18 @@
   "login": "Login",
   "login-required": "Login is required",
   "login-valid": "Login is valid",
+  "message": {
+    "accountTypeAdded": "Account type has been added",
+    "accountTypeAlreadyExist": "The specified account type already exists",
+    "accountTypeNotAdded": "Error during added account",
+    "companyAdded": "Company has been correctly added to our database!",
+    "companyNotAdded": "There was an error adding the company to our database",
+    "logged": "Logged in successfully!",
+    "notLogged": "Login Error",
+    "notRegistered": "Error during registration. Please contact with administrator.",
+    "registered": "Successfully registered!",
+    "userAlreadyExists": "User already exists"
+  },
   "middle-name": "Middle name",
   "my-account": "My Account",
   "not-a-member": "Not a member?",
@@ -56,6 +82,7 @@
     "solveTestB": "SOLVE THE TEST"
   },
   "remember-me": "Remember me",
+  "save": "Save",
   "settings": "Settings",
   "sign-in": "Sign in",
   "sign-in!": "Sign in!",
@@ -66,5 +93,14 @@
   "subscribe-newsletter": "Subscribe to our newsletter",
   "term-of-service": "term of service",
   "term-of-service-s": "term of service",
-  "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;"
+  "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;",
+  "toast": {
+    "error": "Error!",
+    "info": "Information",
+    "success": "Success!",
+    "warning": "Warning!"
+  },
+  "users": {
+    "list": "User list"
+  }
 }

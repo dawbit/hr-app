@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~ngx-toastr/toastr.css';
 
 html, body {
   min-height: 100vh !important;
@@ -12,19 +13,26 @@ body {
   background-image: linear-gradient(45deg, rgba(42, 27, 161, 0.6), rgba(29, 210, 177, 0.6) 100%),
                     url("./assets/backgrounds/background-01.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  body {
-    padding-top: 5vh;
-  }
-  .navbar:not(.top-nav-collapse) {
-    background: #3f51b5 !important;
-  }
-  .navbar:not(.top-nav-collapse) {
-    background: transparent none;
-  }
+@keyframes slidein {
+  0%   {margin-left:1500px;}
+  100% {margin-left:0px;}
+}
+
+.slide-element {
+  animation-name: slidein;
+  animation-duration: .9s;
+  display: block;
+  border-left: 0 !important;
+  padding-top: 1%;
+}
+
+.custom-control {
+  padding-bottom: 1%;
 }
 
 h5 {
@@ -33,6 +41,28 @@ h5 {
 
 h6 {
   line-height: 1.9;
+  font-size: 1.6rem;
+}
+
+input[type=radio] {
+  font-size: 30px;
+  text-align: center;
+  line-height: 15px;
+  margin-right: 10px;
+  -ms-transform: scale(1.4);
+  -webkit-transform: scale(1.4);
+  transform: scale(1.4);
+}
+
+td {
+  color: #fff;
+}
+
+tfoot, th {
+  background-color: #4285f4 !important;
+  opacity: 0.5;
+  color: #fff !important;
+  font-weight: bold !important;
 }
 
 .app-inline-flex {
@@ -75,6 +105,10 @@ h6 {
   max-width: 90%;
 }
 
+form {
+  color: #252525;
+}
+
 .md-form .prefix {
   font-size: 1.5rem;
   margin-top: 1rem;
@@ -91,3 +125,6 @@ h6 {
 .error-message {
   color: #bb0f03 !important;
 }
+
+// import mobile styles to overrive main styles
+@import 'styles-mobile.scss';

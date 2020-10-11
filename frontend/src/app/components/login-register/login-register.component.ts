@@ -5,6 +5,7 @@ import { MustMatch } from 'src/app/helpers/must-match';
 import { UserService } from './../../services/user.service';
 import { User } from './../../classes/user';
 import { TokenStorageService } from './../../services/security/token-storage.service';
+import { ToastService } from './../../services/toast.service';
 
 @Component({
   selector: 'app-login-register',
@@ -26,7 +27,8 @@ export class LoginRegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -64,23 +66,44 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   loginSubmit() {
-    this.userService.login(this.loginForm.value).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        const authorizationInfo = res.headers.get('authorization');
-        this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
-        window.location.reload();
+    this.userService.login(this.loginForm.value).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          const authorizationInfo = res.headers.get('authorization');
+          this.tokenStorage.saveUserInLocalStorage(authorizationInfo);
+          window.location.reload();
+          this.toast.showSuccess('message.logged');
+        }
+      },
+      err => {
+        this.toast.showError('message.notLogged');
       }
-    });
+    );
   }
 
   registerSubmit() {
     this.user.FKuserAccountTypes = new AccountTypes();
     this.user.FKuserAccountTypes.id = 1; // tymczasowo admin
 
-    this.userService.register(this.user).subscribe(res => {
-      if (res && res.ok && res.status === 200) {
-        // TODO
+    // 1 - ADMIN
+    // 2 - CEO
+    // 3 - HR
+    // 4 - USER
+
+    this.userService.register(this.user).subscribe(
+      res => {
+        if (res && res.ok && res.status === 200) {
+          // TODO
+          this.toast.showSuccess('message.registered');
+        }
+      },
+      err => {
+        if (err && err.status === 409) {
+          this.toast.showWarning('message.userAlreadyExists');
+        } else {
+          this.toast.showError('message.notRegistered');
+        }
       }
-    });
+    );
   }
 }

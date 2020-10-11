@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,7 +56,7 @@ public class UsersController {
     }
 
     @GetMapping(serviceUrlParam + "/getall")
-    public List<UsersModel> getQuiz(){
+    public ArrayList<UserDto> getQuiz(){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         UsersModel user = usersRepository.findByLogin(name);
 
@@ -63,8 +64,12 @@ public class UsersController {
             return null;
         }
         else {
+            ArrayList<UserDto> listOfUserDto = new ArrayList<>();
             List<UsersModel> allUsers = usersRepository.findAll();
-            return usersRepository.findAll();
+            for (UsersModel usermodel : allUsers) {
+                listOfUserDto.add(new UserDto(usermodel));
+            }
+            return listOfUserDto;
         }
     }
 
