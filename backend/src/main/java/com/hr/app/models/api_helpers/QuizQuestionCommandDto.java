@@ -6,12 +6,6 @@ public class QuizQuestionCommandDto {
     private long questionnumber;
     private String testCode ;
 
-    public QuizQuestionCommandDto(long quizid, long questionnumber, String testCode) {
-        this.quizid = quizid;
-        this.questionnumber = questionnumber;
-        this.testCode = testCode;
-    }
-
     public long getQuizid() {
         return quizid;
     }
@@ -33,6 +27,14 @@ public class QuizQuestionCommandDto {
     }
 
     public void setTestCode(String testCode) {
+        this.testCode = testCode;
+    }
+
+    protected QuizQuestionCommandDto() { }
+
+    public QuizQuestionCommandDto(long quizid, long questionnumber, String testCode) {
+        this.quizid = quizid;
+        this.questionnumber = questionnumber;
         this.testCode = testCode;
     }
 }
