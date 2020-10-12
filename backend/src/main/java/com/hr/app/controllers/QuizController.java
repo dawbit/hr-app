@@ -1,7 +1,7 @@
 package com.hr.app.controllers;
 
 import com.hr.app.enums.ResponseEnum;
-import com.hr.app.enums.ResponseEnumToInt;
+import com.hr.app.enums.ResponseEnumOperations;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
 import com.hr.app.models.api_helpers.QuestionJsonModel;
 import com.hr.app.models.api_helpers.QuizModel;
@@ -12,7 +12,6 @@ import com.hr.app.models.dto.CompleteQuizDto;
 import com.hr.app.models.dto.QuestionDto;
 import com.hr.app.models.dto.QuizInformationsDto;
 import com.hr.app.repositories.*;
-import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -146,12 +145,12 @@ public class QuizController {
         }
         catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
 
         if(testCodeModel == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
         }
 
         try {
@@ -161,26 +160,26 @@ public class QuizController {
         }
         catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
         }
 
         if(!testsModel.isActive()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.INACTIVE_QUIZ));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.INACTIVE_QUIZ));
         }
 
         if(usersModel==null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
         }
         else if(!checkIfUserCanSolveThisQuiz(usersModel, testCodeModel.getFKuser().getId())){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
         }
 
         if(checkIfUserAlreadySolvedThisQuiz(testCodeModel)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new QuizInformationsDto(ResponseEnumToInt.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
+            return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
         }
 
 
@@ -188,7 +187,7 @@ public class QuizController {
         return new QuizInformationsDto(testCodeModel.getId(),
                 listOfQuestions.size(),
                 testsModel.isPossibleToBack(),
-                ResponseEnumToInt.getResponseStatusInt(ResponseEnum.SUCCESS));
+                ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SUCCESS));
     }
 
 //    @GetMapping("quiz/{quizcode}")
@@ -239,14 +238,14 @@ public class QuizController {
             testsModel = getTestModelByTestId(quizQuestionCommandDto.getQuizid());
             listOfQuestions = getAllQuestionFromQuizId(quizQuestionCommandDto.getQuizid());
         } catch (Exception e) {
-            response.setStatus(500);
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
 
         //jesli ktoras jest nullem to nie znaleziono testu
         if(testsModel==null || usersModel==null || listOfQuestions == null) {
-            response.setStatus(409);
-            return new QuestionDto(ResponseEnum.TEST_NOT_FOUND);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.TEST_NOT_FOUND));
         }
 
         boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
@@ -254,29 +253,35 @@ public class QuizController {
 
         //nieaktywny test? wywalamy blad
         if(!checkIfTestIsActive(testsModel)) {
-            response.setStatus(403);
-            return new QuestionDto(ResponseEnum.INACTIVE_QUIZ);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.INACTIVE_QUIZ));
         }
 
         /////////////////////////////////////////////
         //TEST Z MOZLIWOSCIA POWROTU I DLA WSZYSTKICH
         /////////////////////////////////////////////
         if(isBackPossible && isOpenForEveryone){
-            return getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, listOfQuestions);
+            QuestionDto questionDto = getBackPossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, listOfQuestions);
+            response.setStatus(ResponseEnumOperations.getResponseStatusFromModelResponseCode(questionDto.getResponseCode()));
+            return questionDto;
         }
 
         /////////////////////////////////////////////////
         //TEST Z MOZLIWOSCIA POWROTU I NIE DLA WSZYSTKICH
         /////////////////////////////////////////////////
         else if(isBackPossible && !isOpenForEveryone) {
-            return getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            QuestionDto questionDto = getBackPossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            response.setStatus(ResponseEnumOperations.getResponseStatusFromModelResponseCode(questionDto.getResponseCode()));
+            return questionDto;
         }
 
         ////////////////////////////////////////////////
         //TEST BEZ MOZLIWOSCIA POWROTU I  DLA WSZYSTKICH
         ////////////////////////////////////////////////
         else if (!isBackPossible && isOpenForEveryone) {
-            return getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            QuestionDto questionDto = getBackImpossibleQuizQuestionWithoutCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            response.setStatus(ResponseEnumOperations.getResponseStatusFromModelResponseCode(questionDto.getResponseCode()));
+            return questionDto;
         }
 
 
@@ -284,7 +289,9 @@ public class QuizController {
         //TEST BEZ MOZLIWOSCI POWROTU I  NIE DLA WSZYSTKICH
         ///////////////////////////////////////////////////
         else {
-            return getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            QuestionDto questionDto = getBackImpossibleQuizQuestionWithCode(quizQuestionCommandDto, testsModel, usersModel, listOfQuestions);
+            response.setStatus(ResponseEnumOperations.getResponseStatusFromModelResponseCode(questionDto.getResponseCode()));
+            return questionDto;
         }
     }
 
@@ -300,13 +307,13 @@ public class QuizController {
                                                                TestsModel testsModel ,
                                                                List<QuestionsModel> listOfQuestions) {
         if(!checkIfQuestionExistsInQuiz(listOfQuestions, quizQuestionCommandDto.getQuestionnumber())) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
 
         QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, quizQuestionCommandDto.getQuestionnumber());
 
         if(questionsModel==null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         List<AnswersModel> listOfAnswersModel;
 
@@ -314,10 +321,10 @@ public class QuizController {
             listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(listOfAnswersModel == null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         return getQuestionDtoModel(questionsModel, listOfAnswersModel);
     }
@@ -327,7 +334,7 @@ public class QuizController {
                                                             UsersModel usersModel,
                                                             List<QuestionsModel> listOfQuestions) {
         if(quizQuestionCommandDto.getTestCode() == null) {
-            return new QuestionDto(ResponseEnum.BAD_REQUEST);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_REQUEST));
         }
 
         TestCodeModel testCodeModel;
@@ -336,24 +343,24 @@ public class QuizController {
             testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(testCodeModel==null) {
-            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
         if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
-            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
         if(!checkIfQuestionExistsInQuiz(listOfQuestions, quizQuestionCommandDto.getQuestionnumber())) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
 
         QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, quizQuestionCommandDto.getQuestionnumber());
 
         if(questionsModel==null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         List<AnswersModel> listOfAnswersModel;
 
@@ -361,10 +368,10 @@ public class QuizController {
             listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(listOfAnswersModel == null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         return getQuestionDtoModel(questionsModel, listOfAnswersModel);
     }
@@ -380,13 +387,13 @@ public class QuizController {
             testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(testCodeModel == null) {
             try{
                 testCodeModel = saveAndGetNewTestCodeModel(testsModel, usersModel);
             } catch (Exception e) {
-                return new QuestionDto(ResponseEnum.SERVER_ERROR);
+                return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
             }
         }
         long questionNumber;
@@ -394,17 +401,17 @@ public class QuizController {
             questionNumber = getNextQuestionNumber(testCodeModel);
         }
          catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
          }
 
         if(!checkIfQuestionExistsInQuiz(listOfQuestions, questionNumber)) {
-            return new QuestionDto(ResponseEnum.QUIZ_AREADY_SOLVED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
         }
 
         QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, questionNumber);
 
         if(questionsModel==null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
 
         List<AnswersModel> listOfAnswersModel;
@@ -413,10 +420,10 @@ public class QuizController {
             listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(listOfAnswersModel == null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         return getQuestionDtoModel(questionsModel, listOfAnswersModel);
     }
@@ -427,7 +434,7 @@ public class QuizController {
                                                               List<QuestionsModel> listOfQuestions) {
 
         if(quizQuestionCommandDto.getTestCode() == null) {
-            return new QuestionDto(ResponseEnum.BAD_REQUEST);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_REQUEST));
         }
 
         TestCodeModel testCodeModel;
@@ -436,13 +443,13 @@ public class QuizController {
             testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(testCodeModel==null) {
-            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
         if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
-            return new QuestionDto(ResponseEnum.AUTHORIZATION_FAILED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
         long questionNumber;
@@ -450,17 +457,17 @@ public class QuizController {
             questionNumber = getNextQuestionNumber(testCodeModel);
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
 
         if(!checkIfQuestionExistsInQuiz(listOfQuestions, questionNumber)) {
-            return new QuestionDto(ResponseEnum.QUIZ_AREADY_SOLVED);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
         }
 
         QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, questionNumber);
 
         if(questionsModel==null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
 
         List<AnswersModel> listOfAnswersModel;
@@ -469,10 +476,10 @@ public class QuizController {
             listOfAnswersModel = getAnswersByQuestionId(questionsModel.getId());
         }
         catch (Exception e) {
-            return new QuestionDto(ResponseEnum.SERVER_ERROR);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
         if(listOfAnswersModel == null) {
-            return new QuestionDto(ResponseEnum.QUESTION_NOT_FOUND);
+            return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUESTION_NOT_FOUND));
         }
         return getQuestionDtoModel(questionsModel, listOfAnswersModel);
     }
@@ -563,7 +570,7 @@ public class QuizController {
     }
 
     private QuestionDto getQuestionDtoModel(QuestionsModel questionsModel, List<AnswersModel> answersModelList){
-        return new QuestionDto(questionsModel, answersModelList, ResponseEnum.SUCCESS);
+        return new QuestionDto(questionsModel, answersModelList, ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SUCCESS));
     }
 
     private TestCodeModel getTestCodeModelByTestCode(String testCode) {
