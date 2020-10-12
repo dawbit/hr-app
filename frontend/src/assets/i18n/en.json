@@ -17,6 +17,7 @@
     "name": "Name"
   },
   "contact": "Contact",
+  "criticalError": "Critical Error! Please contact with administrator.",
   "e-mail": "E-mail",
   "e-mail-confirm": "Confirm e-mail",
   "e-mail-invalid": "E-mail is invalid",
@@ -74,6 +75,14 @@
   "phone-number-invalid": "At least 9 digits",
   "phone-number-valid": "Valid phone number",
   "profile": "Profile",
+  "quiz": {
+    "enterCode": "Enter access code to the quiz: ",
+    "exists": "A quiz with the given code exists!",
+    "hello": "Join the quiz!",
+    "notExists": "Quiz does not exists!",
+    "start": "start!",
+    "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!"
+  },
   "recruitment": {
     "add": "Add your recruitment quiz!",
     "basic": "Recruitment",
