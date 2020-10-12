@@ -17,6 +17,7 @@
     "name": "Nazwa"
   },
   "contact": "Kontakt",
+  "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",
   "e-mail": "E-mail",
   "e-mail-confirm": "Potwierdź e-mail",
   "e-mail-invalid": "Podany e-mail jest niepoprawny",
@@ -74,6 +75,14 @@
   "phone-number-invalid": "Przynajmniej 9 cyfr",
   "phone-number-valid": "Poprawny numer",
   "profile": "Profil",
+  "quiz": {
+    "enterCode": "Podaj kod dostępu do quizu: ",
+    "exists": "Quiz o podanym kodzie istnieje!",
+    "hello": "Przystąp do rozwiązywania quizu!",
+    "notExists": "Quiz nie istnieje!",
+    "start": "start!",
+    "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!"
+  },
   "recruitment": {
     "add": "Dodaj swój test rekrutacyjny!",
     "basic": "Rekrutacja",

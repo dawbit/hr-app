@@ -15,6 +15,7 @@ import { LoginRegisterComponent } from './components/login-register/login-regist
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
 import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
+import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -79,6 +80,7 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     CompanyAddComponent,
     UserListComponent,
     SettingsPanelComponent,
+    QuizSolveComponent,
   ],
   imports: [
     BrowserModule,
