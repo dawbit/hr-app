@@ -1,8 +1,6 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hr.app.models.database.*;
 import com.hr.app.models.dto.UserDto;
 
 import javax.persistence.*;
@@ -87,7 +85,7 @@ public class UsersModel {
 
     @OneToMany(mappedBy = "FKtestCodeuser")
     @JsonBackReference(value = "user-id")
-    private List<TestCodeModel> FKtestCodeuser;
+    private List<TestParticipantModel> FKtestCodeuser;
 
 
     // =========================================
@@ -115,11 +113,11 @@ public class UsersModel {
         isActive = active;
     }
 
-    public List<TestCodeModel> getFKtestCodeuser() {
+    public List<TestParticipantModel> getFKtestCodeuser() {
         return FKtestCodeuser;
     }
 
-    public void setFKtestCodeuser(List<TestCodeModel> FKtestCodeuser) {
+    public void setFKtestCodeuser(List<TestParticipantModel> FKtestCodeuser) {
         this.FKtestCodeuser = FKtestCodeuser;
     }
 
