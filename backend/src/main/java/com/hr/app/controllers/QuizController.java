@@ -223,7 +223,7 @@ public class QuizController {
 //        }
 //    }
 
-    //TODO change enum respons
+    @Transactional
     @GetMapping("quiz/quizquestion")
     public QuestionDto getQuizQuestion(@RequestBody QuizQuestionCommandDto quizQuestionCommandDto, HttpServletResponse response){
         //inicjalizacja niezbednych zmiennych modeli
