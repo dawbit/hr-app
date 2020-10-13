@@ -184,7 +184,7 @@ public class QuizController {
 
 
         response.setStatus(HttpServletResponse.SC_OK); // 200
-        return new QuizInformationsDto(testParticipantModel.getId(),
+        return new QuizInformationsDto(testsModel.getId(),
                 listOfQuestions.size(),
                 testsModel.isPossibleToBack(),
                 ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SUCCESS));
@@ -223,14 +223,22 @@ public class QuizController {
 //        }
 //    }
 
-    //TODO change enum respons
-    @GetMapping("quiz/quizquestion")
-    public QuestionDto getQuizQuestion(@RequestBody QuizQuestionCommandDto quizQuestionCommandDto, HttpServletResponse response){
+    // TODO change enum respons
+    // Zamieniono na @RequestParam - ponieważ @RequestBody w GET jest niezgodne z
+    // RFC (https://www.ietf.org/rfc/rfc2616.txt) i Angular nie pozwala na takie działanie
+    @GetMapping("quiz/quizquestion/{quizId}/{testCode}/{questionNumber}")
+    public QuestionDto getQuizQuestion(@PathVariable String quizId,
+                                       @PathVariable String testCode,
+                                       @PathVariable String questionNumber,
+                                       HttpServletResponse response){
         //inicjalizacja niezbednych zmiennych modeli
 
         UsersModel usersModel;
         TestsModel testsModel;
         List<QuestionsModel> listOfQuestions;
+        QuizQuestionCommandDto quizQuestionCommandDto = new QuizQuestionCommandDto(
+                Long.parseLong(quizId), Long.parseLong(questionNumber), testCode
+        );
 
         //wprowadzenie zmiennych
         try {
