@@ -1,0 +1,39 @@
+<!--Card content-->
+<div class="card-body px-lg-5 pt-0">
+
+  <h6 class="text-center">{{"quiz.hello" | translate | uppercase}}</h6>
+
+  <!-- Form -->
+  <form *ngIf="!quizCodeFlag" [formGroup]="quizCodeForm" class="text-center" style="color: #757575;"
+    (ngSubmit)="getQuizInfo()">
+
+    <!-- Code -->
+    <div class="md-form">
+      <input mdbInput type="text" id="materialTestCode" class="form-control" formControlName="testCode">
+      <label for="materialTestCode">{{"quiz.enterCode" | translate}}</label>
+    </div>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">
+      {{"quiz.start" | translate | uppercase}}
+    </button>
+
+  </form>
+</div>
+X:
+{{quizStarted}}
+{{numberOfQuestion}}
+Xtest
+
+<!-- Div z rozwiązywanym testem - pokazuje się kiedy flaga quizStarted === true -->
+<div *ngIf="quizStarted">
+
+  <!-- TODO -->
+
+  <!-- Przyciski z numerami pytań -->
+  <!-- na kliknięciu przycisku coś w stylu: getQuestion(attr.data-index lub number+1) -->
+  <button *ngFor="let questionNumber of [].constructor(numberOfQuestion); index as number" [attr.data-index]="number+1"
+    type="button" mdbBtn color="primary" mdbWavesEffect style="display: inline-block">
+    {{number+1}}
+  </button>
+</div>

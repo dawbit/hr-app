@@ -33,7 +33,8 @@
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'recruitment.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light bold" mdbWavesEffect href="#">{{'recruitment.solveTestB' | translate}}</a>
+          <a class="dropdown-item waves-light bold" mdbWavesEffect
+            routerLink="quiz-solve">{{'recruitment.solveTestB' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.pre' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.open' | translate}}</a>
           <div class="divider dropdown-divider"></div>
@@ -75,7 +76,7 @@
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'my-account' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'settings' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="settings-panel">{{'settings' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{'log-out' | translate}}</a>
         </div>
       </li>

@@ -35,7 +35,12 @@ public class TestsModel {
     private CompaniesModel FKtestCompany;
 
     @Column(name = "is_possible_to_back")
+    @JsonBackReference(value = "is_possible_to_back")
     private boolean isPossibleToBack;
+
+    @Column(name = "is_open_for_everyone")
+    @JsonBackReference(value = "is_open_for_everyone")
+    private boolean isOpenForEveryone;
 
     @ManyToOne
     @JoinColumn(name = "test_type_id", foreignKey = @ForeignKey(name = "FKtestCodetest"))
@@ -44,6 +49,7 @@ public class TestsModel {
     private TestTypeModel FKtestType;
 
     @Column(name = "is_active")
+    @JsonBackReference(value = "is_active")
     private boolean isActive;
 
     @Column(name = "start_date")
@@ -185,11 +191,21 @@ public class TestsModel {
         this.userAnswers = userAnswers;
     }
 
+    public boolean isOpenForEveryone() {
+        return isOpenForEveryone;
+    }
+
+    public void setOpenForEveryone(boolean openForEveryone) {
+        isOpenForEveryone = openForEveryone;
+    }
+
     protected TestsModel() {}
+
+
 
     public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
                       boolean isActive, Date startDate, Date endDate, short timeForTest, List<QuestionsModel> questions,
-                      List<UserAnswersModel> userAnswers) {
+                      List<UserAnswersModel> userAnswers, boolean isOpenForEveryone) {
         this.name = name;
         this.FKtestUserHr = FKtestUserHr;
         this.FKtestCompany = FKtestCompany;
@@ -200,5 +216,6 @@ public class TestsModel {
         this.timeForTest = timeForTest;
         this.questions = questions;
         this.userAnswers = userAnswers;
+        this.isOpenForEveryone=isOpenForEveryone;
     }
 }

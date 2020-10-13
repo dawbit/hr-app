@@ -7,23 +7,23 @@ import com.hr.app.models.database.QuestionsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDto {
-
+public class ClosedQuizQuestionDto {
     private long id;
     private String text;
     private byte[] image;
+    private long amountOfQuestions;
 
     private List<AnswerDto> answers;
 
-    private int responseCode;
+    private ResponseEnum requestResult;
 
-    public QuestionDto(QuestionsModel questionsModel) {
+    public ClosedQuizQuestionDto(QuestionsModel questionsModel) {
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
     }
 
-    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel ,int responseCode){
+    public ClosedQuizQuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , ResponseEnum requestResult){
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
@@ -33,31 +33,11 @@ public class QuestionDto {
             listOfAnswersDto.add(new AnswerDto(answer));
         }
         this.answers = listOfAnswersDto;
-        this.responseCode = responseCode;
+        this.requestResult = requestResult;
     }
 
-    public QuestionDto(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
+    public ClosedQuizQuestionDto(ResponseEnum requestResult) {
+        this.requestResult = requestResult;
     }
 
     public long getId() {
