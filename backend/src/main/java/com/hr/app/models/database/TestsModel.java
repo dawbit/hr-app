@@ -80,7 +80,7 @@ public class TestsModel {
 
     @OneToMany(mappedBy = "FKtestCodeuser")
     @JsonBackReference(value = "test-id")
-    private List<TestCodeModel> FKtestCodeuser;
+    private List<TestParticipantModel> FKtestCodeuser;
 
 
     // =========================================
@@ -171,11 +171,11 @@ public class TestsModel {
         this.id = id;
     }
 
-    public List<TestCodeModel> getFKtest() {
+    public List<TestParticipantModel> getFKtest() {
         return FKtestCodeuser;
     }
 
-    public void setFKtest(List<TestCodeModel> FKtestCodeuser) {
+    public void setFKtest(List<TestParticipantModel> FKtestCodeuser) {
         this.FKtestCodeuser = FKtestCodeuser;
     }
 
