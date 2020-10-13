@@ -44,7 +44,7 @@ public class QuizController {
     private ICompaniesRepository companiesRepository;
 
     @Autowired
-    private ITestCodeRepository testCodeRepository;
+    private ITestParticipantRepository testCodeRepository;
 
     @Transactional
     @PostMapping("quiz/add")
@@ -135,26 +135,26 @@ public class QuizController {
     @GetMapping("quiz/getQuizInformations/{quizcode}")
     public QuizInformationsDto getQuizInformations(@PathVariable String quizcode, HttpServletResponse response) {
 
-        TestCodeModel testCodeModel;
+        TestParticipantModel testParticipantModel;
         UsersModel usersModel;
         TestsModel testsModel;
         List<QuestionsModel> listOfQuestions;
 
         try {
-            testCodeModel = getTestCodeModelByTestCode(quizcode);
+            testParticipantModel = getTestCodeModelByTestCode(quizcode);
         }
         catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
             return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
 
-        if(testCodeModel == null) {
+        if(testParticipantModel == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
             return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_TEST_CODE));
         }
 
         try {
-            testsModel = getTestModelByTestId(testCodeModel.getFKtest().getId());
+            testsModel = getTestModelByTestId(testParticipantModel.getFKtest().getId());
             usersModel = getUserModel();
             listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
         }
@@ -172,12 +172,12 @@ public class QuizController {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
             return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
         }
-        else if(!checkIfUserCanSolveThisQuiz(usersModel, testCodeModel.getFKuser().getId())){
+        else if(!checkIfUserCanSolveThisQuiz(usersModel, testParticipantModel.getFKuser().getId())){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
             return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.NO_PERMISSION));
         }
 
-        if(checkIfUserAlreadySolvedThisQuiz(testCodeModel)) {
+        if(checkIfUserAlreadySolvedThisQuiz(testParticipantModel)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
             return new QuizInformationsDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.QUIZ_AREADY_SOLVED));
         }
@@ -303,8 +303,8 @@ public class QuizController {
         }
     }
 
-    private boolean checkIfUserAlreadySolvedThisQuiz(TestCodeModel testCodeModel){
-        return testCodeModel.getQuestionNumber()!=1;
+    private boolean checkIfUserAlreadySolvedThisQuiz(TestParticipantModel testParticipantModel){
+        return testParticipantModel.getQuestionNumber()!=1;
     }
 
     private boolean checkIfUserCanSolveThisQuiz(UsersModel usersModel, long testCodeModelUserId) {
@@ -345,19 +345,19 @@ public class QuizController {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_REQUEST));
         }
 
-        TestCodeModel testCodeModel;
+        TestParticipantModel testParticipantModel;
 
         try {
-            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+            testParticipantModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
-        if(testCodeModel==null) {
+        if(testParticipantModel ==null) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
-        if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
+        if(!checkIfTestCodeIsCorrect(testParticipantModel, quizQuestionCommandDto.getTestCode())) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
@@ -389,24 +389,24 @@ public class QuizController {
                                                                  UsersModel usersModel,
                                                                  List<QuestionsModel> listOfQuestions) {
 
-        TestCodeModel testCodeModel;
+        TestParticipantModel testParticipantModel;
 
         try {
-            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+            testParticipantModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
-        if(testCodeModel == null) {
+        if(testParticipantModel == null) {
             try{
-                testCodeModel = saveAndGetNewTestCodeModel(testsModel, usersModel);
+                testParticipantModel = saveAndGetNewTestCodeModel(testsModel, usersModel);
             } catch (Exception e) {
                 return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
             }
         }
         long questionNumber;
         try {
-            questionNumber = getNextQuestionNumber(testCodeModel);
+            questionNumber = getNextQuestionNumber(testParticipantModel);
         }
          catch (Exception e) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
@@ -445,24 +445,24 @@ public class QuizController {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.BAD_REQUEST));
         }
 
-        TestCodeModel testCodeModel;
+        TestParticipantModel testParticipantModel;
 
         try {
-            testCodeModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
+            testParticipantModel = getTestCodeModelByTestAndUser(testsModel, usersModel);
         }
         catch (Exception e) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
         }
-        if(testCodeModel==null) {
+        if(testParticipantModel ==null) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
-        if(!checkIfTestCodeIsCorrect(testCodeModel, quizQuestionCommandDto.getTestCode())) {
+        if(!checkIfTestCodeIsCorrect(testParticipantModel, quizQuestionCommandDto.getTestCode())) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.AUTHORIZATION_FAILED));
         }
 
         long questionNumber;
         try {
-            questionNumber = getNextQuestionNumber(testCodeModel);
+            questionNumber = getNextQuestionNumber(testParticipantModel);
         }
         catch (Exception e) {
             return new QuestionDto(ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SERVER_ERROR));
@@ -493,14 +493,14 @@ public class QuizController {
     }
 
 
-    private TestCodeModel getTestCodeModelByTestAndUser(TestsModel testsModel, UsersModel usersModel) {
+    private TestParticipantModel getTestCodeModelByTestAndUser(TestsModel testsModel, UsersModel usersModel) {
         return testCodeRepository.findByFKtestCodeuserIdAndFKtestCodetestId(usersModel.getId(), testsModel.getId());
     }
 
-    private TestCodeModel saveAndGetNewTestCodeModel(TestsModel  testsModel, UsersModel usersModel) {
-        TestCodeModel testCodeModel = new TestCodeModel(testsModel, usersModel);;
-        testCodeRepository.save(testCodeModel);
-        return testCodeModel;
+    private TestParticipantModel saveAndGetNewTestCodeModel(TestsModel  testsModel, UsersModel usersModel) {
+        TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel);;
+        testCodeRepository.save(testParticipantModel);
+        return testParticipantModel;
     }
 
     private UsersModel getUserModel() {
@@ -533,10 +533,10 @@ public class QuizController {
         return listofQuestions.get((int) questionNumber -1);
     }
 
-    private long getNextQuestionNumber(TestCodeModel testCodeModel){
-        long questionNumber = testCodeModel.getQuestionNumber();
-        testCodeModel.setQuestionNumberPlusOne();
-        testCodeRepository.save(testCodeModel);
+    private long getNextQuestionNumber(TestParticipantModel testParticipantModel){
+        long questionNumber = testParticipantModel.getQuestionNumber();
+        testParticipantModel.setQuestionNumberPlusOne();
+        testCodeRepository.save(testParticipantModel);
         return questionNumber;
     }
 
@@ -567,8 +567,8 @@ public class QuizController {
     private boolean checkIfQuizIsBackPossible(TestsModel testsModel) {
         return testsModel.isPossibleToBack();
     }
-    private boolean checkIfTestCodeIsCorrect(TestCodeModel testCodeModel, String testCode) {
-        return testCodeModel.getCode().equals(testCode);
+    private boolean checkIfTestCodeIsCorrect(TestParticipantModel testParticipantModel, String testCode) {
+        return testParticipantModel.getCode().equals(testCode);
     }
     private boolean checkIfTestIsActive(TestsModel testsModel ) {
         return testsModel.isActive();
@@ -581,7 +581,7 @@ public class QuizController {
         return new QuestionDto(questionsModel, answersModelList, ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SUCCESS));
     }
 
-    private TestCodeModel getTestCodeModelByTestCode(String testCode) {
+    private TestParticipantModel getTestCodeModelByTestCode(String testCode) {
         return testCodeRepository.findByCode(testCode);
     }
 }

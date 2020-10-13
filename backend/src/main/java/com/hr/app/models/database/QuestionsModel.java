@@ -43,7 +43,6 @@ public class QuestionsModel {
     @JsonBackReference(value = "question_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
-
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
