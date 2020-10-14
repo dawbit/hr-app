@@ -1,0 +1,3 @@
+enum LoginState {
+  LOGIN, REGISTER
+}

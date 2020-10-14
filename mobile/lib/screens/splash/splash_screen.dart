@@ -7,7 +7,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.green,
       body: RaisedButton(
-        onPressed: (){Navigator.of(context).pushReplacementNamed(mainScreenRoute);},
+        onPressed: (){Navigator.of(context).pushReplacementNamed(loginScreenRoute);},
       ),
     );
   }

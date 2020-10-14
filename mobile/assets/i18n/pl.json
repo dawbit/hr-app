@@ -1,3 +1,8 @@
 {
-
+  "email": "E-mail",
+  "password": "Haslo",
+  "login": "Login",
+  "register": "Zarejestruj",
+  "noAccount": "Nie masz konta?",
+  "alreadyRegistered": "Zarejestrowany?"
 }
