@@ -1,39 +1,47 @@
 <!--Card content-->
-<div class="card-body px-lg-5 pt-0">
+<div class="card-body px-lg-5 pt-0" *ngIf="!quizStarted">
+    <br>
+    <h6 class="text-center">{{"quiz.hello" | translate | uppercase}}</h6>
+    <!-- Form -->
+    <form *ngIf="!quizCodeFlag" [formGroup]="quizCodeForm" class="text-center" style="color: #757575;" (ngSubmit)="getQuizInfo()">
 
-  <h6 class="text-center">{{"quiz.hello" | translate | uppercase}}</h6>
+        <!-- Code -->
+        <div class="md-form">
+            <input mdbInput type="text" id="materialTestCode" class="form-control" formControlName="testCode">
+            <label for="materialTestCode">{{"quiz.enterCode" | translate}}</label>
+        </div>
 
-  <!-- Form -->
-  <form *ngIf="!quizCodeFlag" [formGroup]="quizCodeForm" class="text-center" style="color: #757575;"
-    (ngSubmit)="getQuizInfo()">
-
-    <!-- Code -->
-    <div class="md-form">
-      <input mdbInput type="text" id="materialTestCode" class="form-control" formControlName="testCode">
-      <label for="materialTestCode">{{"quiz.enterCode" | translate}}</label>
-    </div>
-
-    <!-- Sign in button -->
-    <button class="btn btn-info btn-block my-4" type="submit">
+        <!-- Sign in button -->
+        <button class="btn btn-info btn-block my-4" type="submit" mdbWavesEffect>
       {{"quiz.start" | translate | uppercase}}
     </button>
-
-  </form>
+    </form>
 </div>
-X:
-{{quizStarted}}
-{{numberOfQuestion}}
-Xtest
 
+<!-- X: {{quizStarted}} {{numberOfQuestion}} Xtest -->
 <!-- Div z rozwiązywanym testem - pokazuje się kiedy flaga quizStarted === true -->
 <div *ngIf="quizStarted">
+    <h1>{{currentQuestion.text}}</h1>
 
-  <!-- TODO -->
+    <div id="quiz">
+        <div *ngFor="let answer of this.currentQuestion.answers">
+            <label for="enum_answer_{{answer.id}}" tabindex="0" (keyup.space)='radioSelected=answer.id'>
+        <input id="enum_answer_{{answer.id}}" [value]='answer.id' type="radio" name="enumAnswers" [(ngModel)]="radioSelected">
+        {{answer.text}}
+      </label>
+        </div>
+        <button (click)='sendAnswer(radioSelected.valueOf())' (click)="nextQuestion(this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)" type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button>
+    </div>
+    <!-- TODO -->
 
-  <!-- Przyciski z numerami pytań -->
-  <!-- na kliknięciu przycisku coś w stylu: getQuestion(attr.data-index lub number+1) -->
-  <button *ngFor="let questionNumber of [].constructor(numberOfQuestion); index as number" [attr.data-index]="number+1"
-    type="button" mdbBtn color="primary" mdbWavesEffect style="display: inline-block">
+    <!-- Przyciski z numerami pytań -->
+    <!-- na kliknięciu przycisku coś w stylu: getQuestion(attr.data-index lub number+1) -->
+    <button *ngFor="let questionNumber of [].constructor(numberOfQuestion); index as number" [attr.data-index]="number+1" (click)="nextQuestion(this.testCode, this.quizID, number+1, this.backPossible)" type="button" mdbBtn color="primary" mdbWavesEffect style="display: inline-block"
+        [disabled]="this.currentQuestionNumber == number+1">
     {{number+1}}
   </button>
+    <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <button *ngFor="let tests of [].constructor(200); index as i" mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect>{{i+1}}</button>
+    </div> -->
+
 </div>
