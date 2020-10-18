@@ -1,31 +1,42 @@
 <form [formGroup]="userForm" (ngSubmit)="send(userForm.value)">
-  <label>Name </label>
-  <br>
-  {{userForm.value | json}}
-  <div formGroupName="questionsModel">
-    <input type="text" formControlName="text">
-  </div>
-  <br>
-  <br>
-  <div>
-    <div formArrayName="answersModel">
-      <div *ngFor="let answerModel of userForm.get('answersModel')['controls']; let i=index">
-        <div [formGroupName]="i">
-          <label>TEXT {{i}} </label>
-          {{answerModel.value | json}}
-          <input type="text" formControlName="text" placeholder="text">
-          <input type="text" formControlName="points" placeholder="points">
-          <input type="text" formControlName="is_correct" placeholder="is_correct">
-          <button (click)="removePhone(i)">Remove Phone</button>
+  <button (click)="loadValues()"> test ladowania wartosci </button>
+  <button (click)="newQuest(userForm.value.questionsJsonModel)">ADD NEW QUESTION</button>
+  <div formArrayName="questionsJsonModel">
+    <div *ngFor="let questionJsonModel of userForm.get('questionsJsonModel')['controls']; let ind=index">
+      <div [formGroupName]="ind">
+        <label>Name </label>
+        <br>
+        {{ind}}
+        {{userForm.value | json}}
+        <div formGroupName="questionsModel">
+          <input type="text" formControlName="text">
         </div>
+        <br>
+        <br>
+        <div>
+          <div formArrayName="answersModel">
+            <div
+              *ngFor="let answerModel of userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel']['controls']; let i=index">
+              <div [formGroupName]="i">
+                <label>TEXT {{i}} </label>
+                {{answerModel.value | json}}
+                <input type="text" formControlName="text" placeholder="text">
+                <input type="text" formControlName="points" placeholder="points">
+                <input type="text" formControlName="is_correct" placeholder="is_correct">
+                <button (click)="removePhone(ind, i)">Remove answer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        {{ind}}
+        <button (click)="patch(ind)">Add new answer</button>
+        <br>
+        <br>
+        <input type="submit">
       </div>
     </div>
   </div>
-  <br>
-  <button (click)="patch()">Add new phone</button>
-  <br>
-  <br>
-  <input type="submit">
 </form>
 <br>
 
