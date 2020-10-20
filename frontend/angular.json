@@ -39,7 +39,8 @@
               "./node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
               "./node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
               "./node_modules/flag-icon-css/css/flag-icon.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/sweetalert2/src/sweetalert2.scss",
             ],
             "scripts": [
               "./node_modules/chart.js/dist/Chart.js",
@@ -116,7 +117,8 @@
               "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "./node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
               "./node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": [
               "./node_modules/chart.js/dist/Chart.js",
