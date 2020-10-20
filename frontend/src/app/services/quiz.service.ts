@@ -30,7 +30,7 @@ export class QuizService {
     return this.http.get(this.baseQuizUrl + `/backpossible/${quizId}`);
   }
 
-  sendQuestionAnswer(value: any): Observable<object>{
-    return this.http.post(`${this.baseUrl}/question/setanswer`, value);
+  sendQuestionAnswer(value: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/question/setanswer`, value, { observe: 'response' });
   }
 }
