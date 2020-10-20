@@ -7,8 +7,8 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "test_code")
-public class TestCodeModel {
+@Table(name = "test_participant")
+public class TestParticipantModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,9 +81,9 @@ public class TestCodeModel {
         this.questionNumber+=1;
     }
 
-    protected TestCodeModel(){};
+    protected TestParticipantModel(){};
 
-    public TestCodeModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code, long questionNumber) {
+    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code, long questionNumber) {
         this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
@@ -91,7 +91,7 @@ public class TestCodeModel {
         this.questionNumber=questionNumber;
     }
 
-    public TestCodeModel( TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
+    public TestParticipantModel(TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
     }

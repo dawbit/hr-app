@@ -1,0 +1,52 @@
+.card-body.answers:hover {
+    transition-duration: 500ms;
+    background-color: rgba($color: #1a8ab6, $alpha: 0.3);
+    box-shadow: inset 0px 0px 10px rgba(59, 58, 58, 0.3);
+    color: black;
+}
+
+// .input-answers:checked+.card-body.answers {
+//     background-color: rgba($color: #da0b0b, $alpha: 0.3) !important;
+// }
+// .card-body.answers.label-answers input:active {
+//     transition-duration: 500ms;
+//     background-color: rgba($color: #2cb61a, $alpha: 0.3);
+//     box-shadow: inset 0px 0px 10px rgba(149, 34, 172, 0.3);
+//     color: black;
+// }
+.card-body.answers {
+    padding: 0rem !important;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label {
+    background-color: rgba($color: #46b61a, $alpha: 0.3);
+    box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+// Wyłączenie widoczności radio buttonów
+::before {
+    display: none;
+}
+
+::after {
+    display: none;
+}
+
+// .custom-radio .custom-control-input:checked~.card-body {
+//     background-color: black;
+// }
+// .custom-radio .custom-control-input~.custom-control-label {
+//     margin-left: 35px !important;
+// }
+.card-body.answers label {
+    margin: 5px;
+    padding: 1.25rem;
+    height: stretch;
+    width: stretch;
+}
+
+// Zmiana koloru tekstu w wpisywaniu kodu, bo zbyt zlewa się z tłem
+#materialTestCode {
+    color: rgba(0, 0, 0, 0.8);
+}
