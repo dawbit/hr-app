@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from './../../../services/quiz.service';
 import { ToastService } from './../../../services/toast.service';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { CollapseComponent } from 'angular-bootstrap-md';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -24,6 +24,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   currentQuestionNumber: number;
   currentQuestion: any;
   quizStarted: boolean;
+  quizCompleted = false;
   numberOfQuestion = 0;
   numberOfAnswer = 0;
   quizID: number;
@@ -31,6 +32,10 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   answers: any = [];
   radioSelected: number;
   isCollapsed = true;
+
+  timeLeft = 60; // tutaj Kowol zrobi endpoint zwracający pozostały czas na quiz, czas ten będzie zawsze aktualny, niezależnie
+                  // czy quiz został zaczęty czy nie
+  interval;
 
   quizCodeForm: FormGroup;
 
@@ -74,23 +79,25 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
 
   sendAnswer(radioSelected){
     const ansToSend = {
-      questionId: radioSelected,
-      answerId: this.currentQuestion.id
+      questionId: this.currentQuestion.id,
+      answerId: radioSelected
     };
     this.quizService.sendQuestionAnswer(ansToSend).subscribe();
   }
 
-  nextQuestion(testcode, testid, questionnumber, cangoback){
-    console.log(testcode, testid, questionnumber, cangoback);
+  nextQuestion(testcode, testid, questionnumber, cangoback) {
 
-    if (!(cangoback || this.currentQuestionNumber < questionnumber)){
-      swal ( this.translate.instant('oops'), this.translate.instant('cant-go-back'),  'error');
-    }else if (questionnumber > this.numberOfQuestion){
-      swal ( this.translate.instant('nice') , this.translate.instant('quiz-end') ,  'success');
-     // TODO zakończenie testu gdy tu dotrze
-    }else{
+    if (!(cangoback || this.currentQuestionNumber < questionnumber)) {
+      Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-go-back'), 'error');
+    } else if (questionnumber > this.numberOfQuestion) {
+      Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
+      this.quizStarted = false;
+      this.quizCompleted = true;
+      // TODO zakończenie testu gdy tu dotrze
+    } else if (!cangoback && this.currentQuestionNumber + 1 < questionnumber){
+      Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-skip'), 'error');
+    } else {
       this.startQuiz(testid, testcode, questionnumber);
-      console.log(this.currentQuestionNumber);
     }
   }
 
@@ -108,32 +115,32 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
         if (res && res.responseCode === 1) {
           this.toast.showSuccess('quiz.exists');
 
-          swal({
+          Swal.fire({
             title: this.translate.instant('start-quiz-confirmation'),
             text: this.translate.instant('one-attempt-quiz'),
             icon: 'warning',
-            buttons: [this.translate.instant('go-back'), this.translate.instant('start-quiz')],
-            dangerMode: false,
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant('start-quiz'),
+            cancelButtonText: this.translate.instant('go-back')
           })
-          .then((swalStartQuiz) => {
-            if (swalStartQuiz) {
-              swal(this.translate.instant('quiz-started'), {
-                icon: 'success',
-              });
-              // kontynuacja przechodzenia do testu
-              this.currentQuestionNumber = 1;
-              this.numberOfQuestion = res.amountOfQuestions;
-              this.quizID = res.quizId;
-              this.testCode = testCode;
-              this.backPossible = res.backPossible;
-              this.startQuiz(res.quizId, testCode, this.currentQuestionNumber);
-              console.log(this.quizID);
-              console.log(this.testCode);
+            .then((swalStartQuiz) => {
+              if (swalStartQuiz.value) {
+                Swal.fire({
+                  title: this.translate.instant('quiz-started'),
+                  icon: 'success',
+                });
+                // kontynuacja przechodzenia do testu
+                this.currentQuestionNumber = 1;
+                this.numberOfQuestion = res.amountOfQuestions;
+                this.quizID = res.quizId;
+                this.testCode = testCode;
+                this.backPossible = res.backPossible;
+                this.startQuiz(res.quizId, testCode, this.currentQuestionNumber);
 
-            } else {
-              swal(this.translate.instant('quiz-cancelled'));
-            }
-          });
+              } else if (swalStartQuiz.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(this.translate.instant('quiz-cancelled'));
+              }
+            });
         }
       },
       err => {
@@ -156,7 +163,6 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   }
 
   startQuiz(quizId: number, testCode: string, currentQuestionNumber) {
-    this.quizStarted = true;
     this.currentQuestionNumber = currentQuestionNumber;
     this.quizService.getQuestion(quizId, testCode, currentQuestionNumber).subscribe(
       res => {
@@ -164,6 +170,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
         console.log(res);
         console.log(this.currentQuestion);
         if (res) {
+          this.quizStarted = true;
         }
       },
       err => {
@@ -174,6 +181,16 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
         // }
       }
     );
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+      }
+    }, 1000);
   }
 
 }

@@ -36,6 +36,7 @@
     "quiz-cancelled": "Come back when you are ready!",
     "oops": "Oops",
     "cant-go-back": "You can't go back in this test!",
+    "cant-skip": "You can't skip questions in this test!",
     "nice": "Nice",
     "quiz-end": "You have reached the end, congrats!",
     "save-and-go": "Save and go",
