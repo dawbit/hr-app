@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, 
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { UserService } from '../../../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -87,21 +87,24 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(id: number) {
-    swal({
+    Swal.fire({
       title: this.translate.instant('delete-title'),
       text: this.translate.instant('delete-text'),
       icon: 'warning',
-      buttons: [this.translate.instant('delete-deny'), this.translate.instant('delete-confirm')],
+      showCancelButton: true,
+      confirmButtonText: this.translate.instant('delete-confirm'),
+      cancelButtonText: this.translate.instant('delete-deny'),
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete) {
-        swal(this.translate.instant('delete-confirmation'), {
+      if (willDelete.value) {
+        Swal.fire({
+          title: this.translate.instant('delete-confirmation'),
           icon: 'success',
         });
-        // this.userService.deleteUser(id).subscribe();
+        this.userService.deleteUser(id).subscribe();
       } else {
-        swal(this.translate.instant('delete-cancelled'));
+        Swal.fire(this.translate.instant('delete-cancelled'));
       }
     });
   }
