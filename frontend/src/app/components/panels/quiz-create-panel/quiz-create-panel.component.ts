@@ -1,19 +1,20 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-create-panel',
   templateUrl: './quiz-create-panel.component.html',
   styleUrls: ['./quiz-create-panel.component.scss']
 })
-export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
+export class QuizCreatePanelComponent implements OnInit {
 
   userForm: FormGroup;
-  fields: any;
+  answersModelfields: any;
   constructor(
     private fb: FormBuilder
   ) {
-    this.fields = {
+    // wstrzykiwanie wartości kluczy z pustymi wartościami do FormArray
+    this.answersModelfields = {
       isRequired: true,
       type: {
         options: [
@@ -25,31 +26,10 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
         ]
       }
     };
-
-
-
-    // this.userForm = this.fb.group({
-    //   questionsModel: this.fb.group({
-    //     text: ''
-    //   }),
-    //   answersModel: this.fb.array([])
-    // });
-
-
-
-
-
-    //console.log(this.userForm.get('questionsJsonModel')['controls'][0]);
-    //console.log(this.userForm.get('answersModel')['controls']);
-    // console.log(this.userForm.get('questionsJsonModel')['controls']);
-    // console.log(this.userForm.get('questionsJsonModel')['controls'][0]['controls']['answersModel']['controls']);
-    // console.log(this.userForm.value.questionsJsonModel);
-
-
-    //this.patch();
   }
 
   ngOnInit(): void {
+    // definicja obiektu - formularza odpowiedzialnego za questionsJsonModel
     this.userForm = new FormGroup({
       questionsJsonModel: new FormArray([
         new FormGroup({
@@ -66,24 +46,6 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
         })
       ])
     });
-
-    // this.userForm.setValue({
-    //   questionsJsonModel: [
-    //     {
-    //       questionsModel: {
-    //         text: 'rabarbarowelowe'
-    //       },
-    //       answersModel: [
-    //         {
-    //           text: "",
-    //           is_correct: "",
-    //           points: ""
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // });
-
   }
 
   loadValues() {
@@ -95,9 +57,9 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
           },
           answersModel: [
             {
-              text: "",
-              is_correct: "",
-              points: ""
+              text: 'aa',
+              is_correct: 'bb',
+              points: 'cc'
             }
           ]
         }
@@ -105,67 +67,24 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    // this.userForm.setValue({
-    //   questionsJsonModel: [
-    //     {
-    //       questionsModel: {
-    //         text: 'rabarbarowelowe'
-    //       },
-    //       answersModel: [
-    //         {
-    //           text: "",
-    //           is_correct: "",
-    //           points: ""
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // });
-  }
-
-  patch(ind) {
-    // console.log(ind);
-    // console.log(this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel']['controls']);
-
-    //<FormArray>this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel']
-    //const control = <FormArray>this.userForm.get('answersModel');
-
+  addAnswer(ind) {
     const control = <FormArray>this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'];
-
-    //console.log(control);
-
-    this.fields.type.options.forEach(x => {
+    this.answersModelfields.type.options.forEach(x => {
       control.push(this.patchValues(x.is_correct, x.points, x.text));
     });
 
   }
 
-  patchValues(is_correct, points, text) {
+  patchValues(isCorrect, points, text) {
     return this.fb.group({
-      is_correct: [is_correct],
+      is_correct: [isCorrect],
       points: [points],
       text: [text]
     });
   }
 
-  get answersModel(): FormArray {
-    return this.userForm.get('answersModel') as FormArray;
-  }
-
-  newQuest(ind) {
-    console.log(ind);
+  newQuestion(ind) {
     ind = Object.keys(ind).length;
-    console.log(ind);
-    console.log(this.userForm.get('questionsJsonModel')['controls']);
-    //console.log(this.userForm.get('questionsJsonModel')['controls']);
-
-    //   questionsModel: this.fb.group({
-    //     text: ''
-    //   }),
-    //   answersModel: this.fb.array([])
-
-
     (this.userForm.get('questionsJsonModel') as FormArray).push(
       this.fb.group(
         {
@@ -176,36 +95,18 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
         }
       )
     );
-
-    this.patch(ind);
-
-    console.log(this.userForm.get('questionsJsonModel')['controls']);
-    // console.log(this.userForm.get('questionsJsonModel')['controls']);
-    // console.log(this.userForm.get('questionsJsonModel')['controls'][0]);
-    // console.log(this.userForm.get('questionsJsonModel')['controls'][1]);
+    this.addAnswer(ind);
   }
 
-  // addPhone(): void {
-  //   (this.userForm.get('answersModel') as FormArray).push(
-  //     this.fb.control({
-  //       is_correct: '',
-  //       points: '',
-  //       text: ''
-  //     })
-  //   );
-  // }
-
-  removePhone(ind, index) {
+  removeAnswer(ind, index) {
     (this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
-    //(this.userForm.get('answersModel') as FormArray).removeAt(index);
   }
 
-  getPhonesFormControls(): AbstractControl[] {
-    //console.log((<FormArray>this.userForm.get('answersModel')).controls);
-    return (<FormArray>this.userForm.get('answersModel')).controls;
+  removeQuestion(ind) {
+    (this.userForm.get('questionsJsonModel') as FormArray).removeAt(ind);
   }
 
   send(values) {
-    //console.log(values);
+    console.log(values);
   }
 }
