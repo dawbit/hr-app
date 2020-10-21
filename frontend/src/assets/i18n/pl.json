@@ -14,7 +14,11 @@
         "industries": "Branże",
         "list": "Lista firm",
         "location": "Miejsce: Kraj/Miasto",
-        "name": "Nazwa"
+        "name": "Nazwa",
+        "read": "czytaj",
+        "more": "więcej",
+        "less": "mniej",
+        "search": "Szukaj firmy"
     },
     "contact": "Kontakt",
     "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",

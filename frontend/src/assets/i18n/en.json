@@ -14,7 +14,11 @@
         "industries": "Company industries",
         "list": "List of companies",
         "location": "Location: Country/City",
-        "name": "Name"
+        "name": "Name",
+        "read": "Read",
+        "more": "more",
+        "less": "less",
+        "search": "Search for a company"
     },
     "contact": "Contact",
     "criticalError": "Critical Error! Please contact with administrator.",

@@ -1,25 +1,3 @@
-<p>company-list-single-element works!</p>
-
-<div *ngIf="company">
-    <div>
-        <label><b>{{'id' | translate}}: </b></label> {{company.id}}
-    </div>
-    <div>
-        <label><b>company name: </b></label> {{company.name}}
-    </div>
-    <div>
-        <label><b>location </b></label> {{company.location}}
-    </div>
-    <div>
-        <label><b>about: </b></label> {{company.about}}
-    </div>
-    <div>
-        <label><b>image: </b></label>
-    </div>
-    <div>
-        <label><b>companyPictures: </b></label>
-    </div>
-    <div>
-        <label><b>ceo: </b></label> {{company.ceo}}
-    </div>
+<div [innerHTML]="text" [class.collapsed]="isCollapsed">
 </div>
+<button mdbBtn color="primary" mdbWavesEffect *ngIf="isCollapsable " (click)="isCollapsed=! isCollapsed ">{{"companies.read" | translate}} {{isCollapsed? ("companies.more" | translate):("companies.less" | translate)}}</button>

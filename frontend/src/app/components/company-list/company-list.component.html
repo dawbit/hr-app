@@ -1,5 +1,34 @@
-<app-company-list-single-element></app-company-list-single-element>
-lol
-<!-- <div *ngFor="let comp of companies">
-    <comp [comp]="comp"></comp>
-</div> -->
+<form [formGroup]="companySearchForm" class="text-center" style="color: #757575;" (ngSubmit)="SearchCompany()">
+
+    <!-- Code -->
+    <div class="md-form">
+        <input mdbInput type="text" id="companySearch" class="form-control" formControlName="companyToSearch">
+        <label for="companySearch">{{"companies.search" | translate}}</label>
+    </div>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit" mdbWavesEffect>{{"search" | translate}}</button>
+</form>
+
+
+
+<div class="card-deck">
+    <div *ngFor="let comp of companies">
+        <mdb-card>
+            <!--Card image-->
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+            <!--Card content-->
+            <mdb-card-body>
+
+                <!--Title-->
+                <mdb-card-title>
+                    <h4>{{comp.name}}</h4>
+                </mdb-card-title>
+
+                <!-- Text -->
+                <app-company-list-single-element [text]="comp.about" [maxLength]="100"></app-company-list-single-element>
+
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>

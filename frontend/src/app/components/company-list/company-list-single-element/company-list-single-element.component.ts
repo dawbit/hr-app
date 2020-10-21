@@ -1,5 +1,5 @@
 import { Company } from './company';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-company-list-single-element',
@@ -8,17 +8,22 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CompanyListSingleElementComponent implements OnInit {
 
-  @Input() company: Company;
+   @Input() text: string;
+   @Input() maxLength = 100;
 
-  constructor() { }
+   public isCollapsed = false;
+   public isCollapsable = false;
 
-  ngOnInit(): void {
-    this.company = new Company();
-    this.company.id = 1;
-    this.company.ceo = 'kleo';
-    this.company.about = 'donatan';
-    this.company.name = 'wytwórnia pączków';
-    this.company.location = 'Świebodzin';
-  }
+   constructor(private elementRef: ElementRef) {
+   }
+
+   ngOnInit() {
+       const textLength = this.text.length;
+      // collapsuje tylko, jeśli tekst z inputu przekroczy ustaloną długość
+       if (textLength > this.maxLength) {
+           this.isCollapsed = true;
+           this.isCollapsable = true;
+       }
+   }
 
 }

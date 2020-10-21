@@ -16,6 +16,7 @@ import { UserDetailsComponent } from './components/panels/admin-panel/user-list/
 import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -76,6 +77,12 @@ const routes: Routes = [
   },
   {
     path: 'company-add', component: CompanyAddComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
+  {
+    path: 'company-list', component: CompanyListComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
     }

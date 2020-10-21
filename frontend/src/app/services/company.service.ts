@@ -20,7 +20,7 @@ export class CompanyService {
   }
 
   getAllCompanies(): Observable<any> {
-    return this.http.get(this.baseUrl + '/getall', this.httpOptions);
+    return this.http.get(this.baseUrl + '/all', this.httpOptions);
   }
 
   getCompany(id: number): Observable<any> {
