@@ -71,6 +71,7 @@
   },
   "middle-name": "Drugie imię",
   "my-account": "Moje konto",
+  "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",
   "panel": {
     "admin": "Panel Administratora",
@@ -88,6 +89,7 @@
   "phone-number-valid": "Poprawny numer",
   "profile": "Profil",
   "quiz": {
+    "about": "Informacje o quizie: ",
     "addAnswer": "Dodaj następną odpowiedź",
     "addQuestion": "Dodaj kolejne pytanie",
     "answer": "Odpowiedź",
@@ -99,6 +101,8 @@
     "exists": "Quiz o podanym kodzie istnieje!",
     "hello": "Przystąp do rozwiązywania quizu!",
     "isCorrect": "Odpowiedź poprawna",
+    "isPossibleToBack": "Możliwość cofania",
+    "name": "Nazwa quizu",
     "notExists": "Quiz nie istnieje!",
     "points": "Punkty",
     "removeAnswer": "Usuń pytanie",
@@ -106,6 +110,7 @@
     "save": "Zapisz quiz!",
     "start": "start!",
     "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
+    "timeForTest": "Czas (sek.)",
     "question": "Question",
     "questionNumber": "Pytanie numer: "
   },
@@ -137,5 +142,6 @@
   },
   "users": {
     "list": "Lista użytkowników"
-  }
+  },
+  "yes": "Tak"
 }

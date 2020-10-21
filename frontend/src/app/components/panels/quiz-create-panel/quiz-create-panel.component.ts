@@ -8,7 +8,8 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 })
 export class QuizCreatePanelComponent implements OnInit {
 
-  userForm: FormGroup;
+  questionsModel: FormGroup;
+  testsModel: FormGroup;
   answersModelfields: any;
   constructor(
     private fb: FormBuilder
@@ -30,7 +31,7 @@ export class QuizCreatePanelComponent implements OnInit {
 
   ngOnInit(): void {
     // definicja obiektu - formularza odpowiedzialnego za questionsJsonModel
-    this.userForm = new FormGroup({
+    this.questionsModel = new FormGroup({
       questionsJsonModel: new FormArray([
         new FormGroup({
           questionsModel: new FormGroup({
@@ -46,10 +47,19 @@ export class QuizCreatePanelComponent implements OnInit {
         })
       ])
     });
+
+    // const control = this.questionsModel.get('questionsJsonModel')['controls'][0].value;
+    // console.log(control);
+
+    this.testsModel = new FormGroup({
+      is_possible_to_back: new FormControl(true),
+      name: new FormControl(''),
+      timeForTest: new FormControl(1000)
+    });
   }
 
   loadValues() {
-    this.userForm.patchValue({
+    this.questionsModel.patchValue({
       questionsJsonModel: [
         {
           questionsModel: {
@@ -69,7 +79,7 @@ export class QuizCreatePanelComponent implements OnInit {
 
   addAnswer(ind) {
     // tslint:disable-next-line: no-string-literal
-    const control = this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray;
+    const control = this.questionsModel.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray;
     this.answersModelfields.type.options.forEach(x => {
       control.push(this.patchValues(x.is_correct, x.points, x.text));
     });
@@ -86,7 +96,7 @@ export class QuizCreatePanelComponent implements OnInit {
 
   newQuestion(ind) {
     ind = Object.keys(ind).length;
-    (this.userForm.get('questionsJsonModel') as FormArray).push(
+    (this.questionsModel.get('questionsJsonModel') as FormArray).push(
       this.fb.group(
         {
           questionsModel: this.fb.group({
@@ -101,11 +111,11 @@ export class QuizCreatePanelComponent implements OnInit {
 
   removeAnswer(ind, index) {
     // tslint:disable-next-line: no-string-literal
-    (this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
+    (this.questionsModel.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
   }
 
   removeQuestion(ind) {
-    (this.userForm.get('questionsJsonModel') as FormArray).removeAt(ind);
+    (this.questionsModel.get('questionsJsonModel') as FormArray).removeAt(ind);
   }
 
   send(values) {

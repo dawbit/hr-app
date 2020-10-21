@@ -1,13 +1,38 @@
 <div class="card-body px-lg-5 pt-0">
   <h6 class="text-center">{{"quiz.creator" | translate | uppercase}}</h6>
-  <form class="md-form" [formGroup]="userForm" (ngSubmit)="send(userForm.value)">
+  <form class="md-form" [formGroup]="testsModel">
+    <div class="card-body card">
+      <span class="quiz-create-span">{{("quiz.about" | translate)}}</span>
+      <div class="form-row">
+        <div class="col">
+          <input type="text" formControlName="name" mdbInput class="form-control col" id="quizName">
+          <label for="quizName">{{'quiz.name' | translate}}</label>
+        </div>
+        <div class="col">
+          <select class="form-control col mdb-select" formControlName="is_possible_to_back" mdbInput
+            class="form-control col" id="is_possible_to_back">
+            <option [ngValue]="false">{{"no" | translate}}</option>
+            <option [ngValue]="true">{{"yes" | translate}}</option>
+          </select>
+          <label for="is_possible_to_back">{{'quiz.isPossibleToBack' | translate}}</label>
+        </div>
+        <div class="col">
+          <input type="number" min="0" max="100000" formControlName="timeForTest" mdbInput class="form-control col"
+            id="timeForTest">
+          <label for="timeForTest">{{'quiz.timeForTest' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send(questionsModel.value)">
     <button (click)="loadValues()" mdbBtn color="primary" class="waves-light" type="button" mdbWavesEffect> test
       ladowania wartosci </button>
     <div formArrayName="questionsJsonModel" class="card-body">
-      <div *ngFor="let questionJsonModel of userForm.get('questionsJsonModel')['controls']; let questionIndex=index"
+      <div
+        *ngFor="let questionJsonModel of questionsModel.get('questionsJsonModel')['controls']; let questionIndex=index"
         class="card-body card">
         <div [formGroupName]="questionIndex">
-          <span class="numberQuestion">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}}</span>
+          <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}}</span>
           <button class="btn btn-danger" type="submit" (click)="removeQuestion(questionIndex)"
             [disabled]="questionIndex<1">{{"quiz.removeQuestion" | translate}}</button>
           <div formGroupName="questionsModel" class="md-form">
@@ -17,9 +42,9 @@
           </div>
           <div>
             <div formArrayName="answersModel">
-              <div *ngFor="let answerModel of userForm.get('questionsJsonModel')['controls'][questionIndex]['controls']['answersModel']['controls'];
+              <div *ngFor="let answerModel of questionsModel.get('questionsJsonModel')['controls'][questionIndex]['controls']['answersModel']['controls'];
                 let answerIndex=index">
-                <span class="numberQuestion">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}} -
+                <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}} -
                   {{("quiz.answerNumber" | translate) + (questionIndex + 1)}}</span>
                 <div [formGroupName]="answerIndex" class="md-form">
                   <div class="form-row">
@@ -55,7 +80,7 @@
           {{'quiz.addAnswer' | translate}}
         </button>
       </div>
-      <button (click)="newQuestion(userForm.value.questionsJsonModel)" mdbBtn color="primary"
+      <button (click)="newQuestion(questionsModel.value.questionsJsonModel)" mdbBtn color="primary"
         class="waves-light btn btn-block my-4" type="button" mdbWavesEffect>{{"quiz.addQuestion" | translate}}</button>
     </div>
   </form>
@@ -64,5 +89,7 @@
   </button>
   <br>
 
-  {{userForm.value | json}}
+  {{questionsModel.value | json}}
+  <br>
+  {{testsModel.value | json}}
 </div>

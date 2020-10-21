@@ -71,6 +71,7 @@
   },
   "middle-name": "Middle name",
   "my-account": "My Account",
+  "no": "No",
   "not-a-member": "Not a member?",
   "panel": {
     "admin": "Admin Panel",
@@ -88,6 +89,7 @@
   "phone-number-valid": "Valid phone number",
   "profile": "Profile",
   "quiz": {
+    "about": "Information about quiz: ",
     "addAnswer": "Add next answer",
     "addQuestion": "Add next question",
     "answer": "Answer",
@@ -99,6 +101,8 @@
     "exists": "A quiz with the given code exists!",
     "hello": "Join the quiz!",
     "isCorrect": "Correct",
+    "isPossibleToBack": "Ability to reverse",
+    "name": "Quiz name",
     "notExists": "Quiz does not exists!",
     "points": "Points",
     "removeAnswer": "Remove this answer",
@@ -106,6 +110,7 @@
     "save": "Save quiz!",
     "start": "start!",
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
+    "timeForTest": "Time (sec.)",
     "question": "Pytanie: ",
     "questionNumber": "Question no. "
   },
@@ -137,5 +142,6 @@
   },
   "users": {
     "list": "User list"
-  }
+  },
+  "yes": "Yes"
 }
