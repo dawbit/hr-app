@@ -109,13 +109,14 @@ form {
   color: #252525;
 }
 
+form span.numberQuestion {
+  color: #ffffff;
+  font-size: larger;
+}
+
 .md-form .prefix {
   font-size: 1.5rem;
   margin-top: 1rem;
-}
-
-.md-form label {
-  color: #ffffff;
 }
 
 .success-message {

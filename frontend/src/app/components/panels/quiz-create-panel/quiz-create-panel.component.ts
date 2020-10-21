@@ -19,8 +19,8 @@ export class QuizCreatePanelComponent implements OnInit {
       type: {
         options: [
           {
-            is_correct: '',
-            points: '',
+            is_correct: false,
+            points: 0,
             text: ''
           }
         ]
@@ -39,8 +39,8 @@ export class QuizCreatePanelComponent implements OnInit {
           answersModel: new FormArray([
             new FormGroup({
               text: new FormControl(''),
-              is_correct: new FormControl(''),
-              points: new FormControl(''),
+              is_correct: new FormControl(false),
+              points: new FormControl(0),
             })
           ]),
         })
@@ -68,7 +68,8 @@ export class QuizCreatePanelComponent implements OnInit {
   }
 
   addAnswer(ind) {
-    const control = <FormArray>this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'];
+    // tslint:disable-next-line: no-string-literal
+    const control = this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray;
     this.answersModelfields.type.options.forEach(x => {
       control.push(this.patchValues(x.is_correct, x.points, x.text));
     });
@@ -99,6 +100,7 @@ export class QuizCreatePanelComponent implements OnInit {
   }
 
   removeAnswer(ind, index) {
+    // tslint:disable-next-line: no-string-literal
     (this.userForm.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
   }
 

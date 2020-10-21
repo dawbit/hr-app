@@ -90,16 +90,23 @@
   "quiz": {
     "addAnswer": "Add next answer",
     "addQuestion": "Add next question",
+    "answer": "Answer",
+    "answerCorrect": "Correct",
+    "answerIncorrect": "Incorrect",
+    "answerNumber": "Answer: ",
     "creator": "Recruitment quiz creation wizard: ",
     "enterCode": "Enter access code to the quiz: ",
     "exists": "A quiz with the given code exists!",
     "hello": "Join the quiz!",
+    "isCorrect": "Correct",
     "notExists": "Quiz does not exists!",
+    "points": "Points",
     "removeAnswer": "Remove this answer",
     "removeQuestion": "Remove this question",
     "save": "Save quiz!",
     "start": "start!",
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
+    "question": "Pytanie: ",
     "questionNumber": "Question no. "
   },
   "recruitment": {

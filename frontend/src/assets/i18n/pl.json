@@ -90,16 +90,23 @@
   "quiz": {
     "addAnswer": "Dodaj następną odpowiedź",
     "addQuestion": "Dodaj kolejne pytanie",
+    "answer": "Odpowiedź",
+    "answerCorrect": "Poprawna",
+    "answerIncorrect": "Niepoprawna",
+    "answerNumber": "Odpowiedź: ",
     "creator": "Kreator tworzenia quizu rekrutacyjnego: ",
     "enterCode": "Podaj kod dostępu do quizu: ",
     "exists": "Quiz o podanym kodzie istnieje!",
     "hello": "Przystąp do rozwiązywania quizu!",
+    "isCorrect": "Odpowiedź poprawna",
     "notExists": "Quiz nie istnieje!",
+    "points": "Punkty",
     "removeAnswer": "Usuń pytanie",
     "removeQuestion": "Usuń odpowiedź",
     "save": "Zapisz quiz!",
     "start": "start!",
     "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
+    "question": "Question",
     "questionNumber": "Pytanie numer: "
   },
   "recruitment": {
