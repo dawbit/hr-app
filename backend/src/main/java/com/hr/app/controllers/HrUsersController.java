@@ -45,9 +45,9 @@ public class HrUsersController {
             ceosModel = getCeosModelByOwnerId(usersModel.getId());
             userToBecomeHr = getUserById(addNewHrCommandDto.getHrUserId());
 
-            if (userToBecomeHr.getFKuserAccountTypes().getRoleId() == 1) {
+            if (userToBecomeHr.getFKuserAccountTypes().getRoleId() !=4) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                return new ResponseTransfer("Forbidden command"); //nie można dodwać admina na Hr
+                return new ResponseTransfer("Forbidden command"); //można dodać tylko zwykłych userów na hr
             }
 
             HrUsersModel hrUsersModel = new HrUsersModel(userToBecomeHr, ceosModel.getFKceoCompany());

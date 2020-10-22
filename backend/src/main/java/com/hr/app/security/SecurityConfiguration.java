@@ -52,14 +52,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // test
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/getall").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/user/deleteuser").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.GET,"/companies/companyid/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/companies/companyname/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/companies/all").permitAll()
-                .antMatchers("/companies/add").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.POST,"/companies/add").hasAnyRole("ADMIN", "USER")
 
-                .antMatchers("/hrusers/add").hasAnyRole("ADMIN", "CEO")
+                .antMatchers(HttpMethod.POST, "/hrusers/add").hasAnyRole("ADMIN", "CEO")
 
-                .antMatchers("/accounttype/add").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/accounttype/add").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 
