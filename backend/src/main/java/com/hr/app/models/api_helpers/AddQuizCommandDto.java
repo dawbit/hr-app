@@ -4,18 +4,15 @@ import com.hr.app.models.database.TestsModel;
 
 import java.util.List;
 
-public class QuizModel {
+public class AddQuizCommandDto {
 
     private TestsModel testsModel;
-    private List<QuestionJsonModel> questionsJsonModel;
+    private List<AddQuestionCommandDto> questionsJsonModel;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
-    public List<QuestionJsonModel> getQuestionsModel() {
-        return questionsJsonModel;
-    }
 
     public TestsModel getTestsModel() {
         return testsModel;
@@ -25,20 +22,20 @@ public class QuizModel {
         this.testsModel = testsModel;
     }
 
-    public void setQuestionsJsonModel(List<QuestionJsonModel> questionsJsonModel) {
+    public List<AddQuestionCommandDto> getQuestionsJsonModel() {
+        return questionsJsonModel;
+    }
+
+    public void setQuestionsJsonModel(List<AddQuestionCommandDto> questionsJsonModel) {
         this.questionsJsonModel = questionsJsonModel;
     }
 
-    protected QuizModel(){
+    protected AddQuizCommandDto(){
     }
 
-    public QuizModel(List<QuestionJsonModel> questionsModel, TestsModel testsModel){
+    public AddQuizCommandDto(List<AddQuestionCommandDto> questionsModel, TestsModel testsModel){
         this.questionsJsonModel=questionsModel;
         this.testsModel=testsModel;
-    }
-
-    public List<QuestionJsonModel> getQuestionsJsonModel() {
-        return questionsJsonModel;
     }
 
 

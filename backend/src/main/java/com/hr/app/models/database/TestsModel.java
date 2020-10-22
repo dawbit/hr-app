@@ -87,6 +87,12 @@ public class TestsModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+
+
+    public void setFKtestCodeuser(List<TestParticipantModel> FKtestCodeuser) {
+        this.FKtestCodeuser = FKtestCodeuser;
+    }
+
     public long getId() {
         return id;
     }
@@ -127,14 +133,6 @@ public class TestsModel {
         return timeForTest;
     }
 
-    public List<QuestionsModel> getQuestions() {
-        return questions;
-    }
-
-    public List<UserAnswersModel> getUserAnswers() {
-        return userAnswers;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -169,10 +167,6 @@ public class TestsModel {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public List<TestParticipantModel> getFKtest() {
-        return FKtestCodeuser;
     }
 
     public void setFKtest(List<TestParticipantModel> FKtestCodeuser) {

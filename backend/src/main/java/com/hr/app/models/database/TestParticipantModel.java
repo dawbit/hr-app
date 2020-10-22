@@ -37,6 +37,22 @@ public class TestParticipantModel {
     // =========================================
 
 
+    public TestsModel getFKtestCodetest() {
+        return FKtestCodetest;
+    }
+
+    public void setFKtestCodetest(TestsModel FKtestCodetest) {
+        this.FKtestCodetest = FKtestCodetest;
+    }
+
+    public UsersModel getFKtestCodeuser() {
+        return FKtestCodeuser;
+    }
+
+    public void setFKtestCodeuser(UsersModel FKtestCodeuser) {
+        this.FKtestCodeuser = FKtestCodeuser;
+    }
+
     public long getId() {
         return id;
     }

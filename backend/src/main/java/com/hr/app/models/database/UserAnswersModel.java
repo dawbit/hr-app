@@ -47,6 +47,8 @@ public class UserAnswersModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+
+
     public long getId() {
         return id;
     }
