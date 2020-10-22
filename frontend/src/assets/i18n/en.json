@@ -5,6 +5,7 @@
     "addConfirm": "Add",
     "name": "Name"
   },
+  "closeTab": "Are you sure you want to close the current tab?",
   "companies": {
     "about": "Tell us something about your company ... This will help other users find your company in our search engine!",
     "add": "Add your company!",
@@ -91,6 +92,7 @@
   "quiz": {
     "about": "Information about quiz: ",
     "addAnswer": "Add next answer",
+    "added": "The quiz has been added correctly!",
     "addQuestion": "Add next question",
     "answer": "Answer",
     "answerCorrect": "Correct",
@@ -98,11 +100,16 @@
     "answerNumber": "Answer: ",
     "creator": "Recruitment quiz creation wizard: ",
     "enterCode": "Enter access code to the quiz: ",
+    "error": "Error adding a quiz",
     "exists": "A quiz with the given code exists!",
     "hello": "Join the quiz!",
     "isCorrect": "Correct",
     "isPossibleToBack": "Ability to reverse",
+    "loadConfirmation": "You have not saved a quiz recently...",
+    "loadConfirmation2": "Do you wany to finish it?",
+    "loaded": "Previous quiz loaded!",
     "name": "Quiz name",
+    "newQuiz": "You create a new quiz!",
     "notExists": "Quiz does not exists!",
     "points": "Points",
     "removeAnswer": "Remove this answer",
@@ -135,7 +142,7 @@
   "term-of-service-s": "term of service",
   "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;",
   "toast": {
-    "error": "Error!",
+    "error": "Error! Please contact with administrator.",
     "info": "Information",
     "success": "Success!",
     "warning": "Warning!"

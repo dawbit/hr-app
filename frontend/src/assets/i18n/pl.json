@@ -5,6 +5,7 @@
     "addConfirm": "Dodaj",
     "name": "Nazwa"
   },
+  "closeTab": "Jesteś pewien że chcesz zamknąć obecną kartę?",
   "companies": {
     "about": "Powiedz nam coś o swojej firmie... Pomoże to wyszukać twoją firmę innym użytkownikom w naszej wyszukiwarce!",
     "add": "Dodaj swoją firmę!",
@@ -91,6 +92,7 @@
   "quiz": {
     "about": "Informacje o quizie: ",
     "addAnswer": "Dodaj następną odpowiedź",
+    "added": "Quiz został pomyślnie zapisany!",
     "addQuestion": "Dodaj kolejne pytanie",
     "answer": "Odpowiedź",
     "answerCorrect": "Poprawna",
@@ -98,11 +100,16 @@
     "answerNumber": "Odpowiedź: ",
     "creator": "Kreator tworzenia quizu rekrutacyjnego: ",
     "enterCode": "Podaj kod dostępu do quizu: ",
+    "error": "Błąd podczas dodawania quizu",
     "exists": "Quiz o podanym kodzie istnieje!",
     "hello": "Przystąp do rozwiązywania quizu!",
     "isCorrect": "Odpowiedź poprawna",
     "isPossibleToBack": "Możliwość cofania",
+    "loadConfirmation": "Ostatnio nie zapisałeś tworzonego quizu",
+    "loadConfirmation2": "Chcesz go dokończyć?",
+    "loaded": "Załadowano poprzedni quiz!",
     "name": "Nazwa quizu",
+    "newQuiz": "Tworzysz nowy quiz!",
     "notExists": "Quiz nie istnieje!",
     "points": "Punkty",
     "removeAnswer": "Usuń pytanie",
@@ -135,7 +142,7 @@
   "term-of-service-s": "politykę prywatności",
   "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",
   "toast": {
-    "error": "Błąd!",
+    "error": "Błąd! Skontaktuj się z administratorem.",
     "info": "Informacja",
     "success": "Sukces!",
     "warning": "Ostrzeżenie!"
