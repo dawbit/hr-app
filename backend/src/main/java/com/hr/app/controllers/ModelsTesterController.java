@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 public class ModelsTesterController {
-
     @Autowired
     private IUsersRepository usersRepository;
 
-    @GetMapping("tester/get")
-    public UsersModel addQuiz() {
+    @GetMapping("tester/tester/")
+    public UsersModel getInitialQuiz(){
         return usersRepository.findById(1);
     }
 }
