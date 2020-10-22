@@ -1,18 +1,18 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.api_helpers.ResponseTransfer;
-import com.hr.app.models.database.CeosModel;
-import com.hr.app.models.database.CompaniesModel;
-import com.hr.app.models.database.HrUsersModel;
-import com.hr.app.repositories.ICeosRepository;
-import com.hr.app.repositories.IHrUsersRepository;
-import com.hr.app.repositories.IUsersRepository;
+import com.hr.app.models.api_helpers.AddNewHrCommandDto;
+import com.hr.app.models.database.*;
+import com.hr.app.models.dto.ResponseTransfer;
+import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin
 @RestController
@@ -25,33 +25,61 @@ public class HrUsersController {
     private IUsersRepository usersRepository;
 
     @Autowired
+    private ICompaniesRepository companiesRepository;
+
+    @Autowired
     private ICeosRepository ceosRepository;
 
-    @PostMapping("hrusers/add")
-    public ResponseTransfer addNewHrUser(@RequestBody long userId){
+    @Autowired
+    private IAccountTypesRepository accountTypesRepository;
 
-        CompaniesModel company = getCompany();
-        if(company==null){
-            return new  ResponseTransfer("Nie masz uprawnień");
-        }
-        else {
-            try {
-                hrUsersRepository.save(new HrUsersModel(usersRepository.findById(userId), company));
-                return new ResponseTransfer("udało się");
-            } catch (Exception e){
-                return new ResponseTransfer("nie udalo sie");
+    @Transactional
+    @PostMapping("/hrusers/add")
+    public ResponseTransfer addNewHrUser(@RequestBody AddNewHrCommandDto addNewHrCommandDto, HttpServletResponse response){
+
+        UsersModel usersModel;
+        CeosModel ceosModel;
+        UsersModel userToBecomeHr;
+        try {
+            usersModel = getUsersModel();
+            ceosModel = getCeosModelByOwnerId(usersModel.getId());
+            userToBecomeHr = getUserById(addNewHrCommandDto.getHrUserId());
+
+            if (userToBecomeHr.getFKuserAccountTypes().getRoleId() == 1) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("Forbidden command"); //nie można dodwać admina na Hr
             }
+
+            HrUsersModel hrUsersModel = new HrUsersModel(userToBecomeHr, ceosModel.getFKceoCompany());
+            AccountTypesModel hrRoleModel = getHrModel();
+            userToBecomeHr.setFKuserAccountTypes(hrRoleModel);
+
+            usersRepository.save(userToBecomeHr);
+            hrUsersRepository.save(hrUsersModel);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
         }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        return new ResponseTransfer("Hr user successfully added");
     }
 
-    private CompaniesModel getCompany(){
+    private CeosModel getCeosModelByOwnerId(long userId) {
+        return ceosRepository.findByFKceoUserId(userId);
+    }
+
+    private UsersModel getUserById(long userId){
+        return usersRepository.findById(userId);
+    }
+
+    private UsersModel getUsersModel() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        try{
-            CeosModel ceo = ceosRepository.findByFKceoUserId(usersRepository.findByLogin(name).getId());
-            return ceo.getFKceoCompany();
-        }
-        catch (Exception e){
-            return null;
-        }
+        return usersRepository.findByLogin(name);
+    }
+
+    private AccountTypesModel getHrModel() {
+        return accountTypesRepository.findByRoleId(3);
     }
 }
