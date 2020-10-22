@@ -1,18 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { CryptoService } from './../../../services/security/crypto.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-create-panel',
   templateUrl: './quiz-create-panel.component.html',
   styleUrls: ['./quiz-create-panel.component.scss']
 })
-export class QuizCreatePanelComponent implements OnInit {
+export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
 
   questionsModel: FormGroup;
   testsModel: FormGroup;
   answersModelfields: any;
+  changes = false;
+
+  @HostListener('window:beforeunload', ['$event'])
+  doSomething($event) {
+    if (this.changes) {
+      const quizData = this.cryptoService.encryptData({ quizInfo: this.testsModel.value, quizValues: this.questionsModel.value });
+      localStorage.setItem('quiz-create-panel-data', (quizData).toString());
+      $event.returnValue = this.translate.instant('closeTab');
+    }
+  }
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private cryptoService: CryptoService,
+    private router: Router
   ) {
     // wstrzykiwanie wartości kluczy z pustymi wartościami do FormArray
     this.answersModelfields = {
@@ -27,9 +45,19 @@ export class QuizCreatePanelComponent implements OnInit {
         ]
       }
     };
+
+    // window.onbeforeunload = function (e) {
+    //   return 'Dialog text here.';
+    // };
   }
 
   ngOnInit(): void {
+    this.testsModel = new FormGroup({
+      is_possible_to_back: new FormControl(true),
+      name: new FormControl(''),
+      timeForTest: new FormControl(1000)
+    });
+
     // definicja obiektu - formularza odpowiedzialnego za questionsJsonModel
     this.questionsModel = new FormGroup({
       questionsJsonModel: new FormArray([
@@ -50,31 +78,39 @@ export class QuizCreatePanelComponent implements OnInit {
 
     // const control = this.questionsModel.get('questionsJsonModel')['controls'][0].value;
     // console.log(control);
-
-    this.testsModel = new FormGroup({
-      is_possible_to_back: new FormControl(true),
-      name: new FormControl(''),
-      timeForTest: new FormControl(1000)
-    });
   }
 
-  loadValues() {
-    this.questionsModel.patchValue({
-      questionsJsonModel: [
-        {
-          questionsModel: {
-            text: 'rabarbarowelowe'
-          },
-          answersModel: [
-            {
-              text: 'aa',
-              is_correct: 'bb',
-              points: 'cc'
-            }
-          ]
+  ngAfterViewInit() {
+    if (localStorage.getItem('quiz-create-panel-data')) {
+      Swal.fire({
+        title: this.translate.instant('quiz.loadConfirmation'),
+        text: this.translate.instant('quiz.loadConfirmation2'),
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: this.translate.instant('yes'),
+        cancelButtonText: this.translate.instant('no')
+      }).then((loadQuiz) => {
+        if (loadQuiz.value) {
+          Swal.fire({
+            title: this.translate.instant('quiz.loaded'),
+            icon: 'success',
+          });
+          const quizStructure = this.cryptoService.decryptData(localStorage.getItem('quiz-create-panel-data'));
+          this.loadValues(quizStructure.quizInfo, quizStructure.quizValues)
+        } else if (loadQuiz.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: this.translate.instant('quiz.newQuiz'),
+            icon: 'warning'
+          });
+          localStorage.removeItem('quiz-create-panel-data');
         }
-      ]
-    });
+      });
+    }
+  }
+
+  loadValues(quizInfo, quizValues) {
+    this.testsModel.setValue(quizInfo);
+    this.questionsModel.patchValue(quizValues);
   }
 
   addAnswer(ind) {
@@ -83,7 +119,7 @@ export class QuizCreatePanelComponent implements OnInit {
     this.answersModelfields.type.options.forEach(x => {
       control.push(this.patchValues(x.is_correct, x.points, x.text));
     });
-
+    this.isChanged();
   }
 
   patchValues(isCorrect, points, text) {
@@ -106,19 +142,27 @@ export class QuizCreatePanelComponent implements OnInit {
         }
       )
     );
+    this.isChanged();
     this.addAnswer(ind);
   }
 
   removeAnswer(ind, index) {
     // tslint:disable-next-line: no-string-literal
     (this.questionsModel.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
+    this.isChanged();
   }
 
   removeQuestion(ind) {
     (this.questionsModel.get('questionsJsonModel') as FormArray).removeAt(ind);
+    this.isChanged();
+  }
+
+  isChanged() {
+    this.changes = true;
   }
 
   send(values) {
     console.log(values);
+    localStorage.removeItem('quiz-create-panel-data');
   }
 }

@@ -5,6 +5,7 @@
     "addConfirm": "Add",
     "name": "Name"
   },
+  "closeTab": "Are you sure you want to close the current tab?",
   "companies": {
     "about": "Tell us something about your company ... This will help other users find your company in our search engine!",
     "add": "Add your company!",
@@ -102,7 +103,11 @@
     "hello": "Join the quiz!",
     "isCorrect": "Correct",
     "isPossibleToBack": "Ability to reverse",
+    "loadConfirmation": "You have not saved a quiz recently...",
+    "loadConfirmation2": "Do you wany to finish it?",
+    "loaded": "Previous quiz loaded!",
     "name": "Quiz name",
+    "newQuiz": "You create a new quiz!",
     "notExists": "Quiz does not exists!",
     "points": "Points",
     "removeAnswer": "Remove this answer",
