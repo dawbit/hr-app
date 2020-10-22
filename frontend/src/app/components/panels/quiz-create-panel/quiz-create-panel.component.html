@@ -1,1 +1,95 @@
-<p>quiz-create-panel works!</p>
+<div class="card-body px-lg-5 pt-0">
+  <h6 class="text-center">{{"quiz.creator" | translate | uppercase}}</h6>
+  <form class="md-form" [formGroup]="testsModel">
+    <div class="card-body card">
+      <span class="quiz-create-span">{{("quiz.about" | translate)}}</span>
+      <div class="form-row">
+        <div class="col">
+          <input type="text" formControlName="name" mdbInput class="form-control col" id="quizName">
+          <label for="quizName">{{'quiz.name' | translate}}</label>
+        </div>
+        <div class="col">
+          <select class="form-control col mdb-select" formControlName="is_possible_to_back" mdbInput
+            class="form-control col" id="is_possible_to_back">
+            <option [ngValue]="false">{{"no" | translate}}</option>
+            <option [ngValue]="true">{{"yes" | translate}}</option>
+          </select>
+          <label for="is_possible_to_back">{{'quiz.isPossibleToBack' | translate}}</label>
+        </div>
+        <div class="col">
+          <input type="number" min="0" max="100000" formControlName="timeForTest" mdbInput class="form-control col"
+            id="timeForTest">
+          <label for="timeForTest">{{'quiz.timeForTest' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send(questionsModel.value)">
+    <button (click)="loadValues()" mdbBtn color="primary" class="waves-light" type="button" mdbWavesEffect> test
+      ladowania wartosci </button>
+    <div formArrayName="questionsJsonModel" class="card-body">
+      <div
+        *ngFor="let questionJsonModel of questionsModel.get('questionsJsonModel')['controls']; let questionIndex=index"
+        class="card-body card">
+        <div [formGroupName]="questionIndex">
+          <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}}</span>
+          <button class="btn btn-danger" type="submit" (click)="removeQuestion(questionIndex)"
+            [disabled]="questionIndex<1">{{"quiz.removeQuestion" | translate}}</button>
+          <div formGroupName="questionsModel" class="md-form">
+            <textarea type="text" formControlName="text" class="md-textarea md-textarea-auto form-control" mdbInput
+              id="question-{{questionIndex+1}}"></textarea>
+            <label for="question-{{questionIndex+1}}">{{"quiz.question" | translate}}</label>
+          </div>
+          <div>
+            <div formArrayName="answersModel">
+              <div *ngFor="let answerModel of questionsModel.get('questionsJsonModel')['controls'][questionIndex]['controls']['answersModel']['controls'];
+                let answerIndex=index">
+                <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}} -
+                  {{("quiz.answerNumber" | translate) + (questionIndex + 1)}}</span>
+                <div [formGroupName]="answerIndex" class="md-form">
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" formControlName="text" mdbInput class="form-control col"
+                        id="textAnswer.{{questionIndex}}.{{answerIndex}}">
+                      <label for="textAnswer.{{questionIndex}}.{{answerIndex}}">{{'quiz.answer' | translate}}</label>
+                    </div>
+                    <div class="col">
+                      <input type="number" min="0" max="10" formControlName="points" mdbInput class="form-control col"
+                        id="points.{{questionIndex}}.{{answerIndex}}">
+                      <label for="points.{{questionIndex}}.{{answerIndex}}">{{'quiz.points' | translate}}</label>
+                    </div>
+                    <div class="col">
+                      <select class="form-control col mdb-select" formControlName="is_correct" mdbInput
+                        class="form-control col" id="isCorrect.{{questionIndex}}.{{answerIndex}}">
+                        <option [ngValue]="false">{{"no" | translate}}</option>
+                        <option [ngValue]="true">{{"yes" | translate}}</option>
+                      </select>
+                      <label for="isCorrect.{{questionIndex}}.{{answerIndex}}">{{'quiz.isCorrect' | translate}}</label>
+                    </div>
+                  </div>
+                  <button class="btn btn-danger" type="submit" (click)="removeAnswer(questionIndex, answerIndex)"
+                    [disabled]="answerIndex<1">
+                    {{'quiz.removeAnswer' | translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-info" type="submit" (click)="addAnswer(questionIndex)">
+          {{'quiz.addAnswer' | translate}}
+        </button>
+      </div>
+      <button (click)="newQuestion(questionsModel.value.questionsJsonModel)" mdbBtn color="primary"
+        class="waves-light btn btn-block my-4" type="button" mdbWavesEffect>{{"quiz.addQuestion" | translate}}</button>
+    </div>
+  </form>
+  <button class="btn btn-success btn-block my-4" type="submit">
+    {{'quiz.save' | translate}}
+  </button>
+  <br>
+
+  {{questionsModel.value | json}}
+  <br>
+  {{testsModel.value | json}}
+</div>
