@@ -25,7 +25,7 @@
       </div>
     </div>
   </form>
-  <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send(questionsModel.value)">
+  <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send()">
     <div formArrayName="questionsJsonModel" class="card-body">
       <div
         *ngFor="let questionJsonModel of questionsModel.get('questionsJsonModel')['controls']; let questionIndex=index"
@@ -84,12 +84,7 @@
         class="waves-light btn btn-block my-4" type="button" mdbWavesEffect>{{"quiz.addQuestion" | translate}}</button>
     </div>
   </form>
-  <button class="btn btn-success btn-block my-4" type="submit">
+  <button class="btn btn-success btn-block my-4" type="submit" (click)="send()">
     {{'quiz.save' | translate}}
   </button>
-  <br>
-
-  {{questionsModel.value | json}}
-  <br>
-  {{testsModel.value | json}}
 </div>

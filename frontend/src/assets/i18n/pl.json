@@ -92,6 +92,7 @@
   "quiz": {
     "about": "Informacje o quizie: ",
     "addAnswer": "Dodaj następną odpowiedź",
+    "added": "Quiz został pomyślnie zapisany!",
     "addQuestion": "Dodaj kolejne pytanie",
     "answer": "Odpowiedź",
     "answerCorrect": "Poprawna",
@@ -99,6 +100,7 @@
     "answerNumber": "Odpowiedź: ",
     "creator": "Kreator tworzenia quizu rekrutacyjnego: ",
     "enterCode": "Podaj kod dostępu do quizu: ",
+    "error": "Błąd podczas dodawania quizu",
     "exists": "Quiz o podanym kodzie istnieje!",
     "hello": "Przystąp do rozwiązywania quizu!",
     "isCorrect": "Odpowiedź poprawna",
@@ -140,7 +142,7 @@
   "term-of-service-s": "politykę prywatności",
   "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",
   "toast": {
-    "error": "Błąd!",
+    "error": "Błąd! Skontaktuj się z administratorem.",
     "info": "Informacja",
     "success": "Sukces!",
     "warning": "Ostrzeżenie!"

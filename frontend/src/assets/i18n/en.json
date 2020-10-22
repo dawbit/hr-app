@@ -92,6 +92,7 @@
   "quiz": {
     "about": "Information about quiz: ",
     "addAnswer": "Add next answer",
+    "added": "The quiz has been added correctly!",
     "addQuestion": "Add next question",
     "answer": "Answer",
     "answerCorrect": "Correct",
@@ -99,6 +100,7 @@
     "answerNumber": "Answer: ",
     "creator": "Recruitment quiz creation wizard: ",
     "enterCode": "Enter access code to the quiz: ",
+    "error": "Error adding a quiz",
     "exists": "A quiz with the given code exists!",
     "hello": "Join the quiz!",
     "isCorrect": "Correct",
@@ -140,7 +142,7 @@
   "term-of-service-s": "term of service",
   "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;",
   "toast": {
-    "error": "Error!",
+    "error": "Error! Please contact with administrator.",
     "info": "Information",
     "success": "Success!",
     "warning": "Warning!"

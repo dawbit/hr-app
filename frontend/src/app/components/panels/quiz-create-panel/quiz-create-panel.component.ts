@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CryptoService } from './../../../services/security/crypto.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
+import { QuizService } from './../../../services/quiz.service';
+import { ToastService } from './../../../services/toast.service';
 
 @Component({
   selector: 'app-quiz-create-panel',
@@ -30,7 +32,9 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private cryptoService: CryptoService,
-    private router: Router
+    private router: Router,
+    private quizService: QuizService,
+    private toast: ToastService
   ) {
     // wstrzykiwanie wartości kluczy z pustymi wartościami do FormArray
     this.answersModelfields = {
@@ -45,10 +49,6 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
         ]
       }
     };
-
-    // window.onbeforeunload = function (e) {
-    //   return 'Dialog text here.';
-    // };
   }
 
   ngOnInit(): void {
@@ -75,9 +75,6 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
         })
       ])
     });
-
-    // const control = this.questionsModel.get('questionsJsonModel')['controls'][0].value;
-    // console.log(control);
   }
 
   ngAfterViewInit() {
@@ -161,8 +158,18 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
     this.changes = true;
   }
 
-  send(values) {
-    console.log(values);
-    localStorage.removeItem('quiz-create-panel-data');
+  send() {
+    const body = Object.assign({ testsModel: this.testsModel.value }, this.questionsModel.value);
+    this.quizService.sendQuiz(body).subscribe(
+      res => {
+        if (res && res.status && res.ok) {
+          this.toast.showSuccess('quiz.added');
+          localStorage.removeItem('quiz-create-panel-data');
+        }
+      },
+      err => {
+        this.toast.showError('quiz.error');
+      }
+    );
   }
 }
