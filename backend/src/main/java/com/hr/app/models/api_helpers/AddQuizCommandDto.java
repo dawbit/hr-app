@@ -7,7 +7,7 @@ import java.util.List;
 public class AddQuizCommandDto {
 
     private TestsModel testsModel;
-    private List<AddQuestionCommandDto> questionsJsonModel;
+    private List<AddQuestionCommandDto> listOfQuestionCommandDto;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -22,19 +22,19 @@ public class AddQuizCommandDto {
         this.testsModel = testsModel;
     }
 
-    public List<AddQuestionCommandDto> getQuestionsJsonModel() {
-        return questionsJsonModel;
+    public List<AddQuestionCommandDto> getListOfQuestionCommandDto() {
+        return listOfQuestionCommandDto;
     }
 
-    public void setQuestionsJsonModel(List<AddQuestionCommandDto> questionsJsonModel) {
-        this.questionsJsonModel = questionsJsonModel;
+    public void setListOfQuestionCommandDto(List<AddQuestionCommandDto> questionsJsonModel) {
+        this.listOfQuestionCommandDto = questionsJsonModel;
     }
 
     protected AddQuizCommandDto(){
     }
 
     public AddQuizCommandDto(List<AddQuestionCommandDto> questionsModel, TestsModel testsModel){
-        this.questionsJsonModel=questionsModel;
+        this.listOfQuestionCommandDto=questionsModel;
         this.testsModel=testsModel;
     }
 

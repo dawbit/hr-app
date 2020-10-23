@@ -60,10 +60,9 @@ public class TestsModel {
     @Future
     private Date endDate;
 
-    @Column(name = "time_for_test", nullable = false)
+    @Column(name = "time_for_test_in_milis", nullable = false)
     @Positive
-    @Max(value = 32700)
-    private short timeForTest;
+    private long timeForTestInMilis;
 
 
     // =========================================
@@ -129,8 +128,8 @@ public class TestsModel {
         return endDate;
     }
 
-    public short getTimeForTest() {
-        return timeForTest;
+    public long getTimeForTestInMilis() {
+        return timeForTestInMilis;
     }
 
     public void setName(String name) {
@@ -173,8 +172,8 @@ public class TestsModel {
         this.FKtestCodeuser = FKtestCodeuser;
     }
 
-    public void setTimeForTest(short timeForTest) {
-        this.timeForTest = timeForTest;
+    public void setTimeForTest(long timeForTestInMilis) {
+        this.timeForTestInMilis = timeForTestInMilis;
     }
 
     public void setQuestions(List<QuestionsModel> questions) {
@@ -198,7 +197,7 @@ public class TestsModel {
 
 
     public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
-                      boolean isActive, Date startDate, Date endDate, short timeForTest, List<QuestionsModel> questions,
+                      boolean isActive, Date startDate, Date endDate, long timeForTestInMilis, List<QuestionsModel> questions,
                       List<UserAnswersModel> userAnswers, boolean isOpenForEveryone) {
         this.name = name;
         this.FKtestUserHr = FKtestUserHr;
@@ -207,7 +206,7 @@ public class TestsModel {
         this.isActive = isActive;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.timeForTest = timeForTest;
+        this.timeForTestInMilis = timeForTestInMilis;
         this.questions = questions;
         this.userAnswers = userAnswers;
         this.isOpenForEveryone=isOpenForEveryone;

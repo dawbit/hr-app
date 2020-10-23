@@ -1,26 +1,17 @@
 package com.hr.app.models.dto;
 
-public class QuizInformationsDto {
+public class QuizInformationsResultDto {
     private long quizId;
     private long amountOfQuestions;
     private boolean isBackPossible;
+    private long timeForTestInMilis;
 
-    private int responseCode;
-//    1-> isactive
-//    2-> isinactive
-//    3-> permissionallowed
-//    4-> permissiondisallowed
-//    5-> badCode
-//    6-> correctCode
-//    7-> serverError
-
-
-    public int getResponseCode() {
-        return responseCode;
+    public long getTimeForTestInMilis() {
+        return timeForTestInMilis;
     }
 
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
+    public void setTimeForTestInMilis(long timeForTestInMilis) {
+        this.timeForTestInMilis = timeForTestInMilis;
     }
 
     public long getQuizId() {
@@ -47,15 +38,11 @@ public class QuizInformationsDto {
         isBackPossible = backPossible;
     }
 
-    public QuizInformationsDto(long quizId, long amountOfQuestions, boolean isBackPossible, int responseCode) {
+    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible, long timeForTestInMilis) {
         this.quizId = quizId;
         this.amountOfQuestions = amountOfQuestions;
         this.isBackPossible = isBackPossible;
-        this.responseCode = responseCode;
-    }
-
-    public QuizInformationsDto(int responseCode) {
-        this.responseCode = responseCode;
+        this.timeForTestInMilis = timeForTestInMilis;
     }
 
 

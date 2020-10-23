@@ -2,7 +2,7 @@ package com.hr.app.models.dto;
 
 import com.hr.app.models.database.UsersModel;
 
-public class UserDto {
+public class UserResultDto {
 
     private long id;
     private String firstName;
@@ -13,9 +13,9 @@ public class UserDto {
     private String login;
     private boolean isActive;
 
-    protected UserDto(){}
+    protected UserResultDto(){}
 
-    public UserDto(UsersModel usersModel) {
+    public UserResultDto(UsersModel usersModel) {
         this.id = usersModel.getId();
         this.email = usersModel.getEmail();
         this.firstName = usersModel.getFirstName();
