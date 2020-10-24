@@ -33,7 +33,13 @@ public class CompaniesController {
 
     @GetMapping("/companies/all")
     public List<CompaniesModel> getAllCompanies() {
+        System.out.println("ss");
         return companiesRepository.findAll();
+    }
+
+    @GetMapping("/companies/find")
+    public List<CompaniesModel> getAllCompaniesByAntything(@RequestParam String q) {
+        return companiesRepository.findCompanyByAnything(q);
     }
 
     @Transactional
