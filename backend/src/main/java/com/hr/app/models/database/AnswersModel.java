@@ -44,6 +44,14 @@ public class AnswersModel {
     // =========================================
 
 
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
+    }
+
     public long getId() {
         return id;
     }
@@ -56,16 +64,8 @@ public class AnswersModel {
         return text;
     }
 
-    public boolean getIsCorrect() {
-        return isCorrect;
-    }
-
     public int getPoints() {
         return points;
-    }
-
-    public List<UserAnswersModel> getUserAnswers() {
-        return userAnswers;
     }
 
     public void setFKanswerQuestion(QuestionsModel FKanswerQuestion) {
@@ -74,10 +74,6 @@ public class AnswersModel {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setIsCorrect(boolean isCorrect) {
-        this.isCorrect = isCorrect;
     }
 
     public void setPoints(int points) {

@@ -32,32 +32,39 @@ public class TestParticipantModel {
     @Column(name = "currentQuestionNumber")
     private long questionNumber = 1;
 
+    @Column(name = "start_quiz_time_in_milis")
+    private long startQuizTimeInMilis =0;
+
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
 
+    public long getStartQuizTimeInMilis() {
+        return startQuizTimeInMilis;
+    }
+
+    public void setStartQuizTimeInMilis(long startQuizTimeInMilis) {
+        this.startQuizTimeInMilis = startQuizTimeInMilis;
+    }
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public TestsModel getFKtest() {
+    public TestsModel getFKtestCodetest() {
         return FKtestCodetest;
     }
 
-    public void setFKtest(TestsModel FKtestCodetest) {
+    public void setFKtestCodetest(TestsModel FKtestCodetest) {
         this.FKtestCodetest = FKtestCodetest;
     }
 
-    public UsersModel getFKuser() {
+    public UsersModel getFKtestCodeuser() {
         return FKtestCodeuser;
     }
 
-    public void setFKuser(UsersModel FKtestCodeuser) {
+    public void setFKtestCodeuser(UsersModel FKtestCodeuser) {
         this.FKtestCodeuser = FKtestCodeuser;
     }
 
@@ -77,18 +84,16 @@ public class TestParticipantModel {
         this.questionNumber = questionNumber;
     }
 
-    public void setQuestionNumberPlusOne() {
-        this.questionNumber+=1;
-    }
-
     protected TestParticipantModel(){};
 
-    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code, long questionNumber) {
+    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
+                                long questionNumber, long startQuizTimeInMilis) {
         this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
         this.code = code;
         this.questionNumber=questionNumber;
+        this.startQuizTimeInMilis=startQuizTimeInMilis;
     }
 
     public TestParticipantModel(TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
