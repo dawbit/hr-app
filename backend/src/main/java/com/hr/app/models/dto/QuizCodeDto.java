@@ -7,7 +7,7 @@ public class QuizCodeDto {
 
     private int responseCode;
 
-    protected QuizCodeDto() {
+    public QuizCodeDto() {
     }
 
     public int getResponseCode() {

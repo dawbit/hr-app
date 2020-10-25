@@ -1,12 +1,13 @@
 package com.hr.app.models.dto;
 
+import com.hr.app.enums.ResponseEnum;
 import com.hr.app.models.database.AnswersModel;
 import com.hr.app.models.database.QuestionsModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionResultDto {
+public class QuestionResultDto extends QuizCodeDto {
 
     private long id;
     private String text;
@@ -22,7 +23,8 @@ public class QuestionResultDto {
         this.image=questionsModel.getImage();
     }
 
-    public QuestionResultDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , int responseCode){
+    public QuestionResultDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , ResponseEnum responseEnum){
+        super(responseEnum);
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
@@ -32,7 +34,6 @@ public class QuestionResultDto {
             listOfAnswersDto.add(new AnswerResultDto(answer));
         }
         this.answers = listOfAnswersDto;
-        this.responseCode = responseCode;
     }
 
     public QuestionResultDto(int responseCode) {

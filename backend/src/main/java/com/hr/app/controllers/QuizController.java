@@ -1,7 +1,6 @@
 package com.hr.app.controllers;
 
 import com.hr.app.enums.ResponseEnum;
-import com.hr.app.enums.ResponseEnumOperations;
 import com.hr.app.models.api_helpers.AddQuestionCommandDto;
 import com.hr.app.models.api_helpers.AddQuizCommandDto;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
@@ -209,7 +208,8 @@ public class QuizController {
         return new QuizInformationsResultDto(testsModel.getId(),
                 listOfQuestions.size(),
                 testsModel.isPossibleToBack(),
-                testsModel.getTimeForTestInMilis());
+                testsModel.getTimeForTestInMilis(),
+                ResponseEnum.SUCCESS);
     }
 
     // TODO change enum respons
@@ -387,7 +387,7 @@ public class QuizController {
     }
 
     private QuestionResultDto getQuestionDtoModel(QuestionsModel questionsModel, List<AnswersModel> answersModelList){
-        return new QuestionResultDto(questionsModel, answersModelList, ResponseEnumOperations.getResponseStatusInt(ResponseEnum.SUCCESS));
+        return new QuestionResultDto(questionsModel, answersModelList, ResponseEnum.SUCCESS);
     }
 
     private TestParticipantModel getTestCodeModelByTestCode(String testCode) {

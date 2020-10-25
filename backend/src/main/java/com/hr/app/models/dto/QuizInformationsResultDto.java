@@ -1,6 +1,8 @@
 package com.hr.app.models.dto;
 
-public class QuizInformationsResultDto {
+import com.hr.app.enums.ResponseEnum;
+
+public class QuizInformationsResultDto extends QuizCodeDto {
     private long quizId;
     private long amountOfQuestions;
     private boolean isBackPossible;
@@ -38,7 +40,8 @@ public class QuizInformationsResultDto {
         isBackPossible = backPossible;
     }
 
-    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible, long timeForTestInMilis) {
+    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible, long timeForTestInMilis, ResponseEnum responseEnum) {
+        super(responseEnum);
         this.quizId = quizId;
         this.amountOfQuestions = amountOfQuestions;
         this.isBackPossible = isBackPossible;
