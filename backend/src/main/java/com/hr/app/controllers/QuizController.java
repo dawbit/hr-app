@@ -5,18 +5,13 @@ import com.hr.app.enums.ResponseEnumOperations;
 import com.hr.app.models.api_helpers.AddQuestionCommandDto;
 import com.hr.app.models.api_helpers.AddQuizCommandDto;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
-import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.database.*;
-import com.hr.app.models.dto.AnswerResultDto;
-import com.hr.app.models.dto.CompleteQuizResultDto;
-import com.hr.app.models.dto.QuestionResultDto;
-import com.hr.app.models.dto.QuizInformationsResultDto;
+import com.hr.app.models.dto.*;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.ZonedDateTime;
@@ -165,7 +160,7 @@ public class QuizController {
             testParticipantModel = getTestCodeModelByTestCode(quizcode);
             if(testParticipantModel== null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return new ResponseTransfer("Bad quiz code");
+                return new QuizCodeDto(ResponseEnum.TEST_NOT_FOUND);
             }
             usersModel = getUserModel();
             testsModel = testParticipantModel.getFKtestCodetest();
@@ -173,22 +168,22 @@ public class QuizController {
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             System.out.println(e.toString());
-            return new ResponseTransfer("Internal server error");
+            return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
 
         if(!testsModel.isActive()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new ResponseTransfer("Quiz is not active. Try again later");
+            return new QuizCodeDto(ResponseEnum.NO_PERMISSION);
         }
 
         if(usersModel.getId() != testParticipantModel.getFKtestCodeuser().getId()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseTransfer("You can not participate in this quiz");
+            return new QuizCodeDto(ResponseEnum.NO_PERMISSION);
         }
 
         if(testParticipantModel.getQuestionNumber()==0) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseTransfer("User already finished this quiz");
+            return new QuizCodeDto(ResponseEnum.NO_PERMISSION);
         }
 
         if(testParticipantModel.getStartQuizTimeInMilis() == 0) {
@@ -198,7 +193,7 @@ public class QuizController {
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 System.out.println(e.toString());
-                return new ResponseTransfer("Internal server error");
+                return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
         }
         try {
@@ -206,7 +201,7 @@ public class QuizController {
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             System.out.println(e.toString());
-            return new ResponseTransfer("Internal server error");
+            return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
 
 
@@ -244,19 +239,19 @@ public class QuizController {
             testParticipantModel = testParticipantRepository.findByCode(quizQuestionCommandDto.getTestCode());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            return new ResponseTransfer("Internal server error");
+            return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
 
         //jesli ktoras jest nullem to nie znaleziono testu
         if(testsModel==null || usersModel==null || listOfQuestions == null || testParticipantRepository == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
-            return new ResponseTransfer("Test not found");
+            return new QuizCodeDto(ResponseEnum.TEST_NOT_FOUND);
         }
 
         //nieaktywny test? wywalamy blad
         if(!checkIfTestIsActive(testsModel)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
-            return new ResponseTransfer("This test is inactive. Try again later.");
+            return new QuizCodeDto(ResponseEnum.INACTIVE_QUIZ);
         }
 
         if(quizQuestionCommandDto.getQuestionnumber()==0) {
@@ -265,31 +260,32 @@ public class QuizController {
                 testParticipantRepository.save(testParticipantModel);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-                return new ResponseTransfer("Internal server error");
+                return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
             response.setStatus(HttpServletResponse.SC_OK);
-            return new ResponseTransfer("Test Finished");
+            return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 
         if (testParticipantModel.getQuestionNumber()==0) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseTransfer("Test is already finished");
+            return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 
         if(!(testParticipantModel.getFKtestCodeuser().getId() == usersModel.getId())) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseTransfer("User can not participate in this quiz");
+            return new QuizCodeDto(ResponseEnum.NO_PERMISSION);
         }
 
         if(!checkIfUserHasTimeLeftForThisQuiz(testParticipantModel)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseTransfer("Time for test ended");
+            return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 
         boolean isBackPossible = checkIfQuizIsBackPossible(testsModel);
 
         if(!checkIfQuestionExistsInQuiz(listOfQuestions, quizQuestionCommandDto.getQuestionnumber())) {
-            return new ResponseTransfer("Bad question number");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new QuizCodeDto(ResponseEnum.BAD_REQUEST);
         }
 
         if(isBackPossible) {
@@ -303,7 +299,7 @@ public class QuizController {
             }
             catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return new ResponseTransfer("Internal server error");
+                return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
             response.setStatus(HttpServletResponse.SC_OK);
             return getQuestionDtoModel(questionsModel, listOfAnswersModel);
@@ -313,8 +309,8 @@ public class QuizController {
             long questionNumberToReturn = testParticipantModel.getQuestionNumber();
 
             if(quizQuestionCommandDto.getQuestionnumber()!= questionNumberToReturn) {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                return new ResponseTransfer("Wrong question number");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return new QuizCodeDto(ResponseEnum.BAD_REQUEST);
             }
 
             try {
@@ -322,7 +318,7 @@ public class QuizController {
                 testParticipantRepository.save(testParticipantModel);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return new ResponseTransfer("Internal server error");
+                return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
 
             QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, questionNumberToReturn);
@@ -334,7 +330,7 @@ public class QuizController {
             }
             catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return new ResponseTransfer("Internal server error");
+                return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
             return getQuestionDtoModel(questionsModel, listOfAnswersModel);
         }
