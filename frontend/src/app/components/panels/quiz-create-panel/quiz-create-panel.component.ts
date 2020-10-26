@@ -55,12 +55,12 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
     this.testsModel = new FormGroup({
       is_possible_to_back: new FormControl(true),
       name: new FormControl(''),
-      timeForTest: new FormControl(1000)
+      timeForTestInMilis: new FormControl(1000)
     });
 
-    // definicja obiektu - formularza odpowiedzialnego za questionsJsonModel
+    // definicja obiektu - formularza odpowiedzialnego za listOfQuestionCommandDto
     this.questionsModel = new FormGroup({
-      questionsJsonModel: new FormArray([
+      listOfQuestionCommandDto: new FormArray([
         new FormGroup({
           questionsModel: new FormGroup({
             text: new FormControl(''),
@@ -112,7 +112,7 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
 
   addAnswer(ind) {
     // tslint:disable-next-line: no-string-literal
-    const control = this.questionsModel.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray;
+    const control = this.questionsModel.get('listOfQuestionCommandDto')['controls'][ind]['controls']['answersModel'] as FormArray;
     this.answersModelfields.type.options.forEach(x => {
       control.push(this.patchValues(x.is_correct, x.points, x.text));
     });
@@ -129,7 +129,7 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
 
   newQuestion(ind) {
     ind = Object.keys(ind).length;
-    (this.questionsModel.get('questionsJsonModel') as FormArray).push(
+    (this.questionsModel.get('listOfQuestionCommandDto') as FormArray).push(
       this.fb.group(
         {
           questionsModel: this.fb.group({
@@ -145,12 +145,12 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
 
   removeAnswer(ind, index) {
     // tslint:disable-next-line: no-string-literal
-    (this.questionsModel.get('questionsJsonModel')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
+    (this.questionsModel.get('listOfQuestionCommandDto')['controls'][ind]['controls']['answersModel'] as FormArray).removeAt(index);
     this.isChanged();
   }
 
   removeQuestion(ind) {
-    (this.questionsModel.get('questionsJsonModel') as FormArray).removeAt(ind);
+    (this.questionsModel.get('listOfQuestionCommandDto') as FormArray).removeAt(ind);
     this.isChanged();
   }
 

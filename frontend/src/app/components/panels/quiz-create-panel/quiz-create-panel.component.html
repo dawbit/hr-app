@@ -19,17 +19,17 @@
           <label for="is_possible_to_back">{{'quiz.isPossibleToBack' | translate}}</label>
         </div>
         <div class="col">
-          <input type="number" min="0" max="100000" formControlName="timeForTest" mdbInput class="form-control col"
-            id="timeForTest" (change)="isChanged()">
-          <label for="timeForTest">{{'quiz.timeForTest' | translate}}</label>
+          <input type="number" min="0" max="100000" formControlName="timeForTestInMilis" mdbInput class="form-control col"
+            id="timeForTestInMilis" (change)="isChanged()">
+          <label for="InMilis">{{'quiz.timeForTestInMilis' | translate}}</label>
         </div>
       </div>
     </div>
   </form>
   <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send()">
-    <div formArrayName="questionsJsonModel" class="card-body">
+    <div formArrayName="listOfQuestionCommandDto" class="card-body">
       <div
-        *ngFor="let questionJsonModel of questionsModel.get('questionsJsonModel')['controls']; let questionIndex=index"
+        *ngFor="let questionJsonModel of questionsModel.get('listOfQuestionCommandDto')['controls']; let questionIndex=index"
         class="card-body card">
         <div [formGroupName]="questionIndex">
           <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}}</span>
@@ -42,7 +42,7 @@
           </div>
           <div>
             <div formArrayName="answersModel">
-              <div *ngFor="let answerModel of questionsModel.get('questionsJsonModel')['controls'][questionIndex]['controls']['answersModel']['controls'];
+              <div *ngFor="let answerModel of questionsModel.get('listOfQuestionCommandDto')['controls'][questionIndex]['controls']['answersModel']['controls'];
                   let answerIndex=index">
                   <button class="btn btn-danger" type="submit" (click)="removeAnswer(questionIndex, answerIndex)"
                     [disabled]="answerIndex<1">
@@ -85,7 +85,7 @@
     </div>
   </form>
   <div id="control">
-    <button (click)="newQuestion(questionsModel.value.questionsJsonModel)" mdbBtn color="primary"
+    <button (click)="newQuestion(questionsModel.value.listOfQuestionCommandDto)" mdbBtn color="primary"
     class="waves-light btn btn-block my-4 line" type="button" mdbWavesEffect>{{"quiz.addQuestion" | translate}}
   </button>
 

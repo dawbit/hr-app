@@ -45,7 +45,7 @@ public class CompaniesController {
             return new ResponseTransfer("Internal server error");
         }
 
-        if(companiesModelList.isEmpty()) {
+        if(!companiesModelList.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_OK);
             return companiesModelList;
         } else {
