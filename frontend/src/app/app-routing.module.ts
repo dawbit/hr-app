@@ -58,9 +58,9 @@ const routes: Routes = [
     }
   },
   {
-    path: 'quiz-panel', component: QuizCreatePanelComponent, canActivate: [AuthGuard, RoleGuard],
+    path: 'quiz-create-panel', component: QuizCreatePanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
-      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+      expectedRole: ['HR', 'CEO', 'ADMIN']
     }
   },
   {
@@ -70,7 +70,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'quiz-create-panel', component: QuizPanelComponent, canActivate: [AuthGuard, RoleGuard],
+    path: 'quiz-panel', component: QuizPanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['HR', 'CEO', 'ADMIN']
     }

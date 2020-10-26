@@ -1,10 +1,8 @@
 package com.hr.app.controllers;
 
 import com.hr.app.models.api_helpers.AnswerCommandDto;
-import com.hr.app.models.api_helpers.QuestionJsonModel;
-import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.database.*;
-import com.hr.app.models.dto.QuestionDto;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -39,24 +39,26 @@ public class AnswerController {
     private ICompaniesRepository companiesRepository;
 
     @Autowired
-    private ITestParticipantRepository testCodeRepository;
+    private ITestParticipantRepository testParticipantRepository;
 
     @Autowired
     private IUserAnswerRepository userAnswerRepository;
 
-    //TODO zabezpieczenia
+    @Transactional
     @PostMapping("question/setanswer")
     public ResponseTransfer setAnswer(@RequestBody AnswerCommandDto answerCommandDto, HttpServletResponse response) {
         UsersModel usersModel;
         QuestionsModel questionsModel;
         TestsModel testsModel;
         AnswersModel answersModel;
+        TestParticipantModel testParticipantModel;
 
         try {
             usersModel = getUserModel();
-            questionsModel = getQuestionModel(answerCommandDto.getQuestionId());
             answersModel = getAnswersModel(answerCommandDto.getAnswerId());
-            testsModel= getTestsModel(questionsModel.getFKquestionTest().getId());
+            questionsModel = getQuestionModel(answerCommandDto.getQuestionId());
+            testsModel= questionsModel.getFKquestionTest();
+            testParticipantModel = testParticipantRepository.findByCode(answerCommandDto.getTestCode());
         }
         catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
@@ -66,9 +68,53 @@ public class AnswerController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
             return new ResponseTransfer("Bad Request");
         }
-        UserAnswersModel userAnswersModel = new UserAnswersModel(usersModel, questionsModel, answersModel, testsModel);
+        if(testParticipantModel==null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new ResponseTransfer("Wrong Test code");
+        }
 
-        userAnswerRepository.save(userAnswersModel);
+        if(usersModel.getId() != testParticipantModel.getFKtestCodeuser().getId()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new ResponseTransfer("You are not allowed to participate in this quiz");
+        }
+
+        if(testParticipantModel.getQuestionNumber()==0) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new ResponseTransfer("Time has been finished");
+        }
+
+        if(!checkIfUserHasTimeLeftForThisQuiz(testParticipantModel)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new ResponseTransfer("Time has been finished");
+        }
+
+
+        if(!testsModel.isPossibleToBack()) {
+            if(testParticipantModel.getQuestionNumber()-1 != answerCommandDto.getQuizNumber()) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("You cannot answer this question");
+            }
+        }
+        UserAnswersModel userAnswersModel;
+        try {
+            userAnswersModel = getUserAnswersModel(questionsModel, usersModel);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            System.out.println(e.toString());
+            return new ResponseTransfer("Server Error");
+        }
+        if (userAnswersModel!= null) {
+            userAnswersModel.setFKanswerIduserAnswer(answersModel);
+        } else {
+            userAnswersModel = new UserAnswersModel(usersModel, questionsModel, answersModel, testsModel);
+        }
+
+        try{
+            userAnswerRepository.save(userAnswersModel);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            return new ResponseTransfer("Server Error");
+        }
 
         response.setStatus(HttpServletResponse.SC_OK);
         return new ResponseTransfer("SUCCESS");
@@ -89,5 +135,21 @@ public class AnswerController {
 
     private TestsModel getTestsModel(long testId){
         return testsRepository.findById(testId);
+    }
+
+    private long getCurrentTimeInMilis() {
+        return ZonedDateTime.now().toInstant().toEpochMilli();
+    }
+
+    private boolean checkIfUserHasTimeLeftForThisQuiz(TestParticipantModel testParticipantModel) {
+        long currentTime = getCurrentTimeInMilis();
+        long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
+        long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
+
+        return  testStartTime + timeForTest > currentTime;
+    }
+
+    private UserAnswersModel getUserAnswersModel(QuestionsModel questionsModel, UsersModel usersModel) {
+        return userAnswerRepository.findByFKquestionIduserAnswerIdAndFKuserIduserAnswerId(questionsModel.getId(), usersModel.getId());
     }
 }

@@ -5,7 +5,7 @@ import com.hr.app.models.database.QuestionsModel;
 
 import java.util.List;
 
-public class QuestionJsonModel {
+public class AddQuestionCommandDto {
     private long testId;
     private QuestionsModel questionsModel;
     private List<AnswersModel> answersModel;
@@ -38,10 +38,10 @@ public class QuestionJsonModel {
         this.answersModel = answersModel;
     }
 
-    protected QuestionJsonModel(){
+    protected AddQuestionCommandDto(){
     }
 
-    public QuestionJsonModel(List<AnswersModel> answersModel, QuestionsModel questionsModel){
+    public AddQuestionCommandDto(List<AnswersModel> answersModel, QuestionsModel questionsModel){
         this.answersModel = answersModel;
         this.questionsModel = questionsModel;
     }

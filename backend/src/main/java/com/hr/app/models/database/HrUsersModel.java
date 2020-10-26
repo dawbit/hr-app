@@ -25,12 +25,6 @@ public class HrUsersModel {
     @JsonIgnore
     private CompaniesModel FKhrUserCompany;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "FKhrUserDepartment"))
-    @JsonBackReference(value = "hrUser-department")
-    @JsonIgnore
-    private DepartmentsModel FKhrUserDepartment;
-
     // =========================================
     // RELATIONSHIPS
     // =========================================
@@ -52,10 +46,6 @@ public class HrUsersModel {
         return FKhrUserCompany;
     }
 
-    public DepartmentsModel getFKhrUserDepartment() {
-        return FKhrUserDepartment;
-    }
-
     public void setFKhrUserUser(UsersModel FKhrUserUser) {
         this.FKhrUserUser = FKhrUserUser;
     }
@@ -64,17 +54,7 @@ public class HrUsersModel {
         this.FKhrUserCompany = FKhrUserCompany;
     }
 
-    public void setFKhrUserDepartment(DepartmentsModel FKhrUserDepartment) {
-        this.FKhrUserDepartment = FKhrUserDepartment;
-    }
-
     protected HrUsersModel() { }
-
-    public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany, DepartmentsModel FKhrUserDepartment) {
-        this.FKhrUserUser = FKhrUserUser;
-        this.FKhrUserCompany = FKhrUserCompany;
-        this.FKhrUserDepartment = FKhrUserDepartment;
-    }
 
     public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany) {
         this.FKhrUserUser = FKhrUserUser;
