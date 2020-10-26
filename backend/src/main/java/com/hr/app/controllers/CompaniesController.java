@@ -54,6 +54,7 @@ public class CompaniesController {
         }
     }
 
+    // /companies/find?q='example'
     @GetMapping("/companies/find")
     public List<CompaniesModel> getAllCompaniesByAntything(@RequestParam String q) {
         return companiesRepository.findCompanyByAnything(q);
