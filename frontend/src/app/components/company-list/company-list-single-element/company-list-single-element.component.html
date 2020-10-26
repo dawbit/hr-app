@@ -1,0 +1,3 @@
+<div [innerHTML]="text" [class.collapsed]="isCollapsed">
+</div>
+<button mdbBtn color="primary" mdbWavesEffect *ngIf="isCollapsable " (click)="isCollapsed=! isCollapsed ">{{"companies.read" | translate}} {{isCollapsed? ("companies.more" | translate):("companies.less" | translate)}}</button>

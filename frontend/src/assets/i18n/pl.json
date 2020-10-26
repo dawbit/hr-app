@@ -15,10 +15,22 @@
     "industries": "Branże",
     "list": "Lista firm",
     "location": "Miejsce: Kraj/Miasto",
-    "name": "Nazwa"
+    "name": "Nazwa",
+    "read": "czytaj",
+    "more": "więcej",
+    "less": "mniej",
+    "search": "Szukaj firmy"
   },
   "contact": "Kontakt",
   "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",
+  "delete": "Skasuj",
+  "delete-cancelled": "Twój użytkownik jest bezpieczny!",
+  "delete-confirm": "tak",
+  "delete-confirmation": "Twój użytkownik został skasowany!",
+  "delete-deny": "nie",
+  "delete-text": "Po skasowaniu nie będziesz w stanie odzyskać danych tego użytkownika!",
+  "delete-title": "Czy chcesz usunąć tego użytkownika?",
+  "details": "Szczegóły",
   "e-mail": "E-mail",
   "e-mail-confirm": "Potwierdź e-mail",
   "e-mail-invalid": "Podany e-mail jest niepoprawny",
@@ -29,6 +41,9 @@
   "first-name-required": "Wpisz swoje imię",
   "first-name-required-valid": "Poprane imię",
   "homepage": "HR APP",
+  "id": "ID",
+  "incorrect-format": "Incorrect format",
+  "is-active": "Czy konto jest aktywne?",
   "start-quiz-confirmation": "Czy chcesz rozpocząć quiz?",
   "one-attempt-quiz": "Masz tylko jedno podejście!",
   "start-quiz": "Zacznijmy quiz!",
@@ -147,6 +162,7 @@
     "success": "Sukces!",
     "warning": "Ostrzeżenie!"
   },
+  "update": "Zaktualizuj",
   "users": {
     "list": "Lista użytkowników"
   },

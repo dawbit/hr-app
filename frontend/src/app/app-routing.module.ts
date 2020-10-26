@@ -12,8 +12,11 @@ import { UserPanelComponent } from './components/panels/user-panel/user-panel.co
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
 import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
+import { UserDetailsComponent } from './components/panels/admin-panel/user-list/user/user-details/user-details.component';
+import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -76,6 +79,24 @@ const routes: Routes = [
     path: 'company-add', component: CompanyAddComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
+  {
+    path: 'company-list', component: CompanyListComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
+  {
+    path: 'admin-panel/details/:id', component: UserDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['ADMIN']
+    }
+  },
+  {
+    path: 'admin-panel/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['ADMIN']
     }
   },
 ];

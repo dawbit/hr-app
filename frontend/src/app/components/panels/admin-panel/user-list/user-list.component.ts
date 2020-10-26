@@ -1,6 +1,9 @@
 import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { UserService } from '../../../../services/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +16,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   users: any = [];
-  headUsers = ['id', 'login', 'email', 'firstName', 'surname'];
+  headUsers = ['id', 'login', 'email', 'firstName', 'surname', 'Actions'];
 
   searchText = '';
   previous: string;
@@ -22,7 +25,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   @HostListener('input') oninput() {
@@ -79,5 +84,38 @@ export class UserListComponent implements OnInit, AfterViewInit {
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
     });
+  }
+
+  deleteUser(id: number) {
+    Swal.fire({
+      title: this.translate.instant('delete-title'),
+      text: this.translate.instant('delete-text'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: this.translate.instant('delete-confirm'),
+      cancelButtonText: this.translate.instant('delete-deny'),
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete.value) {
+        Swal.fire({
+          title: this.translate.instant('delete-confirmation'),
+          icon: 'success',
+        });
+        this.userService.deleteUser(id).subscribe();
+      } else {
+        Swal.fire(this.translate.instant('delete-cancelled'));
+      }
+    });
+  }
+
+  userDetails(id: number) {
+    this.router.navigate([this.router.url + '/details', id]);
+    console.log('Detale');
+  }
+
+  updateUser(id: number) {
+    this.router.navigate([this.router.url + '/update', id]);
+    console.log('apdejt');
   }
 }
