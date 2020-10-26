@@ -42,10 +42,6 @@ public class CompaniesModel {
     @JsonBackReference(value = "ceo-company")
     private List<CeosModel> ceo;
 
-    @OneToMany(mappedBy = "FKdepartmentCompany")
-    @JsonBackReference(value = "departments-company")
-    private List<DepartmentsModel> departments;
-
     @OneToMany(mappedBy = "FKtestCompany")
     @JsonBackReference(value = "test-company")
     private List<TestsModel> tests;
@@ -58,6 +54,7 @@ public class CompaniesModel {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
 
 
     public long getId() {
@@ -78,26 +75,6 @@ public class CompaniesModel {
 
     public byte[] getImage() {
         return image;
-    }
-
-    public List<CompanyPicturesModel> getCompanyPictures() {
-        return companyPictures;
-    }
-
-    public List<CeosModel> getCeo() {
-        return ceo;
-    }
-
-    public List<DepartmentsModel> getDepartments() {
-        return departments;
-    }
-
-    public List<TestsModel> getTests() {
-        return tests;
-    }
-
-    public List<HrUsersModel> getHrUsers() {
-        return hrUsers;
     }
 
     public void setName(String name) {
@@ -124,10 +101,6 @@ public class CompaniesModel {
         this.ceo = ceo;
     }
 
-    public void setDepartments(List<DepartmentsModel> departments) {
-        this.departments = departments;
-    }
-
     public void setTests(List<TestsModel> tests) {
         this.tests = tests;
     }
@@ -140,15 +113,13 @@ public class CompaniesModel {
 
     public CompaniesModel(String name, String location, String about, byte[] image,
                           List<CompanyPicturesModel> companyPictures, List<CeosModel> ceo,
-                          List<DepartmentsModel> departments, List<TestsModel> tests,
-                          List<HrUsersModel> hrUsers) {
+                          List<TestsModel> tests, List<HrUsersModel> hrUsers) {
         this.name = name;
         this.location = location;
         this.about = about;
         this.image = image;
         this.companyPictures = companyPictures;
         this.ceo = ceo;
-        this.departments = departments;
         this.tests = tests;
         this.hrUsers = hrUsers;
     }

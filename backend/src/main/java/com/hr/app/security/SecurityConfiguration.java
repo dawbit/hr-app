@@ -50,10 +50,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // configure access rules
                 // test
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/register").permitAll()
-                .antMatchers("/companies/all").hasRole("ADMIN")
-                .antMatchers("/companies/all2").hasRole("USER")
+                .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/getall").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/user/deleteuser").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/quiz/add").hasAnyRole("ADMIN", "HR")
+
+                .antMatchers(HttpMethod.GET,"/companies/companyid/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/companies/companyname/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/companies/all").permitAll()
+                .antMatchers(HttpMethod.POST,"/companies/add").hasAnyRole("ADMIN", "USER")
+
+                .antMatchers(HttpMethod.POST, "/hrusers/add").hasAnyRole("ADMIN", "CEO")
+
+                .antMatchers(HttpMethod.POST,"/accounttype/add").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
 

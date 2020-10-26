@@ -1,7 +1,8 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.hr.app.models.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.dto.UserResultDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,9 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UsersModel {
-
-    @OneToMany(mappedBy = "FKcvUser")
-    private List<CvsModel> listOfcvsModels;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,10 +56,10 @@ public class UsersModel {
     // RELATIONSHIPS
     // =========================================
 
-
     @OneToMany(mappedBy = "FKcvUser")
     @JsonBackReference(value = "cv-user")
-    private List<CvsModel> cvs;
+    @JsonIgnore
+    private List<CvsModel> listOfcvsModels;
 
     @OneToMany(mappedBy = "FKprofilePictureUser")
     @JsonBackReference(value = "profilepictures-user")
@@ -93,10 +91,6 @@ public class UsersModel {
     // =========================================
 
 
-    public List<CvsModel> getListOfcvsModels() {
-        return listOfcvsModels;
-    }
-
     public void setListOfcvsModels(List<CvsModel> listOfcvsModels) {
         this.listOfcvsModels = listOfcvsModels;
     }
@@ -111,10 +105,6 @@ public class UsersModel {
 
     public void setActive(Boolean active) {
         isActive = active;
-    }
-
-    public List<TestParticipantModel> getFKtestCodeuser() {
-        return FKtestCodeuser;
     }
 
     public void setFKtestCodeuser(List<TestParticipantModel> FKtestCodeuser) {
@@ -161,30 +151,6 @@ public class UsersModel {
         return isActive;
     }
 
-    public List<CvsModel> getCvs() {
-        return cvs;
-    }
-
-    public List<ProfilePicturesModel> getProfilePictures() {
-        return profilePictures;
-    }
-
-    public List<CeosModel> getCeo() {
-        return ceo;
-    }
-
-    public List<TestsModel> getTests() {
-        return tests;
-    }
-
-    public List<UserAnswersModel> getUserAnswers() {
-        return userAnswers;
-    }
-
-    public List<HrUsersModel> getHrUsers() {
-        return hrUsers;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -221,10 +187,6 @@ public class UsersModel {
         isActive = active;
     }
 
-    public void setCvs(List<CvsModel> cvs) {
-        this.cvs = cvs;
-    }
-
     public void setProfilePictures(List<ProfilePicturesModel> profilePictures) {
         this.profilePictures = profilePictures;
     }
@@ -249,7 +211,7 @@ public class UsersModel {
 
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
                       String login, String password, AccountTypesModel FKuserAccountTypes, Boolean isActive,
-                      List<CvsModel> cvs, List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
+                      List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
                       List<TestsModel> tests, List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers) {
         this.firstName = firstName;
         this.middleName = middleName;
@@ -260,7 +222,6 @@ public class UsersModel {
         this.password = password;
         this.FKuserAccountTypes = FKuserAccountTypes;
         this.isActive = isActive;
-        this.cvs = cvs;
         this.profilePictures = profilePictures;
         this.ceo = ceo;
         this.tests = tests;
@@ -268,14 +229,14 @@ public class UsersModel {
         this.hrUsers = hrUsers;
     }
 
-    public UsersModel(UserDto userDto){
-        this.id = userDto.getId();
-        this.firstName = userDto.getFirstName();
-        this.middleName = userDto.getMiddleName();
-        this.surname = userDto.getSurname();
-        this.email = userDto.getEmail();
-        this.phoneNumber = userDto.getPhoneNumber();
-        this.login = userDto.getLogin();
-        this.isActive = userDto.isActive();
+    public UsersModel(UserResultDto userResultDto){
+        this.id = userResultDto.getId();
+        this.firstName = userResultDto.getFirstName();
+        this.middleName = userResultDto.getMiddleName();
+        this.surname = userResultDto.getSurname();
+        this.email = userResultDto.getEmail();
+        this.phoneNumber = userResultDto.getPhoneNumber();
+        this.login = userResultDto.getLogin();
+        this.isActive = userResultDto.isActive();
     }
 }

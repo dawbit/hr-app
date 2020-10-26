@@ -36,6 +36,10 @@ public class CvsModel {
     // =========================================
 
 
+    public UsersModel getFKcvUser() {
+        return FKcvUser;
+    }
+
     public long getId() {
         return id;
     }

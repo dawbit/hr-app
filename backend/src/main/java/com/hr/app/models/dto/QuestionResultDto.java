@@ -7,36 +7,36 @@ import com.hr.app.models.database.QuestionsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDto {
+public class QuestionResultDto extends QuizCodeDto {
 
     private long id;
     private String text;
     private byte[] image;
 
-    private List<AnswerDto> answers;
+    private List<AnswerResultDto> answers;
 
     private int responseCode;
 
-    public QuestionDto(QuestionsModel questionsModel) {
+    public QuestionResultDto(QuestionsModel questionsModel) {
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
     }
 
-    public QuestionDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel ,int responseCode){
+    public QuestionResultDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , ResponseEnum responseEnum){
+        super(responseEnum);
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
         this.image=questionsModel.getImage();
 
-        ArrayList<AnswerDto> listOfAnswersDto = new ArrayList<>();
+        ArrayList<AnswerResultDto> listOfAnswersDto = new ArrayList<>();
         for (AnswersModel answer: listOfAnswersModel) {
-            listOfAnswersDto.add(new AnswerDto(answer));
+            listOfAnswersDto.add(new AnswerResultDto(answer));
         }
         this.answers = listOfAnswersDto;
-        this.responseCode = responseCode;
     }
 
-    public QuestionDto(int responseCode) {
+    public QuestionResultDto(int responseCode) {
         this.responseCode = responseCode;
     }
 
@@ -72,11 +72,11 @@ public class QuestionDto {
         return image;
     }
 
-    public List<AnswerDto> getAnswers() {
+    public List<AnswerResultDto> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswerDto> answers) {
+    public void setAnswers(List<AnswerResultDto> answers) {
         this.answers = answers;
     }
 }
