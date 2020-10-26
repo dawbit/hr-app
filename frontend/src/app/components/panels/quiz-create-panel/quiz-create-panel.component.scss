@@ -6,3 +6,83 @@ form span.quiz-create-span {
   color: #ffffff;
   font-size: larger;
 }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") 100% 50% no-repeat transparent;
+  scrollbar-color: #202324 #454a4d;
+}
+
+select:focus {
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") 100% 50% no-repeat transparent;
+  box-shadow: 0 1px 0 0 #4285f4;
+  border-bottom: 2.5px solid #4285f4;
+}
+
+select:focus + label{
+  color: #4285f4;
+}
+
+.btn-danger{
+  float: right;
+}
+
+// select option {
+//   margin: 40px;
+//   background: rgba(0, 0, 0, 0.3);
+//   color: #fff;
+//   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+// }
+
+
+// select:focus-within {
+//   background-color: violet;
+// }
+
+.material-select{
+  border: 0;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+  outline: 0;
+  color: #757575;
+}
+
+// kasowanie strzałek z numeric inputa
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 10px !important;
+  max-height: 200px !important;
+  scrollbar-color: #202324 #454a4d;
+}
+
+.textAreaLbl{
+  margin-top: 20px;
+  transform: translateY(28px);
+}
+
+#control{
+  text-align: center;
+  margin:1%;
+}
+
+.line{
+  width: 40%;
+  display: inline-block;
+}
