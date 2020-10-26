@@ -104,7 +104,7 @@
     "exists": "A quiz with the given code exists!",
     "hello": "Join the quiz!",
     "isCorrect": "Correct",
-    "isPossibleToBack": "Ability to reverse",
+    "isPossibleToBack": "Is it allowed to go back in your quiz?",
     "loadConfirmation": "You have not saved a quiz recently...",
     "loadConfirmation2": "Do you wany to finish it?",
     "loaded": "Previous quiz loaded!",
@@ -118,7 +118,7 @@
     "start": "start!",
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
     "timeForTest": "Time (sec.)",
-    "question": "Pytanie: ",
+    "question": "Question: ",
     "questionNumber": "Question no. "
   },
   "recruitment": {

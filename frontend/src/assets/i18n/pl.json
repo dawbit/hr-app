@@ -104,7 +104,7 @@
     "exists": "Quiz o podanym kodzie istnieje!",
     "hello": "Przystąp do rozwiązywania quizu!",
     "isCorrect": "Odpowiedź poprawna",
-    "isPossibleToBack": "Możliwość cofania",
+    "isPossibleToBack": "Czy można cofać do poprzednich pytań?",
     "loadConfirmation": "Ostatnio nie zapisałeś tworzonego quizu",
     "loadConfirmation2": "Chcesz go dokończyć?",
     "loaded": "Załadowano poprzedni quiz!",

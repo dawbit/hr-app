@@ -93,7 +93,7 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
             icon: 'success',
           });
           const quizStructure = this.cryptoService.decryptData(localStorage.getItem('quiz-create-panel-data'));
-          this.loadValues(quizStructure.quizInfo, quizStructure.quizValues)
+          this.loadValues(quizStructure.quizInfo, quizStructure.quizValues);
         } else if (loadQuiz.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
             title: this.translate.instant('quiz.newQuiz'),
