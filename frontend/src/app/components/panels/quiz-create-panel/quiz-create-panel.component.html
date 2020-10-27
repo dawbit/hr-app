@@ -1,1 +1,96 @@
-<p>quiz-create-panel works!</p>
+<div class="card-body px-lg-5 pt-0">
+  <h6 class="text-center">{{"quiz.creator" | translate | uppercase}}</h6>
+  <form class="md-form" [formGroup]="testsModel">
+    <div class="card-body card">
+      <span class="quiz-create-span">{{("quiz.about" | translate)}}</span>
+      <div class="form-row">
+        <div class="col">
+          <input type="text" formControlName="name" mdbInput class="form-control col" id="quizName"
+            (change)="isChanged()">
+          <label for="quizName">{{'quiz.name' | translate}}</label>
+        </div>
+        <div class="col">
+          <select class="form-control col mdb-select"  mdbInput
+            class="form-control col material-select" id="is_possible_to_back" (change)="isChanged()">
+            <!-- <option value="" disabled selected>{{'quiz.isPossibleToBack' | translate}}</option> -->
+            <option [ngValue]="false">{{"no" | translate}}</option>
+            <option [ngValue]="true">{{"yes" | translate}}</option>
+          </select>
+          <label for="is_possible_to_back">{{'quiz.isPossibleToBack' | translate}}</label>
+        </div>
+        <div class="col">
+          <input type="number" min="0" max="100000" formControlName="timeForTestInMilis" mdbInput class="form-control col"
+            id="timeForTestInMilis" (change)="isChanged()">
+          <label for="InMilis">{{'quiz.timeForTestInMilis' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="md-form" [formGroup]="questionsModel" (ngSubmit)="send()">
+    <div formArrayName="listOfQuestionCommandDto" class="card-body">
+      <div
+        *ngFor="let questionJsonModel of questionsModel.get('listOfQuestionCommandDto')['controls']; let questionIndex=index"
+        class="card-body card">
+        <div [formGroupName]="questionIndex">
+          <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}}</span>
+          <button class="btn btn-danger" type="submit" (click)="removeQuestion(questionIndex)"
+            [disabled]="questionIndex<1">{{"quiz.removeQuestion" | translate}}</button>
+          <div formGroupName="questionsModel" class="md-form">
+            <textarea type="text" formControlName="text" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput
+              id="question-{{questionIndex+1}}" (change)="isChanged()"></textarea>
+            <label class="textAreaLbl" for="question-{{questionIndex+1}}">{{"quiz.question" | translate}}</label>
+          </div>
+          <div>
+            <div formArrayName="answersModel">
+              <div *ngFor="let answerModel of questionsModel.get('listOfQuestionCommandDto')['controls'][questionIndex]['controls']['answersModel']['controls'];
+                  let answerIndex=index">
+                  <button class="btn btn-danger" type="submit" (click)="removeAnswer(questionIndex, answerIndex)"
+                    [disabled]="answerIndex<1">
+                    {{'quiz.removeAnswer' | translate}}
+                  </button>
+                <span class="quiz-create-span">{{("quiz.questionNumber" | translate) + (questionIndex + 1)}} -
+                  {{("quiz.answerNumber" | translate) + (questionIndex + 1)}}</span>
+                <div [formGroupName]="answerIndex" class="md-form">
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" formControlName="text" mdbInput class="form-control col"
+                        id="textAnswer.{{questionIndex}}.{{answerIndex}}" (change)="isChanged()">
+                      <label for="textAnswer.{{questionIndex}}.{{answerIndex}}">{{'quiz.answer' | translate}}</label>
+                    </div>
+                    <div class="col">
+                      <input type="number" min="0" max="10" formControlName="points" mdbInput class="form-control col"
+                        id="points.{{questionIndex}}.{{answerIndex}}" (change)="isChanged()">
+                      <label for="points.{{questionIndex}}.{{answerIndex}}">{{'quiz.points' | translate}}</label>
+                    </div>
+                    <div class="col">
+                      <select class="form-control col mdb-select" formControlName="is_correct" mdbInput
+                        class="form-control col material-select" id="isCorrect.{{questionIndex}}.{{answerIndex}}"
+                        (change)="isChanged()">
+                        <option [ngValue]="false">{{"no" | translate}}</option>
+                        <option [ngValue]="true">{{"yes" | translate}}</option>
+                      </select>
+                      <label for="isCorrect.{{questionIndex}}.{{answerIndex}}">{{'quiz.isCorrect' | translate}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-info" type="submit" (click)="addAnswer(questionIndex)">
+          {{'quiz.addAnswer' | translate}}
+        </button>
+      </div>
+
+    </div>
+  </form>
+  <div id="control">
+    <button (click)="newQuestion(questionsModel.value.listOfQuestionCommandDto)" mdbBtn color="primary"
+    class="waves-light btn btn-block my-4 line" type="button" mdbWavesEffect>{{"quiz.addQuestion" | translate}}
+  </button>
+
+    <button class="btn btn-success btn-block my-4 line" type="submit" (click)="send()">
+      {{'quiz.save' | translate}}
+    </button>
+  </div>
+</div>

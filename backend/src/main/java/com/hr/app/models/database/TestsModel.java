@@ -35,7 +35,12 @@ public class TestsModel {
     private CompaniesModel FKtestCompany;
 
     @Column(name = "is_possible_to_back")
+    @JsonBackReference(value = "is_possible_to_back")
     private boolean isPossibleToBack;
+
+    @Column(name = "is_open_for_everyone")
+    @JsonBackReference(value = "is_open_for_everyone")
+    private boolean isOpenForEveryone;
 
     @ManyToOne
     @JoinColumn(name = "test_type_id", foreignKey = @ForeignKey(name = "FKtestCodetest"))
@@ -44,6 +49,7 @@ public class TestsModel {
     private TestTypeModel FKtestType;
 
     @Column(name = "is_active")
+    @JsonBackReference(value = "is_active")
     private boolean isActive;
 
     @Column(name = "start_date")
@@ -54,10 +60,9 @@ public class TestsModel {
     @Future
     private Date endDate;
 
-    @Column(name = "time_for_test", nullable = false)
+    @Column(name = "time_for_test_in_milis", nullable = false)
     @Positive
-    @Max(value = 32700)
-    private short timeForTest;
+    private long timeForTestInMilis;
 
 
     // =========================================
@@ -74,12 +79,18 @@ public class TestsModel {
 
     @OneToMany(mappedBy = "FKtestCodeuser")
     @JsonBackReference(value = "test-id")
-    private List<TestCodeModel> FKtestCodeuser;
+    private List<TestParticipantModel> FKtestCodeuser;
 
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
+
+    public void setFKtestCodeuser(List<TestParticipantModel> FKtestCodeuser) {
+        this.FKtestCodeuser = FKtestCodeuser;
+    }
 
     public long getId() {
         return id;
@@ -117,16 +128,8 @@ public class TestsModel {
         return endDate;
     }
 
-    public short getTimeForTest() {
-        return timeForTest;
-    }
-
-    public List<QuestionsModel> getQuestions() {
-        return questions;
-    }
-
-    public List<UserAnswersModel> getUserAnswers() {
-        return userAnswers;
+    public long getTimeForTestInMilis() {
+        return timeForTestInMilis;
     }
 
     public void setName(String name) {
@@ -165,16 +168,12 @@ public class TestsModel {
         this.id = id;
     }
 
-    public List<TestCodeModel> getFKtest() {
-        return FKtestCodeuser;
-    }
-
-    public void setFKtest(List<TestCodeModel> FKtestCodeuser) {
+    public void setFKtest(List<TestParticipantModel> FKtestCodeuser) {
         this.FKtestCodeuser = FKtestCodeuser;
     }
 
-    public void setTimeForTest(short timeForTest) {
-        this.timeForTest = timeForTest;
+    public void setTimeForTest(long timeForTestInMilis) {
+        this.timeForTestInMilis = timeForTestInMilis;
     }
 
     public void setQuestions(List<QuestionsModel> questions) {
@@ -185,11 +184,21 @@ public class TestsModel {
         this.userAnswers = userAnswers;
     }
 
+    public boolean isOpenForEveryone() {
+        return isOpenForEveryone;
+    }
+
+    public void setOpenForEveryone(boolean openForEveryone) {
+        isOpenForEveryone = openForEveryone;
+    }
+
     protected TestsModel() {}
 
+
+
     public TestsModel(String name, UsersModel FKtestUserHr, CompaniesModel FKtestCompany, boolean isPossibleToBack,
-                      boolean isActive, Date startDate, Date endDate, short timeForTest, List<QuestionsModel> questions,
-                      List<UserAnswersModel> userAnswers) {
+                      boolean isActive, Date startDate, Date endDate, long timeForTestInMilis, List<QuestionsModel> questions,
+                      List<UserAnswersModel> userAnswers, boolean isOpenForEveryone) {
         this.name = name;
         this.FKtestUserHr = FKtestUserHr;
         this.FKtestCompany = FKtestCompany;
@@ -197,8 +206,9 @@ public class TestsModel {
         this.isActive = isActive;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.timeForTest = timeForTest;
+        this.timeForTestInMilis = timeForTestInMilis;
         this.questions = questions;
         this.userAnswers = userAnswers;
+        this.isOpenForEveryone=isOpenForEveryone;
     }
 }

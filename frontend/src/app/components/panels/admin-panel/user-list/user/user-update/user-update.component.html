@@ -1,0 +1,71 @@
+<h3>Update User</h3>
+<div [hidden]="submitted" style="width: 400px;">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">{{'login' | translate}}</label>
+            <input type="text" readonly="readonly" class="form-control" id="login" required [(ngModel)]="user.login" [ngModelOptions]="{standalone: true}" name="login">
+        </div>
+        <!-- <div class="form-group">
+            <label for="name">Password</label>
+            <input type="password" class="form-control" formControlName="password" id="password" required [(ngModel)]="user.password" name="password">
+            <mat-error *ngIf="validError('password', 'required')"></mat-error>
+            <mat-error *ngIf="validError('password', 'pattern')">Incorrect format! Password should be at least 6 characters long.</mat-error>
+        </div> -->
+        <div class="form-group">
+            <label for="name">{{'first-name' | translate}}</label>
+            <input type="text" class="form-control" formControlName="firstName" id="firstName" required [(ngModel)]="user.firstName" name="firstName">
+            <mat-error *ngIf="validError('firstName', 'required')"></mat-error>
+            <mat-error *ngIf="validError('firstName', 'pattern')">{{'incorrect-format' | translate}}</mat-error>
+        </div>
+        <div class="form-group">
+            <label for="name">{{'middle-name' | translate}}</label>
+            <input type="text" class="form-control" formControlName="middleName" id="middleName" required [(ngModel)]="user.middleName" name="middleName">
+            <mat-error *ngIf="validError('middleName', 'required')"></mat-error>
+        </div>
+        <div class="form-group">
+            <label for="name">{{'last-name' | translate}}</label>
+            <input type="text" class="form-control" formControlName="surname" id="surname" required [(ngModel)]="user.surname" name="surname">
+            <mat-error *ngIf="validError('surname', 'required')"></mat-error>
+            <mat-error *ngIf="validError('surname', 'pattern')">{{'incorrect-format' | translate}}</mat-error>
+        </div>
+        <div class="form-group">
+            <label for="name">{{'e-mail' | translate}}</label>
+            <input type="text" class="form-control" formControlName="email" id="email" required [(ngModel)]="user.email" name="email">
+            <mat-error *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+                <span *ngIf="f.email.errors.required">{{'e-mail-required' | translate}}</span>
+                <span *ngIf="f.email.errors.email">{{'e-mail-invalid' | translate}}</span>
+            </mat-error>
+            <mat-error *ngIf="validError('email', 'pattern')">{{'incorrect-format' | translate}}</mat-error>
+        </div>
+        <div class="form-group">
+            <label for="name">{{'phone-number' | translate}}</label>
+            <input type="text" class="form-control" formControlName="phoneNumber" id="email" required [(ngModel)]="user.phoneNumber" name="phoneNumber">
+            <mat-error *ngIf="validError('phoneNumber', 'required')"></mat-error>
+            <mat-error *ngIf="f.phoneNumber.invalid && (f.phoneNumber.dirty || f.phoneNumber.touched)">
+                {{'phone-number-invalid' | translate}} </mat-error>
+            <mat-error *ngIf="validError('phoneNumber', 'pattern')">{{'incorrect-format' | translate}}</mat-error>
+        </div>
+        <!-- <div class="form-group">
+            <form>
+                <mat-form-field>
+                    <mat-label>Is active?</mat-label>
+                    <mat-select [(ngModel)]="user.active" name="isactive">
+                        <mat-option value="false">No</mat-option>
+                        <mat-option value="true">Yes</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div> -->
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+
+<div [hidden]="!submitted">
+    <h4>You updated successfully!</h4>
+    <!-- <button (click)="goBack()" class="btn btn-info" style="margin-left: 10px">Go back to list</button> -->
+</div>
+
+<div [hidden]="!error">
+    <h4> Something is wrong!</h4>
+</div>

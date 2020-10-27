@@ -14,6 +14,12 @@ export class AppComponent {
     public translate: TranslateService
   ) {
     translate.addLangs(['en', 'pl']);
-    translate.setDefaultLang('en');
+
+    if (localStorage.getItem('lang')) {
+      this.translate.use(localStorage.getItem('lang'));
+    } else {
+      localStorage.setItem('lang', 'en');
+      translate.setDefaultLang('en');
+    }
   }
 }

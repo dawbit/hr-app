@@ -23,19 +23,19 @@ public class UserAnswersModel {
     @JoinColumn(name = "question_id", foreignKey = @ForeignKey(name = "FKquestionIduserAnswer"))
     @JsonBackReference(value = "question_id_user_answer")
     @JsonIgnore
-    private UsersModel FKquestionIduserAnswer;
+    private QuestionsModel FKquestionIduserAnswer;
 
     @ManyToOne
     @JoinColumn(name = "answer_id", foreignKey = @ForeignKey(name = "FKanswerIduserAnswer"))
     @JsonBackReference(value = "answer_id_user_answer")
     @JsonIgnore
-    private UsersModel FKanswerIduserAnswer;
+    private AnswersModel FKanswerIduserAnswer;
 
     @ManyToOne
     @JoinColumn(name = "test_id", foreignKey = @ForeignKey(name = "FKtestIduserAnswer"))
     @JsonBackReference(value = "test_id_user_answer")
     @JsonIgnore
-    private UsersModel FKtestIduserAnswer;
+    private TestsModel FKtestIduserAnswer;
 
 
     // =========================================
@@ -47,6 +47,8 @@ public class UserAnswersModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+
+
     public long getId() {
         return id;
     }
@@ -55,15 +57,15 @@ public class UserAnswersModel {
         return FKuserIduserAnswer;
     }
 
-    public UsersModel getFKquestionIduserAnswer() {
+    public QuestionsModel getFKquestionIduserAnswer() {
         return FKquestionIduserAnswer;
     }
 
-    public UsersModel getFKanswerIduserAnswer() {
+    public AnswersModel getFKanswerIduserAnswer() {
         return FKanswerIduserAnswer;
     }
 
-    public UsersModel getFKtestIduserAnswer() {
+    public TestsModel getFKtestIduserAnswer() {
         return FKtestIduserAnswer;
     }
 
@@ -71,22 +73,22 @@ public class UserAnswersModel {
         this.FKuserIduserAnswer = FKuserIduserAnswer;
     }
 
-    public void setFKquestionIduserAnswer(UsersModel FKquestionIduserAnswer) {
+    public void setFKquestionIduserAnswer(QuestionsModel FKquestionIduserAnswer) {
         this.FKquestionIduserAnswer = FKquestionIduserAnswer;
     }
 
-    public void setFKanswerIduserAnswer(UsersModel FKanswerIduserAnswer) {
+    public void setFKanswerIduserAnswer(AnswersModel FKanswerIduserAnswer) {
         this.FKanswerIduserAnswer = FKanswerIduserAnswer;
     }
 
-    public void setFKtestIduserAnswer(UsersModel FKtestIduserAnswer) {
+    public void setFKtestIduserAnswer(TestsModel FKtestIduserAnswer) {
         this.FKtestIduserAnswer = FKtestIduserAnswer;
     }
 
     protected UserAnswersModel() { }
 
-    public UserAnswersModel(UsersModel FKuserIduserAnswer, UsersModel FKquestionIduserAnswer,
-                            UsersModel FKanswerIduserAnswer, UsersModel FKtestIduserAnswer) {
+    public UserAnswersModel(UsersModel FKuserIduserAnswer, QuestionsModel FKquestionIduserAnswer,
+                            AnswersModel FKanswerIduserAnswer, TestsModel FKtestIduserAnswer) {
         this.FKuserIduserAnswer = FKuserIduserAnswer;
         this.FKquestionIduserAnswer = FKquestionIduserAnswer;
         this.FKanswerIduserAnswer = FKanswerIduserAnswer;

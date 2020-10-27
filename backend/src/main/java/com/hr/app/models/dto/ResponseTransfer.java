@@ -1,4 +1,4 @@
-package com.hr.app.models.api_helpers;
+package com.hr.app.models.dto;
 
 public class ResponseTransfer {
     private String message;
@@ -28,5 +28,5 @@ public class ResponseTransfer {
         this.message = message;
         this.exception = exception;
     }
-    
+
 }
