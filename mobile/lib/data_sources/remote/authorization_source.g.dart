@@ -23,7 +23,7 @@ class _AuthorizationSource implements AuthorizationSource {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(loginCommandDto?.toJson() ?? <String, dynamic>{});
-    await _dio.request<void>('/login',
+    final Response _result = await _dio.request('/login',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -31,6 +31,8 @@ class _AuthorizationSource implements AuthorizationSource {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    return null;
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 }

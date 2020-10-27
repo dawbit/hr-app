@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:mobile/blocs/login_bloc.dart';
+import 'package:mobile/config/routes.dart';
 import 'package:mobile/enums/login_state.dart';
+import 'package:mobile/injections/login_module.dart';
 import 'package:mobile/screens/login/widgets/login_holder.dart';
 import 'package:mobile/screens/login/widgets/register_holder.dart';
 
@@ -11,6 +16,21 @@ class LoginContent extends StatefulWidget {
 class _LoginContentState extends State<LoginContent> {
   LoginState _loginState = LoginState.LOGIN;
 
+  LoginBloc loginBloc;
+  StreamSubscription loginSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    loginBloc = LoginModule.injector.getBloc();
+    loginSubscription = loginBloc.isLoggedInObservable.listen(onLoggedIn);
+  }
+
+  @override
+  void dispose() {
+    loginSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +68,12 @@ class _LoginContentState extends State<LoginContent> {
     setState(() {
       _loginState = _state;
     });
+  }
+
+  void onLoggedIn(bool loggedIn) {
+    if(loggedIn) {
+      Navigator.of(context).pushReplacementNamed(mainScreenRoute);
+    }
   }
 
 }

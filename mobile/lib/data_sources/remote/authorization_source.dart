@@ -2,6 +2,7 @@ import 'package:mobile/models/login_command_dto.dart';
 import 'package:mobile/models/token.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'authorization_source.g.dart';
 
@@ -11,6 +12,6 @@ abstract class AuthorizationSource{
   factory AuthorizationSource(Dio dio, {String baseUrl})= _AuthorizationSource;
 
   @POST("/login")
-  Future<Token> attemptToLogin(@Body() LoginCommandDto loginCommandDto);
+  Future<HttpResponse> attemptToLogin(@Body() LoginCommandDto loginCommandDto);
 
 }

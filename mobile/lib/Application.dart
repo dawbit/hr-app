@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/injections/login_module.dart';
-import 'package:mobile/screens/login/login_screen.dart';
 import 'package:mobile/screens/main/main_screen.dart';
 import 'package:mobile/screens/splash/splash_screen.dart';
 

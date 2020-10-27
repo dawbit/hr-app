@@ -8,14 +8,35 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  final test = AppModule.injector.getBloc();
+  int bottomNavigationBarIndex;
 
-
+  @override
+  void initState() {
+    super.initState();
+    bottomNavigationBarIndex=0;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      body: Container(),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: Theme.of(context).tabBarTheme.labelColor,
+      //   currentIndex: bottomNavigationBarIndex,
+      //   onTap: (index){},
+      //   type: BottomNavigationBarType.fixed,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.info),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.videogame_asset),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.history),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
