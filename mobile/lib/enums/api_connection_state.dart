@@ -1,0 +1,3 @@
+enum ApiConnectionState {
+  LOADING, DATA
+}
