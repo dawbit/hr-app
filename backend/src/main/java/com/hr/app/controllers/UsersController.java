@@ -1,16 +1,22 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.api_helpers.DeleteUserCommandDto;
+import com.hr.app.models.database.CeosModel;
+import com.hr.app.models.database.CompaniesModel;
+import com.hr.app.models.database.HrUsersModel;
+import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.database.UsersModel;
-import com.hr.app.repositories.IAccountTypesRepository;
-import com.hr.app.repositories.IUsersRepository;
+import com.hr.app.models.dto.UserResultDto;
+import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,16 +33,25 @@ public class UsersController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private ICeosRepository ceosRepository;
+
+    @Autowired
     private IAccountTypesRepository accountTypes;
 
     @Autowired
+    private ICompaniesRepository companiesRepository;
+
+    @Autowired
     private IUsersRepository usersRepository;
+
+    @Autowired
+    private IHrUsersRepository hrUsersRepository;
 
     @PostMapping(serviceUrlParam + "/register")
     @ResponseBody
     public ResponseTransfer saveUser(@RequestBody UsersModel userModel, HttpServletResponse response) {
         try {
-            if (getUserByIdForSave(userModel.getId()) != null || doesUserExist(userModel.getLogin()) ||
+            if (getUserById(userModel.getId()) != null || doesUserExist(userModel.getLogin()) ||
                 doesUserExist(userModel.getEmail())) {
                 response.setStatus(HttpServletResponse.SC_CONFLICT); // ERROR 409
                 return new ResponseTransfer("User already exists");
@@ -54,25 +69,103 @@ public class UsersController {
     }
 
     @GetMapping(serviceUrlParam + "/getall")
-    public List<UsersModel> getQuiz(){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        UsersModel user = usersRepository.findByLogin(name);
+    public Object getAllUsers(HttpServletResponse response){
 
-        if(user.getFKuserAccountTypes().getRoleId()!=1){
-            return null;
+        List<UsersModel> usersModelsList;
+        try {
+            usersModelsList = usersRepository.findAll();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
         }
-        else {
-            List<UsersModel> allUsers = usersRepository.findAll();
-            return usersRepository.findAll();
+
+        ArrayList<UserResultDto> listOfUserResultDto = new ArrayList<>();
+        for (UsersModel usermodel : usersModelsList) {
+            listOfUserResultDto.add(new UserResultDto(usermodel));
+        }
+        return listOfUserResultDto;
+    }
+
+    @GetMapping(serviceUrlParam + "/getUser/{userid}")
+    public Object getUser(@PathVariable long userid, HttpServletResponse response){
+        try {
+            UsersModel user = usersRepository.findById(userid);
+            return new UserResultDto(user);
+        } catch (Exception e) {
+            System.out.println();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
         }
     }
 
+    //TODO check if needed and delete
+    @PutMapping(serviceUrlParam + "/edituser")
+    public ResponseTransfer updateUser(@RequestBody UserResultDto userResultDto, HttpServletResponse response) {
+        usersRepository.save(new UsersModel(userResultDto));
+        return new ResponseTransfer("udało się albo nie");
+    }
 
-    private UsersModel getUserByIdForSave(long id) {
+    //TODO to jest cieżkie XD trzeba wszystkie powiązania pousuwać. Np odpowiedzi tego usera, nullować quizy które zrobił itd.
+    //TODO naraizeni eni działa poprawnie
+    @Transactional
+    @DeleteMapping(serviceUrlParam + "/deleteuser")
+    public ResponseTransfer deleteUser(@RequestParam DeleteUserCommandDto deleteUserCommandDto, HttpServletResponse response) {
+        UsersModel userToDelete;
+        try {
+            userToDelete = getUserById(deleteUserCommandDto.getId());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+        try {
+            if(userToDelete.getFKuserAccountTypes().getRoleId() == 1) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("You cannot delete admin");
+            }
+            else if(userToDelete.getFKuserAccountTypes().getRoleId() == 2) {
+                CeosModel ceosModel;
+                CompaniesModel companiesModel;
+                ceosModel = getCeosModelByUser(userToDelete);
+                ceosRepository.delete(ceosModel);
+
+            }
+            else if (userToDelete.getFKuserAccountTypes().getRoleId() == 3) {
+                HrUsersModel hrUsersModel = getHrUser(userToDelete);
+            }
+            else if (userToDelete.getFKuserAccountTypes().getRoleId() == 4) {
+
+            }
+            usersRepository.delete(userToDelete);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        return new ResponseTransfer("User deleted successfully");
+    }
+
+    private UsersModel getUserById(long id) {
         return usersRepository.findById(id);
     }
 
     private boolean doesUserExist(String login) {
         return (usersRepository.findByLogin(login) != null);
+    }
+
+    private UsersModel getUsersModel(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return usersRepository.findByLogin(name);
+    }
+
+    private HrUsersModel getHrUser(UsersModel usersModel) {
+        return hrUsersRepository.findByFKhrUserUserId(usersModel.getId());
+    }
+
+    private CeosModel getCeosModelByUser(UsersModel usersModel) {
+        return ceosRepository.findByFKceoUserId(usersModel.getId());
     }
 }

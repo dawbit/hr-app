@@ -5,6 +5,7 @@
     "addConfirm": "Dodaj",
     "name": "Nazwa"
   },
+  "closeTab": "Jesteś pewien że chcesz zamknąć obecną kartę?",
   "companies": {
     "about": "Powiedz nam coś o swojej firmie... Pomoże to wyszukać twoją firmę innym użytkownikom w naszej wyszukiwarce!",
     "add": "Dodaj swoją firmę!",
@@ -14,9 +15,22 @@
     "industries": "Branże",
     "list": "Lista firm",
     "location": "Miejsce: Kraj/Miasto",
-    "name": "Nazwa"
+    "name": "Nazwa",
+    "read": "czytaj",
+    "more": "więcej",
+    "less": "mniej",
+    "search": "Szukaj firmy"
   },
   "contact": "Kontakt",
+  "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",
+  "delete": "Skasuj",
+  "delete-cancelled": "Twój użytkownik jest bezpieczny!",
+  "delete-confirm": "tak",
+  "delete-confirmation": "Twój użytkownik został skasowany!",
+  "delete-deny": "nie",
+  "delete-text": "Po skasowaniu nie będziesz w stanie odzyskać danych tego użytkownika!",
+  "delete-title": "Czy chcesz usunąć tego użytkownika?",
+  "details": "Szczegóły",
   "e-mail": "E-mail",
   "e-mail-confirm": "Potwierdź e-mail",
   "e-mail-invalid": "Podany e-mail jest niepoprawny",
@@ -27,10 +41,30 @@
   "first-name-required": "Wpisz swoje imię",
   "first-name-required-valid": "Poprane imię",
   "homepage": "HR APP",
+  "id": "ID",
+  "incorrect-format": "Incorrect format",
+  "is-active": "Czy konto jest aktywne?",
+  "start-quiz-confirmation": "Czy chcesz rozpocząć quiz?",
+  "one-attempt-quiz": "Masz tylko jedno podejście!",
+  "start-quiz": "Zacznijmy quiz!",
+  "go-back": "Zabierz mnie stąd!",
+  "quiz-started": "Twój quiz jest gotowy, powodzenia!",
+  "quiz-cancelled": "Wróć jak już będziesz gotowy!",
+  "oops": "Ups",
+  "cant-go-back": "Nie możesz cofać pytań w tym quizie!",
+  "cant-skip": "Nie możesz pomijać pytań w tym quizie!",
+  "nice": "Nieźle",
+  "quiz-end": "Dotarłeś do końca, gratulacje!",
+  "save-and-go": "Zapisz i kontynuuj",
   "jobs": {
     "add": "Dodaj swoją ofertę!",
     "basic": "Praca",
     "offers": "Lista ofert pracy"
+  },
+  "language": {
+    "en": "angielski",
+    "pl": "polski",
+    "select": "Ustawienia językowe"
   },
   "last-name": "Nazwisko",
   "last-name-required": "Wpisz swoje nazwisko",
@@ -53,6 +87,7 @@
   },
   "middle-name": "Drugie imię",
   "my-account": "Moje konto",
+  "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",
   "panel": {
     "admin": "Panel Administratora",
@@ -69,6 +104,38 @@
   "phone-number-invalid": "Przynajmniej 9 cyfr",
   "phone-number-valid": "Poprawny numer",
   "profile": "Profil",
+  "quiz": {
+    "about": "Informacje o quizie: ",
+    "addAnswer": "Dodaj następną odpowiedź",
+    "added": "Quiz został pomyślnie zapisany!",
+    "addQuestion": "Dodaj kolejne pytanie",
+    "answer": "Odpowiedź",
+    "answerCorrect": "Poprawna",
+    "answerIncorrect": "Niepoprawna",
+    "answerNumber": "Odpowiedź: ",
+    "creator": "Kreator tworzenia quizu rekrutacyjnego: ",
+    "enterCode": "Podaj kod dostępu do quizu: ",
+    "error": "Błąd podczas dodawania quizu",
+    "exists": "Quiz o podanym kodzie istnieje!",
+    "hello": "Przystąp do rozwiązywania quizu!",
+    "isCorrect": "Odpowiedź poprawna",
+    "isPossibleToBack": "Czy można cofać do poprzednich pytań?",
+    "loadConfirmation": "Ostatnio nie zapisałeś tworzonego quizu",
+    "loadConfirmation2": "Chcesz go dokończyć?",
+    "loaded": "Załadowano poprzedni quiz!",
+    "name": "Nazwa quizu",
+    "newQuiz": "Tworzysz nowy quiz!",
+    "notExists": "Quiz nie istnieje!",
+    "points": "Punkty",
+    "removeAnswer": "Usuń pytanie",
+    "removeQuestion": "Usuń odpowiedź",
+    "save": "Zapisz quiz!",
+    "start": "start!",
+    "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
+    "timeForTest": "Czas (sek.)",
+    "question": "Question",
+    "questionNumber": "Pytanie numer: "
+  },
   "recruitment": {
     "add": "Dodaj swój test rekrutacyjny!",
     "basic": "Rekrutacja",
@@ -77,6 +144,7 @@
     "solveTestB": "ROZWIĄŻ TEST REKRUTACYJNY"
   },
   "remember-me": "Zapamiętaj mnie",
+  "save": "Zapisz",
   "settings": "Ustawienia",
   "sign-in": "Logowanie",
   "sign-in!": "Zaloguj się!",
@@ -89,12 +157,14 @@
   "term-of-service-s": "politykę prywatności",
   "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",
   "toast": {
-    "error": "Błąd!",
+    "error": "Błąd! Skontaktuj się z administratorem.",
     "info": "Informacja",
     "success": "Sukces!",
     "warning": "Ostrzeżenie!"
   },
+  "update": "Zaktualizuj",
   "users": {
     "list": "Lista użytkowników"
-  }
+  },
+  "yes": "Tak"
 }

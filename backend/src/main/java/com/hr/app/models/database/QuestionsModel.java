@@ -43,10 +43,11 @@ public class QuestionsModel {
     @JsonBackReference(value = "question_id_user_answer")
     private List<UserAnswersModel> userAnswers;
 
-
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
 
     public long getId() {
         return id;
@@ -62,14 +63,6 @@ public class QuestionsModel {
 
     public byte[] getImage() {
         return image;
-    }
-
-    public List<AnswersModel> getAnswers() {
-        return answers;
-    }
-
-    public List<UserAnswersModel> getUserAnswers() {
-        return userAnswers;
     }
 
     public void setFKquestionTest(TestsModel FKquestionTest) {

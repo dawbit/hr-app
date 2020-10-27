@@ -1,0 +1,15 @@
+package com.hr.app.enums;
+
+public enum ResponseEnum {
+    QUIZ_AREADY_SOLVED,
+    NO_PERMISSION,
+    SUCCESS,
+    BAD_TEST_CODE,
+    BAD_TEST,
+    AUTHORIZATION_FAILED,
+    INACTIVE_QUIZ,
+    BAD_REQUEST,
+    SERVER_ERROR,
+    TEST_NOT_FOUND,
+    QUESTION_NOT_FOUND,
+}

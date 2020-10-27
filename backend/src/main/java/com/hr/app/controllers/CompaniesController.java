@@ -1,6 +1,7 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.api_helpers.ResponseTransfer;
+import com.hr.app.models.database.AccountTypesModel;
+import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.database.CeosModel;
 import com.hr.app.models.database.CompaniesModel;
 import com.hr.app.models.database.UsersModel;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @CrossOrigin
@@ -31,37 +33,118 @@ public class CompaniesController {
     @Autowired
     private IAccountTypesRepository accountTypesRepository;
 
+    //TODO paging
     @GetMapping("/companies/all")
-    public List<CompaniesModel> getAllCompanies() {
-        return companiesRepository.findAll();
+    public Object getAllCompanies(HttpServletResponse response) {
+        List<CompaniesModel> companiesModelList;
+        try {
+            companiesModelList = companiesRepository.findAll();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+
+        if(!companiesModelList.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return companiesModelList;
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ResponseTransfer("Companies not found");
+        }
+    }
+
+    // /companies/find?q='example'
+    @GetMapping("/companies/find")
+    public List<CompaniesModel> getAllCompaniesByAntything(@RequestParam String q) {
+        return companiesRepository.findCompanyByAnything(q);
     }
 
     @Transactional
-    @PostMapping("companies/add")
-    public ResponseTransfer addCompanies(@RequestBody CompaniesModel companiesModel) {
-        CompaniesModel company = companiesModel;
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    @PostMapping("/companies/add")
+    public ResponseTransfer addCompanies(@RequestBody CompaniesModel companiesModel, HttpServletResponse response) {
 
-        UsersModel user = usersRepository.findByLogin(name);
+        UsersModel usersModel;
+
         try {
-            if (getCompanyById(company.getId()) != null) {
-                return new ResponseTransfer("nie udalo sie");
+            usersModel = getUsersModel();
+
+            if(usersModel.getFKuserAccountTypes().getRoleId() == 1) {
+                companiesRepository.save(companiesModel);
             } else {
-                companiesRepository.save(company);
-                if(user.getFKuserAccountTypes().getRoleId()!=1) {
-                    user.setFKuserAccountTypes(accountTypesRepository.findByRoleId(2));
-                }
-                ceosRepository.save(new CeosModel(user, company));
-                return new ResponseTransfer("Udalo sie");
+                AccountTypesModel accountTypesModel = getRoleById(2);
+                usersModel.setFKuserAccountTypes(accountTypesModel);
+                usersRepository.save(usersModel);
+                companiesRepository.save(companiesModel);
+                CeosModel ceosModel = new CeosModel(usersModel, companiesModel);
+                ceosRepository.save(ceosModel);
             }
+            return new ResponseTransfer("Company successfully saved");
+        } catch (Exception e ){
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
         }
-        catch (Exception e) {
-            return new ResponseTransfer("nie udalo sie");
+    }
+
+    @GetMapping("/companies/companyid/{id}")
+    public Object getCompanyById(@PathVariable int id, HttpServletResponse response) {
+
+        CompaniesModel companiesModel;
+
+        try {
+            companiesModel = getCompanyById(id);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+
+        if(companiesModel==null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ResponseTransfer("Company not found");
+        } else {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return companiesModel;
+        }
+    }
+
+    //TODO paging
+    @GetMapping("/companies/companyname/{name}")
+    public Object getCompaniesByName(@PathVariable String name, HttpServletResponse response) {
+        List<CompaniesModel> companiesModelList;
+
+        try {
+            companiesModelList = getCompanyByName(name);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+        if(companiesModelList.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ResponseTransfer("Company not found");
+        } else {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return companiesModelList;
         }
     }
 
     private CompaniesModel getCompanyById(long id) {
         return companiesRepository.findById(id);
+    }
+
+    private List<CompaniesModel> getCompanyByName(String companyName) {
+        return companiesRepository.findAllByName(companyName);
+    }
+
+    private UsersModel getUsersModel() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return usersRepository.findByLogin(name);
+    }
+
+    private AccountTypesModel getRoleById(long id) {
+        return accountTypesRepository.findByRoleId(id);
     }
 
 }

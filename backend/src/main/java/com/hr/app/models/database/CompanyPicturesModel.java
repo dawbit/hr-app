@@ -53,6 +53,8 @@ public class CompanyPicturesModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+
+
     public long getId() {
         return id;
     }

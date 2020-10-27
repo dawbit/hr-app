@@ -1,0 +1,37 @@
+<h2>User Details</h2>
+
+<hr/>
+<div *ngIf="user">
+    <div>
+        <label><b>{{'id' | translate}}: </b></label> {{user.id}}
+    </div>
+    <div>
+        <label><b>{{'login' | translate}}: </b></label> {{user.login}}
+    </div>
+    <div>
+        <label><b>{{'password' | translate}}: </b></label> {{user.password}}
+    </div>
+    <div>
+        <label><b>{{'first-name' | translate}}: </b></label> {{user.firstName}}
+    </div>
+    <div>
+        <label><b>{{'middle-name' | translate}}: </b></label> {{user.middleName}}
+    </div>
+    <div>
+        <label><b>{{'last-name' | translate}}: </b></label> {{user.surname}}
+    </div>
+    <div>
+        <label><b>{{'e-mail' | translate}}: </b></label> {{user.email}}
+    </div>
+    <div>
+        <label><b>{{'phone-number' | translate}}: </b></label> {{user.phoneNumber}}
+    </div>
+    <div>
+        <label><b>{{'is-active' | translate}}: </b></label> {{user.active}}
+    </div>
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to User List</button>
+<br>

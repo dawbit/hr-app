@@ -2,12 +2,12 @@ package com.hr.app.models.dto;
 
 import com.hr.app.models.database.AnswersModel;
 
-public class AnswerDto {
+public class AnswerResultDto {
 
     private long id;
     private String text;
 
-    public AnswerDto(AnswersModel answersModel){
+    public AnswerResultDto(AnswersModel answersModel){
         this.id = answersModel.getId();
         this.text = answersModel.getText();
     }

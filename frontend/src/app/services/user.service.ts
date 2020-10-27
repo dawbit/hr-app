@@ -30,4 +30,18 @@ export class UserService {
     return this.http.get(this.baseUrl + '/getall', this.httpOptions);
   }
 
+  getUser(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getUser/${id}`);
+  }
+
+  updateUser(id: number, value: any): Observable<object> {
+    return this.http.put(`${this.baseUrl}/edituser`, value);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteuser/${id}`, {
+      responseType: 'text'
+    });
+  }
+
 }
