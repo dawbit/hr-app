@@ -2,8 +2,10 @@ package com.hr.app.models.dto;
 
 public class AnnouncementsDto {
 
+    private long announcementId;
     private String announcementTitle;
     private String announcementDescription;
+    private long companyId;
     private String companyName;
     private String companyAbout;
     private String companyLocation;
@@ -11,6 +13,15 @@ public class AnnouncementsDto {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
+    public long getAnnouncementId() {
+        return announcementId;
+    }
+
+    public void setAnnouncementId(long announcementId) {
+        this.announcementId = announcementId;
+    }
 
     public String getAnnouncementTitle() {
         return announcementTitle;
@@ -26,6 +37,14 @@ public class AnnouncementsDto {
 
     public void setAnnouncementDescription(String announcementDescription) {
         this.announcementDescription = announcementDescription;
+    }
+
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 
     public String getCompanyName() {
@@ -52,12 +71,13 @@ public class AnnouncementsDto {
         this.companyLocation = companyLocation;
     }
 
-    public AnnouncementsDto() {}
 
-    public AnnouncementsDto(String announcementTitle, String announcementDescription,
-                            String companyName, String companyAbout, String companyLocation) {
+    public AnnouncementsDto(long announcementId, String announcementTitle, String announcementDescription,
+                            long companyId, String companyName, String companyAbout, String companyLocation) {
+        this.announcementId = announcementId;
         this.announcementTitle = announcementTitle;
         this.announcementDescription = announcementDescription;
+        this.companyId = companyId;
         this.companyName = companyName;
         this.companyAbout = companyAbout;
         this.companyLocation = companyLocation;

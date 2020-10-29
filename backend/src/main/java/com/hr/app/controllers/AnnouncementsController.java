@@ -50,9 +50,9 @@ public class AnnouncementsController {
         List<AnnouncementsDto> responseList = new ArrayList<AnnouncementsDto>();
 
         for (AnnouncementsModel item : dbResponse ) {
-            AnnouncementsDto preparedItem = new AnnouncementsDto(item.getTitle(),item.getDescription(),
-                    item.getFKannouncementCompany().getName(), item.getFKannouncementCompany().getAbout(),
-                    item.getFKannouncementCompany().getLocation());
+            AnnouncementsDto preparedItem = new AnnouncementsDto(item.getId(), item.getTitle(), item.getDescription(),
+                    item.getFKannouncementCompany().getId(), item.getFKannouncementCompany().getName(),
+                    item.getFKannouncementCompany().getAbout(), item.getFKannouncementCompany().getLocation());
             responseList.add(preparedItem);
         }
         return responseList;
