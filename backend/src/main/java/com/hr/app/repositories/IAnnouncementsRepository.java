@@ -10,6 +10,10 @@ public interface IAnnouncementsRepository extends JpaRepository<AnnouncementsMod
 
     AnnouncementsModel findById(long id);
 
+    @Query(value = "SELECT * FROM Announcements announcement JOIN Companies company " +
+            "ON company.id = announcement.company_id", nativeQuery = true)
+    List<AnnouncementsModel> findAllAnnouncement();
+
     @Query(value = "SELECT * FROM Announcements announcement JOIN Companies company" +
             " ON company.id = announcement.company_id WHERE announcement.title LIKE %?1%" +
             " OR announcement.description LIKE %?1% OR company.name LIKE %?1% OR company.about LIKE %?1%" +
