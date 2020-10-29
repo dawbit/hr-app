@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "hr_users")
@@ -29,6 +30,9 @@ public class HrUsersModel {
     // RELATIONSHIPS
     // =========================================
 
+    @OneToMany(mappedBy = "FKannouncementHrUser")
+    @JsonBackReference(value = "announcement-hruser")
+    private List<AnnouncementsModel> announcementHrUser;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -50,6 +54,10 @@ public class HrUsersModel {
         this.FKhrUserUser = FKhrUserUser;
     }
 
+    public void setAnnouncementHrUser(List<AnnouncementsModel> announcementHrUser) {
+        this.announcementHrUser = announcementHrUser;
+    }
+
     public void setFKhrUserCompany(CompaniesModel FKhrUserCompany) {
         this.FKhrUserCompany = FKhrUserCompany;
     }
@@ -59,5 +67,12 @@ public class HrUsersModel {
     public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany) {
         this.FKhrUserUser = FKhrUserUser;
         this.FKhrUserCompany = FKhrUserCompany;
+    }
+
+    public HrUsersModel(UsersModel FKhrUserUser, CompaniesModel FKhrUserCompany,
+                        List<AnnouncementsModel> announcementHrUser) {
+        this.FKhrUserUser = FKhrUserUser;
+        this.FKhrUserCompany = FKhrUserCompany;
+        this.announcementHrUser = announcementHrUser;
     }
 }

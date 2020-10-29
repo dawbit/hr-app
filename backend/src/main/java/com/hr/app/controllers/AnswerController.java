@@ -1,8 +1,8 @@
 package com.hr.app.controllers;
 
 import com.hr.app.models.api_helpers.AnswerCommandDto;
-import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.database.*;
+import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,6 +52,7 @@ public class AnswerController {
         TestsModel testsModel;
         AnswersModel answersModel;
         TestParticipantModel testParticipantModel;
+        List<QuestionsModel> questionsModelList;
 
         try {
             usersModel = getUserModel();
@@ -59,6 +60,7 @@ public class AnswerController {
             questionsModel = getQuestionModel(answerCommandDto.getQuestionId());
             testsModel= questionsModel.getFKquestionTest();
             testParticipantModel = testParticipantRepository.findByCode(answerCommandDto.getTestCode());
+            questionsModelList = getQuestionsModelList(testsModel);
         }
         catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
@@ -90,7 +92,7 @@ public class AnswerController {
 
 
         if(!testsModel.isPossibleToBack()) {
-            if(testParticipantModel.getQuestionNumber()-2 != answerCommandDto.getQuestionNumber()) {
+            if(testParticipantModel.getQuestionNumber() != getQuestionNumber(questionsModelList, questionsModel)) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return new ResponseTransfer("You cannot answer this question");
             }
@@ -151,5 +153,20 @@ public class AnswerController {
 
     private UserAnswersModel getUserAnswersModel(QuestionsModel questionsModel, UsersModel usersModel) {
         return userAnswerRepository.findByFKquestionIduserAnswerIdAndFKuserIduserAnswerId(questionsModel.getId(), usersModel.getId());
+    }
+
+    private List<QuestionsModel> getQuestionsModelList(TestsModel testsModel) {
+        return questionsRepository.findAllByFKquestionTestId(testsModel.getId());
+    }
+
+    private long getQuestionNumber(List<QuestionsModel> questionsModelList, QuestionsModel questionsModel) {
+        long i=0;
+        for(QuestionsModel questionItem : questionsModelList) {
+            i++;
+            if(questionItem.getId()==questionsModel.getId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

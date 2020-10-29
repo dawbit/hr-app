@@ -50,6 +50,10 @@ public class CompaniesModel {
     @JsonBackReference(value = "hrUser-company")
     private List<HrUsersModel> hrUsers;
 
+    @OneToMany(mappedBy = "FKannouncementCompany")
+    @JsonBackReference(value = "announcement-company")
+    private List<AnnouncementsModel> announcementCompany;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -109,11 +113,16 @@ public class CompaniesModel {
         this.hrUsers = hrUsers;
     }
 
+    public void setAnnouncementCompany(List<AnnouncementsModel> announcementCompany) {
+        this.announcementCompany = announcementCompany;
+    }
+
     protected CompaniesModel() { }
 
     public CompaniesModel(String name, String location, String about, byte[] image,
                           List<CompanyPicturesModel> companyPictures, List<CeosModel> ceo,
-                          List<TestsModel> tests, List<HrUsersModel> hrUsers) {
+                          List<TestsModel> tests, List<HrUsersModel> hrUsers,
+                          List<AnnouncementsModel> announcementCompany) {
         this.name = name;
         this.location = location;
         this.about = about;
@@ -122,5 +131,6 @@ public class CompaniesModel {
         this.ceo = ceo;
         this.tests = tests;
         this.hrUsers = hrUsers;
+        this.announcementCompany = announcementCompany;
     }
 }

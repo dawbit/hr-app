@@ -1,6 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:mobile/repositories/test.dart';
+import 'package:flutter/material.dart';
+import 'package:mobile/security/token_shared_pref.dart';
 
 import '../Application.dart';
 
@@ -13,8 +13,8 @@ class AppModule extends ModuleWidget {
 
   @override
   List<Dependency> get dependencies => [
+    Dependency((_) => TokenSharedPref())
     //Dependency((_) => ServerSelector()),
-    Dependency((_) => Test())
   ];
 
   @override
