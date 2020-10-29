@@ -1,14 +1,15 @@
 package com.hr.app.controllers;
 
 import com.hr.app.models.database.AnnouncementsModel;
+import com.hr.app.models.database.CompaniesModel;
+import com.hr.app.models.database.HrUsersModel;
+import com.hr.app.models.database.UsersModel;
 import com.hr.app.models.dto.AnnouncementsDto;
 import com.hr.app.models.dto.ResponseTransfer;
-import com.hr.app.repositories.IAnnouncementsRepository;
+import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -18,10 +19,45 @@ import java.util.List;
 @RestController
 public class AnnouncementsController {
 
+    private final String serviceUrlParam = "/announcements";
+
     @Autowired
     private IAnnouncementsRepository announcementsRepository;
 
-    @GetMapping("/announcements/all")
+    @Autowired
+    private IUsersRepository usersRepository;
+
+    @Autowired
+    private IHrUsersRepository hrUsersRepository;
+
+    @Autowired
+    private ICompaniesRepository companiesRepository;
+
+    @PostMapping(serviceUrlParam + "/add")
+    public ResponseTransfer addAnnouncement(@RequestBody AnnouncementsDto announcement, HttpServletResponse response) {
+
+        UsersModel usersModel;
+        HrUsersModel hrUsersModel;
+        CompaniesModel companyModel;
+        AnnouncementsModel preparedAnnouncement;
+
+        try {
+            usersModel = getUserModel();
+            hrUsersModel = getHrUsersModel(usersModel.getId());
+            companyModel = getCompanyById(hrUsersModel.getFKhrUserCompany().getId());
+
+            preparedAnnouncement = new AnnouncementsModel(companyModel, hrUsersModel,
+                    announcement.getAnnouncementTitle(), announcement.getAnnouncementDescription());
+
+            announcementsRepository.save(preparedAnnouncement);
+            return new ResponseTransfer("Announcement added");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error", e.toString());
+        }
+    }
+
+    @GetMapping(serviceUrlParam + "/all")
     public Object getAllAnnouncements(HttpServletResponse response) {
         try {
             List<AnnouncementsModel> dbResponse;
@@ -34,7 +70,7 @@ public class AnnouncementsController {
     }
 
     // /announcements/find?q='example'
-    @GetMapping("/announcements/find")
+    @GetMapping(serviceUrlParam + "find")
     public Object getAllAnnouncementsByAntything(@RequestParam String q, HttpServletResponse response) {
         try {
             List<AnnouncementsModel> dbResponse;
@@ -56,6 +92,19 @@ public class AnnouncementsController {
             responseList.add(preparedItem);
         }
         return responseList;
+    }
+
+    private UsersModel getUserModel() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return usersRepository.findByLogin(name);
+    }
+
+    private HrUsersModel getHrUsersModel(long userId) {
+        return hrUsersRepository.findByFKhrUserUserId(userId);
+    }
+
+    private CompaniesModel getCompanyById(long companyId) {
+        return companiesRepository.findById(companyId);
     }
 
 }

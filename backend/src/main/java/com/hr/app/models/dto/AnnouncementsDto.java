@@ -71,6 +71,16 @@ public class AnnouncementsDto {
         this.companyLocation = companyLocation;
     }
 
+    protected AnnouncementsDto() { }
+
+    public AnnouncementsDto(String announcementTitle, String announcementDescription, String companyName,
+                            String companyAbout, String companyLocation) {
+        this.announcementTitle = announcementTitle;
+        this.announcementDescription = announcementDescription;
+        this.companyName = companyName;
+        this.companyAbout = companyAbout;
+        this.companyLocation = companyLocation;
+    }
 
     public AnnouncementsDto(long announcementId, String announcementTitle, String announcementDescription,
                             long companyId, String companyName, String companyAbout, String companyLocation) {

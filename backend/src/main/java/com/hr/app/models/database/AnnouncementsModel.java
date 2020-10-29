@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class AnnouncementsModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
@@ -82,10 +82,9 @@ public class AnnouncementsModel {
     protected AnnouncementsModel() {
     }
 
-    public AnnouncementsModel(long id, CompaniesModel FKannouncementCompany,
+    public AnnouncementsModel(CompaniesModel FKannouncementCompany,
                               HrUsersModel FKannouncementHrUser, String title,
                               String description) {
-        this.id = id;
         this.FKannouncementCompany = FKannouncementCompany;
         this.FKannouncementHrUser = FKannouncementHrUser;
         this.title = title;
