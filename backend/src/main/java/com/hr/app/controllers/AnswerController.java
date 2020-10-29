@@ -90,7 +90,7 @@ public class AnswerController {
 
 
         if(!testsModel.isPossibleToBack()) {
-            if(testParticipantModel.getQuestionNumber()-1 != answerCommandDto.getQuizNumber()) {
+            if(testParticipantModel.getQuestionNumber()-2 != answerCommandDto.getQuestionNumber()) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return new ResponseTransfer("You cannot answer this question");
             }
