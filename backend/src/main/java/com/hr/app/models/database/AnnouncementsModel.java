@@ -39,8 +39,12 @@ public class AnnouncementsModel {
     // =========================================
 
     @OneToMany(mappedBy = "FKtestAnnouncement")
-    @JsonBackReference(value = "announcement-id")
+    @JsonBackReference(value = "testParticipant-announcement")
     private List<TestParticipantModel> testsParticipantsModels;
+
+    @OneToMany(mappedBy = "FKhrAlertAnnouncement")
+    @JsonBackReference(value = "hralert-announcement")
+    private List<HrAlertModel> hrAlertModels;
 
 
     // =========================================
@@ -86,6 +90,10 @@ public class AnnouncementsModel {
 
     public void setTestsParticipantsModels(List<TestParticipantModel> testsParticipantsModels) {
         this.testsParticipantsModels = testsParticipantsModels;
+    }
+
+    public void setHrAlertModels(List<HrAlertModel> hrAlertModels) {
+        this.hrAlertModels = hrAlertModels;
     }
 
     protected AnnouncementsModel() {

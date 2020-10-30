@@ -1,19 +1,19 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.database.AnnouncementsModel;
-import com.hr.app.models.database.CompaniesModel;
-import com.hr.app.models.database.HrUsersModel;
-import com.hr.app.models.database.UsersModel;
+import com.hr.app.models.database.*;
 import com.hr.app.models.dto.AnnouncementsDto;
 import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @CrossOrigin
 @RestController
@@ -32,6 +32,13 @@ public class AnnouncementsController {
 
     @Autowired
     private ICompaniesRepository companiesRepository;
+
+    @Autowired
+    private IhrAlertsRepository hrAlertsRepository;
+
+    @Autowired
+    private ICeosRepository ceosRepository;
+
 
     @PostMapping(serviceUrlParam + "/add")
     public ResponseTransfer addAnnouncement(@RequestBody AnnouncementsDto announcement, HttpServletResponse response) {
@@ -65,12 +72,12 @@ public class AnnouncementsController {
             return prepareResponse(dbResponse);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            return new ResponseTransfer("Server Error");
+            return new ResponseTransfer("Server Error", e.toString());
         }
     }
 
     // /announcements/find?q='example'
-    @GetMapping(serviceUrlParam + "find")
+    @GetMapping(serviceUrlParam + "/find")
     public Object getAllAnnouncementsByAntything(@RequestParam String q, HttpServletResponse response) {
         try {
             List<AnnouncementsModel> dbResponse;
@@ -78,7 +85,35 @@ public class AnnouncementsController {
             return prepareResponse(dbResponse);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            return new ResponseTransfer("Server Error");
+            return new ResponseTransfer("Server Error", e.toString());
+        }
+    }
+
+    @PostMapping(serviceUrlParam + "/apply/{id}")
+    public ResponseTransfer announcementApply(@PathVariable long id, HttpServletResponse response) {
+        UsersModel usersModel;
+        AnnouncementsModel announcementsModel;
+        HrAlertModel preparedAlert;
+
+        try {
+            if ((hrUsersRepository.findById(id) == null && ceosRepository.findById(id) == null) || isAdmin().get()) {
+                usersModel = getUserModel();
+                announcementsModel = announcementsRepository.findById(id);
+                if (hrAlertsRepository.countByFKhrAlertAnnouncementIdAndFKhrAlertUserId(id, usersModel.getId()) < 1) {
+                    preparedAlert = new HrAlertModel(announcementsModel, usersModel);
+                    hrAlertsRepository.save(preparedAlert);
+                    return new ResponseTransfer("Application has been submitted");
+                } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT); //409
+                    return new ResponseTransfer("You have already taken part in the recruitment process from your account!");
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN); //403
+                return new ResponseTransfer("HR users and CEOs are not allowed to apply!");
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
+            return new ResponseTransfer("Server Error", e.toString());
         }
     }
 
@@ -105,6 +140,23 @@ public class AnnouncementsController {
 
     private CompaniesModel getCompanyById(long companyId) {
         return companiesRepository.findById(companyId);
+    }
+
+    private AtomicBoolean isAdmin() {
+        AtomicBoolean isAdmin = new AtomicBoolean(false);
+
+        Collection<? extends GrantedAuthority> getRole =
+                SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        if (getRole != null) {
+            getRole.forEach(role -> {
+                if (role.toString().equals("ROLE_ADMIN")) {
+                    isAdmin.set(true);
+                }
+            });
+        }
+
+        return isAdmin;
     }
 
 }

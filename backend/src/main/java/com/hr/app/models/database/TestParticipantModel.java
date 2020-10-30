@@ -37,7 +37,7 @@ public class TestParticipantModel {
 
     @ManyToOne
     @JoinColumn(name = "announcement_id", foreignKey = @ForeignKey(name = "FKtestAnnouncement"))
-    @JsonBackReference(value = "announcement-id")
+    @JsonBackReference(value = "testParticipant-announcement")
     @JsonIgnore
     private AnnouncementsModel FKtestAnnouncement;
 
