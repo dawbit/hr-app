@@ -33,12 +33,20 @@ public class TestParticipantModel {
     private long questionNumber = 1;
 
     @Column(name = "start_quiz_time_in_milis")
-    private long startQuizTimeInMilis =0;
+    private long startQuizTimeInMilis = 0;
+
+    @ManyToOne
+    @JoinColumn(name = "announcement_id", foreignKey = @ForeignKey(name = "FKtestAnnouncement"))
+    @JsonBackReference(value = "announcement-id")
+    @JsonIgnore
+    private AnnouncementsModel FKtestAnnouncement;
+
+    @Column(name = "read")
+    private boolean read = false;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
-
 
     public long getStartQuizTimeInMilis() {
         return startQuizTimeInMilis;
@@ -84,7 +92,28 @@ public class TestParticipantModel {
         this.questionNumber = questionNumber;
     }
 
+    public AnnouncementsModel getFKtestAnnouncement() {
+        return FKtestAnnouncement;
+    }
+
+    public void setFKtestAnnouncement(AnnouncementsModel FKtestAnnouncement) {
+        this.FKtestAnnouncement = FKtestAnnouncement;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
     protected TestParticipantModel(){};
+
+    public TestParticipantModel(TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
+        this.FKtestCodetest = FKtestCodetest;
+        this.FKtestCodeuser = FKtestCodeuser;
+    }
 
     public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
                                 long questionNumber, long startQuizTimeInMilis) {
@@ -92,12 +121,20 @@ public class TestParticipantModel {
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
         this.code = code;
-        this.questionNumber=questionNumber;
-        this.startQuizTimeInMilis=startQuizTimeInMilis;
+        this.questionNumber = questionNumber;
+        this.startQuizTimeInMilis = startQuizTimeInMilis;
     }
 
-    public TestParticipantModel(TestsModel FKtestCodetest, UsersModel FKtestCodeuser) {
+    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
+                                long questionNumber, long startQuizTimeInMilis, AnnouncementsModel FKtestAnnouncement,
+                                boolean read) {
+        this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
+        this.code = code;
+        this.questionNumber = questionNumber;
+        this.startQuizTimeInMilis = startQuizTimeInMilis;
+        this.FKtestAnnouncement = FKtestAnnouncement;
+        this.read = read;
     }
 }
