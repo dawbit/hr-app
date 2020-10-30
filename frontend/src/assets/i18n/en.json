@@ -59,7 +59,10 @@
   "jobs": {
     "add": "Add your offer!",
     "basic": "Jobs",
-    "list": "Job offers"
+    "list": "Job offers",
+    "addForm": "Add your job offer!",
+    "title": "Add a title to your offer",
+    "about": "Give some more details about it"
   },
   "language": {
     "en": "english",
@@ -83,7 +86,9 @@
     "notLogged": "Login Error",
     "notRegistered": "Error during registration. Please contact with administrator.",
     "registered": "Successfully registered!",
-    "userAlreadyExists": "User already exists"
+    "userAlreadyExists": "User already exists",
+    "jobOfferAdded": "Your job offer has been correctly added to our database!",
+    "jobOfferNotAdded": "An error occurred while adding the company to our database"
   },
   "middle-name": "Middle name",
   "my-account": "My Account",

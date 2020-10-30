@@ -17,6 +17,7 @@ import { UserUpdateComponent } from './components/panels/admin-panel/user-list/u
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
+import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -83,6 +84,12 @@ const routes: Routes = [
   },
   {
     path: 'company-list', component: CompanyListComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
+  {
+    path: 'add-job-offer', component: JobOffersAddComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
     }

@@ -87,7 +87,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
     this.quizService.sendQuestionAnswer(ansToSend).subscribe(res => {
       this.nextQuestion(testcode, testid, questionnumber, cangoback);
     },
-    err =>{
+    err => {
       this.toast.showError('quiz.sendAnswerError');
     }
      );

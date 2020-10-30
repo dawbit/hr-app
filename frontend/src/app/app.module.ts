@@ -19,6 +19,7 @@ import { UserDetailsComponent } from './components/panels/admin-panel/user-list/
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
+import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -89,6 +90,7 @@ import { CompanyListSingleElementComponent } from './components/company-list/com
     CompanyListSingleElementComponent,
     SettingsPanelComponent,
     QuizSolveComponent,
+    JobOffersAddComponent
   ],
   imports: [
     BrowserModule,

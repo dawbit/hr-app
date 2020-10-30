@@ -59,7 +59,10 @@
   "jobs": {
     "add": "Dodaj swoją ofertę!",
     "basic": "Praca",
-    "offers": "Lista ofert pracy"
+    "offers": "Lista ofert pracy",
+    "addForm": "Dodaj swoje ogłoszenie pracy!",
+    "title": "Dodaj tytuł do oferty",
+    "about": "Podaj szczegóły o niej"
   },
   "language": {
     "en": "angielski",
@@ -83,7 +86,9 @@
     "notLogged": "Błąd podczas logowania",
     "notRegistered": "Błąd podczas rejestracji. Skontaktuj się z administratorem.",
     "registered": "Zarejestrowano pomyślnie!",
-    "userAlreadyExists": "Użytkownik już istnieje"
+    "userAlreadyExists": "Użytkownik już istnieje",
+    "jobOfferAdded": "Twoja oferta pracy została poprawnie dodana do naszej bazy!",
+    "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy"
   },
   "middle-name": "Drugie imię",
   "my-account": "Moje konto",
