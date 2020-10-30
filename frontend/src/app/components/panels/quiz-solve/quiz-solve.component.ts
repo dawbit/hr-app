@@ -77,14 +77,20 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
     }
   }
 
-  sendAnswer(radioSelected){
+
+  sendAnswer(radioSelected, testcode, testid, questionnumber, cangoback){
     const ansToSend = {
       questionId: this.currentQuestion.id,
       answerId: radioSelected,
-      testCode: this.testCode,
-      questionNumber: this.currentQuestionNumber
+      testCode: this.testCode
     };
-    this.quizService.sendQuestionAnswer(ansToSend).subscribe();
+    this.quizService.sendQuestionAnswer(ansToSend).subscribe(res => {
+      this.nextQuestion(testcode, testid, questionnumber, cangoback);
+    },
+    err =>{
+      this.toast.showError('quiz.sendAnswerError');
+    }
+     );
   }
 
   nextQuestion(testcode, testid, questionnumber, cangoback) {
@@ -95,7 +101,6 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
       Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
       this.quizStarted = false;
       this.quizCompleted = true;
-      // TODO zakończenie testu gdy tu dotrze
     } else if (!cangoback && this.currentQuestionNumber + 1 < questionnumber){
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-skip'), 'error');
     } else {

@@ -134,7 +134,8 @@
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
     "timeForTest": "Time (sec.)",
     "question": "Question: ",
-    "questionNumber": "Question no. "
+    "questionNumber": "Question no. ",
+    "sendAnswerError": "Something wend wrong while sending an answer"
   },
   "recruitment": {
     "add": "Add your recruitment quiz!",

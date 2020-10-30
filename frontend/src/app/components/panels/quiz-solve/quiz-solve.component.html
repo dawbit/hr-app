@@ -36,7 +36,8 @@
                 <label class="label-answers custom-control-label" for="enum_answer_{{answer.id}}" tabindex="0" (keyup.space)='radioSelected=answer.id'>{{answer.text}}</label>
             </div>
         </div>
-        <button (click)='sendAnswer(radioSelected.valueOf())' (click)="nextQuestion(this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)" type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button>
+        <button (click)='sendAnswer(radioSelected.valueOf(), this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)' type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button>
+        <!-- <button (click)='sendAnswer(radioSelected.valueOf())' (click)="nextQuestion(this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)" type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button> -->
     </div>
 
     <!-- Przyciski z numerami pytań -->

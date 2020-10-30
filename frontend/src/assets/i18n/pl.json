@@ -134,7 +134,8 @@
     "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
     "timeForTest": "Czas (sek.)",
     "question": "Question",
-    "questionNumber": "Pytanie numer: "
+    "questionNumber": "Pytanie numer: ",
+    "sendAnswerError": "Coś poszło nie tak podczas próby wysłania odpowiedzi"
   },
   "recruitment": {
     "add": "Dodaj swój test rekrutacyjny!",
