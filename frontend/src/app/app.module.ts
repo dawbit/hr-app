@@ -68,6 +68,7 @@ import { ToastrModule } from 'ngx-toastr';
 // JwPagination
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { CompanyListSingleElementComponent } from './components/company-list/company-list-single-element/company-list-single-element.component';
+import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { CompanyListSingleElementComponent } from './components/company-list/com
     CompanyListSingleElementComponent,
     SettingsPanelComponent,
     QuizSolveComponent,
-    JobOffersAddComponent
+    JobOffersAddComponent,
+    JobOffersListComponent
   ],
   imports: [
     BrowserModule,
