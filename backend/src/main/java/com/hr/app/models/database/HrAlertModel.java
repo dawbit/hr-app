@@ -39,6 +39,11 @@ public class HrAlertModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
+
+    public long getId() {
+        return id;
+    }
+
     public AnnouncementsModel getFKhrAlertAnnouncement() {
         return FKhrAlertAnnouncement;
     }

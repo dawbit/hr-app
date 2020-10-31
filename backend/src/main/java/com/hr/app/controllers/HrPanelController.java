@@ -1,17 +1,14 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.database.HrAlertModel;
-import com.hr.app.models.database.HrUsersModel;
-import com.hr.app.models.database.UsersModel;
+import com.hr.app.models.api_helpers.AssignQuizDto;
+import com.hr.app.models.database.*;
 import com.hr.app.models.dto.*;
-import com.hr.app.repositories.IHrAlertsRepository;
-import com.hr.app.repositories.IHrUsersRepository;
-import com.hr.app.repositories.IUsersRepository;
+import com.hr.app.repositories.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -33,6 +30,15 @@ public class HrPanelController {
     @Autowired
     private IHrAlertsRepository hrAlertsRepository;
 
+    @Autowired
+    private ITestParticipantRepository testParticipantRepository;
+
+    @Autowired
+    private ITestsRepository testsRepository;
+
+    @Autowired
+    private IAnnouncementsRepository announcementsRepository;
+
     @GetMapping(serviceUrlParam + "/list-of-applications")
     public Object getListOfApplications(HttpServletResponse response) {
         UsersModel usersModel;
@@ -47,6 +53,45 @@ public class HrPanelController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error", e.toString());
         }
+    }
+
+    @Transactional
+    @PostMapping(serviceUrlParam + "/alert/{alertId}/assign-quiz")
+    public Object assignAQuiz(@PathVariable long alertId, @RequestBody AssignQuizDto assignQuizDto,
+                              HttpServletResponse response) {
+        //TestParticipantModel testParticipantModel = new TestParticipantModel();
+        HrAlertModel alert = hrAlertsRepository.findById(alertId);
+        String testName = assignQuizDto.getTestName();
+        long currentQuestionNumber = 0;
+        long startQuizTimeInMilis = 0;
+        long testId = assignQuizDto.getTestId();
+        String testCode = assignQuizDto.getTestCode();
+        long userId = assignQuizDto.getUserId();
+        Boolean read = false; //??
+        long announcementId = assignQuizDto.getAnnouncementId();
+
+        TestsModel testsModel = testsRepository.findById(testId);
+        UsersModel usersModel = usersRepository.findById(userId);
+        AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
+        TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel, testCode,
+                currentQuestionNumber, startQuizTimeInMilis, announcementsModel, false);
+
+        //testParticipantRepository
+        long savedId = testParticipantRepository.save(testParticipantModel).getId();
+        TestParticipantModel testParticipantModelSaved = testParticipantRepository.findById(savedId);
+        long saveAID = testParticipantModelSaved.getFKtestAnnouncement().getId();
+        long saveUSER = testParticipantModelSaved.getFKtestCodeuser().getId();
+
+        //hrAlertsRepository.updateTestParticipantValue(testParticipantModelSaved, saveAID, saveUSER);
+
+        HrAlertModel hrAlertModel = hrAlertsRepository.findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(saveUSER, saveAID);
+        hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
+        hrAlertsRepository.save(hrAlertModel);
+        System.out.println(savedId);
+
+        //hrAlertsRepository.save()
+
+        return null;
     }
 
 
@@ -76,7 +121,7 @@ public class HrPanelController {
                 );
             }
 
-            HrAlertsDto preparedItem = new HrAlertsDto(user, quizInfo);
+            HrAlertsDto preparedItem = new HrAlertsDto(item.getFKhrAlertAnnouncement().getId(), user, quizInfo);
             responseList.add(preparedItem);
         }
         return responseList;

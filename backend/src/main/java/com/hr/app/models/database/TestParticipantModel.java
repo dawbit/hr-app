@@ -157,10 +157,11 @@ public class TestParticipantModel {
         this.read = read;
     }
 
-    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
+    public TestParticipantModel(TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
                                 long questionNumber, long startQuizTimeInMilis, AnnouncementsModel FKtestAnnouncement,
-                                Boolean read, List<HrAlertModel> hrAlertModels) {
-        this.id = id;
+                                Boolean read) {
+        // List<HrAlertModel> hrAlertModels
+        //this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
         this.code = code;
@@ -168,6 +169,6 @@ public class TestParticipantModel {
         this.startQuizTimeInMilis = startQuizTimeInMilis;
         this.FKtestAnnouncement = FKtestAnnouncement;
         this.read = read;
-        this.hrAlertModels = hrAlertModels;
+        //this.hrAlertModels = hrAlertModels;
     }
 }

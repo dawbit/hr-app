@@ -1,5 +1,6 @@
 package com.hr.app.repositories;
 
+import com.hr.app.models.database.TestParticipantModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.hr.app.models.database.HrAlertModel;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,7 @@ public interface IHrAlertsRepository extends JpaRepository<HrAlertModel, Long> {
     HrAlertModel findById(long id);
 
     long countByFKhrAlertAnnouncementIdAndFKhrAlertUserId(long idAnnouncement, long idUser);
+    HrAlertModel findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(long userId, long announcementId);
 
     @Query(value = "SELECT * FROM hr_alert " +
             "LEFT JOIN test_participant " +

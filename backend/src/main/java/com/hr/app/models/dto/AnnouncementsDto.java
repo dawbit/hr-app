@@ -10,10 +10,10 @@ public class AnnouncementsDto {
     private String companyAbout;
     private String companyLocation;
 
+
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
-
 
     public long getAnnouncementId() {
         return announcementId;
