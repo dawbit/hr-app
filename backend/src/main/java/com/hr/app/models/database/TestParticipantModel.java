@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "test_participant")
@@ -42,7 +43,17 @@ public class TestParticipantModel {
     private AnnouncementsModel FKtestAnnouncement;
 
     @Column(name = "read")
-    private boolean read = false;
+    private Boolean read = false;
+
+
+    // =========================================
+    // RELATIONSHIPS
+    // =========================================
+
+    @OneToMany(mappedBy = "FKhrAlertTestParticipant")
+    @JsonBackReference(value = "hralert-testParticipant")
+    private List<HrAlertModel> hrAlertModels;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -100,12 +111,20 @@ public class TestParticipantModel {
         this.FKtestAnnouncement = FKtestAnnouncement;
     }
 
-    public boolean isRead() {
+    public Boolean isRead() {
         return read;
     }
 
-    public void setRead(boolean read) {
+    public void setRead(Boolean read) {
         this.read = read;
+    }
+
+    public List<HrAlertModel> getHrAlertModels() {
+        return hrAlertModels;
+    }
+
+    public void setHrAlertModels(List<HrAlertModel> hrAlertModels) {
+        this.hrAlertModels = hrAlertModels;
     }
 
     protected TestParticipantModel(){};
@@ -127,7 +146,7 @@ public class TestParticipantModel {
 
     public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
                                 long questionNumber, long startQuizTimeInMilis, AnnouncementsModel FKtestAnnouncement,
-                                boolean read) {
+                                Boolean read) {
         this.id = id;
         this.FKtestCodetest = FKtestCodetest;
         this.FKtestCodeuser = FKtestCodeuser;
@@ -136,5 +155,19 @@ public class TestParticipantModel {
         this.startQuizTimeInMilis = startQuizTimeInMilis;
         this.FKtestAnnouncement = FKtestAnnouncement;
         this.read = read;
+    }
+
+    public TestParticipantModel(long id, TestsModel FKtestCodetest, UsersModel FKtestCodeuser, String code,
+                                long questionNumber, long startQuizTimeInMilis, AnnouncementsModel FKtestAnnouncement,
+                                Boolean read, List<HrAlertModel> hrAlertModels) {
+        this.id = id;
+        this.FKtestCodetest = FKtestCodetest;
+        this.FKtestCodeuser = FKtestCodeuser;
+        this.code = code;
+        this.questionNumber = questionNumber;
+        this.startQuizTimeInMilis = startQuizTimeInMilis;
+        this.FKtestAnnouncement = FKtestAnnouncement;
+        this.read = read;
+        this.hrAlertModels = hrAlertModels;
     }
 }

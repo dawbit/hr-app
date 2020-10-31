@@ -28,11 +28,16 @@ public class HrAlertModel {
     @Column(name = "read")
     private boolean read = false;
 
+    @ManyToOne
+    @JoinColumn(name = "test_participant_id", foreignKey = @ForeignKey(name = "FKhrAlertTestParticipant"))
+    @JsonBackReference(value = "hralert-testParticipant")
+    @JsonIgnore
+    private TestParticipantModel FKhrAlertTestParticipant;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
-
 
     public AnnouncementsModel getFKhrAlertAnnouncement() {
         return FKhrAlertAnnouncement;
@@ -56,6 +61,14 @@ public class HrAlertModel {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public TestParticipantModel getFKhrAlertTestParticipant() {
+        return FKhrAlertTestParticipant;
+    }
+
+    public void setFKhrAlertTestParticipant(TestParticipantModel FKhrAlertTestParticipant) {
+        this.FKhrAlertTestParticipant = FKhrAlertTestParticipant;
     }
 
     protected HrAlertModel() {

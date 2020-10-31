@@ -51,7 +51,6 @@ public class AnnouncementsModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
-
     public long getId() {
         return id;
     }
@@ -86,6 +85,10 @@ public class AnnouncementsModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<TestParticipantModel> getTestsParticipantsModels() {
+        return testsParticipantsModels;
     }
 
     public void setTestsParticipantsModels(List<TestParticipantModel> testsParticipantsModels) {

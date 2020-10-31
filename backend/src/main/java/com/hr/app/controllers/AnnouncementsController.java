@@ -34,7 +34,7 @@ public class AnnouncementsController {
     private ICompaniesRepository companiesRepository;
 
     @Autowired
-    private IhrAlertsRepository hrAlertsRepository;
+    private IHrAlertsRepository hrAlertsRepository;
 
     @Autowired
     private ICeosRepository ceosRepository;
