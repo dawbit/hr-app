@@ -1,0 +1,34 @@
+http://localhost:8080/hr/list-of-applications
+
+przykładowa zwrotka:
+
+[
+    {
+        "alertId": 43,
+        "announcementId": 1,
+        "simplyUserDto": {
+            "id": 1,
+            "login": "test123"
+        },
+        "simplyQuizInfoDto": {
+            "id": 18,
+            "name": "fajny test111",
+            "code": "ABC"
+        }
+    },
+    {
+        "alertId": 44,
+        "announcementId": 1,
+        "simplyUserDto": {
+            "id": 2,
+            "login": "x"
+        },
+        "simplyQuizInfoDto": {
+            "id": null,
+            "name": null,
+            "code": null
+        }
+    }
+]
+
+jeżeli wszystkie pola w "simplyQuizInfoDto" dla danego zgłoszenia są puste, znaczy, że jest to zgłoszenie oczekujące - i przy takim powinny pojawić się przyciski umożliwiające dopisanie testu i kodu do niego
