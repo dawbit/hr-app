@@ -59,16 +59,16 @@ public class HrPanelController {
     public Object assignAQuiz(@PathVariable long alertId, @RequestBody AssignQuizDto assignQuizDto,
                               HttpServletResponse response) {
         try {
-            long currentQuestionNumber = 0;
-            long startQuizTimeInMilis = 0;
-            long testId = assignQuizDto.getTestId();
-            String testCode = assignQuizDto.getTestCode();
-            long userId = assignQuizDto.getUserId();
-            long announcementId = assignQuizDto.getAnnouncementId();
-
             // sprawdzenie, czy dla konkretnego alertu nie został przypisany już wcześniej quiz (test_participant)
             if (!Objects.isNull(hrAlertsRepository.findById(alertId)) &&
                     Objects.isNull(hrAlertsRepository.findById(alertId).getFKhrAlertTestParticipant())) {
+                long currentQuestionNumber = 0;
+                long startQuizTimeInMilis = 0;
+                long testId = assignQuizDto.getTestId();
+                String testCode = assignQuizDto.getTestCode();
+                long userId = assignQuizDto.getUserId();
+                long announcementId = assignQuizDto.getAnnouncementId();
+
                 TestsModel testsModel = testsRepository.findById(testId);
                 UsersModel usersModel = usersRepository.findById(userId);
                 AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
