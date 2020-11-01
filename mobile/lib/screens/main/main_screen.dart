@@ -3,6 +3,7 @@ import 'package:mobile/screens/main/account_content.dart';
 import 'package:mobile/screens/main/announcements_content.dart';
 import 'package:mobile/screens/main/test_code_content.dart';
 import 'package:mobile/utils/toast_util.dart';
+import 'package:mobile/widgets/status_bar_widget.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -25,7 +26,18 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        body: _mainScreenContent(),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 0,
+                child: StatusBarWidget()
+            ),
+            Expanded(
+              flex: 1,
+              child: _mainScreenContent(),
+            )
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).tabBarTheme.labelColor,
           currentIndex: bottomNavigationBarIndex,
