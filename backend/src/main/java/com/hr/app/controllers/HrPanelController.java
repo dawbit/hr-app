@@ -4,7 +4,6 @@ import com.hr.app.models.api_helpers.AssignQuizDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.*;
 import com.hr.app.repositories.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +50,7 @@ public class HrPanelController {
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return new ResponseTransfer("Internal server error", e.toString());
+            return new ResponseTransfer("Internal server error", e.toString()); // 500
         }
     }
 
@@ -59,39 +58,42 @@ public class HrPanelController {
     @PostMapping(serviceUrlParam + "/alert/{alertId}/assign-quiz")
     public Object assignAQuiz(@PathVariable long alertId, @RequestBody AssignQuizDto assignQuizDto,
                               HttpServletResponse response) {
-        //TestParticipantModel testParticipantModel = new TestParticipantModel();
-        HrAlertModel alert = hrAlertsRepository.findById(alertId);
-        String testName = assignQuizDto.getTestName();
-        long currentQuestionNumber = 0;
-        long startQuizTimeInMilis = 0;
-        long testId = assignQuizDto.getTestId();
-        String testCode = assignQuizDto.getTestCode();
-        long userId = assignQuizDto.getUserId();
-        Boolean read = false; //??
-        long announcementId = assignQuizDto.getAnnouncementId();
+        try {
+            long currentQuestionNumber = 0;
+            long startQuizTimeInMilis = 0;
+            long testId = assignQuizDto.getTestId();
+            String testCode = assignQuizDto.getTestCode();
+            long userId = assignQuizDto.getUserId();
+            long announcementId = assignQuizDto.getAnnouncementId();
 
-        TestsModel testsModel = testsRepository.findById(testId);
-        UsersModel usersModel = usersRepository.findById(userId);
-        AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
-        TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel, testCode,
-                currentQuestionNumber, startQuizTimeInMilis, announcementsModel, false);
+            // sprawdzenie, czy dla konkretnego alertu nie został przypisany już wcześniej quiz (test_participant)
+            if (!Objects.isNull(hrAlertsRepository.findById(alertId)) &&
+                    Objects.isNull(hrAlertsRepository.findById(alertId).getFKhrAlertTestParticipant())) {
+                TestsModel testsModel = testsRepository.findById(testId);
+                UsersModel usersModel = usersRepository.findById(userId);
+                AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
+                TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel, testCode,
+                        currentQuestionNumber, startQuizTimeInMilis, announcementsModel, false);
 
-        //testParticipantRepository
-        long savedId = testParticipantRepository.save(testParticipantModel).getId();
-        TestParticipantModel testParticipantModelSaved = testParticipantRepository.findById(savedId);
-        long saveAID = testParticipantModelSaved.getFKtestAnnouncement().getId();
-        long saveUSER = testParticipantModelSaved.getFKtestCodeuser().getId();
+                long savedTestParticipantId = testParticipantRepository.save(testParticipantModel).getId();
+                TestParticipantModel testParticipantModelSaved = testParticipantRepository.findById(savedTestParticipantId);
+                long savedParticipantAnnouncementId = testParticipantModelSaved.getFKtestAnnouncement().getId();
+                long savedParticipantUserId = testParticipantModelSaved.getFKtestCodeuser().getId();
 
-        //hrAlertsRepository.updateTestParticipantValue(testParticipantModelSaved, saveAID, saveUSER);
+                HrAlertModel hrAlertModel = hrAlertsRepository.findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(
+                        savedParticipantUserId, savedParticipantAnnouncementId);
+                hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
+                hrAlertsRepository.save(hrAlertModel);
 
-        HrAlertModel hrAlertModel = hrAlertsRepository.findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(saveUSER, saveAID);
-        hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
-        hrAlertsRepository.save(hrAlertModel);
-        System.out.println(savedId);
-
-        //hrAlertsRepository.save()
-
-        return null;
+                return new ResponseTransfer("The user has been assigned a quiz");
+            } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT); // 409
+                return new ResponseTransfer("Quiz has already been assigned to this alert");
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+            return new ResponseTransfer("Internal server error", e.toString());
+        }
     }
 
 
@@ -121,7 +123,8 @@ public class HrPanelController {
                 );
             }
 
-            HrAlertsDto preparedItem = new HrAlertsDto(item.getFKhrAlertAnnouncement().getId(), user, quizInfo);
+            HrAlertsDto preparedItem = new HrAlertsDto(item.getId(), item.getFKhrAlertAnnouncement().getId(), user,
+                    quizInfo);
             responseList.add(preparedItem);
         }
         return responseList;

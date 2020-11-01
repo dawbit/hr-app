@@ -13,6 +13,7 @@ public interface IHrAlertsRepository extends JpaRepository<HrAlertModel, Long> {
 
     long countByFKhrAlertAnnouncementIdAndFKhrAlertUserId(long idAnnouncement, long idUser);
     HrAlertModel findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(long userId, long announcementId);
+    HrAlertModel findByFKhrAlertTestParticipant(TestParticipantModel testParticipantModel);
 
     @Query(value = "SELECT * FROM hr_alert " +
             "LEFT JOIN test_participant " +

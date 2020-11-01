@@ -1,11 +1,9 @@
 package com.hr.app.models.api_helpers;
 
 public class AssignQuizDto {
-//    long alertId;
+
     String testName;
     String testCode;
-//    long currentQuestionNumber;
-//    long startQuizTime;
     long testId;
     long userId;
     Boolean read;

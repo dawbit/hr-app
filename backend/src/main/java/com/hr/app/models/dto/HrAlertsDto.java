@@ -1,16 +1,25 @@
 package com.hr.app.models.dto;
 
 public class HrAlertsDto {
-    private long id;
+    private long alertId;
+    private long announcementId;
     private SimplyUserDto simplyUserDto;
     private SimplyQuizInfoDto simplyQuizInfoDto;
 
-    public long getId() {
-        return id;
+    public long getAlertId() {
+        return alertId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAlertId(long alertId) {
+        this.alertId = alertId;
+    }
+
+    public long getAnnouncementId() {
+        return announcementId;
+    }
+
+    public void setAnnouncementId(long announcementId) {
+        this.announcementId = announcementId;
     }
 
     public SimplyUserDto getSimplyUserDto() {
@@ -32,8 +41,10 @@ public class HrAlertsDto {
     public HrAlertsDto() {
     }
 
-    public HrAlertsDto(long id, SimplyUserDto simplyUserDto, SimplyQuizInfoDto simplyQuizInfoDto) {
-        this.id = id;
+    public HrAlertsDto(long alertId, long announcementId, SimplyUserDto simplyUserDto,
+                       SimplyQuizInfoDto simplyQuizInfoDto) {
+        this.alertId = alertId;
+        this.announcementId = announcementId;
         this.simplyUserDto = simplyUserDto;
         this.simplyQuizInfoDto = simplyQuizInfoDto;
     }
