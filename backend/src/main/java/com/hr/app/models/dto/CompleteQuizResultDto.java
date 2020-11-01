@@ -13,27 +13,7 @@ public class CompleteQuizResultDto {
     private Date endDate;
     private long timeForTest;
     private boolean active;
-
     private List<QuestionResultDto> listOfQuestions;
-
-    public CompleteQuizResultDto(TestsModel testsModel){
-        this.id = testsModel.getId();
-        this.name = testsModel.getName();
-        this.startDate = testsModel.getStartDate();
-        this.endDate = testsModel.getEndDate();
-        this.timeForTest = testsModel.getTimeForTestInMilis();
-        this.active = testsModel.isActive();
-    }
-
-    public CompleteQuizResultDto(TestsModel testsModel, List<QuestionResultDto> listOfQuestions) {
-        this.id = testsModel.getId();
-        this.name = testsModel.getName();
-        this.startDate = testsModel.getStartDate();
-        this.endDate = testsModel.getEndDate();
-        this.timeForTest = testsModel.getTimeForTestInMilis();
-        this.active = testsModel.isActive();
-        this.listOfQuestions = listOfQuestions;
-    }
 
     public long getId() {
         return id;
@@ -88,6 +68,25 @@ public class CompleteQuizResultDto {
     }
 
     public void setListOfQuestions(List<QuestionResultDto> listOfQuestions) {
+        this.listOfQuestions = listOfQuestions;
+    }
+
+    public CompleteQuizResultDto(TestsModel testsModel){
+        this.id = testsModel.getId();
+        this.name = testsModel.getName();
+        this.startDate = testsModel.getStartDate();
+        this.endDate = testsModel.getEndDate();
+        this.timeForTest = testsModel.getTimeForTestInMilis();
+        this.active = testsModel.isActive();
+    }
+
+    public CompleteQuizResultDto(TestsModel testsModel, List<QuestionResultDto> listOfQuestions) {
+        this.id = testsModel.getId();
+        this.name = testsModel.getName();
+        this.startDate = testsModel.getStartDate();
+        this.endDate = testsModel.getEndDate();
+        this.timeForTest = testsModel.getTimeForTestInMilis();
+        this.active = testsModel.isActive();
         this.listOfQuestions = listOfQuestions;
     }
 }

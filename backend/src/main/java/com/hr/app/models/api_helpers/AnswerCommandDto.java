@@ -4,14 +4,14 @@ public class AnswerCommandDto {
     private long questionId;
     private long answerId;
     private String testCode;
-    private long quizNumber;
+    private long questionNumber;
 
-    public long getQuizNumber() {
-        return quizNumber;
+    public long getQuestionNumber() {
+        return questionNumber;
     }
 
-    public void setQuizNumber(long quizNumber) {
-        this.quizNumber = quizNumber;
+    public void setQuestionNumber(long questionNumber) {
+        this.questionNumber = questionNumber;
     }
 
     public String getTestCode() {
@@ -38,10 +38,10 @@ public class AnswerCommandDto {
         this.answerId = answerId;
     }
 
-    public AnswerCommandDto(long questionId, long answerId, String testCode, long quizNumber) {
+    public AnswerCommandDto(long questionId, long answerId, String testCode, long questionNumber) {
         this.questionId = questionId;
         this.answerId = answerId;
         this.testCode = testCode;
-        this.quizNumber = quizNumber;
+        this.questionNumber = questionNumber;
     }
 }

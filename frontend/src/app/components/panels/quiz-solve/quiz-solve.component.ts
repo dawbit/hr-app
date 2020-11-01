@@ -80,7 +80,9 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   sendAnswer(radioSelected){
     const ansToSend = {
       questionId: this.currentQuestion.id,
-      answerId: radioSelected
+      answerId: radioSelected,
+      testCode: this.testCode,
+      questionNumber: this.currentQuestionNumber
     };
     this.quizService.sendQuestionAnswer(ansToSend).subscribe();
   }
