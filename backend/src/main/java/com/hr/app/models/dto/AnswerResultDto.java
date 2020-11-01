@@ -7,16 +7,16 @@ public class AnswerResultDto {
     private long id;
     private String text;
 
-    public AnswerResultDto(AnswersModel answersModel){
-        this.id = answersModel.getId();
-        this.text = answersModel.getText();
-    }
-
     public long getId() {
         return id;
     }
 
     public String getText() {
         return text;
+    }
+
+    public AnswerResultDto(AnswersModel answersModel){
+        this.id = answersModel.getId();
+        this.text = answersModel.getText();
     }
 }
