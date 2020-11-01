@@ -6,9 +6,10 @@ class LoginRepository {
 
   AuthorizationSource _authorizationSource;
 
+  LoginRepository(this._authorizationSource);
+
   Future<Token> attemptToLogin(LoginCommandDto loginCommandDto) =>
       _authorizationSource.attemptToLogin(loginCommandDto)
           .then((onValue) => Token(accessToken: onValue.response.headers.value("Authorization")));
 
-  LoginRepository(this._authorizationSource);
 }

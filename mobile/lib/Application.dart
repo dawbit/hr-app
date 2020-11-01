@@ -16,11 +16,6 @@ class Application extends StatelessWidget {
       title: "Hr-App",
       supportedLocales: _supportedLocales,
       localizationsDelegates: _localizationsDelegates,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Color(0xff2d2d2d),
-        accentColor: Color(0xffc4b998),
-      ),
       routes: _routes,
     );
   }
