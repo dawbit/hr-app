@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/values/sizes.dart';
 import 'package:mobile/values/styles.dart';
 
 class TestCodeContent extends StatefulWidget {
@@ -8,11 +9,12 @@ class TestCodeContent extends StatefulWidget {
 
 class _TestCodeContentState extends State<TestCodeContent> {
 
-  TextEditingController _textEditingController;
+  TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(Sizes.giantSpace),
       height: MediaQuery.of(context).size.height,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,12 +25,28 @@ class _TestCodeContentState extends State<TestCodeContent> {
           ),
           Expanded(
               flex: 1,
-              child: Text("Please enter your test code below: ")
-          ),
-          Expanded(
-              flex: 1,
-              child: TextField(
-                controller: _textEditingController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Please enter your test code below: "),
+                  TextField(
+                    controller: _textEditingController,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: Sizes.giantSpace),
+                    child: MaterialButton(
+                        height: Sizes.hugeSize,
+                        onPressed: (){},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                              child: Text("Start Test")
+                          ),
+                        )
+                    ),
+                  )
+                ],
               )
           ),
         ],

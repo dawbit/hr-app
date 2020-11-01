@@ -12,12 +12,12 @@ class _AccountContentState extends State<AccountContent> {
     return Container(color: Colors.purple,
     child: Column(
       children: [
-        CardWidget(icon: Icon(Icons.person),),
-        CardWidget(icon: Icon(Icons.person),),
-        CardWidget(icon: Icon(Icons.person),),
-        CardWidget(icon: Icon(Icons.person),),
-        CardWidget(icon: Icon(Icons.person),),
-        CardWidget(icon: Icon(Icons.person),),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
+        CardWidget(icon: Icon(Icons.person), cardTitle: "hehe",),
       ],
     ),
     );

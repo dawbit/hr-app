@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/config/routes.dart';
-import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/security/token_shared_pref.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,8 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    tokenSharedPref = AppModule.injector.get();
-    tokenSharedPref.getToken().then(onTokenValue);
+    // tokenSharedPref = AppModule.injector.get();
+    // tokenSharedPref.getToken().then(onTokenValue);
+    Future.delayed(Duration(seconds: 3), (){onTokenValue("asgasgasg");});
   }
 
   @override

@@ -12,10 +12,11 @@ class Sizes {
   static const double hugeSpace = 16;
   static const double giantSpace = 20;
 
-  static const double smallSize = 15;
-  static const double mediumSize = 20;
-  static const double bigSize = 25;
-  static const double hugeSize = 30;
-  static const double giantSize = 35;
+  static const double smallSize = 20;
+  static const double mediumSize = 30;
+  static const double bigSize = 40;
+  static const double hugeSize = 50;
+  static const double giantSize = 60;
+  static const double CardWidgetSize = 70;
 
 }
