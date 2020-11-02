@@ -20,14 +20,14 @@ public class QuestionResultDto extends QuizCodeDto {
     public QuestionResultDto(QuestionsModel questionsModel) {
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
-        this.image=questionsModel.getImage();
+        this.image = questionsModel.getImage();
     }
 
     public QuestionResultDto(QuestionsModel questionsModel, List<AnswersModel> listOfAnswersModel , ResponseEnum responseEnum){
         super(responseEnum);
         this.id = questionsModel.getId();
         this.text = questionsModel.getText();
-        this.image=questionsModel.getImage();
+        this.image = questionsModel.getImage();
 
         ArrayList<AnswerResultDto> listOfAnswersDto = new ArrayList<>();
         for (AnswersModel answer: listOfAnswersModel) {

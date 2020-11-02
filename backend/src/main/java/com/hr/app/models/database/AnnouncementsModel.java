@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "announcements")
@@ -37,11 +38,18 @@ public class AnnouncementsModel {
     // RELATIONSHIPS
     // =========================================
 
+    @OneToMany(mappedBy = "FKtestAnnouncement")
+    @JsonBackReference(value = "testParticipant-announcement")
+    private List<TestParticipantModel> testsParticipantsModels;
+
+    @OneToMany(mappedBy = "FKhrAlertAnnouncement")
+    @JsonBackReference(value = "hralert-announcement")
+    private List<HrAlertModel> hrAlertModels;
+
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
-
 
     public long getId() {
         return id;
@@ -77,6 +85,18 @@ public class AnnouncementsModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<TestParticipantModel> getTestsParticipantsModels() {
+        return testsParticipantsModels;
+    }
+
+    public void setTestsParticipantsModels(List<TestParticipantModel> testsParticipantsModels) {
+        this.testsParticipantsModels = testsParticipantsModels;
+    }
+
+    public void setHrAlertModels(List<HrAlertModel> hrAlertModels) {
+        this.hrAlertModels = hrAlertModels;
     }
 
     protected AnnouncementsModel() {

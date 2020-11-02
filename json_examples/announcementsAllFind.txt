@@ -1,0 +1,5 @@
+/all
+
+/find?q=X
+
+X - szukana fraza
