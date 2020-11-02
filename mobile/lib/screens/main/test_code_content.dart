@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/config/routes.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:mobile/values/styles.dart';
 
@@ -37,7 +38,7 @@ class _TestCodeContentState extends State<TestCodeContent> {
                     margin: EdgeInsets.only(top: Sizes.giantSpace),
                     child: MaterialButton(
                         height: Sizes.hugeSize,
-                        onPressed: (){},
+                        onPressed: (){Navigator.of(context).pushNamed(quizScreenRoute);},
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           child: Center(

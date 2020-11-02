@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/injections/login_module.dart';
 import 'package:mobile/screens/main/main_screen.dart';
+import 'package:mobile/screens/quiz/quiz_screen.dart';
 import 'package:mobile/screens/splash/splash_screen.dart';
 
 import 'config/routes.dart';
@@ -23,7 +24,8 @@ class Application extends StatelessWidget {
   Map<String, Widget Function(BuildContext)> get _routes => {
     splashScreenRoute: (context) => SplashScreen(),
     mainScreenRoute: (context) => MainScreen(),
-    loginScreenRoute: (context) => LoginModule()
+    loginScreenRoute: (context) => LoginModule(),
+    quizScreenRoute: (context) => QuizScreen()
   };
 
   List<Locale> get _supportedLocales => [
