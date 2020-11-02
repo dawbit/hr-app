@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobile/values/sizes.dart';
@@ -9,21 +12,21 @@ class AnnouncementCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
       height: 120,
-      margin: EdgeInsets.all(Sizes.giantSpace),
+      padding:EdgeInsets.all(10),
+      margin: EdgeInsets.all(Sizes.smallSpace),
       child: Row(
         children: [
           Expanded(
-              flex: 2,
+              flex: 0,
               child: Container(
+                margin: EdgeInsets.only(right: 10),
                 height: 100,
-                width: 30,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                  margin: EdgeInsets.all(10),
+                width: 100,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Image.network(companyImage,
@@ -33,10 +36,27 @@ class AnnouncementCardWidget extends StatelessWidget {
               )
           ),
           Expanded(
-              flex: 3,
+              flex: 1,
               child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("xDDDDDDDDDDD")
+                  Text("Company: NAzwa company" , maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  Text("Ogloszenie: Nazwa oglosdfgfhdsfhfhdsfsdfgsdfdszeni" , maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  SizedBox(width: 40,),
+                  Divider(height: 10, color: Colors.blue,),
+                  Flexible(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          double textSize = Theme.of(context).textTheme.bodyText2.fontSize*1.1;
+                          int maxLines = (constraints.biggest.height/textSize).floor();
+                          return Center(
+                            child: Text("O ogloszeniu: LOREM IPSUM LOREM LOREM IPSUM LOREM IPSUM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM ",
+                              overflow: TextOverflow.ellipsis, maxLines: maxLines,),
+                          );
+                        }
+                      )
+                  )
                 ],
               )
           )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/values/sizes.dart';
 
 class SearchViewWidget extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class _SearchViewWidgetState extends State<SearchViewWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Sizes.giantSize,
       child: ListTile(
         title: TextField(
           autofocus: false,

@@ -18,7 +18,7 @@ class _AnnouncementsContentState extends State<AnnouncementsContent> {
               child: SearchViewWidget()
           ),
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 child: ListView(
                   children: [
