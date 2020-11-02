@@ -24,6 +24,6 @@ export class JobOffersService {
   }
 
   findOffer(searchParams: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}find?q=${searchParams}`);
+    return this.http.get(`${this.baseUrl}/find?q=${searchParams}`);
   }
 }
