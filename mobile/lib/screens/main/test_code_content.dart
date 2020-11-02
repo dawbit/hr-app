@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/config/routes.dart';
+import 'package:mobile/screens/main/widgets/test_code_warning_dialog.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:mobile/values/styles.dart';
 
@@ -38,7 +38,13 @@ class _TestCodeContentState extends State<TestCodeContent> {
                     margin: EdgeInsets.only(top: Sizes.giantSpace),
                     child: MaterialButton(
                         height: Sizes.hugeSize,
-                        onPressed: (){Navigator.of(context).pushNamed(quizScreenRoute);},
+                        onPressed: (){showDialog(
+                            context: context,
+                            builder: (context) {
+                              return TestCodeWarningDialog(
+                              );
+                            }
+                        );},
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           child: Center(
