@@ -23,7 +23,7 @@ export class CompanyService {
     return this.http.get(this.baseUrl + '/all', this.httpOptions);
   }
 
-  getCompany(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/getCompany/${id}`);
+  getCompany(name: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/companyname/${name}`);
   }
 }

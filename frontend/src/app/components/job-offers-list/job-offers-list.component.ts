@@ -59,8 +59,6 @@ export class JobOffersListComponent implements OnInit {
   }
 
   SearchJobOffer(){
-    console.log('testowanie');
-    console.log(this.jobOfferSearchForm.get('jobOfferToSearch').value);
     this.jobOffers = [];
 
     this.jobOffersService.findOffer(this.jobOfferSearchForm.get('jobOfferToSearch').value).subscribe(data => {
