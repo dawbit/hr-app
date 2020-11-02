@@ -49,7 +49,7 @@ export class CompanyListComponent implements OnInit {
     this.companies = [];
 
     this.companyService.getCompany(this.companySearchForm.get('companyToSearch').value).subscribe(
-      data =>{
+      data => {
         for (const key in data){
           if (data.hasOwnProperty(key)){ // jeśli nie jest pusta
             this.companies.push({

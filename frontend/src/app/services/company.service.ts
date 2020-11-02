@@ -24,6 +24,6 @@ export class CompanyService {
   }
 
   getCompany(name: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/companyname/${name}`);
+    return this.http.get(`${this.baseUrl}/find?q=${name}`);
   }
 }

@@ -9,6 +9,6 @@ Przykładowe wysłane body - które wygeneruje się na podstawie wpisania kodu w
     "testCode": "ABCTEST",
     "testId": 18,
     "userId": 1,
-    "read": true,
+    "read": true, //Powiadomienie dla hr
     "announcementId": 36
 }
