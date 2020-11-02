@@ -11,8 +11,10 @@ public interface ICompaniesRepository extends JpaRepository<CompaniesModel, Long
     CompaniesModel findById(long id);
     CompaniesModel findByName(String name);
 
-    @Query(value = "SELECT * FROM Companies company WHERE company.about LIKE %?1%" +
-            " OR company.location LIKE %?1% OR company.name LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM Companies company " +
+            "WHERE LOWER(company.about) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(company.location) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(company.name) LIKE LOWER(CONCAT('%', ?1,'%'))", nativeQuery = true)
     List<CompaniesModel> findCompanyByAnything(String value);
 
     List<CompaniesModel> findAllByName(String name);
