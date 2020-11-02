@@ -13,11 +13,39 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: (settings) {
+        if(settings.name == quizScreenRoute) {
+          return _createRoute(settings);
+        } else {
+          return null;
+        }
+      },
       debugShowCheckedModeBanner: false,
       title: "Hr-App",
       supportedLocales: _supportedLocales,
       localizationsDelegates: _localizationsDelegates,
       routes: _routes,
+    );
+  }
+
+  Route _createRoute(RouteSettings settings) {
+    return PageRouteBuilder(
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.easeInOutExpo;
+
+        var tween = Tween(begin: begin, end: end);
+        var curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: curve,
+        );
+        return SlideTransition(
+          position: tween.animate(curvedAnimation),
+          child: child,
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) => QuizScreen(quizInfoWithQuestion: settings.arguments),
     );
   }
 
