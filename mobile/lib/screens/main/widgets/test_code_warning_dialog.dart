@@ -24,6 +24,7 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      content: Text("saafasfg"),
       title: Text("Czy jestes pewien ze chcesz rozpoczac ten test?"),
       actions: [
         MaterialButton(
