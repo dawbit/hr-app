@@ -53,7 +53,6 @@ class Application extends StatelessWidget {
     splashScreenRoute: (context) => SplashScreen(),
     mainScreenRoute: (context) => MainScreen(),
     loginScreenRoute: (context) => LoginModule(),
-    quizScreenRoute: (context) => QuizScreen()
   };
 
   List<Locale> get _supportedLocales => [

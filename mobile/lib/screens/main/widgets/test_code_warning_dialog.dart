@@ -71,11 +71,10 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
         quizInformationDto.quizId, widget.quizCode, 1);
   }
 
-  void _onQuizQuestion(QuestionResultDto questionResultDto) {
-    print("pizda ${questionResultDto.text}");
-    Navigator.of(context).pushNamed(quizScreenRoute,
-        arguments: QuizInfoWithQuestion(
-            quizInformationDto: quizInformationDto,
-            questionResultDto: questionResultDto));
+  void _onQuizQuestion(QuestionResultDto questionResult) {
+    final quizData = QuizInfoWithQuestion(questionResultDto: questionResult,
+        quizInformationDto: quizInformationDto);
+
+    Navigator.of(context).pushNamed(quizScreenRoute, arguments: quizData);
   }
 }

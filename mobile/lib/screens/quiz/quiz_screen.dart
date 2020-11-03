@@ -20,7 +20,7 @@ class QuizScreen extends StatelessWidget {
           ),
           Expanded(
               flex: 1,
-              child: QuizContent()
+              child: QuizContent(quizInfoWithQuestion)
           ),
         ],
       ),

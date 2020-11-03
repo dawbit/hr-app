@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/answer_result_dto.dart';
 
 class AnswerWidget extends StatelessWidget {
+
+  final AnswerResultDto answerResultDto;
+
+  AnswerWidget({this.answerResultDto});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +18,7 @@ class AnswerWidget extends StatelessWidget {
       child: Container(
           margin: EdgeInsets.all(15),
           child: Center(
-              child: Text("jhakies odpowiedzjhakies odpowiedz ",
+              child: Text(answerResultDto.text,
                 textAlign: TextAlign.center,
               ),
           )

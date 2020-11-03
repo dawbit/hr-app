@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class QuestionNumberWidget extends StatelessWidget {
+
+  final int number;
+
+  QuestionNumberWidget(this.number);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +16,7 @@ class QuestionNumberWidget extends StatelessWidget {
       height: 40,
       width: 40,
       child: Center(
-        child: Text("1"),
+        child: Text(number.toString()),
       ),
     );
   }
