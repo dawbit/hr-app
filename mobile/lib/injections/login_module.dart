@@ -1,12 +1,10 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mobile/blocs/login_bloc.dart';
 import 'package:mobile/data_sources/remote/authorization_source.dart';
 import 'package:mobile/repositories/login_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:mobile/screens/login/login_screen.dart';
-
-import '../Application.dart';
 
 class LoginModule extends ModuleWidget {
 
@@ -19,7 +17,7 @@ class LoginModule extends ModuleWidget {
   List<Dependency> get dependencies => [
     Dependency((i) => AuthorizationSource(i.get())),
     Dependency((i) => LoginRepository(i.get())),
-    Dependency((_) => Dio())
+    Dependency((_) => Dio()..options.connectTimeout=5000)
   ];
 
   @override

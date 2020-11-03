@@ -21,7 +21,7 @@ class AppModule extends ModuleWidget {
 
   @override
   List<Dependency> get dependencies => [
-    Dependency((_) => Dio()),
+    Dependency((_) => Dio()..options.connectTimeout=5000),
     Dependency((i) => QuizSource(i.get())),
     Dependency((i) => QuizRepository(i.get())),
     Dependency((_) => TokenSharedPref()),
