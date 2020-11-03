@@ -1,3 +1,4 @@
+import { QuizAssignment } from './../classes/quizAssignment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,9 +29,14 @@ export class JobOffersService {
   }
 
   Apply(offerId: number): Observable<any>{
-    // return this.http.put(`${this.baseUrl}/edituser`, value);
-    // return this.http.post(this.baseUrl + '/add', company, { observe: 'response' });
-
     return this.http.post(this.baseUrl + '/apply/' + offerId, { observe: 'response' });
+  }
+
+  getAllApplications(): Observable<any>{
+    return this.http.get(this.apiURL + '/hr/list-of-applications', this.httpOptions);
+  }
+
+  assignQuiz(alertId: number, quizBody: QuizAssignment): Observable<any>{
+    return this.http.post(this.apiURL + '/hr/alert/' + alertId + '/assign-quiz', quizBody, { observe: 'response' });
   }
 }

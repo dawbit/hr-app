@@ -1,0 +1,56 @@
+<p>
+  lista aplikacji
+</p>
+<div class="container">
+  <div class="row">
+      <div class="col-md-7 mx-auto">
+          <div class="md-form">
+              <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
+              <label for="search-input">Search</label>
+          </div>
+      </div>
+      <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1" hover="true">
+          <thead class="sticky-top">
+              <tr>
+                  <th *ngFor="let header of headers; let i = index" [mdbTableSort]="applications" [sortBy]="headers[i]" scope="col">
+                      {{header | titlecase}}
+                      <mdb-icon fas icon="sort"></mdb-icon>
+                  </th>
+              </tr>
+          </thead>
+          <tbody #row>
+              <tr mdbTableCol *ngFor="let application of applications; let i = index">
+                  <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.alertId}}
+                    <!-- {{i | json}}, {{mdbTablePagination.firstItemIndex | json}} -->
+                  </th>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementId}}
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.userId}}
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.userLogin}}
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizId}}
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode}}
+                  </td>
+                  <!-- <td mat-cell *matCellDef="let user">
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                      <button (click)="deleteUser(user.id)" class="btn btn-danger">{{'delete' | translate}}</button>
+                      <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">{{'update' | translate}}</button>
+                      <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">{{'details' | translate}}</button>
+                  </td> -->
+              </tr>
+          </tbody>
+          <tfoot class="primary lighten-5 w-100">
+              <tr>
+                  <td colspan="7">
+                      <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="applications">
+                      </mdb-table-pagination>
+                  </td>
+              </tr>
+          </tfoot>
+      </table>
+  </div>
+</div>

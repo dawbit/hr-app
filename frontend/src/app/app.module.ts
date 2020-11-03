@@ -20,6 +20,7 @@ import { CompanyListComponent } from './components/company-list/company-list.com
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
+import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -92,7 +93,8 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
     SettingsPanelComponent,
     QuizSolveComponent,
     JobOffersAddComponent,
-    JobOffersListComponent
+    JobOffersListComponent,
+    ListOfApplicationsComponent
   ],
   imports: [
     BrowserModule,
