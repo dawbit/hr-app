@@ -8,9 +8,9 @@ part of 'quiz_information_dto.dart';
 
 QuizInformationDto _$QuizInformationDtoFromJson(Map<String, dynamic> json) {
   return QuizInformationDto(
-    amountOfQuestions: (json['amountOfQuestions'] as num)?.toDouble(),
+    amountOfQuestions: json['amountOfQuestions'] as int,
     isBackPossible: json['isBackPossible'] as bool,
-    quizId: (json['quizId'] as num)?.toDouble(),
+    quizId: json['quizId'] as int,
     timeForTestInMilis: (json['timeForTestInMilis'] as num)?.toDouble(),
   );
 }

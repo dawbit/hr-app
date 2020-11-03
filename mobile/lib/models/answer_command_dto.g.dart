@@ -8,8 +8,8 @@ part of 'answer_command_dto.dart';
 
 AnswerCommandDto _$AnswerCommandDtoFromJson(Map<String, dynamic> json) {
   return AnswerCommandDto(
-    questionId: (json['questionId'] as num)?.toDouble(),
-    answerId: (json['answerId'] as num)?.toDouble(),
+    questionId: json['questionId'] as int,
+    answerId: json['answerId'] as int,
     testCode: json['testCode'] as String,
   );
 }

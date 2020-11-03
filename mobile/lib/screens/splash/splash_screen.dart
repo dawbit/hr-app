@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/config/routes.dart';
@@ -11,14 +10,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  TokenSharedPref tokenSharedPref;
-
   @override
   void initState() {
     super.initState();
-    // tokenSharedPref = AppModule.injector.get();
-    // tokenSharedPref.getToken().then(onTokenValue);
-    Future.delayed(Duration(seconds: 3), (){onTokenValue("asgasgasg");});
+    TokenSharedPref.getToken().then(onTokenValue);
   }
 
   @override
@@ -36,10 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void onTokenValue(String token) {
     if(token!=null) {
-      print(token);
       Navigator.of(context).pushReplacementNamed(mainScreenRoute);
     } else {
-      print('asfafasfas');
       Navigator.of(context).pushReplacementNamed(loginScreenRoute);
     }
   }

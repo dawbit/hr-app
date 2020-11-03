@@ -25,7 +25,7 @@ class QuizInformationBloc extends BlocBase {
     _quizInformationSubject.add(quizInformationDto);
   }
 
-  void _onError(Exception e) {
+  void _onError(e) {
     _isLoadingSubject.add(false);
     print("Quiz information error: $e");
   }

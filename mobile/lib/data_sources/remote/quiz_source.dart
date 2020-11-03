@@ -18,7 +18,7 @@ abstract class QuizSource {
 
   @GET("/quiz/quizquestion/{quizId}/{testCode}/{questionNumber}")
   Future<QuestionResultDto> getQuizQuestion(
-      @Path("quizId") double quizId,
+      @Path("quizId") int quizId,
       @Path("testCode") String testCode,
       @Path("questionNumber") int questionNumber);
 

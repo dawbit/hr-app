@@ -13,7 +13,7 @@ class QuizRepository {
       quizSource.getQuizInformation(quizCode);
 
   Future<QuestionResultDto> getQuestion(
-          {double quizId, String testCode, int questionNumber}) =>
+          {int quizId, String testCode, int questionNumber}) =>
       quizSource.getQuizQuestion(quizId, testCode, questionNumber);
 
   Future<ResponseTransfer> setAnswer(AnswerCommandDto answerCommandDto) =>

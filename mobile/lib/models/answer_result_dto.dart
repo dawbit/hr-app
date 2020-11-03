@@ -5,7 +5,7 @@ part 'answer_result_dto.g.dart';
 @JsonSerializable()
 class AnswerResultDto {
   @JsonKey(name: "id")
-  double id;
+  int id;
 
   @JsonKey(name: "text")
   String text;

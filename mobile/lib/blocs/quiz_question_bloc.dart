@@ -18,7 +18,7 @@ class QuizQuestionBloc extends BlocBase {
       _quizQuestionSubject.stream;
 
   Future getQuizQuestion(
-      double quizId, String testCode, int questionNumber) async {
+      int quizId, String testCode, int questionNumber) async {
     quizRepository
         .getQuestion(questionNumber: questionNumber, quizId: quizId, testCode: testCode)
         .then(_onSuccess)
@@ -30,7 +30,7 @@ class QuizQuestionBloc extends BlocBase {
     _quizQuestionSubject.add(questionResultDto);
   }
 
-  void _onError(Exception e) {
+  void _onError(e) {
     _isLoadingSubject.add(false);
     print("Quiz question error: $e");
   }

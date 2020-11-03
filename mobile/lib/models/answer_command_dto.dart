@@ -5,10 +5,10 @@ part 'answer_command_dto.g.dart';
 @JsonSerializable()
 class AnswerCommandDto {
   @JsonKey(name: "questionId")
-  double questionId;
+  int questionId;
 
   @JsonKey(name: "answerId")
-  double answerId;
+  int answerId;
 
   @JsonKey(name: "testCode")
   String testCode;

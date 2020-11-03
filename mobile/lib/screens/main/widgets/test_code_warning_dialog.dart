@@ -72,6 +72,7 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   }
 
   void _onQuizQuestion(QuestionResultDto questionResultDto) {
+    print("pizda ${questionResultDto.text}");
     Navigator.of(context).pushNamed(quizScreenRoute,
         arguments: QuizInfoWithQuestion(
             quizInformationDto: quizInformationDto,

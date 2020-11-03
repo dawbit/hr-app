@@ -8,7 +8,7 @@ part of 'answer_result_dto.dart';
 
 AnswerResultDto _$AnswerResultDtoFromJson(Map<String, dynamic> json) {
   return AnswerResultDto(
-    id: (json['id'] as num)?.toDouble(),
+    id: json['id'] as int,
     text: json['text'] as String,
   );
 }

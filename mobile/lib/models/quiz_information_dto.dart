@@ -6,10 +6,10 @@ part 'quiz_information_dto.g.dart';
 class QuizInformationDto {
 
   @JsonKey(name: "quizId")
-  double quizId;
+  int quizId;
 
   @JsonKey(name: "amountOfQuestions")
-  double amountOfQuestions;
+  int amountOfQuestions;
 
   @JsonKey(name: "isBackPossible")
   bool isBackPossible;

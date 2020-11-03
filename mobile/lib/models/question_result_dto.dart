@@ -8,7 +8,7 @@ part 'question_result_dto.g.dart';
 class QuestionResultDto {
 
   @JsonKey(name: "id")
-  double id;
+  int id;
 
   @JsonKey(name: "text")
   String text;
