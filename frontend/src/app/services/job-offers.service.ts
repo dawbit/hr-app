@@ -26,4 +26,11 @@ export class JobOffersService {
   findOffer(searchParams: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/find?q=${searchParams}`);
   }
+
+  Apply(offerId: number): Observable<any>{
+    // return this.http.put(`${this.baseUrl}/edituser`, value);
+    // return this.http.post(this.baseUrl + '/add', company, { observe: 'response' });
+
+    return this.http.post(this.baseUrl + '/apply/' + offerId, { observe: 'response' });
+  }
 }

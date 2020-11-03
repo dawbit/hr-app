@@ -78,5 +78,10 @@ export class JobOffersListComponent implements OnInit {
   });
   }
 
+  Apply(offerId: number){
+    console.log(offerId);
+    this.jobOffersService.Apply(offerId).subscribe();
+  }
+
 
 }

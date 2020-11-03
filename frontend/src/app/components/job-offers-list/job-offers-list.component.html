@@ -22,7 +22,7 @@
           <mdb-card-img  class="offerImg" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
           <!--Card content-->
           <mdb-card-body>
-            <button class="floatingBtn"><i class="fas fa-check"></i></button>
+            <button class="floatingBtn" (click)='Apply(this.offer.id)'><i class="fas fa-check"></i></button>
               <!--Title-->
               <mdb-card-title>
                   <h4>{{offer.title}}</h4>
