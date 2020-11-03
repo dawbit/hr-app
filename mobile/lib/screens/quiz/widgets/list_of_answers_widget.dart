@@ -5,8 +5,9 @@ import 'package:mobile/screens/quiz/widgets/answer_widget.dart';
 class ListOfAnswersWidget extends StatelessWidget {
 
   final List<AnswerResultDto> answers;
+  final Function setAnswerForThisQuestion;
 
-  ListOfAnswersWidget({this.answers});
+  ListOfAnswersWidget({this.answers, this.setAnswerForThisQuestion});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class ListOfAnswersWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: ListView.builder(
         itemCount: answers.length,
-          itemBuilder: (context, index) => AnswerWidget(answerResultDto: answers[index],),
+          itemBuilder: (context, index) => AnswerWidget(answerResultDto: answers[index], setAnswerForThisQuestion: setAnswerForThisQuestion,),
       ),
     );
   }

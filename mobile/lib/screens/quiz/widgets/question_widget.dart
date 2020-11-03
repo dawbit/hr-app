@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/quiz_info_with_question.dart';
 import 'package:mobile/screens/quiz/widgets/question_number_widget.dart';
 
 import 'bottom_clipper.dart';
@@ -8,13 +7,14 @@ class QuestionWidget extends StatelessWidget {
 
   final String questionText;
   final int amountOfQuestions;
+  final Function getQuestionNumber;
 
-  List<QuestionNumberWidget> lista = [
+  final List<QuestionNumberWidget> listOfQuestionNumber = [
   ];
 
-  QuestionWidget({this.amountOfQuestions, this.questionText}) {
+  QuestionWidget({this.amountOfQuestions, this.questionText, this.getQuestionNumber}) {
     for(int i= 1; i<=amountOfQuestions; i++) {
-      lista.add(QuestionNumberWidget(i));
+      listOfQuestionNumber.add(QuestionNumberWidget(i, getQuestionNumber));
     }
   }
 
@@ -37,7 +37,7 @@ class QuestionWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: lista
+                      children: listOfQuestionNumber
                   ),
                 ),
               ),
