@@ -45,7 +45,7 @@ class Application extends StatelessWidget {
           child: child,
         );
       },
-      pageBuilder: (context, animation, secondaryAnimation) => QuizScreen(quizInfoWithQuestion: settings.arguments),
+      pageBuilder: (context, animation, secondaryAnimation) => QuizScreen(quizInformationDto: settings.arguments),
     );
   }
 

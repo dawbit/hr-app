@@ -19,6 +19,7 @@ dependencies:
   shared_preferences: ^0.5.8
   fluttertoast: ^7.0.2
   logger: ^0.9.1
+  jwt_decoder: ^1.0.3
 
 dev_dependencies:
   flutter_test:

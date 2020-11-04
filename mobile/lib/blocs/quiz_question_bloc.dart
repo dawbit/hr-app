@@ -9,11 +9,9 @@ class QuizQuestionBloc extends BlocBase {
   QuizQuestionBloc(this.quizRepository);
 
   PublishSubject<bool> _isLoadingSubject = PublishSubject();
-
   Stream<bool> get isLoadingObservable => _isLoadingSubject.stream;
 
   PublishSubject<QuestionResultDto> _quizQuestionSubject = PublishSubject();
-
   Stream<QuestionResultDto> get quizQuestionObservable =>
       _quizQuestionSubject.stream;
 
@@ -26,8 +24,8 @@ class QuizQuestionBloc extends BlocBase {
   }
 
   void _onSuccess(QuestionResultDto questionResultDto) {
-    _isLoadingSubject.add(false);
     _quizQuestionSubject.add(questionResultDto);
+    _isLoadingSubject.add(false);
   }
 
   void _onError(e) {

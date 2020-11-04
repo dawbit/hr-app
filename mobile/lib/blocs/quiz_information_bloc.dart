@@ -21,8 +21,8 @@ class QuizInformationBloc extends BlocBase {
   }
 
   void _onSuccess(QuizInformationDto quizInformationDto) {
-    _isLoadingSubject.add(false);
     _quizInformationSubject.add(quizInformationDto);
+    _isLoadingSubject.add(false);
   }
 
   void _onError(e) {

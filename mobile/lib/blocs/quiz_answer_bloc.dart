@@ -22,8 +22,8 @@ class QuizAnswerBloc extends BlocBase {
   }
 
   void _onSuccess(ResponseTransfer responseTransfer) {
-    _isLoadingSubject.add(false);
     _answerResponseSubject.add(responseTransfer);
+    _isLoadingSubject.add(false);
   }
 
   void _onError(Exception e) {

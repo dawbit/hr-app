@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/blocs/quiz_information_bloc.dart';
-import 'package:mobile/blocs/quiz_question_bloc.dart';
 import 'package:mobile/config/routes.dart';
 import 'package:mobile/injections/app_module.dart';
-import 'package:mobile/models/question_result_dto.dart';
-import 'package:mobile/models/quiz_info_with_question.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/values/sizes.dart';
+import 'package:mobile/widgets/loading.dart';
 
 class TestCodeWarningDialog extends StatefulWidget {
   final String quizCode;
@@ -21,22 +19,15 @@ class TestCodeWarningDialog extends StatefulWidget {
 
 class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   QuizInformationBloc _quizInformationBloc;
-  QuizQuestionBloc _quizQuestionBloc;
 
   StreamSubscription quizInformationStream;
-  StreamSubscription quizQuestionStream;
-
-  QuizInformationDto quizInformationDto;
 
   @override
   void initState() {
     super.initState();
     _quizInformationBloc = AppModule.injector.getBloc();
-    _quizQuestionBloc = AppModule.injector.getBloc();
     quizInformationStream = _quizInformationBloc.quizInformationObservable
         .listen(_onQuizInformation);
-    quizQuestionStream =
-        _quizQuestionBloc.quizQuestionObservable.listen(_onQuizQuestion);
   }
 
   @override
@@ -48,7 +39,17 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text("saafasfg"),
+      content: StreamBuilder<bool>(
+        stream: _quizInformationBloc.isLoadingObservable,
+        initialData: false,
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+            return snapshot.data ? LoadingWidget() : Container();
+          } else {
+            return Text("");
+          }
+        }
+      ),
       title: Text("Czy jestes pewien ze chcesz rozpoczac ten test?"),
       actions: [
         MaterialButton(
@@ -65,16 +66,8 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   }
 
   void _onQuizInformation(QuizInformationDto quizInformationDto) {
-    this.quizInformationDto = quizInformationDto;
-
-    _quizQuestionBloc.getQuizQuestion(
-        quizInformationDto.quizId, widget.quizCode, 1);
-  }
-
-  void _onQuizQuestion(QuestionResultDto questionResult) {
-    final quizData = QuizInfoWithQuestion(questionResultDto: questionResult,
-        quizInformationDto: quizInformationDto);
-
-    Navigator.of(context).pushNamed(quizScreenRoute, arguments: quizData);
+    QuizInformationDto quizInformation = quizInformationDto;
+    quizInformation.setTestCode(widget.quizCode);
+    Navigator.of(context).pushNamed(quizScreenRoute, arguments: quizInformation);
   }
 }

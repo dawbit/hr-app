@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/quiz_info_with_question.dart';
+import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/quiz/quiz_content.dart';
 import 'package:mobile/widgets/status_bar_widget.dart';
 
 class QuizScreen extends StatelessWidget {
 
-  final QuizInfoWithQuestion quizInfoWithQuestion;
+  final QuizInformationDto quizInformationDto;
 
-  QuizScreen({this.quizInfoWithQuestion});
+  QuizScreen({this.quizInformationDto});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class QuizScreen extends StatelessWidget {
           ),
           Expanded(
               flex: 1,
-              child: QuizContent(quizInfoWithQuestion)
+              child: QuizContent(quizInformationDto)
           ),
         ],
       ),
