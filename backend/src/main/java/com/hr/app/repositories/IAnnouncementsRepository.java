@@ -14,9 +14,12 @@ public interface IAnnouncementsRepository extends JpaRepository<AnnouncementsMod
             "ON company.id = announcement.company_id", nativeQuery = true)
     List<AnnouncementsModel> findAllAnnouncement();
 
-    @Query(value = "SELECT * FROM Announcements announcement JOIN Companies company" +
-            " ON company.id = announcement.company_id WHERE announcement.title LIKE %?1%" +
-            " OR announcement.description LIKE %?1% OR company.name LIKE %?1% OR company.about LIKE %?1%" +
-            " OR company.location LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM Announcements announcement JOIN Companies company " +
+            "ON company.id = announcement.company_id " +
+            "WHERE LOWER(announcement.title) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(announcement.description) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(company.name) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(company.about) LIKE LOWER(CONCAT('%', ?1,'%')) " +
+            "OR LOWER(company.location) LIKE LOWER(CONCAT('%', ?1,'%'))", nativeQuery = true)
     List<AnnouncementsModel> findAnnouncementByAnything(String value);
 }
