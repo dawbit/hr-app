@@ -16,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
 public class QuizController {
+
+    private final String serviceUrlParam = "/quiz";
 
     @Autowired
     private IQuestionsRepository questionsRepository;
@@ -35,6 +38,9 @@ public class QuizController {
 
     @Autowired
     private IHrUsersRepository hrUsersRepository;
+
+    @Autowired
+    private ICeosRepository ceosRepository;
 
     @Autowired
     private ICompaniesRepository companiesRepository;
@@ -84,6 +90,42 @@ public class QuizController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             System.out.println(e.toString());
             return new ResponseTransfer("Internal server error");
+        }
+    }
+
+    @GetMapping(serviceUrlParam + "/list")
+    public Object quizList() {
+        UsersModel usersModel;
+        HrUsersModel hrUsersModel = null;
+        CeosModel ceosModel = null;
+
+        try {
+            usersModel = getUserModel();
+            Boolean isHrUser = Objects.nonNull(getHrUsersModel(usersModel.getId()));
+            Boolean isCeoUser = Objects.nonNull(getCeosUserModel(usersModel.getId()));
+
+            long companyId = 0L;
+            if (isHrUser) {
+                hrUsersModel = hrUsersRepository.findByFKhrUserUserId(getUserModel().getId());
+                companyId = hrUsersModel.getFKhrUserCompany().getId();
+            } else if (isCeoUser) {
+                ceosModel = ceosRepository.findByFKceoUserId(getUserModel().getId());
+                companyId = ceosModel.getFKceoCompany().getId();
+            } else {
+                return new ResponseTransfer("You are not a HR or CEO user");
+            }
+
+        List<TestsModel> dbResponse = testsRepository.findByFKtestCompanyId(companyId);
+        List<QuizInformationsResultExtendsDto> responseList = new ArrayList<>();
+        for (TestsModel item : dbResponse) {
+            QuizInformationsResultExtendsDto preparedItem = new QuizInformationsResultExtendsDto(item.getId(),
+                    item.getName(), item.getFKtestCompany().getId(), item.getFKtestUserHr().getId());
+            responseList.add(preparedItem);
+        }
+        return responseList;
+
+        } catch (Exception e) {
+            return new ResponseTransfer("Internal server error", e.toString()); // 500
         }
     }
 
@@ -289,9 +331,7 @@ public class QuizController {
         }
 
         if(isBackPossible) {
-
             QuestionsModel questionsModel = getExpectedQuestionModel(listOfQuestions, quizQuestionCommandDto.getQuestionnumber());
-
             List<AnswersModel> listOfAnswersModel;
 
             try {
@@ -396,5 +436,9 @@ public class QuizController {
 
     private HrUsersModel getHrUsersModel(long userId) {
         return hrUsersRepository.findByFKhrUserUserId(userId);
+    }
+
+    private CeosModel getCeosUserModel(long userId) {
+        return ceosRepository.findByFKceoUserId(userId);
     }
 }
