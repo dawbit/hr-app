@@ -1,12 +1,9 @@
-<p>
-  lista aplikacji
-</p>
 <div class="container">
   <div class="row">
       <div class="col-md-7 mx-auto">
           <div class="md-form">
               <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
-              <label for="search-input">Search</label>
+              <label for="search-input">{{ "search" | translate}}</label>
           </div>
       </div>
       <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1" hover="true">
@@ -21,7 +18,6 @@
           <tbody #row>
               <tr mdbTableCol *ngFor="let application of applications; let i = index">
                   <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.alertId}}
-                    <!-- {{i | json}}, {{mdbTablePagination.firstItemIndex | json}} -->
                   </th>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementId}}
                   </td>
@@ -34,7 +30,8 @@
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode}}
-                    <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null" [userId]="application.userId" [announcementId]="application.announcementId"></app-quiz-assign-modal>
+                    <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null"
+                    [userId]="application.userId" [alertId]="application.alertId" [announcementId]="application.announcementId"></app-quiz-assign-modal>
                   </td>
               </tr>
           </tbody>

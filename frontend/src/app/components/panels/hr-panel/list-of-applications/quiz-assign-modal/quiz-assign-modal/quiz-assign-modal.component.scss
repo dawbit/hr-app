@@ -1,0 +1,31 @@
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") 100% 50% no-repeat transparent;
+  scrollbar-color: #202324 #454a4d;
+}
+
+select:focus {
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") 100% 50% no-repeat transparent;
+  box-shadow: 0 1px 0 0 #4285f4;
+  border-bottom: 2.5px solid #4285f4;
+}
+
+select:focus + label{
+  color: #4285f4;
+}
+
+.material-select{
+  border: 0;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+  outline: 0;
+  color: #757575;
+}
+
+h4{
+  color: #757575;
+}

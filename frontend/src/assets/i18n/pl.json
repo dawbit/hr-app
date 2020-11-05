@@ -41,6 +41,7 @@
   "first-name-required": "Wpisz swoje imię",
   "first-name-required-valid": "Poprane imię",
   "homepage": "HR APP",
+  "search": "Szukaj",
   "id": "ID",
   "incorrect-format": "Incorrect format",
   "is-active": "Czy konto jest aktywne?",
@@ -56,6 +57,16 @@
   "nice": "Nieźle",
   "quiz-end": "Dotarłeś do końca, gratulacje!",
   "save-and-go": "Zapisz i kontynuuj",
+  "hr": {
+    "assignBtn1": "Przypisz test",
+    "assign": "Przypisz test do użytkownika: ",
+    "testCode": "Kod testu",
+    "empty": "Kod testu jest wymagany",
+    "good": "Poprawny kod testu",
+    "testName": "Nazwa testu",
+    "assignBtn2": "Przypisz",
+    "required": "To pole jest wymagane"
+  },
   "jobs": {
     "add": "Dodaj swoją ofertę!",
     "basic": "Praca",
@@ -89,7 +100,9 @@
     "registered": "Zarejestrowano pomyślnie!",
     "userAlreadyExists": "Użytkownik już istnieje",
     "jobOfferAdded": "Twoja oferta pracy została poprawnie dodana do naszej bazy!",
-    "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy"
+    "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy",
+    "quizAssigned": "Test został przypisany pomyślnie",
+    "quizNotAssighned": "Coś poszło nie tak podczas przypisywania testu, sprawdź wszystkie pola"
   },
   "middle-name": "Drugie imię",
   "my-account": "Moje konto",

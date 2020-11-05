@@ -33,7 +33,7 @@ export class JobOffersAddComponent implements OnInit {
         }
       },
       err => {
-        this.toast.showError('message.jobOfferAdded');
+        this.toast.showError('message.jobOfferNotAdded');
       }
     );
   }

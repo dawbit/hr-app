@@ -41,6 +41,7 @@
     "first-name-required": "Your name is required",
     "first-name-required-valid": "Your name is valid",
     "homepage": "HR APP",
+    "search": "Search",
     "id": "ID",
     "incorrect-format": "Incorrect format",
     "is-active": "Is account active?",
@@ -56,6 +57,16 @@
     "nice": "Nice",
     "quiz-end": "You have reached the end, congrats!",
     "save-and-go": "Save and go",
+    "hr": {
+      "assignBtn1": "Assign test",
+      "assign": "Assign test to user: ",
+      "testCode": "Test code",
+      "empty": "Test code is required",
+      "good": "Valid test code",
+      "testName": "Test name",
+      "assignBtn2": "Assign",
+      "required": "This field is required"
+    },
   "jobs": {
     "add": "Add your offer!",
     "basic": "Jobs",
@@ -89,7 +100,9 @@
     "registered": "Successfully registered!",
     "userAlreadyExists": "User already exists",
     "jobOfferAdded": "Your job offer has been correctly added to our database!",
-    "jobOfferNotAdded": "An error occurred while adding the company to our database"
+    "jobOfferNotAdded": "An error occurred while adding the company to our database",
+    "quizAssigned": "Test has been assigned succesfully",
+    "quizNotAssighned": "An error occured while assigning the test, check all fields"
   },
   "middle-name": "Middle name",
   "my-account": "My Account",

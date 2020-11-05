@@ -37,4 +37,8 @@ export class QuizService {
   sendQuiz(body: object): Observable<any> {
     return this.http.post(`${this.baseQuizUrl}/add`, body, { observe: 'response' });
   }
+
+  getQuizList(): Observable<any>{
+    return this.http.get(this.baseQuizUrl + '/list');
+  }
 }
