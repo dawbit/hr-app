@@ -1,0 +1,154 @@
+http://localhost:8080/quiz/list
+
+[
+    {
+        "responseCode": 0,
+        "quizId": 3,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 4,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 5,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 6,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 7,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 8,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 9,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 10,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 11,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 12,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 13,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 14,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 15,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 16,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    },
+    {
+        "responseCode": 0,
+        "quizId": 17,
+        "amountOfQuestions": 0,
+        "timeForTestInMilis": 0,
+        "quizName": "fajny test111",
+        "companyId": 1,
+        "userHrId": 1,
+        "backPossible": false
+    }
+]

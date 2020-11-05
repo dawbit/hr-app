@@ -40,7 +40,12 @@ public class QuizInformationsResultDto extends QuizCodeDto {
         isBackPossible = backPossible;
     }
 
-    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible, long timeForTestInMilis, ResponseEnum responseEnum) {
+    public QuizInformationsResultDto(long quizId) {
+        this.quizId = quizId;
+    }
+
+    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible,
+                                     long timeForTestInMilis, ResponseEnum responseEnum) {
         super(responseEnum);
         this.quizId = quizId;
         this.amountOfQuestions = amountOfQuestions;
