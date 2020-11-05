@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @CrossOrigin
 @RestController
@@ -69,8 +70,20 @@ public class HrPanelController {
                 long userId = assignQuizDto.getUserId();
                 long announcementId = assignQuizDto.getAnnouncementId();
 
+                // sprawdzanie czy wszystkie wymagane dane są podane;
+                if (Stream.of(testId, testCode, userId, announcementId).anyMatch(Objects::isNull)) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+                    return new ResponseTransfer("Request is not completed!");
+                }
+
                 TestsModel testsModel = testsRepository.findById(testId);
                 UsersModel usersModel = usersRepository.findById(userId);
+
+                // sprawdzanie czy quiz i user istnieje
+                if (Objects.isNull(testsModel) || Objects.isNull(usersModel)) {
+                    return new ResponseTransfer("Request is not completed!");
+                }
+
                 AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
                 TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel, testCode,
                         currentQuestionNumber, startQuizTimeInMilis, announcementsModel, false);
