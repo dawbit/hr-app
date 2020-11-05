@@ -44,13 +44,13 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
         initialData: false,
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-            return snapshot.data ? LoadingWidget() : Container();
+            return snapshot.data ? LoadingWidget() : Text("");
           } else {
             return Text("");
           }
         }
       ),
-      title: Text("Czy jestes pewien ze chcesz rozpoczac ten test?"),
+      title: Text("Czy jestes pewien ze chcesz rozpoczac ten test?", textAlign: TextAlign.center,),
       actions: [
         MaterialButton(
             height: Sizes.hugeSize,
