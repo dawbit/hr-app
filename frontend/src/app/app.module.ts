@@ -21,6 +21,7 @@ import { SettingsPanelComponent } from './components/panels/settings-panel/setti
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
+import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -94,7 +95,8 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
     QuizSolveComponent,
     JobOffersAddComponent,
     JobOffersListComponent,
-    ListOfApplicationsComponent
+    ListOfApplicationsComponent,
+    QuizAssignModalComponent
   ],
   imports: [
     BrowserModule,

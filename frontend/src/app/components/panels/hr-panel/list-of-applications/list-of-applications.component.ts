@@ -23,6 +23,7 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   previous: string;
 
   maxVisibleItems = 10;
+  public quizAssignModal = false;
 
   constructor(
     private cdRef: ChangeDetectorRef,
