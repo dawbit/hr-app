@@ -111,11 +111,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   userDetails(id: number) {
     this.router.navigate([this.router.url + '/details', id]);
-    console.log('Detale');
   }
 
   updateUser(id: number) {
     this.router.navigate([this.router.url + '/update', id]);
-    console.log('apdejt');
   }
 }

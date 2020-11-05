@@ -1,6 +1,6 @@
 http://localhost:8080/hr/alert/53/assign-quiz
 
-53 - przykładowy numer zgłoszenia (anouncement) - pobrany z GUI
+53 - przykładowy numer alertu - pobrany z GUI
 
 Przykładowe wysłane body - które wygeneruje się na podstawie wpisania kodu w GUI i wybrania np. z listy rozwijanej odpowiedniego quizu.
 
@@ -9,6 +9,6 @@ Przykładowe wysłane body - które wygeneruje się na podstawie wpisania kodu w
     "testCode": "ABCTEST",
     "testId": 18,
     "userId": 1,
-    "read": true,
+    "read": true, //Powiadomienie dla hr
     "announcementId": 36
 }

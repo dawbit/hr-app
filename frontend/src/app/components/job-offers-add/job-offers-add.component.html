@@ -1,0 +1,29 @@
+<!--Card content-->
+<div class="card-body px-lg-5 pt-0">
+
+  <h6 class="text-center">{{"jobs.addForm" | translate | uppercase}}</h6>
+
+  <!-- Form -->
+  <form [formGroup]="offerForm" class="text-center" style="color: #757575;" (ngSubmit)="registerCompany()"
+    action="#!">
+
+    <!-- Name -->
+    <div class="md-form">
+      <input mdbInput type="text" id="materialNameCompany" class="form-control" formControlName="announcementTitle">
+      <label for="materialNameCompany">{{"jobs.title" | translate}}</label>
+    </div>
+
+    <!-- About  -->
+    <div class="md-form">
+      <textarea mdbInput type="text" id="materialAboutCompany" class="form-control md-textarea form-control"
+        formControlName="announcementDescription"></textarea>
+      <label class="textAreaLbl" for="materialAboutCompany">{{"jobs.about" | translate}}</label>
+    </div>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">
+      {{"jobs.add" | translate}}
+    </button>
+
+  </form>
+</div>

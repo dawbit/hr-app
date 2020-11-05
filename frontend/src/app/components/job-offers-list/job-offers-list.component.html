@@ -1,0 +1,43 @@
+
+<form [formGroup]="jobOfferSearchForm" class="text-center" style="color: #757575;" (ngSubmit)="SearchJobOffer()">
+
+  <!-- Code -->
+  <div class="md-form">
+      <input mdbInput type="text" id="jobOfferToSearch" class="form-control" formControlName="jobOfferToSearch">
+      <label for="jobOfferToSearch">{{"jobs.search" | translate}}</label>
+  </div>
+
+  <!-- Sign in button -->
+  <button class="btn btn-info btn-block my-4" type="submit" mdbWavesEffect>{{"search" | translate}}</button>
+</form>
+
+
+
+<div class="card-deck">
+  <div *ngFor="let offer of jobOffers">
+      <div class="card mb-4">
+          <!-- Company name -->
+          <div class="companyName"><p>{{offer.companyName | uppercase}}</p></div>
+          <!--Card image-->
+          <mdb-card-img  class="offerImg" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+          <!--Card content-->
+          <mdb-card-body>
+            <button class="floatingBtn" (click)='Apply(this.offer.id)'><i class="fas fa-check"></i></button>
+              <!--Title-->
+              <mdb-card-title>
+                  <h4>{{offer.title}}</h4>
+              </mdb-card-title>
+
+              <hr>
+
+              <!-- Text -->
+              <app-company-list-single-element [text]="offer.description" [maxLength]="100"></app-company-list-single-element>
+
+          </mdb-card-body>
+      </div>
+  </div>
+</div>
+
+<a *ngIf="floatingButtonAccess()" routerLink="../add-job-offer" class="buttonFloat">
+  <i class="fa fa-plus my-float"></i>
+</a>
