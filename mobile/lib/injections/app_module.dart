@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/blocs/quiz_answer_bloc.dart';
 import 'package:mobile/blocs/quiz_information_bloc.dart';
 import 'package:mobile/blocs/quiz_question_bloc.dart';
+import 'package:mobile/blocs/quiz_solver_bloc.dart';
 import 'package:mobile/data_sources/remote/api_client/api_provider.dart';
 import 'package:mobile/data_sources/remote/quiz_source.dart';
 import 'package:mobile/repositories/quiz_repository.dart';
@@ -16,6 +17,7 @@ class AppModule extends ModuleWidget {
     Bloc((i) => QuizInformationBloc(i.get())),
     Bloc((i) => QuizQuestionBloc(i.get())),
     Bloc((i) => QuizAnswerBloc(i.get())),
+    Bloc((i) => QuizSolverBloc(i.get())),
   ];
 
   @override

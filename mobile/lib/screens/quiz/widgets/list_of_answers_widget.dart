@@ -11,12 +11,14 @@ class ListOfAnswersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return answers!= null ? Padding(
       padding: const EdgeInsets.all(10),
       child: ListView.builder(
         itemCount: answers.length,
           itemBuilder: (context, index) => AnswerWidget(answerResultDto: answers[index], setAnswerForThisQuestion: setAnswerForThisQuestion,),
       ),
-    );
+    )
+    :
+    Container();
   }
 }

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 class ConnectionError extends StatelessWidget {
 
-  final Function reloadPage;
-
-  ConnectionError(this.reloadPage);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +25,7 @@ class ConnectionError extends StatelessWidget {
                       child: MaterialButton(
                         color: Colors.yellow,
                         minWidth: MediaQuery.of(context).size.width,
-                          onPressed: (){reloadPage();},
+                          onPressed: (){},
                           child: Padding(
                             padding: const EdgeInsets.all(15),
                             child: Text("Załaduj ponownie"),
