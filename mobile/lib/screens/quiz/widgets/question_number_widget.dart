@@ -10,25 +10,26 @@ class QuestionNumberWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getQuestionNumber ==null ?
-    Container(
+    return getQuestionNumber == null ? Container(
       margin: EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
-          border: Border.all(color: questionAlreadyAnswered ? Colors.red :Colors.black)
+          border: Border.all(
+              color: questionAlreadyAnswered ? Colors.red :Colors.black)
       ),
       height: 40,
       width: 40,
       child: Center(
-        child: Text(number.toString()),
+        child: Text(number.toString()
+        ),
       ),
     ):
 
-      InkWell(
+    InkWell(
       onTap: (){getQuestionNumber(number);},
       child: Container(
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black)
+            border: Border.all(color: questionAlreadyAnswered ? Colors.red :Colors.black)
         ),
         height: 40,
         width: 40,

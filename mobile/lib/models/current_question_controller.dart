@@ -44,15 +44,6 @@ class CurrentQuestionController {
     currentQuestion +=1;
   }
 
-  bool _checkIfQuestionIsAlreadyAnswered() {
-    listOfAnsweredQuestions.forEach((element) {
-      if(element == currentQuestion+1) {
-        return true;
-      }
-    });
-    return false;
-  }
-
   bool questionIsAnswered(int questionNumber) {
     return listOfAnsweredQuestions.contains(questionNumber);
   }

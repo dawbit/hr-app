@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
 import 'package:mobile/enums/quiz_solver_state.dart';
 import 'package:mobile/models/answer_command_dto.dart';
 import 'package:mobile/models/current_question_controller.dart';
@@ -78,8 +79,11 @@ class QuizSolverBloc extends BlocBase {
     //TODO
   }
 
-  void _onAnswerError(e) {
+  void _onAnswerError(DioError e) {
+    Map kapa = e.response.data;
+    print('pizdeczka ${kapa['message'].toString()}');
     _quizStateSubject.add(QuizSolverState.ERROR);
+
     print("Quiz question error: $e");
   }
 
@@ -90,6 +94,8 @@ class QuizSolverBloc extends BlocBase {
 
   void _onQuestionError(e) {
     _quizStateSubject.add(QuizSolverState.ERROR);
+    Map kapa = e.response.data;
+    print('pizdeczka ${kapa['responseCode'].toString()}');
     print("Quiz question error: $e");
   }
 }
