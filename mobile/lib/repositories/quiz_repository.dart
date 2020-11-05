@@ -18,4 +18,8 @@ class QuizRepository {
 
   Future<ResponseTransfer> setAnswer(AnswerCommandDto answerCommandDto) =>
       quizSource.setAnswer(answerCommandDto);
+
+  Future<QuestionResultDto> finishQuiz(
+      {int quizId, String testCode}) =>
+      quizSource.getQuizQuestion(quizId, testCode, 0);
 }

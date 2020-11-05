@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/models/current_question_controller.dart';
 import 'package:mobile/screens/quiz/widgets/question_number_widget.dart';
 
 class QuestionWidget extends StatelessWidget {
 
   final String questionText;
-  final int amountOfQuestions;
+  final CurrentQuestionController currentQuestionController;
   final Function getQuestionNumber;
 
   final List<QuestionNumberWidget> listOfQuestionNumber = [
   ];
 
-  QuestionWidget({this.amountOfQuestions, this.questionText, this.getQuestionNumber}) {
-    for(int i= 1; i<=amountOfQuestions; i++) {
-      listOfQuestionNumber.add(QuestionNumberWidget(i, getQuestionNumber));
+  QuestionWidget({this.currentQuestionController, this.questionText, this.getQuestionNumber}) {
+    for(int i= 1; i<=currentQuestionController.numberOfAllQuestions; i++) {
+      listOfQuestionNumber.add(QuestionNumberWidget(i, getQuestionNumber, currentQuestionController.questionIsAnswered(i)));
     }
   }
 
