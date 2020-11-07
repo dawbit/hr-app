@@ -10,5 +10,6 @@ public interface IQuestionsRepository extends JpaRepository<QuestionsModel, Long
     QuestionsModel findById(long id);
 
     List<QuestionsModel> findAllByFKquestionTestId(long id);
+    Long countByFKquestionTestId(long id);
 
 }
