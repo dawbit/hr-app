@@ -57,7 +57,6 @@ public class HrUsersController {
             usersRepository.save(userToBecomeHr);
             hrUsersRepository.save(hrUsersModel);
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }

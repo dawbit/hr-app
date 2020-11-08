@@ -102,7 +102,6 @@ public class AnswerController {
             userAnswersModel = getUserAnswersModel(questionsModel, usersModel);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            System.out.println(e.toString());
             return new ResponseTransfer("Server Error");
         }
         if (userAnswersModel!= null) {

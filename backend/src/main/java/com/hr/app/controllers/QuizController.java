@@ -88,7 +88,6 @@ public class QuizController {
             return new ResponseTransfer("Quiz saved successfully");
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            System.out.println(e.toString());
             return new ResponseTransfer("Internal server error");
         }
     }
@@ -191,8 +190,6 @@ public class QuizController {
 
     @GetMapping("quiz/getQuizInformations/{quizcode}")
     public Object getQuizInformations(@PathVariable String quizcode, HttpServletResponse response) {
-
-        System.out.println("test");
         TestParticipantModel testParticipantModel;
         UsersModel usersModel;
         TestsModel testsModel;
@@ -208,7 +205,6 @@ public class QuizController {
             listOfQuestions = getAllQuestionFromQuizId(testsModel.getId());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            System.out.println(e.toString());
             return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
 
@@ -233,7 +229,6 @@ public class QuizController {
                 testParticipantRepository.save(testParticipantModel);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                System.out.println(e.toString());
                 return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
         }
@@ -241,11 +236,17 @@ public class QuizController {
             testParticipantModel.setStartQuizTimeInMilis(getCurrentTimeInMilis());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            System.out.println(e.toString());
             return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
 
-
+        // ustawienie pola o rozpoczęciu quizu jako przeczytane
+        try {
+            testParticipantModel.setRead(true);
+            testParticipantRepository.save(testParticipantModel);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
+        }
         response.setStatus(HttpServletResponse.SC_OK); // 200
         return new QuizInformationsResultDto(testsModel.getId(),
                 listOfQuestions.size(),
