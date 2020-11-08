@@ -12,6 +12,7 @@ public interface IHrAlertsRepository extends JpaRepository<HrAlertModel, Long> {
     HrAlertModel findById(long id);
 
     long countByFKhrAlertAnnouncementIdAndFKhrAlertUserId(long idAnnouncement, long idUser);
+    long countByReadAndFKhrAlertAnnouncementFKannouncementCompanyId(boolean read, long companyId);
     HrAlertModel findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(long userId, long announcementId);
     HrAlertModel findByFKhrAlertTestParticipant(TestParticipantModel testParticipantModel);
     List<HrAlertModel> findByFKhrAlertUserId(long userId);

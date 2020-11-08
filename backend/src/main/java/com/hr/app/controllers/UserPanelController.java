@@ -57,13 +57,16 @@ public class UserPanelController {
 
         for(HrAlertModel item : dbResponse) {
             UserPanelListOfAnnoncementsDto preparedItem;
+
+            long testParticipantId = item.getId();
             String companyName = item.getFKhrAlertAnnouncement().getFKannouncementCompany().getName();
             String annoncementName = item.getFKhrAlertAnnouncement().getTitle();
+
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
                 boolean isEnded = questionsRepository.countByFKquestionTestId(
                         item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()) <
                         item.getFKhrAlertTestParticipant().getQuestionNumber() - 1;
-                preparedItem = new UserPanelListOfAnnoncementsDto(companyName, annoncementName,
+                preparedItem = new UserPanelListOfAnnoncementsDto(testParticipantId, companyName, annoncementName,
                         item.getFKhrAlertTestParticipant().getCode(), isEnded);
             } else {
                 preparedItem = new UserPanelListOfAnnoncementsDto(companyName, annoncementName);
