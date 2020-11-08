@@ -1,0 +1,7 @@
+USER:
+http://localhost:8080/alerts/user
+-> zwraca liczbę
+
+HR:
+http://localhost:8080/alerts/hr-user
+-> zwraca liczbę
