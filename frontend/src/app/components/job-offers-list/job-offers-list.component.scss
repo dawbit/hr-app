@@ -1,0 +1,62 @@
+.card {
+  width: 22rem;
+  margin-top: 2rem;
+}
+
+.md-form,
+.btn-info {
+  margin: auto !important;
+  width: 22rem;
+}
+
+.center-deck {
+  margin: auto;
+}
+
+.floatingBtn{
+  float: right;
+  background: none;
+  border-radius: 20rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color:rgba(0, 122, 204, 0.575);
+  border: none;
+}
+
+
+.buttonFloat{
+	position:fixed;
+	width: 60px;
+	height: 60px;
+	bottom: 5rem;
+	right: 5rem;
+	background-color:rgba(0, 122, 204, 0.575);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.buttonFloat:hover{
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+.companyName{
+  position: absolute;
+  top: 2rem;
+  width: 70%;
+  background-image: linear-gradient(to right,rgba(0,0,0,0.6), rgba(255, 255, 255, 0));
+}
+
+p{
+  margin: auto;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+

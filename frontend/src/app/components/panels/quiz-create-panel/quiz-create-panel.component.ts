@@ -159,7 +159,14 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
   }
 
   send() {
-    const body = Object.assign({ testsModel: this.testsModel.value }, this.questionsModel.value);
+    const preparedTestModel = {
+      isPossibleToBack: this.testsModel.value.is_possible_to_back,
+      name: this.testsModel.value.name,
+      timeForTestInMilis: (Number(this.testsModel.value.timeForTestInMilis) * 1000),
+      };
+
+    const body = Object.assign({ testsModel: preparedTestModel}, this.questionsModel.value);
+    // const body = Object.assign({ testsModel: this.testsModel.value }, this.questionsModel.value);
     this.quizService.sendQuiz(body).subscribe(
       res => {
         if (res && res.status && res.ok) {

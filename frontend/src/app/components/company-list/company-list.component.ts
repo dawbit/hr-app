@@ -46,8 +46,23 @@ export class CompanyListComponent implements OnInit {
   }
 
   SearchCompany(){
-    console.log('testowanie');
-    console.log(this.companySearchForm.get('companyToSearch').value);
+    this.companies = [];
+
+    this.companyService.getCompany(this.companySearchForm.get('companyToSearch').value).subscribe(
+      data => {
+        for (const key in data){
+          if (data.hasOwnProperty(key)){ // jeśli nie jest pusta
+            this.companies.push({
+              id: data[key].id,
+              name: data[key].name,
+              location: data[key].location,
+              about: data[key].about,
+              image: data[key].image
+            });
+          }
+        }
+      }
+    );
   }
 
 }

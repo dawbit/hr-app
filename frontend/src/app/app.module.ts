@@ -19,6 +19,9 @@ import { UserDetailsComponent } from './components/panels/admin-panel/user-list/
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { SettingsPanelComponent } from './components/panels/settings-panel/settings-panel.component';
 import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.component';
+import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
+import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
+import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -67,6 +70,7 @@ import { ToastrModule } from 'ngx-toastr';
 // JwPagination
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { CompanyListSingleElementComponent } from './components/company-list/company-list-single-element/company-list-single-element.component';
+import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,10 @@ import { CompanyListSingleElementComponent } from './components/company-list/com
     CompanyListSingleElementComponent,
     SettingsPanelComponent,
     QuizSolveComponent,
+    JobOffersAddComponent,
+    JobOffersListComponent,
+    ListOfApplicationsComponent,
+    QuizAssignModalComponent
   ],
   imports: [
     BrowserModule,
