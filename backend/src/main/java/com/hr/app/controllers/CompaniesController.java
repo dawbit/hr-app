@@ -40,7 +40,6 @@ public class CompaniesController {
         try {
             companiesModelList = companiesRepository.findAll();
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -81,7 +80,6 @@ public class CompaniesController {
             }
             return new ResponseTransfer("Company successfully saved");
         } catch (Exception e ){
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -95,7 +93,6 @@ public class CompaniesController {
         try {
             companiesModel = getCompanyById(id);
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -117,7 +114,6 @@ public class CompaniesController {
         try {
             companiesModelList = getCompanyByName(name);
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }

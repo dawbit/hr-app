@@ -107,6 +107,7 @@ public class HrPanelController {
                 HrAlertModel hrAlertModel = hrAlertsRepository.findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(
                         savedParticipantUserId, savedParticipantAnnouncementId);
                 hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
+                hrAlertModel.setRead(true);
                 hrAlertsRepository.save(hrAlertModel);
 
                 return new ResponseTransfer("The user has been assigned a quiz");

@@ -1,0 +1,14 @@
+http://localhost:8080/user/list-of-applications
+
+Przykładowa zwrotka:
+
+[
+    {
+        "testParticipantId": 46,
+        "companyName": "aa",
+        "announcementName": "title2",
+        "quizCode": "ABC\n",
+        "completed": false
+    },
+    {...}
+]

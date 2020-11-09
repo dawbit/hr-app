@@ -1,0 +1,7 @@
+USER:
+http://localhost:8080/alerts/user/69/setAsRead
+69 - id z tabeli test_participant, zwracany jest do User Panelu, na tej podstawie można rozpoznać
+
+HR:
+http://localhost:8080/alerts/hr-user/46/setAsRead
+46 - id z tabeli hr_alerts, zwracany do HR Panelu, na tej podstawie można rozpoznać
