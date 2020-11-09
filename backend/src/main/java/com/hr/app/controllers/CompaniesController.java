@@ -1,14 +1,8 @@
 package com.hr.app.controllers;
 
-import com.hr.app.models.database.AccountTypesModel;
+import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
-import com.hr.app.models.database.CeosModel;
-import com.hr.app.models.database.CompaniesModel;
-import com.hr.app.models.database.UsersModel;
-import com.hr.app.repositories.IAccountTypesRepository;
-import com.hr.app.repositories.ICeosRepository;
-import com.hr.app.repositories.ICompaniesRepository;
-import com.hr.app.repositories.IUsersRepository;
+import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
 public class CompaniesController {
+
+    private final String serviceUrlParam = "/companies";
 
     @Autowired
     private ICompaniesRepository companiesRepository;
@@ -32,6 +29,9 @@ public class CompaniesController {
 
     @Autowired
     private IAccountTypesRepository accountTypesRepository;
+
+    @Autowired
+    private IHrUsersRepository hrUsersRepository;
 
     //TODO paging
     @GetMapping("/companies/all")
@@ -54,13 +54,13 @@ public class CompaniesController {
     }
 
     // /companies/find?q='example'
-    @GetMapping("/companies/find")
+    @GetMapping(serviceUrlParam + "/find")
     public List<CompaniesModel> getAllCompaniesByAntything(@RequestParam String q) {
         return companiesRepository.findCompanyByAnything(q);
     }
 
     @Transactional
-    @PostMapping("/companies/add")
+    @PostMapping(serviceUrlParam + "/add")
     public ResponseTransfer addCompanies(@RequestBody CompaniesModel companiesModel, HttpServletResponse response) {
 
         UsersModel usersModel;
@@ -85,7 +85,7 @@ public class CompaniesController {
         }
     }
 
-    @GetMapping("/companies/companyid/{id}")
+    @GetMapping(serviceUrlParam + "/companyid/{id}")
     public Object getCompanyById(@PathVariable int id, HttpServletResponse response) {
 
         CompaniesModel companiesModel;
@@ -107,7 +107,7 @@ public class CompaniesController {
     }
 
     //TODO paging
-    @GetMapping("/companies/companyname/{name}")
+    @GetMapping(serviceUrlParam + "companyname/{name}")
     public Object getCompaniesByName(@PathVariable String name, HttpServletResponse response) {
         List<CompaniesModel> companiesModelList;
 
@@ -124,6 +124,22 @@ public class CompaniesController {
             response.setStatus(HttpServletResponse.SC_OK);
             return companiesModelList;
         }
+    }
+
+    @GetMapping(serviceUrlParam + "/current")
+    public String getCurrentCompany(HttpServletResponse response) {
+        long userId = getUsersModel().getId();
+        HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(userId);
+        CeosModel ceosModel = ceosRepository.findByFKceoUserId(userId);
+        String companyName = "";
+        if(Objects.nonNull(hrUsersModel) && Objects.nonNull(hrUsersModel.getFKhrUserCompany())){
+            companyName = hrUsersModel.getFKhrUserCompany().getName();
+        } else if (Objects.nonNull(ceosModel) && Objects.nonNull(ceosModel.getFKceoCompany())) {
+            companyName = ceosModel.getFKceoCompany().getName();
+        } else {
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT); //204
+        }
+        return companyName;
     }
 
     private CompaniesModel getCompanyById(long id) {

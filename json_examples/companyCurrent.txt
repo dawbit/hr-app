@@ -1,0 +1,4 @@
+GET: /companies/current
+zwraca w postaci stringa nazwę firmy,
+w przypadku kiedy jesteśmy zwykłym uzytkownikiem, lub nie jesteśmy przypisani do firmy zwraca pusty string
+dodatkowo status zwrotki wynosi 204!
