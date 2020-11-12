@@ -1,5 +1,4 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:dio/dio.dart';
 import 'package:mobile/enums/quiz_solver_state.dart';
 import 'package:mobile/models/answer_command_dto.dart';
 import 'package:mobile/models/current_question_controller.dart';
@@ -13,25 +12,26 @@ class QuizSolverBloc extends BlocBase {
   QuizSolverBloc(this.quizRepository);
 
   PublishSubject<QuizSolverState> _quizStateSubject = PublishSubject();
-
   Stream<QuizSolverState> get quizStateObservable => _quizStateSubject.stream;
 
   PublishSubject<QuestionResultDto> _quizQuestionSubject = PublishSubject();
+  Stream<QuestionResultDto> get quizQuestionObservable => _quizQuestionSubject.stream;
 
-  Stream<QuestionResultDto> get quizQuestionObservable =>
-      _quizQuestionSubject.stream;
+  PublishSubject<String> _answerErrorMessageSubject = PublishSubject();
+  Stream<String> get answerErrorMessageObservable => _answerErrorMessageSubject.stream;
+
+  PublishSubject _finishQuizSubject = PublishSubject();
+  Stream get finishQuizSubjectObservable => _finishQuizSubject.stream;
 
   Future answerQuestionAndGetNextQuestion(
       AnswerCommandDto answerCommandDto,
       int quizId,
       String testCode,
       CurrentQuestionController questionController) async {
-    print("asg");
     _quizStateSubject.add(QuizSolverState.LOADING);
 
     quizRepository.setAnswer(answerCommandDto).then((answerResult) {
-      questionController.addQuestionToAnswered();
-      questionController.setNewCurrentQuestion();
+      questionController.onAnswerSuccess();
 
       print(answerResult.message);
 
@@ -72,19 +72,21 @@ class QuizSolverBloc extends BlocBase {
   }
 
   void _OnQuizFinishSuccess(QuestionResultDto questionResultDto) {
-    //TODO
+    _finishQuizSubject.add(null);
   }
 
-  void _OnQuizFinishError(e) {
-    //TODO
+  void _OnQuizFinishError(error) {
+    Map errorData = error.response.data;
+    print('error: ${errorData['message'].toString()}');
+
+    _answerErrorMessageSubject.add(errorData['message'].toString());
   }
 
-  void _onAnswerError(DioError e) {
-    Map kapa = e.response.data;
-    print('pizdeczka ${kapa['message'].toString()}');
-    _quizStateSubject.add(QuizSolverState.ERROR);
+  void _onAnswerError(error) {
+     Map errorData = error.response.data;
+     print('error: ${errorData['message'].toString()}');
 
-    print("Quiz question error: $e");
+     _answerErrorMessageSubject.add(errorData['message'].toString());
   }
 
   void _onQuestionSuccess(QuestionResultDto questionResultDto) {
@@ -92,10 +94,10 @@ class QuizSolverBloc extends BlocBase {
     _quizStateSubject.add(QuizSolverState.OK);
   }
 
-  void _onQuestionError(e) {
-    _quizStateSubject.add(QuizSolverState.ERROR);
-    Map kapa = e.response.data;
-    print('pizdeczka ${kapa['responseCode'].toString()}');
-    print("Quiz question error: $e");
+  void _onQuestionError(error) {
+    Map errorData = error.response.data;
+    print('error: ${errorData['message'].toString()}');
+
+    _answerErrorMessageSubject.add(errorData['message'].toString());
   }
 }

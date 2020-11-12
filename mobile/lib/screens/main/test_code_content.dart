@@ -41,7 +41,9 @@ class _TestCodeContentState extends State<TestCodeContent> {
                         onPressed: (){showDialog(
                             context: context,
                             builder: (context) {
-                              return TestCodeWarningDialog(quizCode: _textEditingController.text,
+                              String testCode = _textEditingController.text;
+                                _textEditingController.text="";
+                              return TestCodeWarningDialog(quizCode: testCode,
                               );
                             }
                         );},

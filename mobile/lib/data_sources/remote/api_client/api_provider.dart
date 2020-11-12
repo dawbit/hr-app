@@ -15,7 +15,6 @@ Dio getApiClient() {
   if (_apiClient == null) {
     _apiClient = Dio();
     _apiClient.interceptors.add(_interceptor);
-    _apiClient..options.connectTimeout=5000;
   }
   return _apiClient;
 }

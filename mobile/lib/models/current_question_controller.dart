@@ -9,13 +9,18 @@ class CurrentQuestionController {
     this.currentQuestion = 1;
   }
 
-  void addQuestionToAnswered() {
+  void onAnswerSuccess() {
+    _addQuestionToAnswered();
+    _setNewCurrentQuestion();
+  }
+
+  void _addQuestionToAnswered() {
     if(!listOfAnsweredQuestions.contains(currentQuestion)) {
       listOfAnsweredQuestions.add(currentQuestion);
     }
   }
 
-  void setNewCurrentQuestion() {
+  void _setNewCurrentQuestion() {
     if(!isBackPossible) {
       _setNewCurrentQuestionForBackImpossible();
     } else {
