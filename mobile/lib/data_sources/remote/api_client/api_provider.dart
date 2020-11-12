@@ -9,7 +9,10 @@ Dio _apiClient;
 PublishSubject _logoutSubject = PublishSubject();
 Stream get logoutStream => _logoutSubject.stream;
 
-logoutCurrentUser() => _logoutSubject.add(null);
+logoutCurrentUser() {
+  TokenSharedPref.clearToken();
+  _logoutSubject.add(null);
+}
 
 Dio getApiClient() {
   if (_apiClient == null) {
@@ -46,5 +49,8 @@ Future<Response> _onResponse(Response response) async {
 
 Future<DioError> _onError(DioError error) async {
   logger.w('Error: (${error.request.path})', error.error);
+  if(await TokenSharedPref.tokenExpired()) {
+    logoutCurrentUser();
+  }
   return error;
 }

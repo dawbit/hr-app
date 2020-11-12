@@ -9,7 +9,6 @@ import 'config/routes.dart';
 import 'localizations/app_localization.dart';
 
 class Application extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

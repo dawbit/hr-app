@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:mobile/config/routes.dart';
+import 'package:mobile/data_sources/remote/api_client/api_provider.dart';
 import 'package:mobile/screens/main/account_content.dart';
 import 'package:mobile/screens/main/announcements_content.dart';
 import 'package:mobile/screens/main/test_code_content.dart';
@@ -15,11 +19,21 @@ class _MainScreenState extends State<MainScreen> {
   int bottomNavigationBarIndex;
   DateTime currentBackPressTime;
 
+  StreamSubscription logoutObservable;
+
+  @override
+  void dispose() {
+    logoutObservable.cancel();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     bottomNavigationBarIndex=0;
+    logoutObservable = logoutStream.listen(_onLogout);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +108,10 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       bottomNavigationBarIndex=index;
     });
+  }
+
+  void _onLogout(_) {
+    Navigator.of(context).pushReplacementNamed(loginScreenRoute);
   }
 
 }
