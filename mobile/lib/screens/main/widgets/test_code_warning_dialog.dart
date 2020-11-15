@@ -44,7 +44,9 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
         initialData: false,
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-            return snapshot.data ? LoadingWidget() : Text("");
+            return snapshot.data ? Container(
+              height: 50,
+                child: LoadingWidget()) : Text("");
           } else {
             return Text("");
           }
