@@ -8,11 +8,14 @@ import 'package:mobile/screens/splash/splash_screen.dart';
 import 'config/routes.dart';
 import 'localizations/app_localization.dart';
 
+GlobalKey<NavigatorState> navigationKey= GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> navigationKey1= GlobalKey<NavigatorState>();
+
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerDown: (_) {
+    return GestureDetector(
+      onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
           currentFocus.focusedChild.unfocus();

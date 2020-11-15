@@ -9,6 +9,8 @@ import 'package:mobile/screens/main/test_code_content.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/widgets/status_bar_widget.dart';
 
+import '../../Application.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();

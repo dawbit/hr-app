@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/blocs/announcements_bloc.dart';
-import 'package:mobile/injections/app_module.dart';
+import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/main/views/announcement_search_view.dart';
 import 'package:mobile/screens/main/views/single_announcement_view.dart';
 import 'package:mobile/widgets/nested_navigator.dart';
 
-GlobalKey<NavigatorState> navigationKey= GlobalKey<NavigatorState>();
+import '../../Application.dart';
 
 class AnnouncementsContent extends StatefulWidget {
   @override
@@ -14,12 +13,12 @@ class AnnouncementsContent extends StatefulWidget {
 
 class _AnnouncementsContentState extends State<AnnouncementsContent> {
 
-  AnnouncementsBloc _announcementsBloc;
+  QuizInformationDto quizInformationDto = QuizInformationDto();
 
   @override
   void initState() {
     super.initState();
-    _announcementsBloc = AppModule.injector.getBloc();
+    navigationKey= GlobalKey<NavigatorState>();
   }
 
   @override
@@ -29,7 +28,6 @@ class _AnnouncementsContentState extends State<AnnouncementsContent> {
         navigationKey: navigationKey,
         initialRoute: '/',
         routes: {
-          // default rout as '/' is necessary!
           '/': (context) => AnnouncementSearchView(),
           '/two': (context) => SingleAnnouncementView(),
         },
