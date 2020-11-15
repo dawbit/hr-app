@@ -36,7 +36,7 @@ public class MailingModel {
         return id;
     }
 
-    public boolean isMailingNewQuiz() {
+    public boolean getMailingNewQuiz() {
         return mailingNewQuiz;
     }
 

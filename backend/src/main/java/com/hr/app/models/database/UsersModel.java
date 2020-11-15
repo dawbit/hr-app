@@ -99,7 +99,6 @@ public class UsersModel {
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
 
-
     public void setListOfcvsModels(List<CvsModel> listOfcvsModels) {
         this.listOfcvsModels = listOfcvsModels;
     }
