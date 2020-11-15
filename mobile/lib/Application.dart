@@ -8,22 +8,33 @@ import 'package:mobile/screens/splash/splash_screen.dart';
 import 'config/routes.dart';
 import 'localizations/app_localization.dart';
 
+GlobalKey<NavigatorState> navigationKey= GlobalKey<NavigatorState>();
+GlobalKey<NavigatorState> navigationKey1= GlobalKey<NavigatorState>();
+
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: (settings) {
-        if(settings.name == quizScreenRoute) {
-          return _createRoute(settings);
-        } else {
-          return null;
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          currentFocus.focusedChild.unfocus();
         }
       },
-      debugShowCheckedModeBanner: false,
-      title: "Hr-App",
-      supportedLocales: _supportedLocales,
-      localizationsDelegates: _localizationsDelegates,
-      routes: _routes,
+      child: MaterialApp(
+        onGenerateRoute: (settings) {
+          if(settings.name == quizScreenRoute) {
+            return _createRoute(settings);
+          } else {
+            return null;
+          }
+        },
+        debugShowCheckedModeBanner: false,
+        title: "Hr-App",
+        supportedLocales: _supportedLocales,
+        localizationsDelegates: _localizationsDelegates,
+        routes: _routes,
+      ),
     );
   }
 

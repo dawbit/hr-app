@@ -5,9 +5,7 @@ class CurrentQuestionController {
   List<int> listOfAnsweredQuestions =[];
   bool isBackPossible;
 
-  CurrentQuestionController(this.numberOfAllQuestions, this.isBackPossible) {
-    this.currentQuestion = 1;
-  }
+  CurrentQuestionController(this.numberOfAllQuestions, this.isBackPossible, this.currentQuestion);
 
   void onAnswerSuccess() {
     _addQuestionToAnswered();

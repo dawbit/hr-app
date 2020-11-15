@@ -34,6 +34,7 @@ class LoginBloc extends BlocBase {
 
   void onLoginFailed(e) {
     _isLoadingSubject.add(false);
+    print("login error: ${e.toString()}");
   }
 
 }

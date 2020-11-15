@@ -40,7 +40,7 @@ class _QuizContentState extends State<QuizContent> {
   @override
   void initState() {
     super.initState();
-    currentQuestionController = CurrentQuestionController(widget.quizInformationDto.amountOfQuestions, widget.quizInformationDto.backPossible);
+    currentQuestionController = CurrentQuestionController(widget.quizInformationDto.amountOfQuestions, widget.quizInformationDto.backPossible, widget.quizInformationDto.currentQuestion);
     quizSolverBloc = AppModule.injector.getBloc();
     quizQuestionStream = quizSolverBloc.quizQuestionObservable.listen(_onQuestionResponse);
     quizFinishedStream = quizSolverBloc.finishQuizSubjectObservable.listen(_onQuizFinished);
@@ -48,7 +48,7 @@ class _QuizContentState extends State<QuizContent> {
     quizSolverBloc.getQuizQuestion(
         widget.quizInformationDto.quizId,
         widget.quizInformationDto.testCode,
-        currentQuestionController.currentQuestion);
+        widget.quizInformationDto.currentQuestion);
   }
 
   @override

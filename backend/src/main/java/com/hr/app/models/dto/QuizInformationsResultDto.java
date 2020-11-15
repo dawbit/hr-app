@@ -7,6 +7,15 @@ public class QuizInformationsResultDto extends QuizCodeDto {
     private long amountOfQuestions;
     private boolean isBackPossible;
     private long timeForTestInMilis;
+    private long currentQuestion;
+
+    public long getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(long currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
 
     public long getTimeForTestInMilis() {
         return timeForTestInMilis;
@@ -51,6 +60,16 @@ public class QuizInformationsResultDto extends QuizCodeDto {
         this.amountOfQuestions = amountOfQuestions;
         this.isBackPossible = isBackPossible;
         this.timeForTestInMilis = timeForTestInMilis;
+    }
+
+    public QuizInformationsResultDto(long quizId, long amountOfQuestions, boolean isBackPossible,
+                                     long timeForTestInMilis, ResponseEnum responseEnum, long currentQuestion) {
+        super(responseEnum);
+        this.quizId = quizId;
+        this.amountOfQuestions = amountOfQuestions;
+        this.isBackPossible = isBackPossible;
+        this.timeForTestInMilis = timeForTestInMilis;
+        this.currentQuestion = currentQuestion;
     }
 
 

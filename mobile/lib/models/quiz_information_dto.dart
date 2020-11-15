@@ -17,9 +17,15 @@ class QuizInformationDto {
   @JsonKey(name: "timeForTestInMilis")
   double timeForTestInMilis;
 
+  @JsonKey(name: "currentQuestion")
+  int currentQuestion;
+
+
+
+  @JsonKey(ignore: true)
   String testCode;
 
-  QuizInformationDto({this.amountOfQuestions, this.backPossible, this.quizId, this.timeForTestInMilis});
+  QuizInformationDto({this.amountOfQuestions, this.backPossible, this.quizId, this.timeForTestInMilis, this.currentQuestion});
 
   factory QuizInformationDto.fromJson(Map<String, dynamic> json) => _$QuizInformationDtoFromJson(json);
 

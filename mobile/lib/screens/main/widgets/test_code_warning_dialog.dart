@@ -44,7 +44,9 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
         initialData: false,
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-            return snapshot.data ? LoadingWidget() : Text("");
+            return snapshot.data ? Container(
+              height: 50,
+                child: LoadingWidget()) : Text("");
           } else {
             return Text("");
           }
@@ -68,7 +70,6 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   void _onQuizInformation(QuizInformationDto quizInformationDto) {
     QuizInformationDto quizInformation = quizInformationDto;
     quizInformation.setTestCode(widget.quizCode);
-    Navigator.of(context).pop();
-    Navigator.of(context).pushNamed(quizScreenRoute, arguments: quizInformation);
+    Navigator.of(context).popAndPushNamed(quizScreenRoute, arguments: quizInformation);
   }
 }
