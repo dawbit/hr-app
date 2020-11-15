@@ -51,6 +51,11 @@ public class UsersModel {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mailing_id", foreignKey = @ForeignKey(name = "FKuserMailing"))
+    @JsonBackReference(value = "user-mailing")
+    private MailingModel FKuserMailing;
+
 
     // =========================================
     // RELATIONSHIPS
@@ -211,12 +216,20 @@ public class UsersModel {
         this.hrUsers = hrUsers;
     }
 
+    public MailingModel getFKuserMailing() {
+        return FKuserMailing;
+    }
+
+    public void setFKuserMailing(MailingModel FKuserMailing) {
+        this.FKuserMailing = FKuserMailing;
+    }
+
     protected UsersModel() { }
 
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
                       String login, String password, AccountTypesModel FKuserAccountTypes, Boolean isActive,
-                      List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo,
-                      List<TestsModel> tests, List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers) {
+                      List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo, List<TestsModel> tests,
+                      List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers, MailingModel FKuserMailing) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.surname = surname;
@@ -231,6 +244,7 @@ public class UsersModel {
         this.tests = tests;
         this.userAnswers = userAnswers;
         this.hrUsers = hrUsers;
+        this.FKuserMailing = FKuserMailing;
     }
 
     public UsersModel(UserResultDto userResultDto){

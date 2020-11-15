@@ -1,11 +1,8 @@
 package com.hr.app.controllers;
 
 import com.hr.app.models.api_helpers.DeleteUserCommandDto;
-import com.hr.app.models.database.CeosModel;
-import com.hr.app.models.database.CompaniesModel;
-import com.hr.app.models.database.HrUsersModel;
+import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
-import com.hr.app.models.database.UsersModel;
 import com.hr.app.models.dto.UserResultDto;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +55,7 @@ public class UsersController {
             }
             else {
                 userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
+                userModel.setFKuserMailing(new MailingModel());
                 usersRepository.save(userModel);
                 return new ResponseTransfer("User saved");
             }
