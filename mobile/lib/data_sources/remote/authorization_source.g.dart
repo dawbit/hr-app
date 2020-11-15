@@ -9,7 +9,7 @@ part of 'authorization_source.dart';
 class _AuthorizationSource implements AuthorizationSource {
   _AuthorizationSource(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'http://192.168.43.228:8080';
+    baseUrl ??= 'http://192.168.43.228:8080';
   }
 
   final Dio _dio;
@@ -17,13 +17,14 @@ class _AuthorizationSource implements AuthorizationSource {
   String baseUrl;
 
   @override
-  attemptToLogin(loginCommandDto) async {
+  Future<HttpResponse<dynamic>> attemptToLogin(loginCommandDto) async {
     ArgumentError.checkNotNull(loginCommandDto, 'loginCommandDto');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(loginCommandDto?.toJson() ?? <String, dynamic>{});
-    final Response _result = await _dio.request('/login',
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/login',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

@@ -1,0 +1,3 @@
+enum MainScreenState {
+  ANNOUNCEMENTS, TEST_CODE, ACCOUNT
+}
