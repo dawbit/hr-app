@@ -70,7 +70,6 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
   void _onQuizInformation(QuizInformationDto quizInformationDto) {
     QuizInformationDto quizInformation = quizInformationDto;
     quizInformation.setTestCode(widget.quizCode);
-    Navigator.of(context).pop();
-    Navigator.of(context).pushNamed(quizScreenRoute, arguments: quizInformation);
+    Navigator.of(context).popAndPushNamed(quizScreenRoute, arguments: quizInformation);
   }
 }
