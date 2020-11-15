@@ -4,21 +4,25 @@ import com.hr.app.models.api_helpers.AssignQuizDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.*;
 import com.hr.app.repositories.*;
+import com.hr.app.security.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @CrossOrigin
 @RestController
 public class HrPanelController {
 
     private final String serviceUrlParam = "/hr";
+    private int hashLenght = 12;
 
     @Autowired
     private IUsersRepository usersRepository;
@@ -65,12 +69,25 @@ public class HrPanelController {
                 long currentQuestionNumber = 0;
                 long startQuizTimeInMilis = 0;
                 long testId = assignQuizDto.getTestId();
-                String testCode = assignQuizDto.getTestCode();
+                String testCodeBasic = assignQuizDto.getTestCode();
                 long userId = assignQuizDto.getUserId();
                 long announcementId = assignQuizDto.getAnnouncementId();
+                // sprawdzanie czy wszystkie wymagane dane są podane;
+                if (Stream.of(testId, testCodeBasic, userId, announcementId).anyMatch(Objects::isNull)) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+                    return new ResponseTransfer("Request is not complete!");
+                }
 
                 TestsModel testsModel = testsRepository.findById(testId);
                 UsersModel usersModel = usersRepository.findById(userId);
+                // sprawdzanie czy quiz i user istnieje
+                if (Objects.isNull(testsModel) || Objects.isNull(usersModel)) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+                    return new ResponseTransfer("Data does not exist in the database. Please contact the administrator.");
+                }
+
+                String testCode = generateRandomCode(testCodeBasic, testId, announcementId, usersModel.getLogin());
+
                 AnnouncementsModel announcementsModel = announcementsRepository.findById(announcementId);
                 TestParticipantModel testParticipantModel = new TestParticipantModel(testsModel, usersModel, testCode,
                         currentQuestionNumber, startQuizTimeInMilis, announcementsModel, false);
@@ -80,9 +97,17 @@ public class HrPanelController {
                 long savedParticipantAnnouncementId = testParticipantModelSaved.getFKtestAnnouncement().getId();
                 long savedParticipantUserId = testParticipantModelSaved.getFKtestCodeuser().getId();
 
+                // sprawdzanie czy wszystkie wymagane dane są podane;
+                if (Stream.of(savedTestParticipantId, testParticipantModelSaved.getId(),
+                        savedParticipantAnnouncementId, savedParticipantUserId).anyMatch(Objects::isNull)) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+                    return new ResponseTransfer("Request is not completed!");
+                }
+
                 HrAlertModel hrAlertModel = hrAlertsRepository.findByFKhrAlertUserIdAndFKhrAlertAnnouncementId(
                         savedParticipantUserId, savedParticipantAnnouncementId);
                 hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
+                hrAlertModel.setRead(true);
                 hrAlertsRepository.save(hrAlertModel);
 
                 return new ResponseTransfer("The user has been assigned a quiz");
@@ -128,6 +153,15 @@ public class HrPanelController {
             responseList.add(preparedItem);
         }
         return responseList;
+    }
+
+    private String generateRandomCode(String basicCode, long testId, long announcementId, String login) {
+        String hash = testId + announcementId + login + "";
+        RandomString hashedString = new RandomString(hashLenght, new SecureRandom(), hash);
+        String code = basicCode + "_" + hashedString.nextString();
+        if (Objects.nonNull(testParticipantRepository.findByCode(code)))
+            return generateRandomCode(basicCode, testId, announcementId, login);
+        else return code;
     }
 
 }

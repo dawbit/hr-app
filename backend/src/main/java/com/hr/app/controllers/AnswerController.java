@@ -92,7 +92,7 @@ public class AnswerController {
 
 
         if(!testsModel.isPossibleToBack()) {
-            if(testParticipantModel.getQuestionNumber()-1 != getQuestionNumber(questionsModelList, questionsModel)) {
+            if(testParticipantModel.getQuestionNumber() -1 != getQuestionNumber(questionsModelList, questionsModel)) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return new ResponseTransfer("You cannot answer this question");
             }
@@ -102,7 +102,6 @@ public class AnswerController {
             userAnswersModel = getUserAnswersModel(questionsModel, usersModel);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
-            System.out.println(e.toString());
             return new ResponseTransfer("Server Error");
         }
         if (userAnswersModel!= null) {

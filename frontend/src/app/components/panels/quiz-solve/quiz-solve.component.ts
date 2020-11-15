@@ -34,13 +34,13 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   isCollapsed = true;
 
   timeLeft = 60; // tutaj Kowol zrobi endpoint zwracający pozostały czas na quiz, czas ten będzie zawsze aktualny, niezależnie
-                  // czy quiz został zaczęty czy nie
+  // czy quiz został zaczęty czy nie
   interval;
 
   quizCodeForm: FormGroup;
 
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     Promise.resolve().then(() => {
       this.collapses.forEach((collapse: CollapseComponent) => {
         collapse.toggle();
@@ -60,12 +60,12 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // Przykładowe uruchomienie quizu poprzez posiadanie kodu
     // w przeciwnym wypadku, należy podać go ręcznie
-    // http://localhost:4200/quiz-solve;testCode=10
+    // http://localhost:4200/quiz-solve;testCode=example_Code
     this.testCode = this.route.snapshot.params.testCode;
     this.userHasQuizCode(this.testCode);
 
     this.quizCodeForm = this.formBuilder.group({
-      testCode: ['', [Validators.required, Validators.minLength(1)]]
+      testCode: [this.quizCodeFlag ? this.testCode : '', [Validators.required, Validators.minLength(1)]]
     });
   }
 
@@ -77,14 +77,20 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
     }
   }
 
-  sendAnswer(radioSelected){
+
+  sendAnswer(radioSelected, testcode, testid, questionnumber, cangoback) {
     const ansToSend = {
       questionId: this.currentQuestion.id,
       answerId: radioSelected,
-      testCode: this.testCode,
-      questionNumber: this.currentQuestionNumber
+      testCode: this.testCode
     };
-    this.quizService.sendQuestionAnswer(ansToSend).subscribe();
+    this.quizService.sendQuestionAnswer(ansToSend).subscribe(res => {
+      this.nextQuestion(testcode, testid, questionnumber, cangoback);
+    },
+      err => {
+        this.toast.showError('quiz.sendAnswerError');
+      }
+    );
   }
 
   nextQuestion(testcode, testid, questionnumber, cangoback) {
@@ -95,8 +101,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
       Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
       this.quizStarted = false;
       this.quizCompleted = true;
-      // TODO zakończenie testu gdy tu dotrze
-    } else if (!cangoback && this.currentQuestionNumber + 1 < questionnumber){
+    } else if (!cangoback && this.currentQuestionNumber + 1 < questionnumber) {
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-skip'), 'error');
     } else {
       this.startQuiz(testid, testcode, questionnumber);

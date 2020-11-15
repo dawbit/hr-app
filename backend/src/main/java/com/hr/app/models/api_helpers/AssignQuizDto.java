@@ -32,4 +32,16 @@ public class AssignQuizDto {
     public long getAnnouncementId() {
         return announcementId;
     }
+
+    protected AssignQuizDto() {
+    }
+
+    public AssignQuizDto(String testName, String testCode, long testId, long userId, Boolean read, long announcementId) {
+        this.testName = testName;
+        this.testCode = testCode;
+        this.testId = testId;
+        this.userId = userId;
+        this.read = read;
+        this.announcementId = announcementId;
+    }
 }

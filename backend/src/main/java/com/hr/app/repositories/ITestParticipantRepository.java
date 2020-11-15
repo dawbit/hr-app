@@ -7,5 +7,5 @@ public interface ITestParticipantRepository extends JpaRepository<TestParticipan
 
     TestParticipantModel findById(long id);
     TestParticipantModel findByCode(String code);
-
+    long countByReadAndFKtestCodeuserId(boolean read, long userId);
 }

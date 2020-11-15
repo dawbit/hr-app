@@ -1,0 +1,12 @@
+textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 10px !important;
+  max-height: 200px !important;
+  scrollbar-color: #202324 #454a4d;
+}
+
+.textAreaLbl{
+  margin-top: 20px;
+  transform: translateY(28px);
+}

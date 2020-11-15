@@ -75,7 +75,6 @@ public class UsersController {
         try {
             usersModelsList = usersRepository.findAll();
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -93,7 +92,6 @@ public class UsersController {
             UsersModel user = usersRepository.findById(userid);
             return new UserResultDto(user);
         } catch (Exception e) {
-            System.out.println();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -115,7 +113,6 @@ public class UsersController {
         try {
             userToDelete = getUserById(deleteUserCommandDto.getId());
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
@@ -139,7 +136,6 @@ public class UsersController {
             }
             usersRepository.delete(userToDelete);
         } catch (Exception e) {
-            System.out.println(e.toString());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
         }
