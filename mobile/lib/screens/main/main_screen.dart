@@ -94,14 +94,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<bool> onWillPop() async {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      showToast(context, "Klikniej jeszcze raz żeby wyjść");
-      return Future.value(false);
+    if(navigationKey.currentState.canPop()) {
+      navigationKey.currentState.maybePop();
+    } else {
+      DateTime now = DateTime.now();
+      if (currentBackPressTime == null ||
+          now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+        currentBackPressTime = now;
+        showToast(context, "Klikniej jeszcze raz żeby wyjść");
+        return Future.value(false);
+      }
+      return Future.value(true);
     }
-    return Future.value(true);
   }
 
   void changeView(int index) {

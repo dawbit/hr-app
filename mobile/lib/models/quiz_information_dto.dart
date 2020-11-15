@@ -17,6 +17,7 @@ class QuizInformationDto {
   @JsonKey(name: "timeForTestInMilis")
   double timeForTestInMilis;
 
+  @JsonKey(ignore: true)
   String testCode;
 
   QuizInformationDto({this.amountOfQuestions, this.backPossible, this.quizId, this.timeForTestInMilis});

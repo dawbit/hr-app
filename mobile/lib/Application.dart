@@ -11,19 +11,27 @@ import 'localizations/app_localization.dart';
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: (settings) {
-        if(settings.name == quizScreenRoute) {
-          return _createRoute(settings);
-        } else {
-          return null;
+    return Listener(
+      onPointerDown: (_) {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          currentFocus.focusedChild.unfocus();
         }
       },
-      debugShowCheckedModeBanner: false,
-      title: "Hr-App",
-      supportedLocales: _supportedLocales,
-      localizationsDelegates: _localizationsDelegates,
-      routes: _routes,
+      child: MaterialApp(
+        onGenerateRoute: (settings) {
+          if(settings.name == quizScreenRoute) {
+            return _createRoute(settings);
+          } else {
+            return null;
+          }
+        },
+        debugShowCheckedModeBanner: false,
+        title: "Hr-App",
+        supportedLocales: _supportedLocales,
+        localizationsDelegates: _localizationsDelegates,
+        routes: _routes,
+      ),
     );
   }
 
