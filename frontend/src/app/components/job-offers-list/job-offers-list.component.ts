@@ -80,7 +80,18 @@ export class JobOffersListComponent implements OnInit {
 
   Apply(offerId: number){
     console.log(offerId);
-    this.jobOffersService.Apply(offerId).subscribe();
+    this.jobOffersService.Apply(offerId).subscribe(
+      res => {
+        if(res) {
+          console.log(res);
+        }
+      },
+      err => {
+        if(err){
+          console.log(err);
+        }
+      }
+    );
   }
 
 
