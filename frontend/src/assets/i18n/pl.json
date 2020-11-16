@@ -99,6 +99,7 @@
     "notRegistered": "Błąd podczas rejestracji. Skontaktuj się z administratorem.",
     "registered": "Zarejestrowano pomyślnie!",
     "userAlreadyExists": "Użytkownik już istnieje",
+    "userNamePasswordWrong": "Twój login bądź hasło jest nieprawidłowy",
     "jobOfferAdded": "Twoja oferta pracy została poprawnie dodana do naszej bazy!",
     "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy",
     "quizAssigned": "Test został przypisany pomyślnie",

@@ -76,14 +76,18 @@ export class LoginRegisterComponent implements OnInit {
         }
       },
       err => {
-        this.toast.showError('message.notLogged');
+        if (err && err.status === 403) {
+          this.toast.showWarning('message.userNamePasswordWrong');
+        } else {
+          this.toast.showError('message.notLogged');
+        }
       }
     );
   }
 
   registerSubmit() {
     this.user.FKuserAccountTypes = new AccountTypes();
-    this.user.FKuserAccountTypes.id = 1; // tymczasowo admin
+    this.user.FKuserAccountTypes.id = 4; // tymczasowo user
 
     // 1 - ADMIN
     // 2 - CEO
@@ -99,7 +103,7 @@ export class LoginRegisterComponent implements OnInit {
       },
       err => {
         if (err && err.status === 409) {
-          this.toast.showWarning('message.userAlreadyExists');
+          this.toast.showError('message.userAlreadyExists');
         } else {
           this.toast.showError('message.notRegistered');
         }

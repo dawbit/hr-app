@@ -99,6 +99,7 @@
     "notRegistered": "Error during registration. Please contact with administrator.",
     "registered": "Successfully registered!",
     "userAlreadyExists": "User already exists",
+    "userNamePasswordWrong": "Your user name or password is wrong",
     "jobOfferAdded": "Your job offer has been correctly added to our database!",
     "jobOfferNotAdded": "An error occurred while adding the company to our database",
     "quizAssigned": "Test has been assigned succesfully",
