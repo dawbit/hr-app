@@ -19,19 +19,15 @@
               <tr mdbTableCol *ngFor="let application of applications; let i = index">
                   <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.alertId}}
                   </th>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementId}}
-                  </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.userId}}
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementTitle}}
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.userLogin}}
-                  </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizId}}
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode}}
                     <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null"
-                    [userId]="application.userId" [alertId]="application.alertId" [announcementId]="application.announcementId"></app-quiz-assign-modal>
+                    [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId"></app-quiz-assign-modal>
                   </td>
               </tr>
           </tbody>

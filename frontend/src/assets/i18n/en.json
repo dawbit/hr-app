@@ -60,7 +60,7 @@
   "hr": {
     "assignBtn1": "Assign test",
     "assign": "Assign test to user: ",
-    "testCode": "Test code",
+    "testCode": "Insert first part of test code",
     "empty": "Test code is required",
     "good": "Valid test code",
     "testName": "Test name",
@@ -100,6 +100,9 @@
     "registered": "Successfully registered!",
     "userAlreadyExists": "User already exists",
     "userNamePasswordWrong": "Your user name or password is wrong",
+    "jobApplied": "You have applied successfully",
+    "jobAlreadyApplied": "You have already taken part in the recruitment process from your account!",
+    "jobHrOrCeo": "HR users and CEOs are not allowed to apply!",
     "jobOfferAdded": "Your job offer has been correctly added to our database!",
     "jobOfferNotAdded": "An error occurred while adding the company to our database",
     "quizAssigned": "Test has been assigned succesfully",

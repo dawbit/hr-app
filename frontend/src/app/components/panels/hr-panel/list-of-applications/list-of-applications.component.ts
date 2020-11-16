@@ -17,7 +17,8 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   applications: any = [];
-  headers = ['alertId', 'announcementId', 'userId', 'userLogin', 'quizId', 'quizName', 'quizCode'];
+  announcements: any = [];
+  headers = ['alertId', 'announcementTitle', 'userLogin', 'quizName', 'quizCode'];
 
   searchText = '';
   previous: string;
@@ -55,6 +56,7 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
           this.applications.push({
             alertId: data[key].alertId,
             announcementId: data[key].announcementId,
+            announcementTitle: data[key].announcementTitle,
             userId: data[key].simplyUserDto.id,
             userLogin: data[key].simplyUserDto.login,
             quizId: data[key].simplyQuizInfoDto.id,
@@ -89,19 +91,6 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
     });
-  }
-
-  assignQuiz(alertId) {
-    // this.jobOffersService.assignQuiz(alertId, ).subscribe(
-    //   res => {
-    //     if (res && res.ok && res.status === 200) {
-    //       this.toast.showSuccess('message.companyAdded');
-    //     }
-    //   },
-    //   err => {
-    //     this.toast.showError('message.companyNotAdded');
-    //   }
-    // );
   }
 
 }

@@ -90,6 +90,7 @@ public class AnnouncementsController {
     }
 
     @PostMapping(serviceUrlParam + "/apply/{id}")
+    @ResponseBody
     public ResponseTransfer announcementApply(@PathVariable long id, HttpServletResponse response) {
         UsersModel usersModel;
         AnnouncementsModel announcementsModel;
