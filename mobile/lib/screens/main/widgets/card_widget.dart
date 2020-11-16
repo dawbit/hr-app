@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/data_sources/remote/api_client/api_provider.dart';
 import 'package:mobile/values/sizes.dart';
 
 class CardWidget extends StatelessWidget {
 
   final Icon icon;
   final String cardTitle;
+  final Function onClick;
 
-  CardWidget({this.icon, this.cardTitle});
+  CardWidget({this.icon, this.cardTitle, this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class CardWidget extends StatelessWidget {
           //border: Border.symmetric(horizontal: BorderSide(width: 1, color: Colors.blue, style: BorderStyle.solid),),
         border: Border(bottom: BorderSide(width: 1, color: Colors.blue))
       ),
-      child: InkWell(
-        onTap: (){logoutCurrentUser();},
+      child: onClick!= null ? InkWell(
+        onTap: (){onClick();},
         child: Row(
           children: [
             Expanded(
@@ -36,6 +36,20 @@ class CardWidget extends StatelessWidget {
             ),
           ],
         ),
+      ) : Row(
+        children: [
+          Expanded(
+              flex: 0,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: Sizes.bigSpace),
+                child: icon,
+              )
+          ),
+          Expanded(
+              flex: 3,
+              child: Text(cardTitle)
+          ),
+        ],
       ),
     );
   }

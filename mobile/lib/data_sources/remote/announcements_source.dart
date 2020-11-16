@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mobile/models/announcements_dto.dart';
+import 'package:mobile/models/response_transfer.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -12,5 +13,8 @@ abstract class AnnouncementsSource{
 
   @GET("/find")
   Future<List<AnnouncementsDto>> getAnnouncements(@Query("q") String query);
+
+  @POST("/apply/{id}")
+  Future<ResponseTransfer> announcementApply(@Path("id") int id);
 
 }
