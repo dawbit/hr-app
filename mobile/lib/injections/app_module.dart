@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/blocs/announcement_apply_bloc.dart';
 import 'package:mobile/blocs/announcements_bloc.dart';
 import 'package:mobile/blocs/quiz_answer_bloc.dart';
 import 'package:mobile/blocs/quiz_information_bloc.dart';
@@ -22,6 +23,7 @@ class AppModule extends ModuleWidget {
     Bloc((i) => QuizAnswerBloc(i.get())),
     Bloc((i) => QuizSolverBloc(i.get())),
     Bloc((i) => AnnouncementsBloc(i.get())),
+    Bloc((i) => AnnouncementApplyBloc(i.get())),
   ];
 
   @override

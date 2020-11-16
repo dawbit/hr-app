@@ -36,4 +36,22 @@ class _AnnouncementsSource implements AnnouncementsSource {
         .toList();
     return value;
   }
+
+  @override
+  Future<ResponseTransfer> announcementApply(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/apply/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ResponseTransfer.fromJson(_result.data);
+    return value;
+  }
 }
