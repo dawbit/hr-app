@@ -65,7 +65,12 @@
     "good": "Poprawny kod testu",
     "testName": "Nazwa testu",
     "assignBtn2": "Przypisz",
-    "required": "To pole jest wymagane"
+    "required": "To pole jest wymagane",
+    "alertId": "ID zgłoszenia",
+    "announcementTitle": "Tytuł ogłoszenia",
+    "userLogin": "Login użytkownika",
+    "titleTestCode": "Kod testu",
+    "applicationsList": "Lista aplikacji"
   },
   "jobs": {
     "add": "Dodaj swoją ofertę!",

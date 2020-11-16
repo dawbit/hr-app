@@ -6,6 +6,7 @@ import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstra
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastService } from './../../../../services/toast.service';
 
+
 @Component({
   selector: 'app-list-of-applications',
   templateUrl: './list-of-applications.component.html',
@@ -18,7 +19,9 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
 
   applications: any = [];
   announcements: any = [];
-  headers = ['alertId', 'announcementTitle', 'userLogin', 'quizName', 'quizCode'];
+
+  headers = [this.translate.instant('hr.alertId'), this.translate.instant('hr.announcementTitle'), this.translate.instant('hr.userLogin'),
+              this.translate.instant('hr.testName'), this.translate.instant('hr.titleTestCode')];
 
   searchText = '';
   previous: string;

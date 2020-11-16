@@ -65,7 +65,12 @@
     "good": "Valid test code",
     "testName": "Test name",
     "assignBtn2": "Assign",
-    "required": "This field is required"
+    "required": "This field is required",
+    "alertId": "Alert ID",
+    "announcementTitle": "Announcement title",
+    "userLogin": "User login",
+    "titleTestCode": "Test Code",
+    "applicationsList": "List of applications"
   },
   "jobs": {
     "add": "Add your offer!",
