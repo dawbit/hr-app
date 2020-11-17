@@ -10,7 +10,7 @@ abstract class UserPanelSource{
 
   factory UserPanelSource(Dio dio, {String baseUrl})= _UserPanelSource;
 
-  @POST("/list-of-applications")
-  Future<UserPanelListOfAnnoncementsDto> getListOfApplications();
+  @GET("/list-of-applications")
+  Future<List<UserPanelListOfAnnoncementsDto>> getListOfApplications();
 
 }

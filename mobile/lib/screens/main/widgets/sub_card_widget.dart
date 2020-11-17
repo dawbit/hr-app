@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/Application.dart';
+import 'package:mobile/models/user_panel_list_of_annoncements_dto.dart';
 import 'package:mobile/values/sizes.dart';
 
 class SubCardWidget extends StatelessWidget {
 
   final Icon icon;
-  final String cardTitle;
-  final Function onClick;
+  final UserPanelListOfAnnoncementsDto userPanelListOfAnnoncementsDto;
 
-  SubCardWidget({this.icon, this.cardTitle, this.onClick});
+  SubCardWidget({this.icon, this.userPanelListOfAnnoncementsDto});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SubCardWidget extends StatelessWidget {
           border: Border(bottom: BorderSide(width: 1, color: Colors.blue))
       ),
       child: InkWell(
-        onTap: (){onClick();},
+        onTap: (){Navigator.of(navigationKey.currentContext).pushNamed('/notificationsDetails', arguments: userPanelListOfAnnoncementsDto);},
         child: Container(
           margin: EdgeInsets.only(left: 30),
           child: Row(
@@ -34,7 +35,7 @@ class SubCardWidget extends StatelessWidget {
               ),
               Expanded(
                   flex: 3,
-                  child: Text(cardTitle)
+                  child: Text(userPanelListOfAnnoncementsDto.announcementName)
               ),
             ],
           ),

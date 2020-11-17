@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/announcements_dto.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/main/views/announcement_search_view.dart';
 import 'package:mobile/widgets/nested_navigator.dart';
@@ -14,16 +13,6 @@ class AnnouncementsContent extends StatefulWidget {
 class _AnnouncementsContentState extends State<AnnouncementsContent> {
 
   QuizInformationDto quizInformationDto = QuizInformationDto();
-
-  AnnouncementsDto announcementsDto = AnnouncementsDto(
-    announcementDescription: "sdgsdg",
-    announcementId: 1,
-    announcementTitle: "asdgasdg",
-    companyAbout: "asdgdhssdfh",
-    companyId: 1,
-    companyLocation: "Dsgsdgsdg",
-    companyName: "sdgasdghsdgsdg"
-  );
 
   @override
   void initState() {

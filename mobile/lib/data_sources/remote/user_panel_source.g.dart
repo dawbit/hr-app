@@ -17,20 +17,22 @@ class _UserPanelSource implements UserPanelSource {
   String baseUrl;
 
   @override
-  Future<UserPanelListOfAnnoncementsDto> getListOfApplications() async {
+  Future<List<UserPanelListOfAnnoncementsDto>> getListOfApplications() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/list-of-applications',
+    final _result = await _dio.request<List<dynamic>>('/list-of-applications',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserPanelListOfAnnoncementsDto.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) =>
+            UserPanelListOfAnnoncementsDto.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 }
