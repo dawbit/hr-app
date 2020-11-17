@@ -137,7 +137,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
                   icon: 'success',
                 });
                 // kontynuacja przechodzenia do testu
-                this.currentQuestionNumber = 1;
+                this.currentQuestionNumber = res.currentQuestion;
                 this.numberOfQuestion = res.amountOfQuestions;
                 this.quizID = res.quizId;
                 this.testCode = testCode;

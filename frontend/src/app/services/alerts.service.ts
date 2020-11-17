@@ -23,4 +23,12 @@ export class AlertsService {
   setHrRead(id: number): Observable<any>{
     return this.http.post(`${this.hrURL}/${id}/setAsRead`, {observe: 'response'});
   }
+
+  getUserAlerts(){
+    return this.http.get(`${this.userURL}`);
+  }
+
+  getHrAlerts(){
+    return this.http.get(`${this.hrURL}`);
+  }
 }

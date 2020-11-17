@@ -1,3 +1,4 @@
+import { AlertsService } from './../../../../services/alerts.service';
 import { JobOffersService } from 'src/app/services/job-offers.service';
 import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +33,7 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private jobOffersService: JobOffersService,
+    private alertsService: AlertsService,
     private router: Router,
     private translate: TranslateService,
     private toast: ToastService
@@ -93,6 +95,12 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
     this.mdbTable.searchDataObservable(this.searchText).subscribe(() => {
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
+    });
+  }
+
+  setAsRead(alertId){
+    this.alertsService.setHrRead(alertId).subscribe(res => {
+
     });
   }
 

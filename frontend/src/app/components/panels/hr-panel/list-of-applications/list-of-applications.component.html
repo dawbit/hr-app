@@ -27,7 +27,7 @@
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode}}
                     <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null"
-                    [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId"></app-quiz-assign-modal>
+                    [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId" (click)="setAsRead(application.alertId)"></app-quiz-assign-modal>
                   </td>
               </tr>
           </tbody>
