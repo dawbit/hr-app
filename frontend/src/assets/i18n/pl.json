@@ -72,6 +72,14 @@
     "titleTestCode": "Kod testu",
     "applicationsList": "Lista aplikacji"
   },
+  "user": {
+    "completed": "Ukończony",
+    "notCompleted": "Nie ukończony",
+    "companyName": "Firma",
+    "announcementName": "Tytuł ogłoszenia",
+    "quizCode": "Kod do testu",
+    "status": "Status testu"
+  },
   "jobs": {
     "add": "Dodaj swoją ofertę!",
     "basic": "Praca",
@@ -120,7 +128,8 @@
   "panel": {
     "admin": "Panel Administratora",
     "ceo": "Panel CEO",
-    "hr": "Panel HR"
+    "hr": "Panel HR",
+    "user": "Panel Użytkownika"
   },
   "password": "Hasło",
   "password-confirm": "Potwierdź hasło",
