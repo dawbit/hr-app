@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/Application.dart';
 import 'package:mobile/models/user_panel_list_of_annoncements_dto.dart';
 import 'package:mobile/values/sizes.dart';
 
@@ -20,7 +21,7 @@ class SubCardWidget extends StatelessWidget {
           border: Border(bottom: BorderSide(width: 1, color: Colors.blue))
       ),
       child: InkWell(
-        onTap: (){},
+        onTap: (){Navigator.of(navigationKey.currentContext).pushNamed('/notificationsDetails', arguments: userPanelListOfAnnoncementsDto);},
         child: Container(
           margin: EdgeInsets.only(left: 30),
           child: Row(
