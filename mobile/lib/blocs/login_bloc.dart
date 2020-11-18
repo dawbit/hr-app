@@ -8,17 +8,14 @@ import 'package:rxdart/rxdart.dart';
 class LoginBloc extends BlocBase {
 
   LoginRepository _loginRepository;
-  TokenSharedPref tokenSharedPref;
 
   PublishSubject<bool> _isLoadingSubject = PublishSubject();
   Stream<bool> get isLoadingObservable => _isLoadingSubject.stream;
 
-  PublishSubject<bool> _isLoggedInSubject = PublishSubject();
-  Stream<bool> get isLoggedInObservable => _isLoggedInSubject.stream;
+  PublishSubject _isLoggedInSubject = PublishSubject();
+  Stream get isLoggedInObservable => _isLoggedInSubject.stream;
 
-  LoginBloc(this._loginRepository) {
-    tokenSharedPref = TokenSharedPref();
-  }
+  LoginBloc(this._loginRepository);
 
   Future attemptToLogin(LoginCommandDto loginCommandDto) async {
     //TODO usunąć consta który ułatwia logowanie
@@ -29,15 +26,15 @@ class LoginBloc extends BlocBase {
         .catchError(onLoginFailed);
   }
 
-  void onSuccessLogin(Token token) {
-    tokenSharedPref.setToken(token);
-    _isLoggedInSubject.add(true);
+  void onSuccessLogin(Token token) async {
+    await TokenSharedPref.setToken(token);
+    _isLoggedInSubject.add(null);
     _isLoadingSubject.add(false);
   }
 
   void onLoginFailed(e) {
-    _isLoggedInSubject.add(false);
     _isLoadingSubject.add(false);
+    print("login error: ${e.toString()}");
   }
 
 }

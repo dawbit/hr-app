@@ -70,10 +70,8 @@ class _LoginContentState extends State<LoginContent> {
     });
   }
 
-  void onLoggedIn(bool loggedIn) {
-    if(loggedIn) {
-      Navigator.of(context).pushReplacementNamed(mainScreenRoute);
-    }
+  void onLoggedIn(_) {
+    Navigator.of(context).pushReplacementNamed(mainScreenRoute);
   }
 
 }

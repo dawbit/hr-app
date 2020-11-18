@@ -232,11 +232,10 @@ public class QuizController {
                 return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
         }
-        try {
-            testParticipantModel.setStartQuizTimeInMilis(getCurrentTimeInMilis());
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
+
+        if(!checkIfUserHasTimeLeftForThisQuiz(testParticipantModel)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 
         // ustawienie pola o rozpoczęciu quizu jako przeczytane
@@ -247,12 +246,14 @@ public class QuizController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
         }
+        long timeLeft = getTimeLeftForQuiz(testParticipantModel);
         response.setStatus(HttpServletResponse.SC_OK); // 200
         return new QuizInformationsResultDto(testsModel.getId(),
                 listOfQuestions.size(),
                 testsModel.isPossibleToBack(),
-                testsModel.getTimeForTestInMilis(),
-                ResponseEnum.SUCCESS);
+                timeLeft,
+                ResponseEnum.SUCCESS,
+                testParticipantModel.getQuestionNumber());
     }
 
     // TODO change enum respons
@@ -387,6 +388,14 @@ public class QuizController {
         long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
 
         return  testStartTime + timeForTest > currentTime;
+    }
+
+    private long getTimeLeftForQuiz(TestParticipantModel testParticipantModel) {
+        long currentTime = getCurrentTimeInMilis();
+        long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
+        long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
+
+        return testStartTime + timeForTest - currentTime;
     }
 
     private UsersModel getUserModel() {
