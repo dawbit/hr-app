@@ -9,6 +9,7 @@ import com.hr.app.repositories.IHrAlertsRepository;
 import com.hr.app.repositories.IMailingRepository;
 import com.hr.app.repositories.IQuestionsRepository;
 import com.hr.app.repositories.IUsersRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,10 @@ public class UserPanelController {
     public Object getListOfMailings(HttpServletResponse response) {
         long mailingId;
         try {
+            UsersModel userModel = getUserModel();
+            if(Objects.isNull(userModel.getFKuserMailing())) {
+                userModel.setFKuserMailing(new MailingModel());
+            }
             mailingId = getUserModel().getFKuserMailing().getId();
             return mailingRepository.findById(mailingId);
         } catch (Exception e) {
@@ -93,11 +98,14 @@ public class UserPanelController {
         for(HrAlertModel item : dbResponse) {
             UserPanelListOfAnnoncementsDto preparedItem;
 
-            long testParticipantId = item.getId();
             String companyName = item.getFKhrAlertAnnouncement().getFKannouncementCompany().getName();
             String annoncementName = item.getFKhrAlertAnnouncement().getTitle();
 
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
+                long testParticipantId = item.getFKhrAlertTestParticipant().getId();
+                System.out.println(questionsRepository.countByFKquestionTestId(
+                        item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()));
+                System.out.println((item.getFKhrAlertTestParticipant().getQuestionNumber() - 1));
                 boolean isEnded = questionsRepository.countByFKquestionTestId(
                         item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()) <
                         item.getFKhrAlertTestParticipant().getQuestionNumber() - 1;

@@ -1,5 +1,6 @@
 package com.hr.app.controllers;
 
+import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.AssignQuizDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.*;
@@ -41,6 +42,10 @@ public class HrPanelController {
 
     @Autowired
     private IAnnouncementsRepository announcementsRepository;
+
+    @Autowired
+    private CustomMailing sendMail;
+
 
     @GetMapping(serviceUrlParam + "/list-of-applications")
     public Object getListOfApplications(HttpServletResponse response) {
@@ -97,7 +102,7 @@ public class HrPanelController {
                 long savedParticipantAnnouncementId = testParticipantModelSaved.getFKtestAnnouncement().getId();
                 long savedParticipantUserId = testParticipantModelSaved.getFKtestCodeuser().getId();
 
-                // sprawdzanie czy wszystkie wymagane dane są podane;
+                // sprawdzanie, czy wszystkie wymagane dane są podane;
                 if (Stream.of(savedTestParticipantId, testParticipantModelSaved.getId(),
                         savedParticipantAnnouncementId, savedParticipantUserId).anyMatch(Objects::isNull)) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
@@ -108,7 +113,21 @@ public class HrPanelController {
                         savedParticipantUserId, savedParticipantAnnouncementId);
                 hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
                 hrAlertModel.setRead(true);
-                hrAlertsRepository.save(hrAlertModel);
+                hrAlertsRepository.saveAndFlush(hrAlertModel);
+
+                // sprawdzanie, czy wszystkie pola wymagane dla mailingu znajdują się w bazie
+                if (!Stream.of(testParticipantModelSaved.getFKtestCodeuser(),
+                        testParticipantModelSaved.getFKtestCodeuser().getEmail(),
+                        testParticipantModelSaved.getFKtestCodeuser(),
+                        testParticipantModelSaved.getFKtestCodeuser().getLogin(),
+                        testParticipantModelSaved.getFKtestAnnouncement(),
+                        testParticipantModelSaved.getFKtestAnnouncement().getTitle()).anyMatch(Objects::isNull)) {
+                    String userMail = testParticipantModelSaved.getFKtestCodeuser().getEmail();
+                    String userName = testParticipantModelSaved.getFKtestCodeuser().getLogin();
+                    String announcementTitle = testParticipantModelSaved.getFKtestAnnouncement().getTitle();
+
+                    sendMail.sendNewQuizCodeMessage(userMail, userName, announcementTitle, testCode);
+                }
 
                 return new ResponseTransfer("The user has been assigned a quiz");
             } else {

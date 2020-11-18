@@ -1,5 +1,6 @@
 package com.hr.app.controllers;
 
+import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.DeleteUserCommandDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
@@ -44,6 +45,10 @@ public class UsersController {
     @Autowired
     private IHrUsersRepository hrUsersRepository;
 
+    @Autowired
+    private CustomMailing sendMail;
+
+
     @PostMapping(serviceUrlParam + "/register")
     @ResponseBody
     public ResponseTransfer saveUser(@RequestBody UsersModel userModel, HttpServletResponse response) {
@@ -56,7 +61,8 @@ public class UsersController {
             else {
                 userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
                 userModel.setFKuserMailing(new MailingModel());
-                usersRepository.save(userModel);
+                usersRepository.saveAndFlush(userModel);
+                sendMail.sendRegistrationMessage(userModel.getEmail(), userModel.getLogin());
                 return new ResponseTransfer("User saved");
             }
         }
