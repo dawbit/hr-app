@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // components
@@ -51,7 +51,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 // import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
 
 // ngx translate
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -71,6 +71,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { CompanyListSingleElementComponent } from './components/company-list/company-list-single-element/company-list-single-element.component';
 import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
+
+// factories
+import { appInitializerFactory } from './factories/appInitializerFacotry';
 
 @NgModule({
   declarations: [
@@ -142,6 +145,12 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
       useClass: TokenInterceptor,
       multi: true,
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      deps: [TranslateService, Injector],
+      multi: true
+    },
     JwtHelperService,
   ],
   bootstrap: [AppComponent],
@@ -151,5 +160,5 @@ export class AppModule { }
 
 // AOT compilation support
 export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
