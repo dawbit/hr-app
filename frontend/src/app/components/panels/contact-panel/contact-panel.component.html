@@ -1,0 +1,11 @@
+<!-- Collapse buttons -->
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('contact.mail')" mdbWavesEffect>
+  {{'contact.mail' | translate | uppercase}}
+</button>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('contact.authors')"
+  mdbWavesEffect>
+  {{'contact.authors' | translate | uppercase}}
+</button>
+
+<app-contact-email class="slide-element" *ngIf="selectedBookmark === 'contact.mail'"></app-contact-email>
+<app-contact-team class="slide-element" *ngIf="selectedBookmark === 'contact.authors'"></app-contact-team>

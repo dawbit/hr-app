@@ -19,10 +19,12 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
+  { path: 'contact', component: ContactPanelComponent },
   {
     path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
@@ -112,7 +114,7 @@ const routes: Routes = [
     data: {
       expectedRole: ['ADMIN']
     }
-  },
+  }
 ];
 
 @NgModule({

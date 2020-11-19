@@ -22,6 +22,9 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
+import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -96,7 +99,10 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
     JobOffersAddComponent,
     JobOffersListComponent,
     ListOfApplicationsComponent,
-    QuizAssignModalComponent
+    QuizAssignModalComponent,
+    ContactPanelComponent,
+    ContactEmailComponent,
+    ContactTeamComponent
   ],
   imports: [
     BrowserModule,

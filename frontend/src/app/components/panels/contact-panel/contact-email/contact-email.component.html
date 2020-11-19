@@ -1,0 +1,45 @@
+<mdb-card>
+
+  <mdb-card-header class="info-color white-text text-center py-4">
+    <h5>
+      <strong>Contact us</strong>
+    </h5>
+  </mdb-card-header>
+
+  <mdb-card-body class="px-lg-5 pt-0">
+
+    <form class="text-center" style="color: #757575;" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+      <div class="md-form">
+        <input type="text" formControlName="authorMail" id="materialContactFormEmail" class="form-control" mdbInput
+          mdbValidate />
+        <label for="materialContactFormEmail">E-mail</label>
+        <mdb-error *ngIf="authorMail.invalid && (authorMail.dirty || authorMail.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="authorMail.valid && (authorMail.dirty || authorMail.touched)">Input valid</mdb-success>
+      </div>
+
+      <div class="md-form">
+        <input type="text" formControlName="subject" id="materialContactFormSubject" class="form-control" mdbInput
+          mdbValidate />
+        <label for="materialContactFormSubject">Subject</label>
+        <mdb-error *ngIf="subject.invalid && (subject.dirty || subject.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="subject.valid && (subject.dirty || subject.touched)">Input valid</mdb-success>
+      </div>
+
+      <div class="md-form">
+        <textarea type="text" formControlName="textMessage" id="materialContactFormMessage"
+          class="form-control md-textarea" mdbInput mdbValidate></textarea>
+        <label for="materialContactFormMessage">Message</label>
+        <mdb-error *ngIf="textMessage.invalid && (textMessage.dirty || textMessage.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="textMessage.valid && (textMessage.dirty || textMessage.touched)">Input valid</mdb-success>
+      </div>
+
+      <button mdbBtn color="info" class="btn btn-info btn-block my-4" mdbWavesEffect type="submit"
+        [disabled]="disabledSubmitButton">
+        Send
+      </button>
+    </form>
+
+  </mdb-card-body>
+
+</mdb-card>
