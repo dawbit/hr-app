@@ -21,7 +21,13 @@
     "less": "mniej",
     "search": "Szukaj firmy"
   },
-  "contact": "Kontakt",
+  "contact": {
+    "authors": "Dane kontaktowe autorów",
+    "mail": "Kontakt poprzez e-mail",
+    "mailSent": "E-mail został wysłany",
+    "mailNotSent": "E-mail nie został wysłany",
+    "normal": "Kontakt"
+  },
   "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",
   "delete": "Skasuj",
   "delete-cancelled": "Twój użytkownik jest bezpieczny!",
@@ -176,6 +182,10 @@
   "sign-up!": "Zarejestruj się!",
   "sign-up-with": "lub dołącz do nas z:",
   "subscribe-newsletter": "Subskrybuj nasz newsletter",
+  "team": {
+    "head": "Nasz zespół",
+    "about": "Ta aplikacja została wykonana w celu realizacji projektu inżynierskiego na kierunku Informatyka na Wydziale Matematyki Stosowanej Politechniki Śląskiej w roku akademickim 2020/2021.\n Tutaj znajdziecie nasze dane kontaktowe."
+  },
   "term-of-service": "polityka prywatności",
   "term-of-service-s": "politykę prywatności",
   "term-of-service-tag": "Klikając <em>Zarejestruj!</em> akceptujesz naszą &nbsp;",

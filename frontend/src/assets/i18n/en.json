@@ -21,7 +21,13 @@
     "less": "less",
     "search": "Search for a company"
   },
-  "contact": "Contact",
+  "contact": {
+    "authors": "Contact with authors",
+    "mail": "Contact via e-mail",
+    "mailSent": "E-mail was sent",
+    "mailNotSent": "E-mail was not sent",
+    "normal": "Contact"
+  },
   "criticalError": "Critical Error! Please contact with administrator.",
   "delete": "Delete",
   "delete-cancelled": "Your user is safe and sound!",
@@ -176,6 +182,10 @@
   "sign-up!": "Register!",
   "sign-up-with": "or sign up with:",
   "subscribe-newsletter": "Subscribe to our newsletter",
+  "team": {
+    "head": "Our amazing team",
+    "about": "This application was made to implement an engineering project in Computer Science at the Faculty of Applied Mathematics of the Silesian University of Technology in the 2020/2021 academic year.\n Here you will find our contact details."
+  },
   "term-of-service": "term of service",
   "term-of-service-s": "term of service",
   "term-of-service-tag": "By clicking <em>Sign up</em> you agree to our &nbsp;",
