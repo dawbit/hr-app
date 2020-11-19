@@ -1,1 +1,7 @@
-<p>user-panel works!</p>
+<button mdbBtn color="primary" class="waves-light" [ngClass]="{'notify' : notifications != 0}" type="button" (click)="showBookmark('applications.list')" mdbWavesEffect>
+  {{"hr.applicationsList" | translate | uppercase}} {{notifications? (notifications):('')}}
+</button>
+
+<div class="slide-element" *ngIf="selectedBookmark === 'applications.list'">
+  <app-user-list-of-applications></app-user-list-of-applications>
+</div>

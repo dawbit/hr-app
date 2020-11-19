@@ -51,8 +51,7 @@ public class UsersController {
     @ResponseBody
     public ResponseTransfer saveUser(@RequestBody UsersModel userModel, HttpServletResponse response) {
         try {
-            if (getUserById(userModel.getId()) != null || doesUserExist(userModel.getLogin()) ||
-                doesUserExist(userModel.getEmail())) {
+            if (getUserById(userModel.getId()) != null || doesUserExist(userModel.getLogin(), userModel.getEmail())) {
                 response.setStatus(HttpServletResponse.SC_CONFLICT); // ERROR 409
                 return new ResponseTransfer("User already exists");
             }
@@ -148,8 +147,8 @@ public class UsersController {
         return usersRepository.findById(id);
     }
 
-    private boolean doesUserExist(String login) {
-        return (usersRepository.findByLogin(login) != null);
+    private boolean doesUserExist(String login, String email) {
+        return (usersRepository.findByLoginOrEmail(login, email) != null);
     }
 
     private UsersModel getUsersModel(){

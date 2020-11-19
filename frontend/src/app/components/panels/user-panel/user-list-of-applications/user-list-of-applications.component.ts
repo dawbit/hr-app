@@ -1,38 +1,33 @@
 import { AlertsService } from './../../../../services/alerts.service';
-import { JobOffersService } from 'src/app/services/job-offers.service';
-import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { UserService } from './../../../../services/user.service';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastService } from './../../../../services/toast.service';
-
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
-  selector: 'app-list-of-applications',
-  templateUrl: './list-of-applications.component.html',
-  styleUrls: ['./list-of-applications.component.scss']
+  selector: 'app-user-list-of-applications',
+  templateUrl: './user-list-of-applications.component.html',
+  styleUrls: ['./user-list-of-applications.component.scss']
 })
-export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
+export class UserListOfApplicationsComponent implements OnInit, AfterViewInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
+  headers = [this.translate.instant('user.companyName'), this.translate.instant('user.announcementName'),
+              this.translate.instant('user.quizCode'), this.translate.instant('user.status')];
+
   applications: any = [];
-  announcements: any = [];
-
-  headers = [this.translate.instant('hr.alertId'), this.translate.instant('hr.announcementTitle'), this.translate.instant('hr.userLogin'),
-              this.translate.instant('hr.testName'), this.translate.instant('hr.titleTestCode')];
-
   searchText = '';
   previous: string;
 
   maxVisibleItems = 10;
-  public quizAssignModal = false;
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    private jobOffersService: JobOffersService,
+    private userService: UserService,
     private alertsService: AlertsService,
     private router: Router,
     private translate: TranslateService,
@@ -44,29 +39,26 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getAllApplications();
+    this.getAllUserApplications();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(){
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
 
-  getAllApplications(){
-    this.jobOffersService.getAllApplications().subscribe(data => {
-      for (const key in data){
-        if (data.hasOwnProperty(key)){
+  getAllUserApplications(){
+    this.userService.getAllApplications().subscribe(res => {
+      for (const key in res){
+        if (res.hasOwnProperty(key)){
           this.applications.push({
-            alertId: data[key].alertId,
-            announcementId: data[key].announcementId,
-            announcementTitle: data[key].announcementTitle,
-            userId: data[key].simplyUserDto.id,
-            userLogin: data[key].simplyUserDto.login,
-            quizId: data[key].simplyQuizInfoDto.id,
-            quizName: data[key].simplyQuizInfoDto.name,
-            quizCode: data[key].simplyQuizInfoDto.code
+            testParticipantId: res[key].testParticipantId,
+            companyName: res[key].companyName,
+            announcementName: res[key].announcementName,
+            quizCode: res[key].quizCode,
+            completed: res[key].completed
           });
         }
       }
@@ -98,9 +90,8 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setAsRead(alertId){
-    this.alertsService.setHrRead(alertId).subscribe(res => {
-
+  setAsRead(testParticipantId){
+    this.alertsService.setUserRead(testParticipantId).subscribe(res => {
     });
   }
 

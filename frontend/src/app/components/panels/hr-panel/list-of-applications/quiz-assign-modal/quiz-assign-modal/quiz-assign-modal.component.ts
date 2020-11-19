@@ -1,8 +1,8 @@
 import { QuizAssignment } from './../../../../../../classes/quizAssignment';
 import { QuizService } from './../../../../../../services/quiz.service';
 import { JobOffersService } from './../../../../../../services/job-offers.service';
-import { Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../../../../../../services/toast.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class QuizAssignModalComponent implements OnInit {
   @Input() announcementId: number;
   @Input() alertId: number;
   @Input() userId: number;
+  @Input() userLogin: string;
 
   validatingForm: FormGroup;
   quizAssignment: QuizAssignment;

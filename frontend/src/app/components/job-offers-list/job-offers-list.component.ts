@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, CanActivate } from '@angular/router';
 import { JobOffersService } from 'src/app/services/job-offers.service';
 import { TokenStorageService } from 'src/app/services/security/token-storage.service';
+import { ToastService } from './../../services/toast.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class JobOffersListComponent implements OnInit {
     private route: ActivatedRoute,
     private jobOffersService: JobOffersService,
     private formBuilder: FormBuilder,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -82,17 +84,18 @@ export class JobOffersListComponent implements OnInit {
     console.log(offerId);
     this.jobOffersService.Apply(offerId).subscribe(
       res => {
-        if(res) {
-          console.log(res);
+        if (res && res.status === 200) {
+          this.toast.showSuccess('message.jobApplied');
         }
       },
       err => {
-        if(err){
-          console.log(err);
+        if (err && err.status === 409) {
+          this.toast.showError('message.jobAlreadyApplied');
+        } else if (err && err.status === 403){
+          this.toast.showError('message.jobHrOrCeo');
         }
       }
     );
   }
-
 
 }

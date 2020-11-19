@@ -60,12 +60,25 @@
   "hr": {
     "assignBtn1": "Przypisz test",
     "assign": "Przypisz test do użytkownika: ",
-    "testCode": "Kod testu",
+    "testCode": "Pokaj pierwszy człon kodu testu",
     "empty": "Kod testu jest wymagany",
     "good": "Poprawny kod testu",
     "testName": "Nazwa testu",
     "assignBtn2": "Przypisz",
-    "required": "To pole jest wymagane"
+    "required": "To pole jest wymagane",
+    "alertId": "ID zgłoszenia",
+    "announcementTitle": "Tytuł ogłoszenia",
+    "userLogin": "Login użytkownika",
+    "titleTestCode": "Kod testu",
+    "applicationsList": "Lista aplikacji"
+  },
+  "user": {
+    "completed": "Ukończony",
+    "notCompleted": "Nie ukończony",
+    "companyName": "Firma",
+    "announcementName": "Tytuł ogłoszenia",
+    "quizCode": "Kod do testu",
+    "status": "Status testu"
   },
   "jobs": {
     "add": "Dodaj swoją ofertę!",
@@ -99,6 +112,10 @@
     "notRegistered": "Błąd podczas rejestracji. Skontaktuj się z administratorem.",
     "registered": "Zarejestrowano pomyślnie!",
     "userAlreadyExists": "Użytkownik już istnieje",
+    "userNamePasswordWrong": "Twój login bądź hasło jest nieprawidłowy",
+    "jobApplied": "Pomyślnie zaaplikowałeś na ogłoszenie pracy",
+    "jobAlreadyApplied": "Już wcześniej zaaplikowałeś na to ogłoszenie pracy",
+    "jobHrOrCeo": "Konta klasy HR bądź CEO nie są dopuszczone do aplikacji!",
     "jobOfferAdded": "Twoja oferta pracy została poprawnie dodana do naszej bazy!",
     "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy",
     "quizAssigned": "Test został przypisany pomyślnie",
@@ -111,7 +128,8 @@
   "panel": {
     "admin": "Panel Administratora",
     "ceo": "Panel CEO",
-    "hr": "Panel HR"
+    "hr": "Panel HR",
+    "user": "Panel Użytkownika"
   },
   "password": "Hasło",
   "password-confirm": "Potwierdź hasło",

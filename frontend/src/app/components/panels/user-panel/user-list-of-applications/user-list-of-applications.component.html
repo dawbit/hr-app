@@ -16,24 +16,23 @@
               </tr>
           </thead>
           <tbody #row>
-              <tr mdbTableCol *ngFor="let application of applications; let i = index">
-                  <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.alertId}}
+              <tr mdbTableCol [ngClass]="{'new' : application.quizCode && !application.completed}" *ngFor="let application of applications; let i = index">
+                  <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.companyName}}
                   </th>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementTitle}}
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.announcementName}}
                   </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.userLogin}}
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode }}
                   </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
-                  </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizCode}}
-                    <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null"
-                    [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId" (click)="setAsRead(application.alertId)"></app-quiz-assign-modal>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{application.quizCode? (application.completed? ("user.completed" | translate):('')):('')}}
+                    <a *ngIf="application.quizCode && !application.completed" href="http://localhost:4200/quiz-solve;testCode={{application.quizCode}}"
+                        mdbBtn color="primary" class="waves-light" type="button" (click)="setAsRead(application.testParticipantId)">Go to quiz</a>
                   </td>
               </tr>
           </tbody>
           <tfoot class="primary lighten-5 w-100">
               <tr>
-                  <td colspan="7">
+                  <td colspan="4">
                       <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="applications">
                       </mdb-table-pagination>
                   </td>
