@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'announcements_source.dart';
+part of 'alerts_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-class _AnnouncementsSource implements AnnouncementsSource {
-  _AnnouncementsSource(this._dio, {this.baseUrl}) {
+class _AlertsSource implements AlertsSource {
+  _AlertsSource(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://192.168.43.228:8080/announcements';
+    baseUrl ??= 'http://192.168.43.228:8080/alerts';
   }
 
   final Dio _dio;
@@ -17,12 +17,11 @@ class _AnnouncementsSource implements AnnouncementsSource {
   String baseUrl;
 
   @override
-  Future<List<AnnouncementsDto>> getAnnouncements(query) async {
-    ArgumentError.checkNotNull(query, 'query');
+  Future<int> getAnnouncements() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'q': query};
+    final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>('/find',
+    final _result = await _dio.request<int>('/user',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -30,20 +29,18 @@ class _AnnouncementsSource implements AnnouncementsSource {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map(
-            (dynamic i) => AnnouncementsDto.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = _result.data;
     return value;
   }
 
   @override
-  Future<ResponseTransfer> announcementApply(id) async {
-    ArgumentError.checkNotNull(id, 'id');
+  Future<ResponseTransfer> announcementApply(testParticipantId) async {
+    ArgumentError.checkNotNull(testParticipantId, 'testParticipantId');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/apply/$id',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/user/$testParticipantId/setAsRead',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

@@ -83,7 +83,7 @@
   "jobs": {
     "add": "Dodaj swoją ofertę!",
     "basic": "Praca",
-    "offers": "Lista ofert pracy",
+    "list": "Lista ofert pracy",
     "addForm": "Dodaj swoje ogłoszenie pracy!",
     "title": "Dodaj tytuł do oferty",
     "about": "Podaj szczegóły o niej",

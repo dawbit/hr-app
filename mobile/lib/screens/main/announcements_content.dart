@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/main/views/announcement_search_view.dart';
-import 'package:mobile/screens/main/views/single_announcement_view.dart';
 import 'package:mobile/widgets/nested_navigator.dart';
 
 import '../../Application.dart';
@@ -29,7 +28,6 @@ class _AnnouncementsContentState extends State<AnnouncementsContent> {
         initialRoute: '/',
         routes: {
           '/': (context) => AnnouncementSearchView(),
-          '/two': (context) => SingleAnnouncementView(),
         },
       ),
     );

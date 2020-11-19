@@ -24,7 +24,7 @@ class AnnouncementCardWidget extends StatelessWidget {
       padding:EdgeInsets.all(10),
       margin: EdgeInsets.all(Sizes.smallSpace),
       child: InkWell(
-        onTap: (){Navigator.of(context).pushNamed("/two");},
+        onTap: (){Navigator.of(context).pushNamed("/singleAnnouncement", arguments: data);},
         child: Row(
           children: [
             Expanded(
