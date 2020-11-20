@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { QuizService } from './../../../services/quiz.service';
 import { ToastService } from './../../../services/toast.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -50,7 +50,6 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private formBuilder: FormBuilder,
     private quizService: QuizService,
     private toast: ToastService,

@@ -25,6 +25,8 @@ import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-a
 import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
 import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
 import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
+import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -102,7 +104,9 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
     QuizAssignModalComponent,
     ContactPanelComponent,
     ContactEmailComponent,
-    ContactTeamComponent
+    ContactTeamComponent,
+    AccountSettingsComponent,
+    MailSubscriptionComponent
   ],
   imports: [
     BrowserModule,

@@ -94,6 +94,9 @@
   "login": "Login",
   "login-required": "Login is required",
   "login-valid": "Login is valid",
+  "mailing": {
+    "newQuiz": "Information about available new quizzes to solve"
+  },
   "message": {
     "accountTypeAdded": "Account type has been added",
     "accountTypeAlreadyExist": "The specified account type already exists",
@@ -111,7 +114,13 @@
     "quizNotAssighned": "An error occured while assigning the test, check all fields"
   },
   "middle-name": "Middle name",
-  "my-account": "My Account",
+  "my-account": {
+    "basic": "My account",
+    "edit": "Edit account",
+    "editPassword": "Edit password",
+    "mailSubscription": "E-mail subscription",
+    "mailSubscriptionChanged": "The subscription edition went smoothly!"
+  },
   "no": "No",
   "not-a-member": "Not a member?",
   "panel": {

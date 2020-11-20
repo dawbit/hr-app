@@ -94,6 +94,9 @@
   "login": "Nazwa użytkownika",
   "login-required": "Wpisz swój login",
   "login-valid": "Poprawny login",
+  "mailing": {
+    "newQuiz": "Informacje o dostępnych nowych quizach do rozwiązania"
+  },
   "message": {
     "accountTypeAdded": "Dodano typ konta",
     "accountTypeAlreadyExist": "Podany typ konta już istnieje",
@@ -111,7 +114,13 @@
     "quizNotAssighned": "Coś poszło nie tak podczas przypisywania testu, sprawdź wszystkie pola"
   },
   "middle-name": "Drugie imię",
-  "my-account": "Moje konto",
+  "my-account": {
+    "basic": "Moje konto",
+    "edit": "Edytuj konto",
+    "editPassword": "Zmień hasło",
+    "mailSubscription": "Subskrypcje e-mail",
+    "mailSubscriptionChanged": "Edycja subskrypcji przebiegła pomyślnie!"
+  },
   "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",
   "panel": {

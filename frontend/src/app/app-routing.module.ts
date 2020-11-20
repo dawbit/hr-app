@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './services/security/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './services/security/role-guard.service';
 
@@ -20,6 +20,7 @@ import { CompanyListComponent } from './components/company-list/company-list.com
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
 import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -114,7 +115,13 @@ const routes: Routes = [
     data: {
       expectedRole: ['ADMIN']
     }
-  }
+  },
+  {
+    path: 'my-account', component: AccountSettingsComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+    }
+  },
 ];
 
 @NgModule({
