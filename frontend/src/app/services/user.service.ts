@@ -44,4 +44,8 @@ export class UserService {
     });
   }
 
+  getAllApplications(): Observable<any>{
+    return this.http.get(`${this.baseUrl}/list-of-applications`);
+  }
+
 }

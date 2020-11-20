@@ -48,7 +48,37 @@
     <!-- Left side links -->
 
     <!-- Right side links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" *ngIf="isLogged">
+      <!-- User notifications -->
+      <div class="btn-group" *ngIf="isLogged && (userRole=='USER' || userRole=='ADMIN')" mdbDropdown>
+        <a mdbDropdownToggle gtm-id="Notifications" class="nav-link dropdown-toggle waves-effect" alt="Notifications"
+          id="navbarNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span *ngIf="userAlerts != 0" id="navbarNotificationCounter" class="badge rounded red z-depth-1"
+            alt="Notifications">{{userAlerts}}</span>
+          <i class="fas fa-bell" alt="Notifications"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" id="navbarNotificationContent"
+          aria-labelledby="navbarDropdownMenuLink" style="width: 250px;">
+          <a class="dropdown-item text-wrap" routerLink="/user-panel">
+            <p class="mb-0">You have {{userAlerts}} new notification(s)</p>
+          </a>
+        </div>
+      </div>
+      <!-- HR notifications -->
+      <div class="btn-group" *ngIf="isLogged && (userRole=='HR' || userRole=='ADMIN')" mdbDropdown>
+        <a mdbDropdownToggle gtm-id="Notifications" class="nav-link dropdown-toggle waves-effect" alt="Notifications"
+          id="navbarNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span *ngIf="userAlerts != 0" id="navbarNotificationCounter" class="badge rounded red z-depth-1"
+            alt="Notifications">{{hrAlerts}}</span>
+          <i class="fas fa-bell" alt="Notifications"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" id="navbarNotificationContent"
+          aria-labelledby="navbarDropdownMenuLink" style="width: 250px;">
+          <a class="dropdown-item text-wrap" routerLink="/hr-panel">
+            <p class="mb-0">You have {{hrAlerts}} new notification(s)</p>
+          </a>
+        </div>
+      </div>
       <li class="nav-item">
         <a class="nav-link waves-light" *ngIf="isLogged && userRole=='ADMIN'" mdbWavesEffect routerLink="admin-panel">
           <mdb-icon fas icon="cog"></mdb-icon> {{'panel.admin' | translate}}
@@ -67,19 +97,18 @@
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="contact">
+        <a class="nav-link waves-light" routerLink="contact" mdbWavesEffect>
           <mdb-icon fas icon="envelope"></mdb-icon>{{'contact.normal' | translate}}
         </a>
       </li>
       <!-- Dropdown -->
-      <li class="nav-item dropdown" *ngIf="isLogged" dropdown>
+      <li class="nav-item dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           <!-- TODO currentUser and currentUserAvatar -->
           <mdb-icon fas icon="user"></mdb-icon>{{'profile' | translate}}<span class="caret"></span>
         </a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect
-            routerLink="my-account">{{'my-account.basic' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="my-account">{{'my-account' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="settings-panel">{{'settings' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{'log-out' | translate}}</a>
         </div>

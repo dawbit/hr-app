@@ -167,7 +167,7 @@ public class HrPanelController {
                 );
             }
 
-            HrAlertsDto preparedItem = new HrAlertsDto(item.getId(), item.getFKhrAlertAnnouncement().getId(), user,
+            HrAlertsDto preparedItem = new HrAlertsDto(item.getId(), item.getFKhrAlertAnnouncement().getId(), item.getFKhrAlertAnnouncement().getTitle(), user,
                     quizInfo);
             responseList.add(preparedItem);
         }

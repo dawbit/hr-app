@@ -24,19 +24,23 @@ export class JobOffersService {
     return this.http.get(this.baseUrl + '/all', this.httpOptions);
   }
 
+  getAnnouncement(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + '/getAnnouncement/' + id, this.httpOptions);
+  }
+
   findOffer(searchParams: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/find?q=${searchParams}`);
   }
 
-  Apply(offerId: number): Observable<any>{
+  Apply(offerId: number): Observable<any> {
     return this.http.post(this.baseUrl + '/apply/' + offerId, { observe: 'response' });
   }
 
-  getAllApplications(): Observable<any>{
+  getAllApplications(): Observable<any> {
     return this.http.get(this.apiURL + '/hr/list-of-applications', this.httpOptions);
   }
 
-  assignQuiz(alertId: number, quizBody: QuizAssignment): Observable<any>{
+  assignQuiz(alertId: number, quizBody: QuizAssignment): Observable<any> {
     return this.http.post(this.apiURL + '/hr/alert/' + alertId + '/assign-quiz', quizBody, { observe: 'response' });
   }
 }

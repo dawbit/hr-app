@@ -103,9 +103,6 @@ public class UserPanelController {
 
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
                 long testParticipantId = item.getFKhrAlertTestParticipant().getId();
-                System.out.println(questionsRepository.countByFKquestionTestId(
-                        item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()));
-                System.out.println((item.getFKhrAlertTestParticipant().getQuestionNumber() - 1));
                 boolean isEnded = questionsRepository.countByFKquestionTestId(
                         item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()) <
                         item.getFKhrAlertTestParticipant().getQuestionNumber() - 1;

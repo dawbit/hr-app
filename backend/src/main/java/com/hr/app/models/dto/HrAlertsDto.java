@@ -3,6 +3,7 @@ package com.hr.app.models.dto;
 public class HrAlertsDto {
     private long alertId;
     private long announcementId;
+    private String announcementTitle;
     private SimplyUserDto simplyUserDto;
     private SimplyQuizInfoDto simplyQuizInfoDto;
 
@@ -20,6 +21,14 @@ public class HrAlertsDto {
 
     public void setAnnouncementId(long announcementId) {
         this.announcementId = announcementId;
+    }
+
+    public String getAnnouncementTitle() {
+        return announcementTitle;
+    }
+
+    public void setAnnouncementTitle(String announcementTitle) {
+        this.announcementTitle = announcementTitle;
     }
 
     public SimplyUserDto getSimplyUserDto() {
@@ -41,10 +50,11 @@ public class HrAlertsDto {
     public HrAlertsDto() {
     }
 
-    public HrAlertsDto(long alertId, long announcementId, SimplyUserDto simplyUserDto,
+    public HrAlertsDto(long alertId, long announcementId, String announcementTitle, SimplyUserDto simplyUserDto,
                        SimplyQuizInfoDto simplyQuizInfoDto) {
         this.alertId = alertId;
         this.announcementId = announcementId;
+        this.announcementTitle = announcementTitle;
         this.simplyUserDto = simplyUserDto;
         this.simplyQuizInfoDto = simplyQuizInfoDto;
     }

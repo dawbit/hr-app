@@ -1,2 +1,7 @@
-<p>hr-panel works!</p>
-<app-list-of-applications></app-list-of-applications>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('applications.list')" mdbWavesEffect>
+  {{"hr.applicationsList" | translate | uppercase}}
+</button>
+
+<div class="slide-element" *ngIf="selectedBookmark === 'applications.list'">
+  <app-list-of-applications></app-list-of-applications>
+</div>

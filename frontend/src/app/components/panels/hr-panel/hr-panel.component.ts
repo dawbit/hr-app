@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HrPanelComponent implements OnInit {
 
+  selectedBookmark: string;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  showBookmark(bookmark): string {
+    return this.selectedBookmark = bookmark;
+  }
+
 
 }
