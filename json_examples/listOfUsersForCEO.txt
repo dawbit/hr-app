@@ -1,0 +1,10 @@
+Lista użytkowników którzy potencjalnie mogą zostać naszymi pracownikami działu HR:
+(wymaga poprawienia - w przypadku admina - którego też pokaże, ale tak naprawdę to może być już gdzieś przypisany - jest to rzadki przypadek)
+
+GET: http://localhost:8080/ceo-panel/getusers
+
+= = = = = = = = = =
+Lista naszych pracowników:
+GET: http://localhost:8080/ceo-panel/getusers/our
+
+skład odpowiedzi dokładnie taki jak w liście użytkowników Admin Panelu
