@@ -2,7 +2,7 @@
 
   <mdb-card-header class="info-color white-text text-center py-4">
     <h5>
-      <strong>Contact us</strong>
+      <strong>{{'contact.us' | translate}}</strong>
     </h5>
   </mdb-card-header>
 
@@ -13,30 +13,32 @@
       <div class="md-form">
         <input type="text" formControlName="authorMail" id="materialContactFormEmail" class="form-control" mdbInput
           mdbValidate />
-        <label for="materialContactFormEmail">E-mail</label>
-        <mdb-error *ngIf="authorMail.invalid && (authorMail.dirty || authorMail.touched)">Input invalid</mdb-error>
-        <mdb-success *ngIf="authorMail.valid && (authorMail.dirty || authorMail.touched)">Input valid</mdb-success>
+        <label for="materialContactFormEmail">{{'e-mail' | translate}}</label>
+        <mdb-error *ngIf="authorMail.invalid && (authorMail.dirty || authorMail.touched)">{{'e-mail-valid' | translate}}
+        </mdb-error>
+        <mdb-success *ngIf="authorMail.valid && (authorMail.dirty || authorMail.touched)">
+          {{'e-mail-invalid' | translate}}</mdb-success>
       </div>
 
       <div class="md-form">
         <input type="text" formControlName="subject" id="materialContactFormSubject" class="form-control" mdbInput
           mdbValidate />
-        <label for="materialContactFormSubject">Subject</label>
-        <mdb-error *ngIf="subject.invalid && (subject.dirty || subject.touched)">Input invalid</mdb-error>
-        <mdb-success *ngIf="subject.valid && (subject.dirty || subject.touched)">Input valid</mdb-success>
+        <label for="materialContactFormSubject">{{'contact.subject | translate'}}</label>
+        <mdb-error *ngIf="subject.invalid && (subject.dirty || subject.touched)">{{'contact.needSubject' | translate}}
+        </mdb-error>
       </div>
 
       <div class="md-form">
         <textarea type="text" formControlName="textMessage" id="materialContactFormMessage"
           class="form-control md-textarea" mdbInput mdbValidate></textarea>
-        <label for="materialContactFormMessage">Message</label>
-        <mdb-error *ngIf="textMessage.invalid && (textMessage.dirty || textMessage.touched)">Input invalid</mdb-error>
-        <mdb-success *ngIf="textMessage.valid && (textMessage.dirty || textMessage.touched)">Input valid</mdb-success>
+        <label for="materialContactFormMessage">{{'contact.message' | translate}}</label>
+        <mdb-error *ngIf="textMessage.invalid && (textMessage.dirty || textMessage.touched)">
+          {{'contact.needMessage' | translate}}</mdb-error>
       </div>
 
       <button mdbBtn color="info" class="btn btn-info btn-block my-4" mdbWavesEffect type="submit"
         [disabled]="disabledSubmitButton">
-        Send
+        {{'contact.send' | translate}}
       </button>
     </form>
 

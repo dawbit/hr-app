@@ -26,7 +26,13 @@
     "mail": "Kontakt poprzez e-mail",
     "mailSent": "E-mail został wysłany",
     "mailNotSent": "E-mail nie został wysłany",
-    "normal": "Kontakt"
+    "message": "Wiadomość",
+    "needMessage": "Wiadomość jest pusta!",
+    "needSubject": "Podaj temat!",
+    "normal": "Kontakt",
+    "send": "Wyślij wiadomość!",
+    "subject": "Temat",
+    "us": "Skontaktuj się z nami"
   },
   "criticalError": "Błąd krytyczny! Proszę, skontaktuj się z administratorem",
   "delete": "Skasuj",

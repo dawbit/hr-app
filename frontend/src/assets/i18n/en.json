@@ -26,7 +26,13 @@
     "mail": "Contact via e-mail",
     "mailSent": "E-mail was sent",
     "mailNotSent": "E-mail was not sent",
-    "normal": "Contact"
+    "message": "Message",
+    "needMessage": "Message is empty!",
+    "needSubject": "Subject is empty!",
+    "normal": "Contact",
+    "send": "Send!",
+    "subject": "Subject",
+    "us": "Contact Us"
   },
   "criticalError": "Critical Error! Please contact with administrator.",
   "delete": "Delete",
