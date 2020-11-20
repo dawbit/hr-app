@@ -1,0 +1,7 @@
+<form *ngIf="isResponse" [formGroup]="mailingForm" (ngSubmit)="onSubmit(mailingForm.value)">
+  <mdb-checkbox default="mailingNewQuiz" formControlName="mailingNewQuiz">{{'mailing.newQuiz' | translate}}
+  </mdb-checkbox>
+  <button class="btn btn-primary" type="submit" [disabled]="!isResponse">
+    {{'save' | translate}}
+  </button>
+</form>

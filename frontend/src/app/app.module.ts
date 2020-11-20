@@ -22,6 +22,11 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
+import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
+import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
 import { UserListOfApplicationsComponent } from './components/panels/user-panel/user-list-of-applications/user-list-of-applications.component';
 
 // modules
@@ -101,6 +106,11 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     JobOffersListComponent,
     ListOfApplicationsComponent,
     QuizAssignModalComponent,
+    ContactPanelComponent,
+    ContactEmailComponent,
+    ContactTeamComponent,
+    AccountSettingsComponent,
+    MailSubscriptionComponent,
     UserListOfApplicationsComponent
   ],
   imports: [

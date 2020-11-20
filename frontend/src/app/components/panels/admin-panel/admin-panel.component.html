@@ -1,5 +1,6 @@
 <!-- Collapse buttons -->
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('accountTypes.add')" mdbWavesEffect>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('accountTypes.add')"
+  mdbWavesEffect>
   {{"accountTypes.add" | translate | uppercase}}
 </button>
 <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('users.list')" mdbWavesEffect>
@@ -7,21 +8,21 @@
 </button>
 
 <div class="slide-element" *ngIf="selectedBookmark === 'accountTypes.add'">
-    <!-- Form -->
-    <form [formGroup]=" newAccountType" class="text-center" (ngSubmit)="addAccountType()" action="#!">
+  <!-- Form -->
+  <form [formGroup]=" newAccountType" class="text-center" (ngSubmit)="addAccountType()" action="#!">
 
-        <!-- Name -->
-        <div class="md-form">
-            <input mdbInput type="text" id="materialnewAccountTypeName" class="form-control" formControlName="roleName">
-            <label for="materialnewAccountTypeName">{{"accountTypes.name" | translate}}</label>
-        </div>
+    <!-- Name -->
+    <div class="md-form">
+      <input mdbInput type="text" id="materialnewAccountTypeName" class="form-control" formControlName="roleName">
+      <label for="materialnewAccountTypeName">{{"accountTypes.name" | translate}}</label>
+    </div>
 
-        <button class="btn btn-info btn-block my-4" type="submit">
+    <button class="btn btn-info btn-block my-4" type="submit">
       {{"accountTypes.addConfirm" | translate | uppercase}}
     </button>
-    </form>
+  </form>
 </div>
 
 <div class="slide-element" *ngIf="selectedBookmark === 'users.list'">
-    <app-user-list></app-user-list>
+  <app-user-list></app-user-list>
 </div>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './services/security/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './services/security/role-guard.service';
 
@@ -19,10 +19,13 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { JobOffersListComponent } from './components/job-offers-list/job-offers-list.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
+  { path: 'contact', component: ContactPanelComponent },
   {
     path: 'admin-panel', component: AdminPanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
@@ -111,6 +114,12 @@ const routes: Routes = [
     path: 'admin-panel/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
       expectedRole: ['ADMIN']
+    }
+  },
+  {
+    path: 'my-account', component: AccountSettingsComponent, canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
     }
   },
 ];

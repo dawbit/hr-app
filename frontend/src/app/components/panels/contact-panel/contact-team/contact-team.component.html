@@ -1,0 +1,59 @@
+<!-- Section: Team v.3 -->
+<section class="team-section my-5">
+
+  <!-- Section heading -->
+  <h2 class="h1-responsive font-weight-bold text-center my-5">{{'team.head' | translate}}</h2>
+  <!-- Section description -->
+  <p class="text-center w-responsive mx-auto mb-5">{{'team.about' | translate}}</p>
+
+  <!-- Grid row-->
+  <div class="row text-center text-md-left">
+
+    <!-- Grid column -->
+    <div class="col-md-4 mb-md-0 mb-5" *ngFor="let member of members">
+      <div class="avatar mb-md-0 mb-4 mx-4">
+        <img src="{{member.photo}}" class="rounded-circle z-depth-4" alt="{{member.name}} photo">
+      </div>
+      <div class="mx-4">
+        <h4 class="font-weight-bold mb-3">{{member.name}}</h4>
+        <h5 class="font-weight-bold mb-3">{{member.position}}</h5>
+        <h5 class="font-weight-bold mb-3">{{member.mail}}</h5>
+        <p class="">{{member.description}}</p>
+        <!-- Facebook -->
+        <a *ngIf="member.socialMedia.facebook" class="p-2 fa-lg fb-ic"
+          href="https://www.facebook.com/{{member.socialMedia.facebook}}" target="_blank">
+          <mdb-icon fab icon="facebook-f"> </mdb-icon>
+        </a>
+        <!-- Twitter -->
+        <a *ngIf="member.socialMedia.twitter" class="p-2 fa-lg tw-ic"
+          href="https://twitter.com/{{member.socialMedia.twitter}}" target="_blank">
+          <mdb-icon fab icon="twitter"> </mdb-icon>
+        </a>
+        <!-- YouTube -->
+        <a *ngIf="member.socialMedia.youtube" class="p-2 fa-lg yt-ic"
+          href="https://www.youtube.com/user/{{member.socialMedia.youtube}}" target="_blank">
+          <mdb-icon fab icon="youtube"> </mdb-icon>
+        </a>
+        <!-- Instagram -->
+        <a *ngIf="member.socialMedia.instagram" class="p-2 fa-lg ins-ic"
+          href="https://www.instagram.com/{{member.socialMedia.instagram}}" target="_blank">
+          <mdb-icon fab icon="instagram"> </mdb-icon>
+        </a>
+        <!-- GitHub -->
+        <a *ngIf="member.socialMedia.github" class="p-2 fa-lg git-ic"
+          href="https://github.com/{{member.socialMedia.github}}" target="_blank">
+          <mdb-icon fab icon="github"> </mdb-icon>
+        </a>
+        <!-- LinkedIn -->
+        <a *ngIf="member.socialMedia.linkedin" class="p-2 fa-lg li-ic"
+          href="https://www.linkedin.com/in/{{member.socialMedia.linkedin}}" target="_blank">
+          <mdb-icon fab icon="linkedin"> </mdb-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row-->
+
+</section>
