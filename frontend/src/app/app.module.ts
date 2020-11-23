@@ -23,6 +23,7 @@ import { JobOffersAddComponent } from './components/job-offers-add/job-offers-ad
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
 import { UserListOfApplicationsComponent } from './components/panels/user-panel/user-list-of-applications/user-list-of-applications.component';
+import { RandomCompanyPresentationComponent } from './components/home-page/random-company-presentation/random-company-presentation.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -75,6 +76,7 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
 
 // factories
 import { appInitializerFactory } from './factories/appInitializerFacotry';
+import { AssignToHrComponent } from './components/panels/ceo-panel/assign-to-hr/assign-to-hr.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,9 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     JobOffersListComponent,
     ListOfApplicationsComponent,
     QuizAssignModalComponent,
-    UserListOfApplicationsComponent
+    UserListOfApplicationsComponent,
+    RandomCompanyPresentationComponent,
+    AssignToHrComponent
   ],
   imports: [
     BrowserModule,
