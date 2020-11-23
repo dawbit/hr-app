@@ -6,11 +6,11 @@
 
       <!--Title-->
       <mdb-card-title>
-          <h4>{{comp.name}}</h4>
+          <h4>{{getCompanyName()}}</h4>
       </mdb-card-title>
 
       <!-- Text -->
-      <app-company-list-single-element [text]="comp.about" [maxLength]="100"></app-company-list-single-element>
+      <app-company-list-single-element [text]="getCompanyAbout()" [maxLength]="100"></app-company-list-single-element>
 
   </mdb-card-body>
 </mdb-card>

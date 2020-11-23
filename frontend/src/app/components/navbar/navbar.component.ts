@@ -1,3 +1,4 @@
+import { CompanyService } from './../../services/company.service';
 import { AlertsService } from './../../services/alerts.service';
 import { async } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
@@ -17,14 +18,17 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private companyService: CompanyService
   ) { }
 
   isLogged = this.tokenStorage.isAuthenticated();
   userRole = this.tokenStorage.getRole();
 
   ngOnInit(): void {
-    this.checkForAlerts();
+    if (this.isLogged){
+      this.checkForAlerts();
+    }
   }
 
   logout() {
@@ -38,9 +42,12 @@ export class NavbarComponent implements OnInit {
       this.userAlerts = + res;
     });
 
-    this.alertsService.getHrAlerts().subscribe(res => {
-      this.hrAlerts = + res;
-    });
-  }
+    console.log(this.companyService.getCurrentCompany());
 
+    if (this.companyService.getCurrentCompany()){
+      this.alertsService.getHrAlerts().subscribe(res => {
+        this.hrAlerts = + res;
+      });
+    }
+    }
 }

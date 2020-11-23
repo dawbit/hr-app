@@ -19,6 +19,14 @@ export class RandomCompanyPresentationComponent implements OnInit {
     this.getAllCompanies();
   }
 
+  getCompanyName(){
+    return (this.comp && this.comp.name) ? this.comp.name : null;
+  }
+
+  getCompanyAbout(){
+    return (this.comp && this.comp.about) ? this.comp.about : null;
+  }
+
   getAllCompanies(){
     this.companyService.getAllCompanies().subscribe(data => {
         for (const key in data){
