@@ -10,6 +10,6 @@ public class FileCorrectness {
 
     public static boolean fileSizeIsOk(MultipartFile file) {
         System.out.println(file.getSize());
-        return  file.getSize() > 5000000;
+        return  file.getSize() < 5000000;
     }
 }

@@ -77,9 +77,20 @@ public class FileStorageService {
         }
     }
 
-    public Resource loadFileAsResource(String fileName) {
+    public Resource loadFileAsResource(String fileName, FileType fileType) {
         try {
-            Path filePath = this.fileStorageUserCvLocation.resolve(fileName).normalize();
+            Path filePath;
+            switch (fileType) {
+                case USER_IMAGE:
+                    filePath = this.fileStorageUserImageLocation.resolve(fileName).normalize();
+                    break;
+                case COMPANY_IMAGE:
+                    filePath = this.fileStorageCompanyImageLocation.resolve(fileName).normalize();
+                    break;
+                default:
+                    filePath = this.fileStorageUserCvLocation.resolve(fileName).normalize();
+                    break;
+            }
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
                 return resource;

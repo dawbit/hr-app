@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,6 +60,7 @@ public class CvsController {
         return cvsRepository.findAllByFKcvUserId(userid);
     }
 
+    @Transactional
     @PostMapping(serviceUrlParam + "/uploadCv")
     Object uploadFile(@RequestParam("file") MultipartFile file, HttpServletResponse response) {
 
@@ -99,9 +101,15 @@ public class CvsController {
     }
 
     @GetMapping(serviceUrlParam + "/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public Object downloadFile(@PathVariable String fileName, HttpServletResponse response, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+        Resource resource;
+        try {
+            resource = fileStorageService.loadFileAsResource(fileName, FileType.CV);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Could not load file");
+        }
 
         // Try to determine file's content type
         String contentType = null;
@@ -125,10 +133,6 @@ public class CvsController {
     private UsersModel getUserModel() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         return usersRepository.findByLogin(name);
-    }
-
-    private void saveUserCv() {
-
     }
 
     private void saveNewCvModel(UsersModel usersModel, String fileName) {
