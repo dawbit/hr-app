@@ -28,7 +28,7 @@ public class FileStorageService {
 
     @Autowired
     public FileStorageService() {
-        String currentPath = System.getProperty("user.dir") + "\\files";
+        String currentPath = System.getProperty("user.dir") + "/files";
         this.fileStorageUserImageLocation = Paths.get(currentPath + "/" + FileType.USER_IMAGE.toString())
                 .toAbsolutePath().normalize();
         this.fileStorageUserCvLocation = Paths.get(currentPath + "/" + FileType.CV.toString())
@@ -61,13 +61,13 @@ public class FileStorageService {
             Path targetLocation;
             switch (fileType) {
                 case USER_IMAGE:
-                    targetLocation = this.fileStorageUserImageLocation.resolve(fileType.toString() + fileName);
+                    targetLocation = this.fileStorageUserImageLocation.resolve(fileName);
                     break;
                 case COMPANY_IMAGE:
-                    targetLocation = this.fileStorageCompanyImageLocation.resolve(fileType.toString() + fileName);
+                    targetLocation = this.fileStorageCompanyImageLocation.resolve(fileName);
                     break;
                 default:
-                    targetLocation = this.fileStorageUserCvLocation.resolve(fileType.toString() + fileName);
+                    targetLocation = this.fileStorageUserCvLocation.resolve(fileName);
             }
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
