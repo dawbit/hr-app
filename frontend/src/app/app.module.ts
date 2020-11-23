@@ -30,6 +30,7 @@ import { ContactPanelComponent } from './components/panels/contact-panel/contact
 import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
 import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
 import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
+import { DeleteFromHrComponent } from './components/panels/ceo-panel/delete-from-hr/delete-from-hr.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -117,7 +118,8 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     ContactTeamComponent,
     AccountSettingsComponent,
     MailSubscriptionComponent,
-    UserListOfApplicationsComponent
+    UserListOfApplicationsComponent,
+    DeleteFromHrComponent
   ],
   imports: [
     BrowserModule,

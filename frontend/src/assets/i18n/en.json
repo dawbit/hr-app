@@ -84,6 +84,13 @@
     "titleTestCode": "Test Code",
     "applicationsList": "List of applications"
   },
+  "ceo": {
+    "assign": "Assign to hr",
+    "assignList": "Assign new HR user",
+    "hrList": "List of HR users",
+    "delete": "Delete HR",
+    "pageTitle": "'s CEO panel"
+  },
   "user": {
     "completed": "Completed",
     "companyName": "Company name",

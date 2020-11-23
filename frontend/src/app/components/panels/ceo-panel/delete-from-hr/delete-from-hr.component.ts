@@ -1,19 +1,18 @@
-import { CeoService } from './../../../../services/ceo.service';
-import { UserService } from './../../../../services/user.service';
-import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
+import { CeoService } from 'src/app/services/ceo.service';
 
 @Component({
-  selector: 'app-assign-to-hr',
-  templateUrl: './assign-to-hr.component.html',
-  styleUrls: ['./assign-to-hr.component.scss']
+  selector: 'app-delete-from-hr',
+  templateUrl: './delete-from-hr.component.html',
+  styleUrls: ['./delete-from-hr.component.scss']
 })
-export class AssignToHrComponent implements OnInit {
+export class DeleteFromHrComponent implements OnInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
-  users: any = [];
+  hrUsers: any = [];
   headUsers = ['login', 'email', 'firstName', 'surname', 'assign to hr'];
   searchText = '';
   previous: string;
@@ -23,19 +22,19 @@ export class AssignToHrComponent implements OnInit {
     private ceoService: CeoService
   ) { }
 
+  ngOnInit() {
+    this.getHrUsers();
+  }
+
   @HostListener('input') oninput(){
     this.mdbTablePagination.searchText = this.searchText;
   }
 
-  ngOnInit() {
-    this.getRecruitableUsers();
-  }
-
-  getRecruitableUsers() {
-    this.ceoService.getRecruitableUsers().subscribe(data => {
+  getHrUsers() {
+    this.ceoService.getHrUsers().subscribe(data => {
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
-          this.users.push({
+          this.hrUsers.push({
             id: data[key].id,
             login: data[key].login,
             email: data[key].email,
@@ -44,8 +43,8 @@ export class AssignToHrComponent implements OnInit {
           });
         }
       }
-      this.mdbTable.setDataSource(this.users);
-      this.users = this.mdbTable.getDataSource();
+      this.mdbTable.setDataSource(this.hrUsers);
+      this.hrUsers = this.mdbTable.getDataSource();
       this.previous = this.mdbTable.getDataSource();
     });
   }
@@ -55,11 +54,11 @@ export class AssignToHrComponent implements OnInit {
 
     if (!this.searchText) {
       this.mdbTable.setDataSource(this.previous);
-      this.users = this.mdbTable.getDataSource();
+      this.hrUsers = this.mdbTable.getDataSource();
     }
 
     if (this.searchText) {
-      this.users = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.hrUsers = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
 
@@ -72,8 +71,8 @@ export class AssignToHrComponent implements OnInit {
     });
   }
 
-  assignToHr(userId){
-    this.ceoService.addUserToHr(userId).subscribe(res => {
+  deleteFromHr(userId){
+    this.ceoService.deleteUserFromHr(userId).subscribe(res => {
       console.log(res);
     },
     err => {
@@ -81,8 +80,4 @@ export class AssignToHrComponent implements OnInit {
     }
     );
   }
-
-
-
-
 }

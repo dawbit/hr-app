@@ -84,6 +84,13 @@
     "titleTestCode": "Kod testu",
     "applicationsList": "Lista aplikacji"
   },
+  "ceo": {
+    "assign": "Przypisz do hr",
+    "assignList": "Dodaj nowego HR",
+    "hrList": "Lista użytkowników hr",
+    "delete": "Usuń HR",
+    "pageTitle": " - panel CEO"
+  },
   "user": {
     "completed": "Ukończony",
     "notCompleted": "Nie ukończony",

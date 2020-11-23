@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   userRole = this.tokenStorage.getRole();
 
   ngOnInit(): void {
-    if (this.isLogged){
+    if (this.isLogged) {
       this.checkForAlerts();
     }
   }
@@ -37,17 +37,21 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  checkForAlerts(){
+  checkForAlerts() {
     this.alertsService.getUserAlerts().subscribe(res => {
       this.userAlerts = + res;
     });
 
-    console.log(this.companyService.getCurrentCompany());
+    this.companyService.getCurrentCompany().subscribe(res => {
+      if (res && res.length) {
+        this.alertsService.getHrAlerts().subscribe(res2 => {
+          this.hrAlerts = + res2;
+        });
+      }
+    }
 
-    if (this.companyService.getCurrentCompany()){
-      this.alertsService.getHrAlerts().subscribe(res => {
-        this.hrAlerts = + res;
-      });
-    }
-    }
+    );
+
+
+  }
 }

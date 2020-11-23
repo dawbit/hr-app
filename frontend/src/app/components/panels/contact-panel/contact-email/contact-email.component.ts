@@ -50,9 +50,9 @@ export class ContactEmailComponent implements OnInit {
 
   onSubmit() {
     this.mailingService.sendMessage(this.contactForm.value).subscribe(() => {
-      this.toast.showSuccess('message.mailSent');
+      this.toast.showSuccess('contact.mailSent');
     }, (error: any) => {
-      this.toast.showError('message.mailNotSent');
+      this.toast.showError('contact.mailNotSent');
     });
   }
 

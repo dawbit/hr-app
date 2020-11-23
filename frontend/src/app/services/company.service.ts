@@ -28,6 +28,7 @@ export class CompanyService {
   }
 
   getCurrentCompany(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/current`, this.httpOptions);
+    return this.http.get(`${this.baseUrl}/current`, { responseType: 'text' }
+    );
   }
 }
