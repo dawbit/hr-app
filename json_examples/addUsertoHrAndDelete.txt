@@ -1,0 +1,6 @@
+1
+
+// po prostu wysyłamy ID usera którego chcemy dodać jako HR do naszej firmy. Resztą zajmuje się serwer. Tzn serwer wszystko rozpoznaje, przy usuwaniu też.
+
+POST: http://localhost:8080/ceo-panel/hrusers/add
+DELETE: http://localhost:8080/ceo-panel/hrusers/delete

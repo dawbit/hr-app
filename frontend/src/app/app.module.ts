@@ -22,8 +22,14 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
 import { UserListOfApplicationsComponent } from './components/panels/user-panel/user-list-of-applications/user-list-of-applications.component';
 import { RandomCompanyPresentationComponent } from './components/home-page/random-company-presentation/random-company-presentation.component';
+import { AssignToHrComponent } from './components/panels/ceo-panel/assign-to-hr/assign-to-hr.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
+import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
+import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -76,7 +82,7 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
 
 // factories
 import { appInitializerFactory } from './factories/appInitializerFacotry';
-import { AssignToHrComponent } from './components/panels/ceo-panel/assign-to-hr/assign-to-hr.component';
+
 
 @NgModule({
   declarations: [
@@ -105,7 +111,13 @@ import { AssignToHrComponent } from './components/panels/ceo-panel/assign-to-hr/
     QuizAssignModalComponent,
     UserListOfApplicationsComponent,
     RandomCompanyPresentationComponent,
-    AssignToHrComponent
+    AssignToHrComponent,
+    ContactPanelComponent,
+    ContactEmailComponent,
+    ContactTeamComponent,
+    AccountSettingsComponent,
+    MailSubscriptionComponent,
+    UserListOfApplicationsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,18 @@
 package com.hr.app.controllers;
 
 import com.hr.app.models.database.HrAlertModel;
+import com.hr.app.models.database.MailingModel;
 import com.hr.app.models.database.UsersModel;
 import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.dto.UserPanelListOfAnnoncementsDto;
 import com.hr.app.repositories.IHrAlertsRepository;
+import com.hr.app.repositories.IMailingRepository;
 import com.hr.app.repositories.IQuestionsRepository;
 import com.hr.app.repositories.IUsersRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class UserPanelController {
     @Autowired
     IQuestionsRepository questionsRepository;
 
+    @Autowired
+    IMailingRepository mailingRepository;
+
+
     @GetMapping(serviceUrlParam + "/list-of-applications")
     public Object getListOfApplications(HttpServletResponse response) {
         long userId;
@@ -41,8 +46,43 @@ public class UserPanelController {
             Object preparedResponse = prepareList(hrAlertsRepository.findByFKhrAlertUserId(userId));
             return preparedResponse;
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return new ResponseTransfer("Internal server error", e.toString()); // 500
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  // 500
+            return new ResponseTransfer("Internal server error", e.toString());
+        }
+    }
+
+    @GetMapping(serviceUrlParam + "/mailing")
+    public Object getListOfMailings(HttpServletResponse response) {
+        long mailingId;
+        try {
+            UsersModel userModel = getUserModel();
+            if(Objects.isNull(userModel.getFKuserMailing())) {
+                userModel.setFKuserMailing(new MailingModel());
+            }
+            mailingId = getUserModel().getFKuserMailing().getId();
+            return mailingRepository.findById(mailingId);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  // 500
+            return new ResponseTransfer("Internal server error", e.toString());
+        }
+    }
+
+    @PutMapping(serviceUrlParam + "/mailing/edit")
+    public Object saveListOfMailings(@RequestBody MailingModel mailingModel, HttpServletResponse response) {
+        long mailingId;
+        try {
+            mailingId = getUserModel().getFKuserMailing().getId();
+            if (mailingId == mailingModel.getId()) {
+                mailingModel.setMailingNewQuiz(mailingModel.getMailingNewQuiz());
+                mailingRepository.save(mailingModel);
+                return new ResponseTransfer("E-mail preferences have changed");
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);  // 403
+                return new ResponseTransfer("You cannot perform this operation");
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);  // 500
+            return new ResponseTransfer("Internal server error", e.toString());
         }
     }
 

@@ -1,0 +1,20 @@
+<!-- Collapse buttons -->
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.edit')"
+  mdbWavesEffect>
+  {{'my-account.edit' | translate | uppercase}}
+  TUTAJ EDYCJA KONTA
+</button>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.editPassword')"
+  mdbWavesEffect>
+  {{'my-account.editPassword' | translate | uppercase}}
+  TUTAJ ZMIANA HASŁA
+</button>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.mailSubscription')"
+  mdbWavesEffect>
+  {{'my-account.mailSubscription' | translate | uppercase}}
+</button>
+
+<!-- EDYCJA KONTA -->
+<!-- ZMIANA HASŁA -->
+<app-mail-subscription class="slide-element" *ngIf="selectedBookmark === 'my-account.mailSubscription'">
+</app-mail-subscription>
