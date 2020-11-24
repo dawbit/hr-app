@@ -22,7 +22,7 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   announcements: any = [];
 
   headers = [this.translate.instant('hr.alertId'), this.translate.instant('hr.announcementTitle'), this.translate.instant('hr.userLogin'),
-              this.translate.instant('hr.testName'), this.translate.instant('hr.titleTestCode')];
+              this.translate.instant('hr.testName'), this.translate.instant('hr.titleTestCode'), 'cv'];
 
   searchText = '';
   previous: string;
@@ -66,7 +66,8 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
             userLogin: data[key].simplyUserDto.login,
             quizId: data[key].simplyQuizInfoDto.id,
             quizName: data[key].simplyQuizInfoDto.name,
-            quizCode: data[key].simplyQuizInfoDto.code
+            quizCode: data[key].simplyQuizInfoDto.code,
+            cv: data[key].simplyUserDto.userCv
           });
         }
       }
