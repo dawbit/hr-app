@@ -69,7 +69,7 @@ public class CvsController {
                     .path(fileName)
                     .toUriString();
 
-            saveNewCvModel(currentUser, fileName);
+            saveNewCvModel(currentUser, fileDownloadUri);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
