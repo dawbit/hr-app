@@ -10,4 +10,6 @@ public interface ICvsRepository extends JpaRepository<CvsModel, Long> {
     CvsModel findById (long id);
 
     List<CvsModel> findAllByFKcvUserId(long user_id);
+
+    CvsModel findByFKcvUserId(long user_id);
 }
