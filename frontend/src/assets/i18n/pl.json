@@ -149,7 +149,8 @@
     "edit": "Edytuj konto",
     "editPassword": "Zmień hasło",
     "mailSubscription": "Subskrypcje e-mail",
-    "mailSubscriptionChanged": "Edycja subskrypcji przebiegła pomyślnie!"
+    "mailSubscriptionChanged": "Edycja subskrypcji przebiegła pomyślnie!",
+    "cv": "Dodaj cv"
   },
   "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",

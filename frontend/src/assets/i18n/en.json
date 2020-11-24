@@ -149,7 +149,8 @@
     "edit": "Edit account",
     "editPassword": "Edit password",
     "mailSubscription": "E-mail subscription",
-    "mailSubscriptionChanged": "The subscription edition went smoothly!"
+    "mailSubscriptionChanged": "The subscription edition went smoothly!",
+    "cv": "Add cv"
   },
   "no": "No",
   "not-a-member": "Not a member?",
