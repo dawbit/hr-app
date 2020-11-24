@@ -4,6 +4,7 @@ import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.DeleteUserCommandDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
+import com.hr.app.models.dto.UserDataWithCvDto;
 import com.hr.app.models.dto.UserResultDto;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,9 @@ public class UsersController {
 
     @Autowired
     private CustomMailing sendMail;
+
+    @Autowired
+    private ICvsRepository cvsRepository;
 
 
     @PostMapping(serviceUrlParam + "/register")
@@ -93,7 +97,8 @@ public class UsersController {
     public Object getUser(@PathVariable long userid, HttpServletResponse response){
         try {
             UsersModel user = usersRepository.findById(userid);
-            return new UserResultDto(user);
+            CvsModel cv = cvsRepository.findByFKcvUserId(user.getId());
+            return new UserDataWithCvDto(user, cv.getFileName());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
