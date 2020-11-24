@@ -31,6 +31,7 @@ import { ContactEmailComponent } from './components/panels/contact-panel/contact
 import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
 import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
 import { DeleteFromHrComponent } from './components/panels/ceo-panel/delete-from-hr/delete-from-hr.component';
+import { CvUploadComponent } from './components/panels/account-settings/cv-upload/cv-upload.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -119,7 +120,8 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     AccountSettingsComponent,
     MailSubscriptionComponent,
     UserListOfApplicationsComponent,
-    DeleteFromHrComponent
+    DeleteFromHrComponent,
+    CvUploadComponent
   ],
   imports: [
     BrowserModule,
