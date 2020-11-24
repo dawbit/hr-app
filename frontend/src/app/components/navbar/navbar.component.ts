@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
     });
 
     this.companyService.getCurrentCompany().subscribe(res => {
-      if (res && res.length) {
+      if (res && res.length && this.userRole !== 'CEO') {
         this.alertsService.getHrAlerts().subscribe(res2 => {
           this.hrAlerts = + res2;
         });

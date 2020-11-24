@@ -133,7 +133,7 @@
     "notLogged": "Błąd podczas logowania",
     "notRegistered": "Błąd podczas rejestracji. Skontaktuj się z administratorem.",
     "registered": "Zarejestrowano pomyślnie!",
-    "userAlreadyExists": "Użytkownik już istnieje",
+    "userAlreadyExists": "Podany login bądź email już jest zajęty!",
     "userNamePasswordWrong": "Twój login bądź hasło jest nieprawidłowy",
     "jobApplied": "Pomyślnie zaaplikowałeś na ogłoszenie pracy",
     "jobAlreadyApplied": "Już wcześniej zaaplikowałeś na to ogłoszenie pracy",

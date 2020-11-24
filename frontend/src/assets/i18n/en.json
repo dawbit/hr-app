@@ -133,7 +133,7 @@
     "notLogged": "Login Error",
     "notRegistered": "Error during registration. Please contact with administrator.",
     "registered": "Successfully registered!",
-    "userAlreadyExists": "User already exists",
+    "userAlreadyExists": "Your username or email is already taken!",
     "userNamePasswordWrong": "Your user name or password is wrong",
     "jobApplied": "You have applied successfully",
     "jobAlreadyApplied": "You have already taken part in the recruitment process from your account!",
