@@ -2,6 +2,7 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.api_helpers.RegisterCommandDto;
 import com.hr.app.models.dto.UserResultDto;
 
 import javax.persistence.*;
@@ -269,5 +270,16 @@ public class UsersModel {
         this.phoneNumber = userResultDto.getPhoneNumber();
         this.login = userResultDto.getLogin();
         this.isActive = userResultDto.isActive();
+    }
+
+    public UsersModel(RegisterCommandDto registerCommandDto) {
+        this.password = registerCommandDto.getPassword();
+        this.email = registerCommandDto.getEmail();
+        this.firstName = registerCommandDto.getFirstName();
+        this.middleName = registerCommandDto.getMiddleName();
+        this.phoneNumber = registerCommandDto.getPhoneNumber();
+        this.surname = registerCommandDto.getSurname();
+        this.login = registerCommandDto.getLogin();
+        this.isActive = true;
     }
 }

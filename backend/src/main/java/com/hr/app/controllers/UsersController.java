@@ -64,17 +64,28 @@ public class UsersController {
 
     @PostMapping(serviceUrlParam + "/register")
     @ResponseBody
-    public ResponseTransfer saveUser(@RequestBody UsersModel userModel, HttpServletResponse response) {
+    public ResponseTransfer saveUser(@RequestBody RegisterCommandDto registerCommandDto, HttpServletResponse response) {
         try {
-            if (getUserById(userModel.getId()) != null || doesUserExist(userModel.getLogin(), userModel.getEmail())) {
-                response.setStatus(HttpServletResponse.SC_CONFLICT); // ERROR 409
-                return new ResponseTransfer("User already exists");
+            if(userLoginAlreadyExists(registerCommandDto.getLogin())) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                return new ResponseTransfer("LOGIN_EXISTS");
+            }
+            UsersModel checkEmailUser = usersRepository.findByEmail(registerCommandDto.getEmail());
+            if(checkEmailUser!=null) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                return new ResponseTransfer("EMAIL_EXISTS");
+            }
+            if(registerCommandDto.getPassword().length() <6) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return new ResponseTransfer("WEAK_PASSWORD");
             }
             else {
-                userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
-                userModel.setFKuserMailing(new MailingModel());
-                usersRepository.saveAndFlush(userModel);
-                sendMail.sendRegistrationMessage(userModel.getEmail(), userModel.getLogin());
+                registerCommandDto.setPassword(passwordEncoder.encode(registerCommandDto.getPassword()));
+                UsersModel usersModel = new UsersModel(registerCommandDto);
+                usersModel.setFKuserMailing(new MailingModel());
+                usersModel.setFKuserAccountTypes(getDefaultAccountType());
+                usersRepository.saveAndFlush(usersModel);
+                sendMail.sendRegistrationMessage(registerCommandDto.getEmail(), registerCommandDto.getLogin());
                 return new ResponseTransfer("User saved");
             }
         }
@@ -312,4 +323,12 @@ public class UsersController {
         return false;
     }
 
+    private boolean userLoginAlreadyExists(String login) {
+        return usersRepository.findByLogin(login) != null;
+
+    }
+
+    private AccountTypesModel getDefaultAccountType() {
+        return accountTypes.findByRoleId(4);
+    }
 }
