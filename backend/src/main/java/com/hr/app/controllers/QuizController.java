@@ -50,15 +50,20 @@ public class QuizController {
 
     @Transactional
     @PostMapping("quiz/add")
-    public ResponseTransfer addQuiz(@RequestBody AddQuizCommandDto addQuizCommandDto, HttpServletResponse response) {
+    public ResponseTransfer addQuiz(@RequestBody AddQuizCommandDto addQuizCommandDtoType, HttpServletResponse response) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        AddQuizCommandDto addQuizCommandDto = addQuizCommandDtoType;
         UsersModel usersModel;
         HrUsersModel hrUsersModel;
-
+        String newQuizName;
         try {
             usersModel = getUserModel();
             hrUsersModel = getHrUsersModel(usersModel.getId());
+            newQuizName = checkAndGenerateQuizName(addQuizCommandDto.getTestsModel().getName(), hrUsersModel.getFKhrUserCompany().getName());
+            if(newQuizName==null) {
+                return new ResponseTransfer("QUIZ_NAME_EXISTS");
+            }
+            addQuizCommandDto.getTestsModel().setName(newQuizName);
         } catch (Exception e) {
             return new ResponseTransfer("Internal server error");
         }
@@ -442,6 +447,18 @@ public class QuizController {
 
     private TestParticipantModel getTestCodeModelByTestCode(String testCode) {
         return testParticipantRepository.findByCode(testCode);
+    }
+
+    private String checkAndGenerateQuizName(String quizName, String compantyName) {
+        StringBuilder newQuizName = new StringBuilder(compantyName + "_" + quizName);
+        for(int i=0; i<100; i++) {
+            TestsModel testsModel = testsRepository.findByName(newQuizName.toString());
+            if(testsModel==null) {
+                return newQuizName.toString();
+            }
+            newQuizName.append("_").append(i);
+        }
+        return null;
     }
 
     private HrUsersModel getHrUsersModel(long userId) {
