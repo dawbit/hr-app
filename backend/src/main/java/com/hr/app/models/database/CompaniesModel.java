@@ -1,7 +1,6 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,11 +22,8 @@ public class CompaniesModel {
     @Column(name = "about", nullable = false)
     private String about;
 
-    // TODO: nazwa pliku + upload, lub plik jako byte[]
-    @Lob
-    @Column(name = "image")
-    @Type(type="org.hibernate.type.BinaryType")
-    private byte[] image;
+    @Column(name = "image-url", nullable = true)
+    private String imageUrl;
 
 
     // =========================================
@@ -60,6 +56,13 @@ public class CompaniesModel {
     // =========================================
 
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public long getId() {
         return id;
@@ -77,10 +80,6 @@ public class CompaniesModel {
         return about;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -91,10 +90,6 @@ public class CompaniesModel {
 
     public void setAbout(String about) {
         this.about = about;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 
     public void setCompanyPictures(List<CompanyPicturesModel> companyPictures) {
@@ -119,18 +114,18 @@ public class CompaniesModel {
 
     protected CompaniesModel() { }
 
-    public CompaniesModel(String name, String location, String about, byte[] image,
+    public CompaniesModel(String name, String location, String about,
                           List<CompanyPicturesModel> companyPictures, List<CeosModel> ceo,
-                          List<TestsModel> tests, List<HrUsersModel> hrUsers,
+                          List<TestsModel> tests, List<HrUsersModel> hrUsers, String imageUrl,
                           List<AnnouncementsModel> announcementCompany) {
         this.name = name;
         this.location = location;
         this.about = about;
-        this.image = image;
         this.companyPictures = companyPictures;
         this.ceo = ceo;
         this.tests = tests;
         this.hrUsers = hrUsers;
         this.announcementCompany = announcementCompany;
+        this.imageUrl = imageUrl;
     }
 }

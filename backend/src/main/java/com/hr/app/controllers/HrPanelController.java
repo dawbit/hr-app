@@ -3,7 +3,10 @@ package com.hr.app.controllers;
 import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.AssignQuizDto;
 import com.hr.app.models.database.*;
-import com.hr.app.models.dto.*;
+import com.hr.app.models.dto.HrAlertsDto;
+import com.hr.app.models.dto.ResponseTransfer;
+import com.hr.app.models.dto.SimplyQuizInfoDto;
+import com.hr.app.models.dto.SimplyUserDto;
 import com.hr.app.repositories.*;
 import com.hr.app.security.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class HrPanelController {
 
     @Autowired
     private IHrUsersRepository hrUsersRepository;
+
+    @Autowired
+    private ICvsRepository cvsRepository;
 
     @Autowired
     private IHrAlertsRepository hrAlertsRepository;
@@ -154,7 +160,12 @@ public class HrPanelController {
         List<HrAlertsDto> responseList = new ArrayList<HrAlertsDto>();
 
         for (HrAlertModel item : dbResponse ) {
-            SimplyUserDto user = new SimplyUserDto(item.getFKhrAlertUser().getId(), item.getFKhrAlertUser().getLogin());
+            CvsModel cvsModel = cvsRepository.findByFKcvUserId(item.getFKhrAlertUser().getId());
+            String cvUrl=null;
+            if(cvsModel!= null) {
+                cvUrl = cvsModel.getFileName();
+            }
+            SimplyUserDto user = new SimplyUserDto(item.getFKhrAlertUser().getId(), item.getFKhrAlertUser().getLogin(), cvUrl);
             SimplyQuizInfoDto quizInfo = new SimplyQuizInfoDto();
 
             // zakładamy, że przy przypisaniu quizu do użytkownika, od razu przypisujemy też do niego

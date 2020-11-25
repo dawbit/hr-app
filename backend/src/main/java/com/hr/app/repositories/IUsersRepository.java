@@ -1,9 +1,9 @@
 package com.hr.app.repositories;
 
 import com.hr.app.models.database.UsersModel;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -23,4 +23,6 @@ public interface IUsersRepository extends JpaRepository<UsersModel, Long> {
     @Query(value = "SELECT * FROM Users _user JOIN Hr_Users hr_user " +
             "ON hr_user.user_id = _user.id WHERE hr_user.company_id = ?1", nativeQuery = true)
     List<UsersModel> findOurHrUsers(long companyId);
+
+    UsersModel findByEmail(String email);
 }

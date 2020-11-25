@@ -35,6 +35,9 @@ public class UsersModel {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "avatar")
+    private String avatarUrl;
+
     @Column(name = "login", unique = true, nullable = false)
     @Size(min = 8)
     private String login;
@@ -98,6 +101,15 @@ public class UsersModel {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public void setListOfcvsModels(List<CvsModel> listOfcvsModels) {
         this.listOfcvsModels = listOfcvsModels;
@@ -228,7 +240,8 @@ public class UsersModel {
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
                       String login, String password, AccountTypesModel FKuserAccountTypes, Boolean isActive,
                       List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo, List<TestsModel> tests,
-                      List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers, MailingModel FKuserMailing) {
+                      List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers, MailingModel FKuserMailing,
+                      String avatarUrl) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.surname = surname;
@@ -244,6 +257,7 @@ public class UsersModel {
         this.userAnswers = userAnswers;
         this.hrUsers = hrUsers;
         this.FKuserMailing = FKuserMailing;
+        this.avatarUrl = avatarUrl;
     }
 
     public UsersModel(UserResultDto userResultDto){
