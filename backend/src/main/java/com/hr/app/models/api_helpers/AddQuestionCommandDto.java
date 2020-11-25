@@ -1,14 +1,12 @@
 package com.hr.app.models.api_helpers;
 
-import com.hr.app.models.database.AnswersModel;
-import com.hr.app.models.database.QuestionsModel;
-
 import java.util.List;
 
 public class AddQuestionCommandDto {
+
     private long testId;
-    private QuestionsModel questionsModel;
-    private List<AnswersModel> answersModel;
+    private QuestionModelDto questionsModel;
+    private List<AnswerModelDto> answersModel;
 
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
@@ -22,26 +20,26 @@ public class AddQuestionCommandDto {
         this.testId = testId;
     }
 
-    public QuestionsModel getQuestionsModel() {
+    public QuestionModelDto getQuestionsModel() {
         return questionsModel;
     }
 
-    public void setQuestionsModel(QuestionsModel questionsModel) {
+    public void setQuestionsModel(QuestionModelDto questionsModel) {
         this.questionsModel = questionsModel;
     }
 
-    public List<AnswersModel> getAnswersModel() {
+    public List<AnswerModelDto> getAnswersModel() {
         return answersModel;
     }
 
-    public void setAnswersModel(List<AnswersModel> answersModel) {
+    public void setAnswersModel(List<AnswerModelDto> answersModel) {
         this.answersModel = answersModel;
     }
 
     protected AddQuestionCommandDto(){
     }
 
-    public AddQuestionCommandDto(List<AnswersModel> answersModel, QuestionsModel questionsModel){
+    public AddQuestionCommandDto(List<AnswerModelDto> answersModel, QuestionModelDto questionsModel){
         this.answersModel = answersModel;
         this.questionsModel = questionsModel;
     }

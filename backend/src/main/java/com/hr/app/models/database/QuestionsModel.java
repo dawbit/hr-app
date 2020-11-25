@@ -2,6 +2,7 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.api_helpers.QuestionModelDto;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -94,5 +95,10 @@ public class QuestionsModel {
         this.image = image;
         this.answers = answers;
         this.userAnswers = userAnswers;
+    }
+
+    public QuestionsModel(QuestionModelDto questionModelDto) {
+        this.text = questionModelDto.getText();
+        this.image = questionModelDto.getImage();
     }
 }

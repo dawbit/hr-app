@@ -3,6 +3,7 @@ package com.hr.app.controllers;
 import com.hr.app.enums.ResponseEnum;
 import com.hr.app.models.api_helpers.AddQuestionCommandDto;
 import com.hr.app.models.api_helpers.AddQuizCommandDto;
+import com.hr.app.models.api_helpers.AnswerModelDto;
 import com.hr.app.models.api_helpers.QuizQuestionCommandDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.*;
@@ -61,14 +62,19 @@ public class QuizController {
             hrUsersModel = getHrUsersModel(usersModel.getId());
             newQuizName = checkAndGenerateQuizName(addQuizCommandDto.getTestsModel().getName(), hrUsersModel.getFKhrUserCompany().getName());
             if(newQuizName==null) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
                 return new ResponseTransfer("QUIZ_NAME_EXISTS");
+            }
+            if(addQuizCommandDto.getTestsModel().getTimeForTestInMilis() <60000) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return new ResponseTransfer("TOO_SHORT_TIME");
             }
             addQuizCommandDto.getTestsModel().setName(newQuizName);
         } catch (Exception e) {
             return new ResponseTransfer("Internal server error");
         }
 
-        TestsModel testsModel = addQuizCommandDto.getTestsModel();
+        TestsModel testsModel = new TestsModel(addQuizCommandDto.getTestsModel());
         List<AddQuestionCommandDto> questionCommandDtoList = addQuizCommandDto.getListOfQuestionCommandDto();
         CompaniesModel companiesModel = hrUsersModel.getFKhrUserCompany();
 
@@ -78,13 +84,18 @@ public class QuizController {
         try {
             testsRepository.save(testsModel);
             for (AddQuestionCommandDto questionObject: questionCommandDtoList) {
-                QuestionsModel questionsModel = questionObject.getQuestionsModel();
-                List<AnswersModel> answersModels =questionObject.getAnswersModel();
+
+                QuestionsModel questionsModel = new QuestionsModel(questionObject.getQuestionsModel());
+                ArrayList<AnswersModel> answersModelsList = new ArrayList<>();
+                for(AnswerModelDto answerModelDto: questionObject.getAnswersModel()) {
+                    AnswersModel answersModel = new AnswersModel(answerModelDto);
+                    answersModelsList.add(answersModel);
+                }
 
                 questionsModel.setFKquestionTest(testsModel);
                 questionsRepository.save(questionsModel);
 
-                for (AnswersModel answerObject: answersModels) {
+                for (AnswersModel answerObject: answersModelsList) {
                     answerObject.setFKanswerQuestion(questionsModel);
                     answersRepository.save(answerObject);
                 }

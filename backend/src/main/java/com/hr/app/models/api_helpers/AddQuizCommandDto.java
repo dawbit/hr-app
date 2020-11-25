@@ -1,12 +1,10 @@
 package com.hr.app.models.api_helpers;
 
-import com.hr.app.models.database.TestsModel;
-
 import java.util.List;
 
 public class AddQuizCommandDto {
 
-    private TestsModel testsModel;
+    private TestModelDto testsModel;
     private List<AddQuestionCommandDto> listOfQuestionCommandDto;
 
     // =========================================
@@ -14,11 +12,11 @@ public class AddQuizCommandDto {
     // =========================================
 
 
-    public TestsModel getTestsModel() {
+    public TestModelDto getTestsModel() {
         return testsModel;
     }
 
-    public void setTestsModel(TestsModel testsModel) {
+    public void setTestsModel(TestModelDto testsModel) {
         this.testsModel = testsModel;
     }
 
@@ -33,7 +31,7 @@ public class AddQuizCommandDto {
     protected AddQuizCommandDto(){
     }
 
-    public AddQuizCommandDto(List<AddQuestionCommandDto> questionsModel, TestsModel testsModel){
+    public AddQuizCommandDto(List<AddQuestionCommandDto> questionsModel, TestModelDto testsModel){
         this.listOfQuestionCommandDto=questionsModel;
         this.testsModel=testsModel;
     }

@@ -2,6 +2,7 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.api_helpers.AnswerModelDto;
 
 import javax.persistence.*;
 import java.util.List;
@@ -93,5 +94,13 @@ public class AnswersModel {
         this.isCorrect = isCorrect;
         this.points = points;
         this.userAnswers = userAnswers;
+    }
+
+    public AnswersModel(AnswerModelDto answerModelDto) {
+        this.text = answerModelDto.getText();
+
+        this.isCorrect = answerModelDto.isCorrect();
+
+        this.points = answerModelDto.getPoints();
     }
 }
