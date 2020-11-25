@@ -1,0 +1,18 @@
+edycja hasła:
+/user/change-password
+{
+    "password": "test",
+    "newPassword": "testtest"
+}
+edycja maila:
+/user/change-email
+{
+    "password": "test@o2.pl",
+    "newEmail": "test@o2.pl"
+}
+edycja numeru telefonu: 
+/user/change-phonenumber
+{
+    "password": "test",
+    "phoneNumber": "1231231239"
+}
