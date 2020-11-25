@@ -2,11 +2,11 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.api_helpers.TestModelDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
@@ -210,5 +210,13 @@ public class TestsModel {
         this.questions = questions;
         this.userAnswers = userAnswers;
         this.isOpenForEveryone=isOpenForEveryone;
+    }
+
+    public TestsModel (TestModelDto testModelDto) {
+        this.timeForTestInMilis = testModelDto.getTimeForTestInMilis();
+        this.name=testModelDto.getName();
+        this.isActive = testModelDto.isActive();
+        this.isOpenForEveryone = testModelDto.isOpenForEveryone();
+        this.isPossibleToBack = testModelDto.isPossibleToBack();
     }
 }

@@ -1,6 +1,7 @@
 package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.hr.app.models.api_helpers.RegisterCompanyCommandDto;
 
 import javax.persistence.*;
 import java.util.List;
@@ -127,5 +128,11 @@ public class CompaniesModel {
         this.hrUsers = hrUsers;
         this.announcementCompany = announcementCompany;
         this.imageUrl = imageUrl;
+    }
+
+    public CompaniesModel(RegisterCompanyCommandDto registerCompanyCommandDto) {
+        this.about = registerCompanyCommandDto.getAbout();
+        this.location = registerCompanyCommandDto.getLocation();
+        this.name = registerCompanyCommandDto.getName();
     }
 }

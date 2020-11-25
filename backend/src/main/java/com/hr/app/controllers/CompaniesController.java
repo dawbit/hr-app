@@ -3,6 +3,7 @@ package com.hr.app.controllers;
 import com.hr.app.enums.FileType;
 import com.hr.app.ftp.FileStorageService;
 import com.hr.app.models.api_helpers.FileCorrectness;
+import com.hr.app.models.api_helpers.RegisterCompanyCommandDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.dto.UploadFileResponse;
@@ -70,13 +71,29 @@ public class CompaniesController {
 
     @Transactional
     @PostMapping(serviceUrlParam + "/add")
-    public ResponseTransfer addCompanies(@RequestBody CompaniesModel companiesModel, HttpServletResponse response) {
+    public ResponseTransfer addCompanies(@RequestBody RegisterCompanyCommandDto registerCompanyCommandDto, HttpServletResponse response) {
 
         UsersModel usersModel;
-
+        if(registerCompanyCommandDto.getName().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("NAME_IS_EMPTY");
+        }
+        if(registerCompanyCommandDto.getLocation().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("LOCATION_IS_EMPTY");
+        }
+        if(registerCompanyCommandDto.getAbout().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("ABOUT_IS_EMPTY");
+        }
+        CompaniesModel companiesModel=new CompaniesModel(registerCompanyCommandDto);
         try {
             usersModel = getUsersModel();
 
+            if(companyExists(registerCompanyCommandDto.getName())) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                return new ResponseTransfer("COMPANY_NAME_EXISTS");
+            }
             if(usersModel.getFKuserAccountTypes().getRoleId() == 1) {
                 companiesRepository.save(companiesModel);
             } else {
@@ -225,6 +242,10 @@ public class CompaniesController {
 
     private AccountTypesModel getRoleById(long id) {
         return accountTypesRepository.findByRoleId(id);
+    }
+
+    private boolean companyExists(String name) {
+        return companiesRepository.findByName(name) != null;
     }
 
 }

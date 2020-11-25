@@ -8,6 +8,7 @@ import java.util.List;
 public interface ITestsRepository extends JpaRepository<TestsModel, Long> {
 
     TestsModel findById(long id);
+    TestsModel findByName(String name);
 
     List<TestsModel> findByFKtestCompanyId(long id);
 }
