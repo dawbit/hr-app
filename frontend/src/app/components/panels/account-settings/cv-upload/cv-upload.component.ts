@@ -1,5 +1,6 @@
 import { FtpService } from './../../../../services/ftp.service';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cv-upload',
@@ -7,23 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cv-upload.component.scss']
 })
 export class CvUploadComponent implements OnInit {
-  fileData: File = null;
+  afuConfig = this.ftpService.getAfuConfig();
 
-  constructor(private ftpService: FtpService) { }
+  constructor(
+    private translate: TranslateService,
+    private ftpService: FtpService
+    ) { }
 
   ngOnInit() {
   }
-
-fileProgress(fileInput: any) {
-    this.fileData = (fileInput.target.files[0] as File);
-}
-
-onSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.fileData);
-    this.ftpService.addCv(formData).subscribe(res => {
-    console.log('success');
-  });
-}
 
 }

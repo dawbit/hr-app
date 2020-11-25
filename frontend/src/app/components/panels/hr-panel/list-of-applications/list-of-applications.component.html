@@ -25,11 +25,12 @@
                   </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
                   </td>
-                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{application.quizName}}
-                  </td>
                   <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"><a *ngIf="application.cv" href={{application.cv}}>cv</a>
+                  </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
                     <app-quiz-assign-modal *ngIf="application.quizCode == null && application.quizName == null && application.quizId == null"
                     [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId" (click)="setAsRead(application.alertId)"></app-quiz-assign-modal>
+                    <a *ngIf="application.quizCode">{{application.quizCode}}</a>
                   </td>
               </tr>
           </tbody>

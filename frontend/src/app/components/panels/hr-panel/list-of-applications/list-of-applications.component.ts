@@ -22,7 +22,7 @@ export class ListOfApplicationsComponent implements OnInit, AfterViewInit {
   announcements: any = [];
 
   headers = [this.translate.instant('hr.alertId'), this.translate.instant('hr.announcementTitle'), this.translate.instant('hr.userLogin'),
-              this.translate.instant('hr.testName'), this.translate.instant('hr.titleTestCode'), 'cv'];
+              this.translate.instant('hr.testName'), this.translate.instant('hr.cv'), this.translate.instant('hr.titleTestCode')];
 
   searchText = '';
   previous: string;

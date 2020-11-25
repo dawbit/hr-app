@@ -72,6 +72,7 @@
   "hr": {
     "assignBtn1": "Przypisz test",
     "assign": "Przypisz test do użytkownika: ",
+    "cv": "cv",
     "testCode": "Pokaj pierwszy człon kodu testu",
     "empty": "Kod testu jest wymagany",
     "good": "Poprawny kod testu",
@@ -107,6 +108,16 @@
     "title": "Dodaj tytuł do oferty",
     "about": "Podaj szczegóły o niej",
     "search": "Wyszukaj ogłoszenia pracy!"
+  },
+  "cvs": {
+    "selectFileBtn": "Wybierz swoje cv",
+    "resetBtn": "Reset",
+    "uploadBtn": "Prześlij",
+    "dragNDropBox": "Przeciągnij swoje cv",
+    "attachPinBtn": "Załącz swoje cv...",
+    "afterUploadMsg_success": "Cv przesłano pomyślnie!",
+    "afterUploadMsg_error": "Nastąpił błąd podczas wysyłania cv!",
+    "sizeLimit": "Limit rozmiaru pliku"
   },
   "language": {
     "en": "angielski",

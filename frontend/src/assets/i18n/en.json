@@ -72,6 +72,7 @@
   "hr": {
     "assignBtn1": "Assign test",
     "assign": "Assign test to user: ",
+    "cv": "cv",
     "testCode": "Insert first part of test code",
     "empty": "Test code is required",
     "good": "Valid test code",
@@ -107,6 +108,16 @@
     "title": "Add a title to your offer",
     "about": "Give some more details about it",
     "search": "Search for a job offer!"
+  },
+  "cvs": {
+    "selectFileBtn": "Select your cv",
+    "resetBtn": "Reset",
+    "uploadBtn": "Upload",
+    "dragNDropBox": "Drag and drop your cv",
+    "attachPinBtn": "Attach your cv...",
+    "afterUploadMsg_success": "Cv uploaded successfully!",
+    "afterUploadMsg_error": "Cv upload Failed!",
+    "sizeLimit": "Size Limit"
   },
   "language": {
     "en": "english",
