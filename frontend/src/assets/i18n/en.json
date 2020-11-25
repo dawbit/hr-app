@@ -66,6 +66,7 @@
   "oops": "Oops",
   "cant-go-back": "You can't go back in this test!",
   "cant-skip": "You can't skip questions in this test!",
+  "timeOver": "Your time is over!",
   "nice": "Nice",
   "quiz-end": "You have reached the end, congrats!",
   "save-and-go": "Save and go",
@@ -203,19 +204,21 @@
     "name": "Quiz name",
     "newQuiz": "You create a new quiz!",
     "notExists": "Quiz does not exists!",
-    "participating": "Thank you for participating in our quiz!",
     "points": "Points",
     "removeAnswer": "Remove this answer",
     "removeQuestion": "Remove this question",
     "save": "Save quiz!",
     "start": "start!",
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
-    "take": "Do you want to take another one?",
     "timeForTest": "Time (sec.)",
     "timeLeft": "Remaining time: ",
     "question": "Question: ",
     "questionNumber": "Question no. ",
     "sendAnswerError": "Something wend wrong while sending an answer"
+  },
+  "test": {
+    "participating": "Thank you for participating in our quiz!",
+    "take": "Do you want to take another one?"
   },
   "recruitment": {
     "add": "Add your recruitment quiz!",

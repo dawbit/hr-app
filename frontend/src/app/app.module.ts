@@ -36,6 +36,7 @@ import { CvUploadComponent } from './components/panels/account-settings/cv-uploa
 // modules
 import { PipesModule } from './modules/pipes.module';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { CountdownModule } from 'ngx-countdown';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -150,7 +151,8 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     }),
     AuthModule,
     PipesModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    CountdownModule
   ],
   exports: [
     MatButtonModule,

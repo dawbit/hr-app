@@ -6,6 +6,7 @@ import { ToastService } from './../../../services/toast.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { CollapseComponent } from 'angular-bootstrap-md';
 import { TranslateService } from '@ngx-translate/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-quiz-solve',
@@ -32,11 +33,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   answers: any = [];
   radioSelected: number;
   isCollapsed = true;
-
-  timeLeft = 60; // tutaj Kowol zrobi endpoint zwracający pozostały czas na quiz, czas ten będzie zawsze aktualny, niezależnie
-  // czy quiz został zaczęty czy nie
-  interval;
-
+  timeLeft = 1;
   quizCodeForm: FormGroup;
 
 
@@ -87,6 +84,11 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
       this.nextQuestion(testcode, testid, questionnumber, cangoback);
     },
       err => {
+        if (err.status === 403 && err.error.message === 'Time has been finished'){
+          Swal.fire(this.translate.instant('oops'), this.translate.instant('timeOver'), 'error');
+          this.quizStarted = false;
+          this.quizCompleted = true;
+        }
         this.toast.showError('quiz.sendAnswerError');
       }
     );
@@ -141,6 +143,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
                 this.quizID = res.quizId;
                 this.testCode = testCode;
                 this.backPossible = res.backPossible;
+                this.timeLeft = Math.trunc(res.timeForTestInMilis / 1000),
                 this.startQuiz(res.quizId, testCode, this.currentQuestionNumber);
 
               } else if (swalStartQuiz.dismiss === Swal.DismissReason.cancel) {
@@ -187,16 +190,6 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
         // }
       }
     );
-  }
-
-  startTimer() {
-    this.interval = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        this.timeLeft = 60;
-      }
-    }, 1000);
   }
 
 }
