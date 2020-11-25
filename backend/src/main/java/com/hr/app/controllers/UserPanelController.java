@@ -2,6 +2,7 @@ package com.hr.app.controllers;
 
 import com.hr.app.models.database.HrAlertModel;
 import com.hr.app.models.database.MailingModel;
+import com.hr.app.models.database.TestParticipantModel;
 import com.hr.app.models.database.UsersModel;
 import com.hr.app.models.dto.ResponseTransfer;
 import com.hr.app.models.dto.UserPanelListOfAnnoncementsDto;
@@ -9,12 +10,12 @@ import com.hr.app.repositories.IHrAlertsRepository;
 import com.hr.app.repositories.IMailingRepository;
 import com.hr.app.repositories.IQuestionsRepository;
 import com.hr.app.repositories.IUsersRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -103,9 +104,9 @@ public class UserPanelController {
 
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
                 long testParticipantId = item.getFKhrAlertTestParticipant().getId();
-                boolean isEnded = questionsRepository.countByFKquestionTestId(
-                        item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()) <
-                        item.getFKhrAlertTestParticipant().getQuestionNumber() - 1;
+                boolean isEnded = quizIsEnded(item.getFKhrAlertTestParticipant().getQuestionNumber(),
+                        questionsRepository.countByFKquestionTestId(item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()),
+                        item.getFKhrAlertTestParticipant());
                 preparedItem = new UserPanelListOfAnnoncementsDto(testParticipantId, companyName, annoncementName,
                         item.getFKhrAlertTestParticipant().getCode(), isEnded);
             } else {
@@ -117,4 +118,25 @@ public class UserPanelController {
         return responseList;
     }
 
+    private boolean quizIsEnded(long questionNumber, long allQuestionNumber, TestParticipantModel testParticipantModel) {
+        if(questionNumber==0) {
+            return true;
+        }
+        if(questionNumber > allQuestionNumber) {
+            return true;
+        }
+        return !checkIfUserHasTimeLeftForThisQuiz(testParticipantModel);
+    }
+
+    private long getCurrentTimeInMilis() {
+        return ZonedDateTime.now().toInstant().toEpochMilli();
+    }
+
+    private boolean checkIfUserHasTimeLeftForThisQuiz(TestParticipantModel testParticipantModel) {
+        long currentTime = getCurrentTimeInMilis();
+        long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
+        long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
+
+        return  testStartTime + timeForTest > currentTime;
+    }
 }
