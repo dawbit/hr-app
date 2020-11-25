@@ -322,7 +322,7 @@ public class QuizController {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); //500
                 return new QuizCodeDto(ResponseEnum.SERVER_ERROR);
             }
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 

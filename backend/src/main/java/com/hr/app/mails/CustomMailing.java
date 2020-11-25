@@ -3,7 +3,6 @@ package com.hr.app.mails;
 import com.hr.app.models.database.UsersModel;
 import com.hr.app.repositories.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
@@ -22,7 +21,7 @@ public class CustomMailing {
 
 
     public void sendNewQuizCodeMessage(String to, String nickname, String announcementName, String code) {
-        if (isMailingNewQuiz()) {
+        if (isMailingNewQuiz(nickname)) {
             String subject = "[HR-APP][" + announcementName + "] New quiz has been assigned to your account!";
             Context context = new Context();
             context.setVariable("nickname", nickname);
@@ -41,12 +40,11 @@ public class CustomMailing {
         this.emailService.sendSimpleMessage(to, subject, text);
     }
 
-    private UsersModel getUserModel() {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        return usersRepository.findByLogin(name);
+    private UsersModel getUserModel(String nickname) {
+        return usersRepository.findByLogin(nickname);
     }
 
-    private boolean isMailingNewQuiz() {
-        return this.getUserModel().getFKuserMailing().getMailingNewQuiz();
+    private boolean isMailingNewQuiz(String nickname) {
+        return this.getUserModel(nickname).getFKuserMailing().getMailingNewQuiz();
     }
 }

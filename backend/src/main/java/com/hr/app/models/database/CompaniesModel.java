@@ -23,7 +23,7 @@ public class CompaniesModel {
     @Column(name = "about", nullable = false)
     private String about;
 
-    @Column(name = "image-url", nullable = true)
+    @Column(name = "image_url", nullable = true)
     private String imageUrl;
 
 
