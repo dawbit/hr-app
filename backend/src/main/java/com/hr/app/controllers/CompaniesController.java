@@ -1,12 +1,18 @@
 package com.hr.app.controllers;
 
+import com.hr.app.enums.FileType;
+import com.hr.app.ftp.FileStorageService;
+import com.hr.app.models.api_helpers.FileCorrectness;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.ResponseTransfer;
+import com.hr.app.models.dto.UploadFileResponse;
 import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -32,6 +38,9 @@ public class CompaniesController {
 
     @Autowired
     private IHrUsersRepository hrUsersRepository;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     //TODO paging
     @GetMapping("/companies/all")
@@ -140,6 +149,65 @@ public class CompaniesController {
             response.setStatus(HttpServletResponse.SC_NO_CONTENT); //204
         }
         return companyName;
+    }
+
+    @Transactional
+    @PostMapping(serviceUrlParam + "/upload-company-image")
+    Object uploadFile(@RequestParam("file") MultipartFile file, HttpServletResponse response) {
+        UsersModel currentUser;
+        CompaniesModel companiesModel;
+        try {
+            currentUser = getUsersModel();
+            CeosModel ceosModel = ceosRepository.findByFKceoUserId(currentUser.getId());
+            HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(currentUser.getId());
+            if(ceosModel != null) {
+                companiesModel = ceosModel.getFKceoCompany();
+            } else if(hrUsersModel== null) {
+                companiesModel = hrUsersModel.getFKhrUserCompany();
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("NOT_ALLOWED");
+            }
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+
+        if(file == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("File is required");
+        }
+        if(!(FileCorrectness.fileExtensionisCorrect(file, "jpg") || !FileCorrectness.fileExtensionisCorrect(file, "png"))) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("ONLY JPG AND PNG ALLOWED");
+        }
+        if(!FileCorrectness.fileSizeIsOk(file)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("File is too big");
+        }
+
+        String fileName;
+        String fileDownloadUri;
+
+        try {
+            fileName = fileStorageService.storeFile(file, companiesModel.getName(), FileType.COMPANY_IMAGE);
+
+            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/downloadFile/")
+                    .path(fileName)
+                    .toUriString();
+
+            companiesModel.setImageUrl(fileDownloadUri);
+            companiesRepository.save(companiesModel);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
     }
 
     private CompaniesModel getCompanyById(long id) {
