@@ -2,6 +2,8 @@ package com.hr.app.controllers;
 
 import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.AssignQuizDto;
+import com.hr.app.models.api_helpers.UserQuestionResultDto;
+import com.hr.app.models.api_helpers.UserQuizResultDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.HrAlertsDto;
 import com.hr.app.models.dto.ResponseTransfer;
@@ -56,6 +58,63 @@ public class HrPanelController {
     @Autowired
     private CustomMailing sendMail;
 
+    @Autowired
+    private ICeosRepository ceosRepository;
+
+    @Autowired
+    private IUserAnswerRepository userAnswerRepository;
+
+    @Autowired
+    private IAnswersRepository answersRepository;
+
+    @GetMapping(serviceUrlParam + "/user-result/{userId}/{quizId}")
+    public Object getuUserResult(HttpServletResponse response, @PathVariable long userId, @PathVariable long quizId) {
+        UsersModel currentUser = getUserModel();
+
+        try{
+            if(currentUser.getFKuserAccountTypes().getRoleId()==2) {
+                CeosModel ceosModel = ceosRepository.findByFKceoUserId(currentUser.getId());
+                if(ceosModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==3) {
+                HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(currentUser.getId());
+                if(hrUsersModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==4) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("FORBIDDEN");
+            }
+            TestsModel testsModel = testsRepository.findById(quizId);
+            if(testsModel==null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ResponseTransfer("QUIZ_NOT_FOUND");
+            }
+            List<QuestionsModel> questionsModelList = questionsRepository.findAllByFKquestionTestId(testsModel.getId());
+            ArrayList<UserQuestionResultDto> userQuestionResultDtoArrayList = new ArrayList<>();
+
+            for (QuestionsModel question: questionsModelList) {
+                int questionMaxPoints = getMaxQuestionPoints(question);
+                UserAnswersModel userAnswersModel = userAnswerRepository.findByFKquestionIduserAnswerIdAndFKuserIduserAnswerId(question.getId(), userId);
+                UserQuestionResultDto userQuestionResultDto = new UserQuestionResultDto(question.getText(), questionMaxPoints, userAnswersModel.getFKanswerIduserAnswer().getPoints(), userAnswersModel.getFKanswerIduserAnswer().getText());
+                userQuestionResultDtoArrayList.add(userQuestionResultDto);
+            }
+
+            return new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+    }
+
+    private String getUserLoginById(long userId) {
+        return usersRepository.findById(userId).getLogin();
+    }
 
     @GetMapping(serviceUrlParam + "/list-of-applications")
     public Object getListOfApplications(HttpServletResponse response) {
@@ -153,6 +212,16 @@ public class HrPanelController {
         }
     }
 
+    private int getMaxQuestionPoints(QuestionsModel questionsModel) {
+        List<AnswersModel> answersModelList = answersRepository.findAllByFKanswerQuestionId(questionsModel.getId());
+        int maxPoints = 0;
+        for (AnswersModel answer: answersModelList) {
+            if(answer.getPoints() > maxPoints) {
+                maxPoints = answer.getPoints();
+            }
+        }
+        return maxPoints;
+    }
 
     private UsersModel getUserModel() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
