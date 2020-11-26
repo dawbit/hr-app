@@ -153,7 +153,9 @@
     "jobOfferAdded": "Your job offer has been correctly added to our database!",
     "jobOfferNotAdded": "An error occurred while adding the company to our database",
     "quizAssigned": "Test has been assigned succesfully",
-    "quizNotAssighned": "An error occured while assigning the test, check all fields"
+    "quizNotAssighned": "An error occured while assigning the test, check all fields",
+    "quizAlreadyFinished": "You have already finished this test!",
+    "error": "An error occured!"
   },
   "middle-name": "Middle name",
   "my-account": {

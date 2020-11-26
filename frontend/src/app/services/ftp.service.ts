@@ -22,8 +22,13 @@ getAfuConfig(){
     formatsAllowed: '.pdf',
     maxSize: '5',
     theme: 'dragNDrop',
+
     uploadAPI: {
-      url: this.baseUrl + '/uploadCv'
+      url: this.baseUrl + '/uploadCv',
+      headers: {
+        'content-Type': 'multipart/form-data',
+        boundary: 'file'
+      }
     },
     replaceTexts: {
       selectFileBtn: this.translate.instant('cvs.selectFileBtn'),

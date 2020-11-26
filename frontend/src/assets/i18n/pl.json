@@ -153,7 +153,9 @@
     "jobOfferAdded": "Twoja oferta pracy została poprawnie dodana do naszej bazy!",
     "jobOfferNotAdded": "Wystąpił błąd podczas dodawania oferty do naszej bazy",
     "quizAssigned": "Test został przypisany pomyślnie",
-    "quizNotAssighned": "Coś poszło nie tak podczas przypisywania testu, sprawdź wszystkie pola"
+    "quizNotAssighned": "Coś poszło nie tak podczas przypisywania testu, sprawdź wszystkie pola",
+    "quizAlreadyFinished": "Już ukończyłeś ten test!",
+    "error": "Wystąpił błąd!"
   },
   "middle-name": "Drugie imię",
   "my-account": {

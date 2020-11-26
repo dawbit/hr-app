@@ -183,11 +183,11 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
         }
       },
       err => {
-        // if (err && err.status === 409) {
-        //   this.toast.showWarning('message.userAlreadyExists');
-        // } else {
-        //   this.toast.showError('message.notRegistered');
-        // }
+         if (err && err.status === 400) {
+           this.toast.showWarning('message.quizAlreadyFinished');
+         } else {
+           this.toast.showError('message.error');
+         }
       }
     );
   }
