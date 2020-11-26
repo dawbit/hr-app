@@ -57,6 +57,23 @@ public class QuizController {
         UsersModel usersModel;
         HrUsersModel hrUsersModel;
         String newQuizName;
+
+        if(addQuizCommandDto.getListOfQuestionCommandDto().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new ResponseTransfer("ZERO_QUESTIONS");
+        }
+
+        for (AddQuestionCommandDto questionCommandDto: addQuizCommandDto.getListOfQuestionCommandDto()) {
+            if(questionCommandDto.getQuestionsModel()==null) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return new ResponseTransfer("ONE_OF_QUESTIONS_IS_EMPTY");
+            }
+            if(questionCommandDto.getAnswersModel().size() <2 ) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return new ResponseTransfer("EACH_QUESTION_NEEDS_AT_LEAST_TWO_ANSWERS");
+            }
+        }
+
         try {
             usersModel = getUserModel();
             hrUsersModel = getHrUsersModel(usersModel.getId());
