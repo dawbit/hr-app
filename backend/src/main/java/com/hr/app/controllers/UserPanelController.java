@@ -137,6 +137,10 @@ public class UserPanelController {
         long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
         long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
 
+        if(testStartTime == 0) {
+            return true;
+        }
+
         return  testStartTime + timeForTest > currentTime;
     }
 }
