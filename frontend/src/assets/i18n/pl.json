@@ -162,6 +162,8 @@
     "basic": "Moje konto",
     "edit": "Edytuj konto",
     "editPassword": "Zmień hasło",
+    "editPhone": "Zmień numer telefonu",
+    "editEmail": "Zmień email",
     "mailSubscription": "Subskrypcje e-mail",
     "mailSubscriptionChanged": "Edycja subskrypcji przebiegła pomyślnie!",
     "cv": "Dodaj cv"

@@ -1,3 +1,6 @@
+import { ChangeUserPhoneNumberComponent } from './components/panels/account-settings/change-user-phone-number/change-user-phone-number.component';
+import { ChangeUserPasswordComponent } from './components/panels/account-settings/change-user-password/change-user-password.component';
+import { ChangeUserEmailComponent } from './components/panels/account-settings/change-user-email/change-user-email.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -123,7 +126,10 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     MailSubscriptionComponent,
     UserListOfApplicationsComponent,
     DeleteFromHrComponent,
-    CvUploadComponent
+    CvUploadComponent,
+    ChangeUserEmailComponent,
+    ChangeUserPasswordComponent,
+    ChangeUserPhoneNumberComponent
   ],
   imports: [
     BrowserModule,
