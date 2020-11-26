@@ -2,6 +2,7 @@ package com.hr.app.models.database;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hr.app.models.api_helpers.RegisterCommandDto;
 import com.hr.app.models.dto.UserResultDto;
 
 import javax.persistence.*;
@@ -34,6 +35,9 @@ public class UsersModel {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "avatar")
+    private String avatarUrl;
 
     @Column(name = "login", unique = true, nullable = false)
     @Size(min = 8)
@@ -98,6 +102,15 @@ public class UsersModel {
     // =========================================
     // GETTERS, SETTERS, CONSTRUCTORS
     // =========================================
+
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public void setListOfcvsModels(List<CvsModel> listOfcvsModels) {
         this.listOfcvsModels = listOfcvsModels;
@@ -228,7 +241,8 @@ public class UsersModel {
     public UsersModel(String firstName, String middleName, String surname, String email, String phoneNumber,
                       String login, String password, AccountTypesModel FKuserAccountTypes, Boolean isActive,
                       List<ProfilePicturesModel> profilePictures, List<CeosModel> ceo, List<TestsModel> tests,
-                      List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers, MailingModel FKuserMailing) {
+                      List<UserAnswersModel> userAnswers, List<HrUsersModel> hrUsers, MailingModel FKuserMailing,
+                      String avatarUrl) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.surname = surname;
@@ -244,6 +258,7 @@ public class UsersModel {
         this.userAnswers = userAnswers;
         this.hrUsers = hrUsers;
         this.FKuserMailing = FKuserMailing;
+        this.avatarUrl = avatarUrl;
     }
 
     public UsersModel(UserResultDto userResultDto){
@@ -255,5 +270,16 @@ public class UsersModel {
         this.phoneNumber = userResultDto.getPhoneNumber();
         this.login = userResultDto.getLogin();
         this.isActive = userResultDto.isActive();
+    }
+
+    public UsersModel(RegisterCommandDto registerCommandDto) {
+        this.password = registerCommandDto.getPassword();
+        this.email = registerCommandDto.getEmail();
+        this.firstName = registerCommandDto.getFirstName();
+        this.middleName = registerCommandDto.getMiddleName();
+        this.phoneNumber = registerCommandDto.getPhoneNumber();
+        this.surname = registerCommandDto.getSurname();
+        this.login = registerCommandDto.getLogin();
+        this.isActive = true;
     }
 }

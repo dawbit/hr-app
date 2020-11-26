@@ -120,7 +120,10 @@ public class HrPanelController {
                 hrAlertModel.setFKhrAlertTestParticipant(testParticipantModelSaved);
                 hrAlertModel.setRead(true);
                 hrAlertsRepository.saveAndFlush(hrAlertModel);
-
+                if(Objects.isNull(testParticipantModelSaved.getFKtestCodeuser().getFKuserMailing())) {
+                    testParticipantModelSaved.getFKtestCodeuser().setFKuserMailing(new MailingModel());
+                    usersRepository.save(testParticipantModelSaved.getFKtestCodeuser());
+                }
                 // sprawdzanie, czy wszystkie pola wymagane dla mailingu znajdują się w bazie
                 if (!Stream.of(testParticipantModelSaved.getFKtestCodeuser(),
                         testParticipantModelSaved.getFKtestCodeuser().getEmail(),
