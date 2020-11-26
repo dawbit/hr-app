@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,9 @@ public class HrPanelController {
 
     @Autowired
     private ITestParticipantRepository testParticipantRepository;
+
+    @Autowired
+    private IQuestionsRepository questionsRepository;
 
     @Autowired
     private ITestsRepository testsRepository;
@@ -170,7 +174,7 @@ public class HrPanelController {
             }
             SimplyUserDto user = new SimplyUserDto(item.getFKhrAlertUser().getId(), item.getFKhrAlertUser().getLogin(), cvUrl);
             SimplyQuizInfoDto quizInfo = new SimplyQuizInfoDto();
-
+            boolean isEnded =false;
             // zakładamy, że przy przypisaniu quizu do użytkownika, od razu przypisujemy też do niego
             // unikalny kod do uruchomienia quizu.
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
@@ -179,10 +183,13 @@ public class HrPanelController {
                         item.getFKhrAlertTestParticipant().getFKtestCodetest().getName(),
                         item.getFKhrAlertTestParticipant().getCode()
                 );
+                isEnded = quizIsEnded(item.getFKhrAlertTestParticipant().getQuestionNumber(),
+                        questionsRepository.countByFKquestionTestId(item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()),
+                        item.getFKhrAlertTestParticipant());
             }
 
             HrAlertsDto preparedItem = new HrAlertsDto(item.getId(), item.getFKhrAlertAnnouncement().getId(), item.getFKhrAlertAnnouncement().getTitle(), user,
-                    quizInfo);
+                    quizInfo, isEnded);
             responseList.add(preparedItem);
         }
         return responseList;
@@ -195,6 +202,28 @@ public class HrPanelController {
         if (Objects.nonNull(testParticipantRepository.findByCode(code)))
             return generateRandomCode(basicCode, testId, announcementId, login);
         else return code;
+    }
+
+    private boolean quizIsEnded(long questionNumber, long allQuestionNumber, TestParticipantModel testParticipantModel) {
+        if(questionNumber==0) {
+            return true;
+        }
+        if(questionNumber > allQuestionNumber) {
+            return true;
+        }
+        return !checkIfUserHasTimeLeftForThisQuiz(testParticipantModel);
+    }
+
+    private long getCurrentTimeInMilis() {
+        return ZonedDateTime.now().toInstant().toEpochMilli();
+    }
+
+    private boolean checkIfUserHasTimeLeftForThisQuiz(TestParticipantModel testParticipantModel) {
+        long currentTime = getCurrentTimeInMilis();
+        long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
+        long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
+
+        return  testStartTime + timeForTest > currentTime;
     }
 
 }

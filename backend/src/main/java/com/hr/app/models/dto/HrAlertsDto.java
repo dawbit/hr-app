@@ -3,9 +3,18 @@ package com.hr.app.models.dto;
 public class HrAlertsDto {
     private long alertId;
     private long announcementId;
+    private boolean isEnded;
     private String announcementTitle;
     private SimplyUserDto simplyUserDto;
     private SimplyQuizInfoDto simplyQuizInfoDto;
+
+    public boolean isEnded() {
+        return isEnded;
+    }
+
+    public void setEnded(boolean ended) {
+        isEnded = ended;
+    }
 
     public long getAlertId() {
         return alertId;
@@ -51,11 +60,12 @@ public class HrAlertsDto {
     }
 
     public HrAlertsDto(long alertId, long announcementId, String announcementTitle, SimplyUserDto simplyUserDto,
-                       SimplyQuizInfoDto simplyQuizInfoDto) {
+                       SimplyQuizInfoDto simplyQuizInfoDto, boolean isEnded) {
         this.alertId = alertId;
         this.announcementId = announcementId;
         this.announcementTitle = announcementTitle;
         this.simplyUserDto = simplyUserDto;
         this.simplyQuizInfoDto = simplyQuizInfoDto;
+        this.isEnded = isEnded;
     }
 }
