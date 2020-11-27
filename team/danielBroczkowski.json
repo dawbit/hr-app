@@ -1,10 +1,10 @@
 {
-      "name": "Dawid Bitner",
-	  "mail": "dawbitner@gmail.com",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Jaros%C5%82aw_Kaczy%C5%84ski%2C_wicepremier_%28cropped%29.png",
-      "position": "XXX",
-      "description": "blbabla",
+      "name": "Daniel Broczkowski",
+	  "mail": "broczkowski.dan@gmail.com",
+      "photo": "https://www.w3schools.com/w3css/img_avatar3.png",
+      "position": "Frontend developer",
+      "description": "Cześć, jestem Daniel, interesuję się wszystkim po trochu i niczym do porządku. Odpowiadam za część webową tej aplikacji.",
       "socialMedia": {
-        "linkedin": "XXX"
+        "github": "DanielBroczkowski"
       }
     }

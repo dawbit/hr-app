@@ -1,10 +1,12 @@
 {
       "name": "Dawid Bitner",
 	  "mail": "dawbitner@gmail.com",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Jaros%C5%82aw_Kaczy%C5%84ski%2C_wicepremier_%28cropped%29.png",
-      "position": "XXX",
-      "description": "blbabla",
+      "photo": "https://scontent.fktw2-1.fna.fbcdn.net/v/t1.0-9/61186632_2344749098916323_283989538328543232_o.jpg?_nc_cat=104&ccb=2&_nc_sid=09cbfe&_nc_ohc=TIp4ZV6MgqcAX-EkhS6&_nc_ht=scontent.fktw2-1.fna&oh=fb2e70baa91447e8711507e701f1520e&oe=5FE3484C",
+      "position": "Fullstack developer",
+      "description": "Hej, a aplikacji odpowiadam za część aplikacji webowej, oraz za aplikację serwerową. Na co dzień pracuję w WASKO.",
       "socialMedia": {
-        "linkedin": "XXX"
+        "facebook": "dawid.bitner",
+		"linkedin": "dawid-bitner",
+		"github": "dawbitner"
       }
     }
