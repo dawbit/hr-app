@@ -166,7 +166,16 @@
     "editEmail": "Edit email",
     "mailSubscription": "E-mail subscription",
     "mailSubscriptionChanged": "The subscription edition went smoothly!",
-    "cv": "Add cv"
+    "cv": "Add cv",
+    "password": "Password",
+    "email": "Email",
+    "newEmail": "New email",
+    "newPassword": "New password",
+    "phoneNumber": "Phone number",
+    "newPhoneNumber": "New phone number",
+    "confirmNewPassword": "Confirm new password",
+    "confirmNewEmail": "Confirm new email",
+    "confirmNewPhoneNumber": "Confirm new phone number"
   },
   "no": "No",
   "not-a-member": "Not a member?",

@@ -1,6 +1,7 @@
 import { UserService } from './../../../../services/user.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { MustMatch } from 'src/app/helpers/must-match';
 
 @Component({
   selector: 'app-change-user-email',
@@ -17,10 +18,14 @@ export class ChangeUserEmailComponent implements OnInit {
 
   ngOnInit() {
     this.changeEmailForm = this.fb.group({
-      password: [''],
-      newEmail: [''],
-    });
+      password: ['', [Validators.required]],
+      newEmail: ['', [Validators.required, Validators.email]],
+      newEmailConfirmation: ['', [Validators.required, Validators.email]]
+    }, { validator: [MustMatch('newEmail', 'newEmailConfirmation')] });
   }
+
+
+  get form() { return this.changeEmailForm.controls; }
 
   changeEmail(){
     this.userService.changeUserEmail(this.changeEmailForm.value).subscribe(res => {

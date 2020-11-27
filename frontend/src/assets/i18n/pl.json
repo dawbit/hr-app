@@ -166,7 +166,16 @@
     "editEmail": "Zmień email",
     "mailSubscription": "Subskrypcje e-mail",
     "mailSubscriptionChanged": "Edycja subskrypcji przebiegła pomyślnie!",
-    "cv": "Dodaj cv"
+    "cv": "Dodaj cv",
+    "password": "Hasło",
+    "email": "Email",
+    "newEmail": "Nowy email",
+    "newPassword": "Nowe hasło",
+    "phoneNumber": "Numer telefonu",
+    "newPhoneNumber": "Nowy numer telefonu",
+    "confirmNewPassword": "Potwierdź nowe hasło",
+    "confirmNewEmail": "Potwierdź nowy adres email",
+    "confirmNewPhoneNumber": "Potwierdź nowy numer telefonu"
   },
   "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",
