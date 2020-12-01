@@ -184,7 +184,8 @@
     "emailMustMatch": "Email addresses are not the same",
     "emailInvalid": "Email address is not valid",
     "phoneNumberMinimumLength": "Phone number must consists of minimum 9 digits",
-    "phoneNumberMustMatch": "Phone numbers are not the same"
+    "phoneNumberMustMatch": "Phone numbers are not the same",
+    "hello": "Hello "
   },
   "no": "No",
   "not-a-member": "Not a member?",

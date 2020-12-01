@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
 
   isLogged = this.tokenStorage.isAuthenticated();
   userRole = this.tokenStorage.getRole();
+  userLogin = this.tokenStorage.getUser();
 
   ngOnInit(): void {
     if (this.isLogged) {

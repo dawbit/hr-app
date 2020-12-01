@@ -184,7 +184,8 @@
     "emailMustMatch": "Adresy email się nie zgadzają",
     "emailInvalid": "Niepoprawny adres email",
     "phoneNumberMinimumLength": "Numer telefonu musi składać się z minimum 9 cyfr",
-    "phoneNumberMustMatch": "Numery telefonu się nie zgadzają"
+    "phoneNumberMustMatch": "Numery telefonu się nie zgadzają",
+    "hello": "Witaj "
   },
   "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",
