@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../services/toast.service';
 import { UserService } from './../../../../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,12 +14,13 @@ export class ChangeUserEmailComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
     this.changeEmailForm = this.fb.group({
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       newEmail: ['', [Validators.required, Validators.email]],
       newEmailConfirmation: ['', [Validators.required, Validators.email]]
     }, { validator: [MustMatch('newEmail', 'newEmailConfirmation')] });
@@ -29,10 +31,10 @@ export class ChangeUserEmailComponent implements OnInit {
 
   changeEmail(){
     this.userService.changeUserEmail(this.changeEmailForm.value).subscribe(res => {
-      console.log('jupi');
+      this.toast.showSuccess('message.success');
     },
     err => {
-      console.log(err);
+      this.toast.showSuccess('message.error');
     }
     );
   }

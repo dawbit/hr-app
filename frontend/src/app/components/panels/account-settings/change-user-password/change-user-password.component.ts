@@ -1,6 +1,8 @@
 import { UserService } from './../../../../services/user.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { MustMatch } from 'src/app/helpers/must-match';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-change-user-password',
@@ -12,22 +14,27 @@ export class ChangeUserPasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private toast: ToastService
   ) { }
+
 
   ngOnInit() {
     this.changePasswordForm = this.fb.group({
-      password: [''],
-      newPassword: [''],
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPasswordConfirmation: ['', [Validators.required]]
+    }, { validator: [MustMatch('newPassword', 'newPasswordConfirmation')] });
   }
 
-  changePassword(){
+  get form() { return this.changePasswordForm.controls; }
+
+  changePassword() {
     this.userService.changeUserPassword(this.changePasswordForm.value).subscribe(res => {
-      console.log('jupi');
+      this.toast.showSuccess('message.success');
     },
     err => {
-      console.log(err);
+      this.toast.showSuccess('message.error');
     }
     );
   }

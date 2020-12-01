@@ -155,7 +155,8 @@
     "quizAssigned": "Test został przypisany pomyślnie",
     "quizNotAssighned": "Coś poszło nie tak podczas przypisywania testu, sprawdź wszystkie pola",
     "quizAlreadyFinished": "Już ukończyłeś ten test!",
-    "error": "Wystąpił błąd!"
+    "error": "Wystąpił błąd!",
+    "success": "Sukces!"
   },
   "middle-name": "Drugie imię",
   "my-account": {
@@ -175,7 +176,15 @@
     "newPhoneNumber": "Nowy numer telefonu",
     "confirmNewPassword": "Potwierdź nowe hasło",
     "confirmNewEmail": "Potwierdź nowy adres email",
-    "confirmNewPhoneNumber": "Potwierdź nowy numer telefonu"
+    "confirmNewPhoneNumber": "Potwierdź nowy numer telefonu",
+    "submit": "Wyślij",
+    "passwordMinLength": "Hasło musi zawierać minimum 6 znaków",
+    "passwordMustMatch": "Hasła się nie zgadzają",
+    "emailRequired": "Adres email jest wymagany",
+    "emailMustMatch": "Adresy email się nie zgadzają",
+    "emailInvalid": "Niepoprawny adres email",
+    "phoneNumberMinimumLength": "Numer telefonu musi składać się z minimum 9 cyfr",
+    "phoneNumberMustMatch": "Numery telefonu się nie zgadzają"
   },
   "no": "Nie",
   "not-a-member": "Nie masz jeszcze konta?",

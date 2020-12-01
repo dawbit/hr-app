@@ -155,7 +155,8 @@
     "quizAssigned": "Test has been assigned succesfully",
     "quizNotAssighned": "An error occured while assigning the test, check all fields",
     "quizAlreadyFinished": "You have already finished this test!",
-    "error": "An error occured!"
+    "error": "An error occured!",
+    "success": "Success!"
   },
   "middle-name": "Middle name",
   "my-account": {
@@ -175,7 +176,15 @@
     "newPhoneNumber": "New phone number",
     "confirmNewPassword": "Confirm new password",
     "confirmNewEmail": "Confirm new email",
-    "confirmNewPhoneNumber": "Confirm new phone number"
+    "confirmNewPhoneNumber": "Confirm new phone number",
+    "submit": "Submit",
+    "passwordMinLength": "Password has to has minimum 6 chatacters",
+    "passwordMustMatch": "Passwords are not the same",
+    "emailRequired": "Email address is required",
+    "emailMustMatch": "Email addresses are not the same",
+    "emailInvalid": "Email address is not valid",
+    "phoneNumberMinimumLength": "Phone number must consists of minimum 9 digits",
+    "phoneNumberMustMatch": "Phone numbers are not the same"
   },
   "no": "No",
   "not-a-member": "Not a member?",

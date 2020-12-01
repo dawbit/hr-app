@@ -4,23 +4,17 @@
     <input mdbInput type="password" class="form-control" formControlName="password" id="password">
     <label for="password">{{'my-account.password' | translate}}</label>
     <mdb-error *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
-      {{'password-required' | translate}}
+      {{'my-account.passwordMinLength' | translate}}
     </mdb-error>
-    <mdb-success *ngIf="form.password.valid && (form.password.dirty || form.password.touched)">
-      {{'password-valid' | translate}}
-    </mdb-success>
   </div>
 
   <div class="md-form mt-0">
     <input mdbInput type="email" class="form-control" formControlName="newEmail" id="newEmail">
     <label for="newEmail">{{'my-account.newEmail' | translate}}</label>
     <mdb-error *ngIf="form.newEmail.invalid && (form.newEmail.dirty || form.newEmail.touched)">
-      <span *ngIf="form.newEmail.errors.required">{{'e-mail-required' | translate}}</span>
-      <span *ngIf="form.newEmail.errors.email">{{'e-mail-invalid' | translate}}</span>
+      <span *ngIf="form.newEmail.errors.required">{{'my-account.emailRequired' | translate}}</span>
+      <span *ngIf="form.newEmail.errors.email">{{'my-account.emailInvalid' | translate}}</span>
     </mdb-error>
-    <mdb-success *ngIf="form.newEmail.valid && (form.newEmail.dirty || form.newEmail.touched)">
-      {{'e-mail-valid' | translate}}
-    </mdb-success>
   </div>
 
   <div class="md-form mt-0">
@@ -30,15 +24,11 @@
       *ngIf="form.newEmailConfirmation.invalid && (form.newEmailConfirmation.dirty || form.newEmailConfirmation.touched)">
       <span *ngIf="form.newEmailConfirmation.errors.required">{{'e-mail-required' | translate}}</span>
       <span
-        *ngIf="form.newEmailConfirmation.errors.email && !form.newEmailConfirmation.errors.mustMatch">{{'e-mail-invalid' | translate}}</span>
+        *ngIf="form.newEmailConfirmation.errors.email && !form.newEmailConfirmation.errors.mustMatch">{{'my-account.emailInvalid' | translate}}</span>
       <span
-        *ngIf="form.newEmailConfirmation.errors.mustMatch && !form.newEmailConfirmation.errors.email">{{'e-mail-must-match' | translate}}</span>
+        *ngIf="form.newEmailConfirmation.errors.mustMatch && !form.newEmailConfirmation.errors.email">{{'my-account.emailMustMatch' | translate}}</span>
     </mdb-error>
-    <mdb-success
-      *ngIf="form.newEmailConfirmation.valid && (form.newEmailConfirmation.dirty || form.newEmailConfirmation.touched)">
-      {{'e-mail-valid' | translate}}
-    </mdb-success>
   </div>
 
-  <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
+  <button class="btn btn-info btn-block my-4" type="submit" [disabled]="!changeEmailForm.valid">{{"my-account.submit" | translate}}</button>
 </form>

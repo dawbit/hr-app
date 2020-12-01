@@ -1,13 +1,31 @@
 <form [formGroup]="changePhoneNumberForm" class="text-center" style="color: #757575;" (ngSubmit)="changePhoneNumber()">
-  <div>
-    <input type="password" class="form-control" formControlName="password">
-    <label for="password">Password</label>
+
+  <div class="md-form mt-0">
+    <input mdbInput type="password" class="form-control" formControlName="password">
+    <label for="password">{{"my-account.password" | translate}}</label>
+    <mdb-error *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+      {{'my-account.passwordMinLength' | translate}}
+    </mdb-error>
   </div>
 
-  <div>
-    <input type="email" class="form-control" formControlName="phoneNumber">
-    <label for="phoneNumber">New phone number</label>
+  <div class="md-form mt-0">
+    <input mdbInput type="text" class="form-control" formControlName="newPhoneNumber">
+    <label for="newPhoneNumber">{{"my-account.newPhoneNumber" | translate}}</label>
+    <mdb-error *ngIf="form.newPhoneNumber.invalid && (form.newPhoneNumber.dirty || form.newPhoneNumber.touched)">
+      <span> {{'my-account.phoneNumberMinimumLength' | translate}} </span>
+    </mdb-error>
   </div>
 
-  <button type="submit">Submit</button>
+  <div class="md-form mt-0">
+    <input mdbInput type="text" class="form-control" formControlName="newPhoneNumberConfirmation">
+    <label for="newPhoneNumberConfirmation">{{"my-account.confirmNewPhoneNumber" | translate}}</label>
+    <mdb-error
+      *ngIf="form.newPhoneNumberConfirmation.invalid && (form.newPhoneNumberConfirmation.dirty || form.newPhoneNumberConfirmation.touched)">
+      <span *ngIf="form.newPhoneNumberConfirmation.errors.required">{{'my-account.phoneNumberMinimumLength' | translate}}</span>
+      <span
+        *ngIf="form.newPhoneNumberConfirmation.errors.mustMatch && !form.newPhoneNumberConfirmation.errors.email">{{'my-account.phoneNumberMustMatch' | translate}}</span>
+    </mdb-error>
+  </div>
+
+  <button class="btn btn-info btn-block my-4" type="submit" [disabled]="!changePhoneNumberForm.valid">{{"my-account.submit" | translate}}</button>
 </form>
