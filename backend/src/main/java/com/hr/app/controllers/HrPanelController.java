@@ -2,6 +2,8 @@ package com.hr.app.controllers;
 
 import com.hr.app.mails.CustomMailing;
 import com.hr.app.models.api_helpers.AssignQuizDto;
+import com.hr.app.models.api_helpers.UserQuestionResultDto;
+import com.hr.app.models.api_helpers.UserQuizResultDto;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.HrAlertsDto;
 import com.hr.app.models.dto.ResponseTransfer;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +47,9 @@ public class HrPanelController {
     private ITestParticipantRepository testParticipantRepository;
 
     @Autowired
+    private IQuestionsRepository questionsRepository;
+
+    @Autowired
     private ITestsRepository testsRepository;
 
     @Autowired
@@ -52,6 +58,63 @@ public class HrPanelController {
     @Autowired
     private CustomMailing sendMail;
 
+    @Autowired
+    private ICeosRepository ceosRepository;
+
+    @Autowired
+    private IUserAnswerRepository userAnswerRepository;
+
+    @Autowired
+    private IAnswersRepository answersRepository;
+
+    @GetMapping(serviceUrlParam + "/user-result/{userId}/{quizId}")
+    public Object getuUserResult(HttpServletResponse response, @PathVariable long userId, @PathVariable long quizId) {
+        UsersModel currentUser = getUserModel();
+
+        try{
+            if(currentUser.getFKuserAccountTypes().getRoleId()==2) {
+                CeosModel ceosModel = ceosRepository.findByFKceoUserId(currentUser.getId());
+                if(ceosModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==3) {
+                HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(currentUser.getId());
+                if(hrUsersModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==4) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("FORBIDDEN");
+            }
+            TestsModel testsModel = testsRepository.findById(quizId);
+            if(testsModel==null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ResponseTransfer("QUIZ_NOT_FOUND");
+            }
+            List<QuestionsModel> questionsModelList = questionsRepository.findAllByFKquestionTestId(testsModel.getId());
+            ArrayList<UserQuestionResultDto> userQuestionResultDtoArrayList = new ArrayList<>();
+
+            for (QuestionsModel question: questionsModelList) {
+                int questionMaxPoints = getMaxQuestionPoints(question);
+                UserAnswersModel userAnswersModel = userAnswerRepository.findByFKquestionIduserAnswerIdAndFKuserIduserAnswerId(question.getId(), userId);
+                UserQuestionResultDto userQuestionResultDto = new UserQuestionResultDto(question.getText(), questionMaxPoints, userAnswersModel.getFKanswerIduserAnswer().getPoints(), userAnswersModel.getFKanswerIduserAnswer().getText());
+                userQuestionResultDtoArrayList.add(userQuestionResultDto);
+            }
+
+            return new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+    }
+
+    private String getUserLoginById(long userId) {
+        return usersRepository.findById(userId).getLogin();
+    }
 
     @GetMapping(serviceUrlParam + "/list-of-applications")
     public Object getListOfApplications(HttpServletResponse response) {
@@ -149,6 +212,16 @@ public class HrPanelController {
         }
     }
 
+    private int getMaxQuestionPoints(QuestionsModel questionsModel) {
+        List<AnswersModel> answersModelList = answersRepository.findAllByFKanswerQuestionId(questionsModel.getId());
+        int maxPoints = 0;
+        for (AnswersModel answer: answersModelList) {
+            if(answer.getPoints() > maxPoints) {
+                maxPoints = answer.getPoints();
+            }
+        }
+        return maxPoints;
+    }
 
     private UsersModel getUserModel() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -170,7 +243,7 @@ public class HrPanelController {
             }
             SimplyUserDto user = new SimplyUserDto(item.getFKhrAlertUser().getId(), item.getFKhrAlertUser().getLogin(), cvUrl);
             SimplyQuizInfoDto quizInfo = new SimplyQuizInfoDto();
-
+            boolean isEnded =false;
             // zakładamy, że przy przypisaniu quizu do użytkownika, od razu przypisujemy też do niego
             // unikalny kod do uruchomienia quizu.
             if (!Objects.isNull(item.getFKhrAlertTestParticipant())) {
@@ -179,10 +252,13 @@ public class HrPanelController {
                         item.getFKhrAlertTestParticipant().getFKtestCodetest().getName(),
                         item.getFKhrAlertTestParticipant().getCode()
                 );
+                isEnded = quizIsEnded(item.getFKhrAlertTestParticipant().getQuestionNumber(),
+                        questionsRepository.countByFKquestionTestId(item.getFKhrAlertTestParticipant().getFKtestCodetest().getId()),
+                        item.getFKhrAlertTestParticipant());
             }
 
             HrAlertsDto preparedItem = new HrAlertsDto(item.getId(), item.getFKhrAlertAnnouncement().getId(), item.getFKhrAlertAnnouncement().getTitle(), user,
-                    quizInfo);
+                    quizInfo, isEnded);
             responseList.add(preparedItem);
         }
         return responseList;
@@ -195,6 +271,32 @@ public class HrPanelController {
         if (Objects.nonNull(testParticipantRepository.findByCode(code)))
             return generateRandomCode(basicCode, testId, announcementId, login);
         else return code;
+    }
+
+    private boolean quizIsEnded(long questionNumber, long allQuestionNumber, TestParticipantModel testParticipantModel) {
+        if(questionNumber==0) {
+            return true;
+        }
+        if(questionNumber > allQuestionNumber) {
+            return true;
+        }
+        return !checkIfUserHasTimeLeftForThisQuiz(testParticipantModel);
+    }
+
+    private long getCurrentTimeInMilis() {
+        return ZonedDateTime.now().toInstant().toEpochMilli();
+    }
+
+    private boolean checkIfUserHasTimeLeftForThisQuiz(TestParticipantModel testParticipantModel) {
+        long currentTime = getCurrentTimeInMilis();
+        long testStartTime = testParticipantModel.getStartQuizTimeInMilis();
+        long timeForTest = testParticipantModel.getFKtestCodetest().getTimeForTestInMilis();
+
+        if(testStartTime == 0) {
+            return true;
+        }
+
+        return  testStartTime + timeForTest > currentTime;
     }
 
 }
