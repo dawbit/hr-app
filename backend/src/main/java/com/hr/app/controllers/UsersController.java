@@ -13,6 +13,7 @@ import com.hr.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -160,7 +161,9 @@ public class UsersController {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return new ResponseTransfer("WRONG_PASSWORD");
             }
-            currentUser.setPassword(changePasswordCommandDto.getNewPassword());
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String newPasswordEncoded = bCryptPasswordEncoder.encode(changePasswordCommandDto.getNewPassword());
+            currentUser.setPassword(newPasswordEncoded);
             response.setStatus(HttpServletResponse.SC_OK);
             usersRepository.save(currentUser);
             return new ResponseTransfer("SUCCESS");
