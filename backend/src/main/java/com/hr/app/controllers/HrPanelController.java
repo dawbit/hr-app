@@ -104,8 +104,10 @@ public class HrPanelController {
                 UserQuestionResultDto userQuestionResultDto = new UserQuestionResultDto(question.getText(), questionMaxPoints, userAnswersModel.getFKanswerIduserAnswer().getPoints(), userAnswersModel.getFKanswerIduserAnswer().getText());
                 userQuestionResultDtoArrayList.add(userQuestionResultDto);
             }
+            UserQuizResultDto userQuizResultDto = new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+            userQuizResultDto.sumUpPoints();
 
-            return new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+            return userQuizResultDto;
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
