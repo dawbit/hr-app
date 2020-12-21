@@ -55,24 +55,10 @@ class _AnnouncementSearchViewState extends State<AnnouncementSearchView> {
                             stream: _announcementsBloc
                                 .announcementsResponseObservable,
                             builder: (context, snapshotData) {
-                              if (!snapshotData.hasData) {
-                                return Container();
-                              }
-                              else {
-                                if (snapshotData.data.length > 0) {
-                                  return Visibility(
-                                    visible: snapshotState.data == RequestState.OK,
-                                    child: ListView.builder(
-                                        itemCount: snapshotData.data.length,
-                                        itemBuilder: (_, index) =>
-                                            AnnouncementCardWidget(
-                                                data: snapshotData.data[index])
-                                    ),
-                                  );
-                                } else {
-                                  return NoDataWidget();
-                                }
-                              }
+                              return Visibility(
+                                  visible: snapshotState.data == RequestState.OK,
+                                  child: okView(snapshotData)
+                              );
                             }
                         ),
                       ),
@@ -97,6 +83,24 @@ class _AnnouncementSearchViewState extends State<AnnouncementSearchView> {
         )
       ],
     );
+  }
+
+  Widget okView(AsyncSnapshot snapshotData) {
+    if (!snapshotData.hasData) {
+      return Container();
+    }
+    else {
+      if (snapshotData.data.length > 0) {
+        return ListView.builder(
+            itemCount: snapshotData.data.length,
+            itemBuilder: (_, index) =>
+                AnnouncementCardWidget(
+                    data: snapshotData.data[index])
+        );
+      } else {
+        return NoDataWidget();
+      }
+    }
   }
 
   Widget errorWidget(ErrorType errorType) {

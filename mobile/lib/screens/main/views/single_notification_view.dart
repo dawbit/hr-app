@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/user_panel_list_of_annoncements_dto.dart';
 import 'package:mobile/screens/main/widgets/test_code_warning_dialog.dart';
 
@@ -38,7 +39,7 @@ class SingleNotificationView extends StatelessWidget {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("Firma: ${userPanelListOfAnnoncementsDto.companyName}", textAlign: TextAlign.start,)
+                                    child: Text("${Lang.of(context).translate("company")}: ${userPanelListOfAnnoncementsDto.companyName}", textAlign: TextAlign.start,)
                                 ),
                               ]
                           ),
@@ -53,7 +54,7 @@ class SingleNotificationView extends StatelessWidget {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("Ogłoszenie: ${userPanelListOfAnnoncementsDto.announcementName}", textAlign: TextAlign.start,)
+                                    child: Text("${Lang.of(context).translate("announcement")}: ${userPanelListOfAnnoncementsDto.announcementName}", textAlign: TextAlign.start,)
                                 ),
                               ]
                           ),
@@ -78,7 +79,7 @@ class SingleNotificationView extends StatelessWidget {
                         ),
                         Expanded(
                             flex: 0,
-                            child: Text("Quiz Code")
+                            child: Text("${Lang.of(context).translate("quiz_code")}:")
                         ),
                         Expanded(
                           flex: 0,
@@ -104,7 +105,7 @@ class SingleNotificationView extends StatelessWidget {
                                     }
                                 );
                                 },
-                                child: Text(userPanelListOfAnnoncementsDto.quizCode != null ? userPanelListOfAnnoncementsDto.quizCode : "sdga"),
+                                child: Text(userPanelListOfAnnoncementsDto.quizCode),
                                 color: Colors.cyan,
                               ),
                             ),
