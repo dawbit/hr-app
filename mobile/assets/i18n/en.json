@@ -18,5 +18,15 @@
   "register_success": "Successfully registered",
   "login_exists": "Login already exists",
   "email_exists": "E-mail already exists",
-  "server_error": "Server error"
+  "server_error": "Server error",
+  "company": "Company",
+  "announcement": "Announcement",
+  "company_localization": "Company localization",
+  "company_about": "Company about",
+  "apply": "Apply",
+  "applied_successfully": "Application has been submitted",
+  "about_announcement": "About announcement",
+  "already_applied": "You have already applied for this announcement",
+  "hr_ceo_users_are_not_allowed": "Hr and ceo users can not apply",
+  "nothing_found": "Nothing found"
 }

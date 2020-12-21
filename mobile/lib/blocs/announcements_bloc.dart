@@ -21,6 +21,9 @@ class AnnouncementsBloc extends BlocBase {
   PublishSubject<ErrorType> _errorResponseSubject = PublishSubject();
   Stream<ErrorType> get errorResponseObservable => _errorResponseSubject.stream;
 
+  PublishSubject _callSearchSubject = PublishSubject();
+  Stream get callSearchObservable => _callSearchSubject.stream;
+
   AnnouncementsBloc(this.announcementsRepository){
     _searchSubject
         .debounceTime(Duration(seconds: 1))
@@ -36,6 +39,20 @@ class AnnouncementsBloc extends BlocBase {
   }
 
   Function(String title) get getAnnouncements => _searchSubject.add;
+
+  Future<void> callSearch() {
+    _callSearchSubject.add(null);
+  }
+
+  Future<void> searchForAnnouncements(String title) async {
+    if(title.length >2) {
+      _isLoadingSubject.add(RequestState.LOADING);
+      _errorResponseSubject.add(null);
+      announcementsRepository.getAnnouncements(title).then(_onSuccess).catchError(_onError);
+    } else {
+      _announcementsResponseSubject.add(null);
+    }
+  }
 
   void _onSuccess(List<AnnouncementsDto> announcementsDto) {
     _isLoadingSubject.add(RequestState.OK);

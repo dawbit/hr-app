@@ -103,15 +103,19 @@ class _AnnouncementSearchViewState extends State<AnnouncementSearchView> {
     if(errorType!= null) {
       switch(errorType) {
         case ErrorType.CONNECTION_ERROR:
-          return ConnectionError();
+          return ConnectionError(callSearch);
           break;
         case ErrorType.SERVER_ERROR:
-          return ServerError();
+          return ServerError(callSearch);
           break;
       }
     } else {
       return Container();
     }
+  }
+
+  void callSearch() {
+    _announcementsBloc.callSearch();
   }
 
 }

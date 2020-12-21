@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/blocs/registration_bloc.dart';
 import 'package:mobile/enums/error_register_type.dart';
@@ -40,6 +42,8 @@ class _RegisterHolderState extends State<RegisterHolder> {
   String loginErrorMessage;
   String passwordErrorMessage;
 
+  StreamSubscription errorStream;
+
   @override
   void initState() {
     _registrationBloc = LoginModule.injector.getBloc();
@@ -53,12 +57,13 @@ class _RegisterHolderState extends State<RegisterHolder> {
     _registrationBloc.isRegisteredObservable.listen((_) {
       showToast(context, Lang.of(context).translate("register_success"));
     });
-    _registrationBloc.errorObservable.listen(_onError);
+    errorStream = _registrationBloc.errorObservable.listen(_onError);
     super.initState();
   }
 
   @override
   void dispose() {
+    errorStream.cancel();
     firstNameTextEditingController.dispose();
     middleNameTextEditingController.dispose();
     surNameTextEditingController.dispose();

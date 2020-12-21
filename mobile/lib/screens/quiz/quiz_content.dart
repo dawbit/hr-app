@@ -14,7 +14,6 @@ import 'package:mobile/screens/quiz/widgets/question_widget.dart';
 import 'package:mobile/screens/quiz/widgets/top_clip_path.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
-import 'package:mobile/widgets/connection_error.dart';
 import 'package:mobile/widgets/loading.dart';
 
 class QuizContent extends StatefulWidget {
@@ -103,7 +102,7 @@ class _QuizContentState extends State<QuizContent> {
                         visible: snapshotState.data == QuizSolverState.LOADING,
                       ),
                       Visibility(
-                        child: ConnectionError(),
+                        //child: ConnectionError(),
                         visible: snapshotState.data == QuizSolverState.ERROR,
                       ),
                     ],

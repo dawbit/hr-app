@@ -12,8 +12,11 @@ class AnnouncementApplyBloc extends BlocBase {
   PublishSubject<bool> _isLoadingSubject = PublishSubject();
   Stream<bool> get isLoadingObservable => _isLoadingSubject.stream;
 
-  PublishSubject<String> _announcementsResponseSubject = PublishSubject();
-  Stream<String> get announcementsResponseObservable => _announcementsResponseSubject.stream;
+  PublishSubject _announcementsResponseSubject = PublishSubject();
+  Stream get announcementsResponseObservable => _announcementsResponseSubject.stream;
+
+  PublishSubject<Object> _errorResponseSubject = PublishSubject();
+  Stream<Object> get errorResponseObservable => _errorResponseSubject.stream;
 
   AnnouncementApplyBloc(this.announcementsRepository);
 
@@ -24,13 +27,13 @@ class AnnouncementApplyBloc extends BlocBase {
   }
 
   void _onSuccess(ResponseTransfer responseTransfer) {
-    _announcementsResponseSubject.add("Prośba została wysłana");
+    _announcementsResponseSubject.add(null);
     _isLoadingSubject.add(false);
   }
 
   void _onError(Object obj) {
     _isLoadingSubject.add(false);
-    _announcementsResponseSubject.add("Nie można wysłać już prośby");
+    _errorResponseSubject.add(obj);
     print("Answer error: ${obj.toString()}");
   }
 }

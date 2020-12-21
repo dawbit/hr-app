@@ -3,6 +3,10 @@ import 'package:mobile/localizations/app_localization.dart';
 
 class ConnectionError extends StatelessWidget {
 
+  final Function onButtonClick;
+
+  ConnectionError(this.onButtonClick);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +32,7 @@ class ConnectionError extends StatelessWidget {
                       child: MaterialButton(
                         color: Colors.yellow,
                         minWidth: MediaQuery.of(context).size.width,
-                          onPressed: (){},
+                          onPressed: (){onButtonClick();},
                           child: Padding(
                             padding: const EdgeInsets.all(15),
                             child: Text(Lang.of(context).translate("reload")),
