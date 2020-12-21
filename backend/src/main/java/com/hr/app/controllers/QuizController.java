@@ -271,6 +271,11 @@ public class QuizController {
             return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
         }
 
+        if(!testsModel.isPossibleToBack() && testParticipantModel.getQuestionNumber() > listOfQuestions.size()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new QuizCodeDto(ResponseEnum.QUIZ_AREADY_SOLVED);
+        }
+
         // ustawienie pola o rozpoczęciu quizu jako przeczytane
         try {
             testParticipantModel.setRead(true);
