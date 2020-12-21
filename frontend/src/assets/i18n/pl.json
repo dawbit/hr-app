@@ -233,9 +233,9 @@
     "save": "Zapisz quiz!",
     "start": "start!",
     "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
-    "timeForTest": "Czas (sek.)",
+    "timeForTestInMilis": "Czas (milisekundy)",
     "timeLeft": "Pozostały czas: ",
-    "question": "Question",
+    "question": "Pytanie",
     "questionNumber": "Pytanie numer: ",
     "sendAnswerError": "Coś poszło nie tak podczas próby wysłania odpowiedzi"
   },

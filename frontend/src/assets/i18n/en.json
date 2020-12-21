@@ -233,7 +233,7 @@
     "save": "Save quiz!",
     "start": "start!",
     "startConfirm": "Are you sure you want to start solving the quiz? \n This decision cannot be undone!",
-    "timeForTest": "Time (sec.)",
+    "timeForTestInMilis": "Time (milisec.)",
     "timeLeft": "Remaining time: ",
     "question": "Question: ",
     "questionNumber": "Question no. ",

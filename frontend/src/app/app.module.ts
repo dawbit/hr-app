@@ -183,6 +183,7 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
       deps: [TranslateService, Injector],
       multi: true
     },
+    TranslateService,
     JwtHelperService,
   ],
   bootstrap: [AppComponent],

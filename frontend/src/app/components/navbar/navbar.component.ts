@@ -15,6 +15,10 @@ export class NavbarComponent implements OnInit {
   userAlerts = 0;
   hrAlerts = 0;
 
+  isLogged = false;
+  userRole = 'USER';
+  userLogin = '';
+
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
@@ -22,11 +26,13 @@ export class NavbarComponent implements OnInit {
     private companyService: CompanyService
   ) { }
 
-  isLogged = this.tokenStorage.isAuthenticated();
-  userRole = this.tokenStorage.getRole();
-  userLogin = this.tokenStorage.getUser();
+
 
   ngOnInit(): void {
+    this.isLogged = this.tokenStorage.isAuthenticated();
+    this.userRole = this.tokenStorage.getRole();
+    this.userLogin = this.tokenStorage.getUser();
+
     if (this.isLogged) {
       this.checkForAlerts();
     }
