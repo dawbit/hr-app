@@ -13,6 +13,7 @@ import 'package:mobile/models/question_result_dto.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/quiz/widgets/list_of_answers_widget.dart';
 import 'package:mobile/screens/quiz/widgets/question_widget.dart';
+import 'package:mobile/screens/quiz/widgets/timer_widget.dart';
 import 'package:mobile/screens/quiz/widgets/top_clip_path.dart';
 import 'package:mobile/utils/quiz_error_handlers.dart';
 import 'package:mobile/utils/toast_util.dart';
@@ -38,6 +39,8 @@ class _QuizContentState extends State<QuizContent> {
   CurrentQuestionController currentQuestionController;
 
   DateTime currentBackPressTime;
+
+  int timeLeft;
 
   @override
   void initState() {
@@ -117,9 +120,19 @@ class _QuizContentState extends State<QuizContent> {
                   onPressed: () {
                     finishQuiz();
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(child: Text("Zakoncz test")),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          child: Center(child: Text("Zakoncz test")),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: TimerWidget(widget.quizInformationDto.timeForTestInMilis)
+                      ),
+                    ],
                   )),
             ),
           ),

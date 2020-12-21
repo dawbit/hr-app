@@ -46,6 +46,8 @@
   "change_password": "Change password",
   "change_phone_number": "Change phone number",
   "upload_cv": "Upload CV",
+  "time_over": "The time is over",
+  "time_left": "Time left",
   "nothing_found": "Nothing found",
   "enter_your_test_code_below": "Enter your test code below",
   "start_test": "Start test",
