@@ -17,8 +17,8 @@ class QuizSolverBloc extends BlocBase {
   PublishSubject<QuestionResultDto> _quizQuestionSubject = PublishSubject();
   Stream<QuestionResultDto> get quizQuestionObservable => _quizQuestionSubject.stream;
 
-  PublishSubject<String> _answerErrorMessageSubject = PublishSubject();
-  Stream<String> get answerErrorMessageObservable => _answerErrorMessageSubject.stream;
+  PublishSubject<Object> _answerErrorMessageSubject = PublishSubject();
+  Stream<Object> get answerErrorMessageObservable => _answerErrorMessageSubject.stream;
 
   PublishSubject _finishQuizSubject = PublishSubject();
   Stream get finishQuizSubjectObservable => _finishQuizSubject.stream;
@@ -72,21 +72,18 @@ class QuizSolverBloc extends BlocBase {
   }
 
   void _OnQuizFinishSuccess(QuestionResultDto questionResultDto) {
+    _quizStateSubject.add(QuizSolverState.OK);
     _finishQuizSubject.add(null);
   }
 
-  void _OnQuizFinishError(error) {
-    Map errorData = error.response.data;
-    print('error: ${errorData['message'].toString()}');
-
-    _answerErrorMessageSubject.add(errorData['message'].toString());
+  void _OnQuizFinishError(Object obj) {
+    _quizStateSubject.add(QuizSolverState.ERROR);
+    _answerErrorMessageSubject.add(obj);
   }
 
-  void _onAnswerError(error) {
-     Map errorData = error.response.data;
-     print('error: ${errorData['message'].toString()}');
-
-     _answerErrorMessageSubject.add(errorData['message'].toString());
+  void _onAnswerError(Object obj) {
+    _quizStateSubject.add(QuizSolverState.ERROR);
+    _answerErrorMessageSubject.add(obj);
   }
 
   void _onQuestionSuccess(QuestionResultDto questionResultDto) {
@@ -94,10 +91,8 @@ class QuizSolverBloc extends BlocBase {
     _quizStateSubject.add(QuizSolverState.OK);
   }
 
-  void _onQuestionError(error) {
-    Map errorData = error.response.data;
-    print('error: ${errorData['message'].toString()}');
-
-    _answerErrorMessageSubject.add(errorData['message'].toString());
+  void _onQuestionError(Object obj) {
+    _quizStateSubject.add(QuizSolverState.ERROR);
+    _answerErrorMessageSubject.add(obj);
   }
 }

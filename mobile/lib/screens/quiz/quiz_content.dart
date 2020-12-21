@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/blocs/quiz_solver_bloc.dart';
 import 'package:mobile/enums/quiz_solver_state.dart';
 import 'package:mobile/injections/app_module.dart';
+import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/answer_command_dto.dart';
 import 'package:mobile/models/answer_result_dto.dart';
 import 'package:mobile/models/current_question_controller.dart';
@@ -12,6 +14,7 @@ import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/quiz/widgets/list_of_answers_widget.dart';
 import 'package:mobile/screens/quiz/widgets/question_widget.dart';
 import 'package:mobile/screens/quiz/widgets/top_clip_path.dart';
+import 'package:mobile/utils/quiz_error_handlers.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:mobile/widgets/loading.dart';
@@ -101,10 +104,6 @@ class _QuizContentState extends State<QuizContent> {
                         child: LoadingWidget(),
                         visible: snapshotState.data == QuizSolverState.LOADING,
                       ),
-                      Visibility(
-                        //child: ConnectionError(),
-                        visible: snapshotState.data == QuizSolverState.ERROR,
-                      ),
                     ],
                   );
                 }),
@@ -145,8 +144,18 @@ class _QuizContentState extends State<QuizContent> {
     Navigator.of(context).pop();
   }
 
-  void _onAnswerErrorMessage(String message) {
-    showToast(context, message);
+  void _onAnswerErrorMessage(Object obj) {
+    final dioError = obj as DioError;
+    final res = dioError.response;
+    if((obj as DioError).error.toString().toLowerCase().contains("connection failed")) {
+      showToast(context, Lang.of(context).translate("connection_error"));
+    }
+    else if(res.statusCode >= 500) {
+      showToast(context, Lang.of(context).translate("server_error"));
+    } else {
+      Map errorData = dioError.response.data;
+      QuizErrorHander.handleError(errorData['responseCode'], context);
+    }
     Navigator.of(context).pop();
   }
 

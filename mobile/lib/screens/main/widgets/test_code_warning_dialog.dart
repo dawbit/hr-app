@@ -7,6 +7,7 @@ import 'package:mobile/config/routes.dart';
 import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
+import 'package:mobile/utils/quiz_error_handlers.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:mobile/widgets/loading.dart';
@@ -95,13 +96,7 @@ class _TestCodeWarningDialogState extends State<TestCodeWarningDialog> {
       });
     } else {
       Map errorData = dioError.response.data;
-      if (errorData['responseCode'] ==11) {
-        showToast(context, Lang.of(context).translate("test_not_found"));
-      } else if (errorData['responseCode'] ==6) {
-        showToast(context, Lang.of(context).translate("no_permission"));
-      } else if (errorData['responseCode'] ==9) {
-        showToast(context, Lang.of(context).translate("quiz_already_solved"));
-      }
+      QuizErrorHander.handleError(errorData['responseCode'], context);
     }
     Navigator.pop(context);
   }
