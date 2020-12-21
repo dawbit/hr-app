@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mobile/blocs/login_bloc.dart';
+import 'package:mobile/blocs/registration_bloc.dart';
 import 'package:mobile/data_sources/remote/authorization_source.dart';
 import 'package:mobile/repositories/login_repository.dart';
 import 'package:mobile/screens/login/login_screen.dart';
@@ -11,6 +12,7 @@ class LoginModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
     Bloc((i) => LoginBloc(i.get())),
+    Bloc((i) => RegistrationBloc(i.get())),
   ];
 
   @override

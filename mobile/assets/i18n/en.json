@@ -4,5 +4,18 @@
   "login": "Login",
   "register": "Register",
   "noAccount": "No account?",
-  "alreadyRegistered": "Already registered?"
+  "alreadyRegistered": "Already registered?",
+  "firstname": "First name",
+  "middlename": "Middle name",
+  "surname": "Surname",
+  "phone_number": "Phone number",
+  "connection_error": "Connection Error",
+  "cant_login": "Can't login",
+  "value_too_short": "Value too short",
+  "wrong_phone_nubmer": "Wrong phone number format",
+  "wrong_email_format": "Wrong e-mail format",
+  "register_success": "Successfully registered",
+  "login_exists": "Login already exists",
+  "email_exists": "E-mail already exists",
+  "server_error": "Server error"
 }

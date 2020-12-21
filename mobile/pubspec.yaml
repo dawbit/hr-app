@@ -20,6 +20,8 @@ dependencies:
   fluttertoast: ^7.0.2
   logger: ^0.9.1
   jwt_decoder: ^1.0.3
+  email_validator: ^1.0.6
+  string_validator: ^0.1.4
 
 dev_dependencies:
   flutter_test:

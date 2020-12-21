@@ -36,4 +36,24 @@ class _AuthorizationSource implements AuthorizationSource {
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
+
+  @override
+  Future<ResponseTransfer> attemptToRegister(registerCommandDto) async {
+    ArgumentError.checkNotNull(registerCommandDto, 'registerCommandDto');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(registerCommandDto?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/user/register',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ResponseTransfer.fromJson(_result.data);
+    return value;
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:mobile/data_sources/remote/authorization_source.dart';
 import 'package:mobile/models/login_command_dto.dart';
+import 'package:mobile/models/register_command_dto.dart';
+import 'package:mobile/models/response_transfer.dart';
 import 'package:mobile/models/token.dart';
 
 class LoginRepository {
@@ -11,5 +13,8 @@ class LoginRepository {
   Future<Token> attemptToLogin(LoginCommandDto loginCommandDto) =>
       _authorizationSource.attemptToLogin(loginCommandDto)
           .then((onValue) => Token(accessToken: onValue.response.headers.value("Authorization")));
+
+  Future<ResponseTransfer> attemptToRegister(RegisterCommandDto registerCommandDto) =>
+      _authorizationSource.attemptToRegister(registerCommandDto);
 
 }

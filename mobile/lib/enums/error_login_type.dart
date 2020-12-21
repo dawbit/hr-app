@@ -1,0 +1,3 @@
+enum ErrorLoginType {
+  CONNECTION_ERROR, CANT_LOGIN, SERVER_ERROR
+}
