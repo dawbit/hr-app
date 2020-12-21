@@ -31,6 +31,18 @@
   "my_account": "My account",
   "notifications": "Notifications",
   "log_out": "Log out",
-  "quiz_code": "Quiz code",
-  "nothing_found": "Nothing found"
+  "test_not_found": "Test not found",
+  "no_permission": "You have no permission",
+  "quiz_already_solved": "Quiz already solved",
+  "empty_field": "Field can not be empty",
+  "change_email": "Change e-mail",
+  "change_password": "Change password",
+  "change_phone_number": "Change phone number",
+  "upload_cv": "Upload CV",
+  "nothing_found": "Nothing found",
+  "enter_your_test_code_below": "Enter your test code below",
+  "start_test": "Start test",
+  "start": "Start",
+  "are_you_sure_you_want_to_start_this_test": "Are you sure, you want to start this test?",
+  "test_code": "Test code"
 }
