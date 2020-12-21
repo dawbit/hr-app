@@ -11,6 +11,7 @@
   "phone_number": "Phone number",
   "connection_error": "Connection Error",
   "cant_login": "Can't login",
+  "reload": "Reload",
   "value_too_short": "Value too short",
   "wrong_phone_nubmer": "Wrong phone number format",
   "wrong_email_format": "Wrong e-mail format",

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/localizations/app_localization.dart';
 
-class ConnectionError extends StatelessWidget {
+class ServerError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +19,20 @@ class ConnectionError extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: [
-                    Icon(Icons.signal_cellular_connected_no_internet_4_bar, size: 50,),
+                    Icon(Icons.error, size: 50,),
                     SizedBox(height: 10,),
-                    Text(Lang.of(context).translate("connection_error")),
+                    Text(Lang.of(context).translate("server_error")),
                     SizedBox(height: 10,),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: MaterialButton(
                         color: Colors.yellow,
                         minWidth: MediaQuery.of(context).size.width,
-                          onPressed: (){},
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(Lang.of(context).translate("reload")),
-                          ),
+                        onPressed: (){},
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(Lang.of(context).translate("reload")),
+                        ),
                       ),
                     )
                   ],

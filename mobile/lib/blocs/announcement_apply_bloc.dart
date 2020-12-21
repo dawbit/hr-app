@@ -19,6 +19,7 @@ class AnnouncementApplyBloc extends BlocBase {
 
   Future announcementApply(AnnouncementsDto announcementsDto) async {
     _isLoadingSubject.add(true);
+
     announcementsRepository.announcementApply(announcementsDto.announcementId).then(_onSuccess).catchError(_onError);
   }
 
@@ -27,9 +28,9 @@ class AnnouncementApplyBloc extends BlocBase {
     _isLoadingSubject.add(false);
   }
 
-  void _onError(e) {
+  void _onError(Object obj) {
     _isLoadingSubject.add(false);
     _announcementsResponseSubject.add("Nie można wysłać już prośby");
-    print("Answer error: ${e.toString()}");
+    print("Answer error: ${obj.toString()}");
   }
 }
