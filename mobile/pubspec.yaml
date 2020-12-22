@@ -22,6 +22,9 @@ dependencies:
   jwt_decoder: ^1.0.3
   email_validator: ^1.0.6
   string_validator: ^0.1.4
+  path_provider: ^1.6.24
+  flutter_downloader: ^1.5.2
+  permission_handler: ^5.0.1+1
 
 dev_dependencies:
   flutter_test:

@@ -56,6 +56,8 @@
   "success_change_email": "Successfully changed e-mail",
   "new_email": "New email",
   "time_left": "Time left",
+  "cv": "CV",
+  "no_cv": "You have no cv",
   "nothing_found": "Nothing found",
   "enter_your_test_code_below": "Enter your test code below",
   "start_test": "Start test",
