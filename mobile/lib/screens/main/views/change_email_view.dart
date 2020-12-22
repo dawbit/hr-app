@@ -6,6 +6,7 @@ import 'package:mobile/blocs/account_bloc.dart';
 import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/change_email_command_dto.dart';
+import 'package:mobile/security/account_data_shared_pref.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:string_validator/string_validator.dart';
@@ -24,6 +25,8 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
 
   StreamSubscription newEmailSuccessStream;
   StreamSubscription newEmailErrorStream;
+
+  String newEmailHolder;
 
   String newEmailError;
   String passwordError;
@@ -135,15 +138,15 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
   }
 
   void onButtonPress() {
-    final newEmail = newEmailController.text;
+    newEmailHolder = newEmailController.text;
     final password = passwordController.text;
 
-    emailValidation(newEmail);
+    emailValidation(newEmailHolder);
 
     if(newEmailError == null && passwordError == null) {
       _accountBloc.changeEmail(
           ChangeEmailCommandDto(
-              newEmail: newEmail,
+              newEmail: newEmailHolder,
               password: password
           )
       );
@@ -158,7 +161,8 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
     }
   }
 
-  void _onSuccess() {
+  void _onSuccess() async {
+    await AccountDataSharedPref.setNewEmail(newEmailHolder);
     showToast(context, Lang.of(context).translate("success_change_email"));
     Navigator.of(context).pop();
   }

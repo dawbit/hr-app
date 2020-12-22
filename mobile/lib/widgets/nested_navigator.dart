@@ -6,6 +6,7 @@ import 'package:mobile/screens/main/views/notifications_view.dart';
 import 'package:mobile/screens/main/views/single_announcement_view.dart';
 import 'package:mobile/screens/main/views/single_notification_view.dart';
 import 'package:mobile/screens/main/views/upload_cv_view.dart';
+import 'package:mobile/screens/main/views/user_data_view.dart';
 
 import 'custom_page_route_builder.dart';
 
@@ -65,6 +66,13 @@ class NestedNavigator extends StatelessWidget {
             settings: routeSettings,
             transitionsBuilder: (context, animation, secondaryAnimation, child) => customTransitionsBuilder(context, animation, secondaryAnimation, child),
             pageBuilder: (context, animation, secondaryAnimation) => ChangePhoneNumberView()
+            ,);
+        }
+        else if(routeSettings.name == '/myData') {
+          return PageRouteBuilder(
+            settings: routeSettings,
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => customTransitionsBuilder(context, animation, secondaryAnimation, child),
+            pageBuilder: (context, animation, secondaryAnimation) => UserDataView()
             ,);
         }
         else if(routeSettings.name == '/uploadCv') {

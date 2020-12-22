@@ -6,6 +6,7 @@ import 'package:mobile/blocs/account_bloc.dart';
 import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/change_phone_number_command_dto.dart';
+import 'package:mobile/security/account_data_shared_pref.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 import 'package:string_validator/string_validator.dart';
@@ -24,6 +25,8 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
   StreamSubscription newPhoneNumberErrorStream;
 
   AccountBloc _accountBloc;
+
+  String newPhoneNumberHolder;
 
   String newPhoneNumberError;
   String passwordError;
@@ -135,15 +138,15 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
   }
 
   void onButtonPress() {
-    final phoneNumber = newPhoneNumberController.text;
+    newPhoneNumberHolder = newPhoneNumberController.text;
     final password = passwordController.text;
 
-    phoneNumberValidation(phoneNumber);
+    phoneNumberValidation(newPhoneNumberHolder);
 
     if(newPhoneNumberError == null && passwordError == null) {
       _accountBloc.changePhoneNumber(
         ChangePhoneNumberCommandDto(
-          phoneNumber: phoneNumber,
+          phoneNumber: newPhoneNumberHolder,
           password: password
         )
       );
@@ -162,7 +165,8 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
     }
   }
 
-  void _onSuccess() {
+  void _onSuccess() async {
+    await AccountDataSharedPref.setPhoneNumber(newPhoneNumberHolder);
     showToast(context, Lang.of(context).translate("success_change_phone_number"));
     Navigator.of(context).pop();
   }

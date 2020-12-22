@@ -16,6 +16,21 @@ class AccountDataSharedPref {
     sharedPreferences.setString('cv', userDataDto.cv);
   }
 
+  static Future<void> setNewEmail(String newEmail) async {
+    SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+    sharedPreferences.setString('email', newEmail);
+  }
+
+  static Future<void> setPhoneNumber(String phoneNumber) async {
+    SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+    sharedPreferences.setString('phone_number', phoneNumber);
+  }
+
+  static Future<void> setCv(String cv) async {
+    SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+    sharedPreferences.setString('cv', cv);
+  }
+
   static Future<UserDataDto> getAccountData() async {
     SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
     String email =  await sharedPreferences.getString('email');

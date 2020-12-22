@@ -20,6 +20,7 @@ class AccountView extends StatelessWidget {
             flex: 1,
             child: Column(
               children: [
+                SubAccountCardWidget(icon: Icon(Icons.view_carousel_rounded), title: Lang.of(context).translate("my_data"), onTapFunction: onUserDataTap,),
                 SubAccountCardWidget(icon: Icon(Icons.email), title: Lang.of(context).translate("change_email"), onTapFunction: onEmailTap,),
                 SubAccountCardWidget(icon: Icon(Icons.lock), title: Lang.of(context).translate("change_password"), onTapFunction: onPasswordTap,),
                 SubAccountCardWidget(icon: Icon(Icons.phone), title: Lang.of(context).translate("change_phone_number"), onTapFunction: onPhoneNumberTap,),
@@ -43,5 +44,8 @@ class AccountView extends StatelessWidget {
   }
   void onCvTap() {
     Navigator.of(navigationKey.currentContext).pushNamed('/uploadCv');
+  }
+  void onUserDataTap() {
+    Navigator.of(navigationKey.currentContext).pushNamed('/myData');
   }
 }
