@@ -14,12 +14,12 @@ class QuestionNumberWidget extends StatelessWidget {
       margin: EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
           border: Border.all(
-              color: questionAlreadyAnswered ? Colors.red :Colors.black)
+              color: questionAlreadyAnswered ? Colors.red[800] :Colors.white)
       ),
       height: 40,
       width: 40,
       child: Center(
-        child: Text(number.toString()
+        child: Text(number.toString(), style: TextStyle(color: questionAlreadyAnswered ? Colors.red[800] :Colors.white),
         ),
       ),
     ):
@@ -29,12 +29,12 @@ class QuestionNumberWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-            border: Border.all(color: questionAlreadyAnswered ? Colors.red :Colors.black)
+            border: Border.all(color: questionAlreadyAnswered ? Colors.red[800] :Colors.white)
         ),
         height: 40,
         width: 40,
         child: Center(
-          child: Text(number.toString()),
+          child: Text(number.toString(), style: TextStyle(color: questionAlreadyAnswered ? Colors.red[800] :Colors.white)),
         ),
       ),
     );

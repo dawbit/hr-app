@@ -1,5 +1,7 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:mobile/config/routes.dart';
 import 'package:mobile/security/token_shared_pref.dart';
 
@@ -24,8 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.green,
-        body: Container()
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+          ),
+          child: Center(child: Text("HR-APP", style: TextStyle(fontSize: 60, fontFamily: 'Smallville1'),))
+        )
     );
   }
 

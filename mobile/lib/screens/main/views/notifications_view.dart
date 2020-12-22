@@ -32,7 +32,6 @@ class _NotificationsViewState extends State<NotificationsView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple,
       child: Column(
         children: [
           Expanded(

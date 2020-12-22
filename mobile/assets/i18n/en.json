@@ -41,6 +41,7 @@
   "question_not_found": "Question not found, contact the administator",
   "bad_test": "This test does not exists",
   "quiz_already_solved": "Quiz already solved",
+  "quiz_code": "Quiz code",
   "inactive_quiz": "This quiz is inactive",
   "empty_field": "Field can not be empty",
   "new_password": "New password",
@@ -67,5 +68,8 @@
   "successfully_uploaded_cv": "Cv has been uploaded successfully",
   "file_is_required": "You can not send empty file",
   "file_in_not_pdf": "File must have pdf extension",
-  "file_is_too_big": "File is too big"
+  "file_is_too_big": "File is too big",
+  "account": "Account",
+  "test": "Quiz",
+  "announcements": "Announcements"
 }

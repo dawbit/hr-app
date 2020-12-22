@@ -43,6 +43,7 @@
   "quiz_already_solved": "Test został już rozwiązany",
   "inactive_quiz": "Ten test jest nieaktywny",
   "empty_field": "Pole nie może pozostać puste",
+  "quiz_code": "Kod testu",
   "new_password": "Nowe hasło",
   "new_phone_number": "Nowy numer telefonu",
   "change_email": "Zmień e-mail",
@@ -67,5 +68,8 @@
   "successfully_uploaded_cv": "Cv zostało wysłane pomyślnie",
   "file_is_required": "Nie możesz wysłać pustego pliku",
   "file_in_not_pdf": "Plik nie posiada rozszerzenia pdf",
-  "file_is_too_big": "Plik jest zbyt duży"
+  "file_is_too_big": "Plik jest zbyt duży",
+  "account": "Konto",
+  "test": "Test",
+  "announcements": "Ogłoszenia"
 }

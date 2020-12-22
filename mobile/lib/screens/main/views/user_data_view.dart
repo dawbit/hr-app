@@ -36,6 +36,13 @@ class _UserDataViewState extends State<UserDataView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Color(0xaaffffff),
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
       padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,

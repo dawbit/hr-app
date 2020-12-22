@@ -39,3 +39,9 @@ flutter:
 
   assets:
     - assets/i18n/
+    - assets/images/
+
+  fonts:
+    - family: Smallville1
+      fonts:
+        - asset: fonts/Smallville1.ttf

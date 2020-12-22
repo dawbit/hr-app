@@ -46,6 +46,13 @@ class _UploadCvViewState extends State<UploadCvView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Color(0xaaffffff),
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
       padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -84,8 +91,9 @@ class _UploadCvViewState extends State<UploadCvView> {
                 padding: EdgeInsets.all(10),
                 width: MediaQuery.of(context).size.width,
                 child: MaterialButton(
+                  color: Theme.of(context).primaryColor,
                   onPressed: (){_cvsBloc.attemptToSendCv(file);},
-                  child: Text(Lang.of(context).translate("upload_cv"), style: TextStyle(fontSize: 16),),
+                  child: Text(Lang.of(context).translate("upload_cv"), style: TextStyle(fontSize: 16, color: Colors.white),),
                 ),
               )
           ): Container()

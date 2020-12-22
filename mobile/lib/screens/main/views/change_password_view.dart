@@ -40,7 +40,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   void initState() {
     super.initState();
     _accountBloc = AppModule.injector.getBloc();
-    newPasswordErrorStream = _accountBloc.changePasswordResponseObservable.listen((event) {
+    newPasswordSuccessStream = _accountBloc.changePasswordResponseObservable.listen((event) {
       _onSuccess();
     });
     newPasswordErrorStream = _accountBloc.errorBodyObservable.listen((event) {
@@ -51,6 +51,13 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Color(0xaaffffff),
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
       padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -75,10 +82,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: newPasswordError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: Colors.black38,
                 contentPadding: EdgeInsets.all(5),
                 filled: true,
                 labelText: Lang.of(context).translate('new_password'),
@@ -102,11 +105,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: passwordError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
                 contentPadding: EdgeInsets.all(5),
-                fillColor: Colors.black38,
                 filled: true,
                 labelText: Lang.of(context).translate('password'),
               ),
@@ -123,7 +122,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 Text(Lang.of(context).translate("change_password"), style: TextStyle(color: Colors.white),)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xfffa526c),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

@@ -38,26 +38,34 @@ class _LoginContentState extends State<LoginContent> {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: SafeArea(
-        child: SizedBox.expand(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                  flex: 3,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      LoginHolder(
-                        changeLoginContentStateToRegister: changeLoginContentState,
-                        isVisible: (_loginState == LoginState.LOGIN),
-                      ),
-                      RegisterHolder(
-                        changeLoginContentStateToLogin: changeLoginContentState,
-                        isVisible: _loginState == LoginState.REGISTER,
-                      ),
-                    ],
-                  )
-              )
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+          ),
+          child: SizedBox.expand(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                    flex: 3,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        LoginHolder(
+                          changeLoginContentStateToRegister: changeLoginContentState,
+                          isVisible: (_loginState == LoginState.LOGIN),
+                        ),
+                        RegisterHolder(
+                          changeLoginContentStateToLogin: changeLoginContentState,
+                          isVisible: _loginState == LoginState.REGISTER,
+                        ),
+                      ],
+                    )
+                )
+              ],
+            ),
           ),
         ),
       ),

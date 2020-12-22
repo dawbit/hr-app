@@ -55,6 +55,13 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Color(0xaaffffff),
+        image: DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: AssetImage('assets/images/background-01.jpg'),
+        )
+      ),
       padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -79,10 +86,6 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: newEmailError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: Colors.black38,
                 contentPadding: EdgeInsets.all(5),
                 filled: true,
                 labelText: Lang.of(context).translate('new_email'),
@@ -106,11 +109,7 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: passwordError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
                 contentPadding: EdgeInsets.all(5),
-                fillColor: Colors.black38,
                 filled: true,
                 labelText: Lang.of(context).translate('password'),
               ),
@@ -127,7 +126,7 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
                 Text(Lang.of(context).translate("change_email"), style: TextStyle(color: Colors.white),)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xfffa526c),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

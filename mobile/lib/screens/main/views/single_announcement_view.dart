@@ -43,7 +43,13 @@ class _SingleAnnouncementViewState extends State<SingleAnnouncementView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+        decoration: BoxDecoration(
+            color: Color(0xaaffffff),
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+        ),
         child: Stack(
           children: [
             Column(
@@ -51,7 +57,7 @@ class _SingleAnnouncementViewState extends State<SingleAnnouncementView> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    color: Colors.red,
+                    color: Theme.of(context).accentColor,
                     child: Column(
                       children: [
                         Expanded(
@@ -70,7 +76,8 @@ class _SingleAnnouncementViewState extends State<SingleAnnouncementView> {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("${Lang.of(context).translate("company")}: ${widget.announcementsDto.companyName}", textAlign: TextAlign.start,)
+                                    child: Text("${Lang.of(context).translate("company")}: ${widget.announcementsDto.companyName}", textAlign: TextAlign.start,
+                                    style: TextStyle(color: Colors.white),)
                                 ),
                               ]
                           ),
@@ -85,7 +92,8 @@ class _SingleAnnouncementViewState extends State<SingleAnnouncementView> {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("${Lang.of(context).translate("announcement")}: ${widget.announcementsDto.announcementTitle}", textAlign: TextAlign.start,)
+                                    child: Text("${Lang.of(context).translate("announcement")}: ${widget.announcementsDto.announcementTitle}", textAlign: TextAlign.start,
+                                      style: TextStyle(color: Colors.white),)
                                 ),
                               ]
                           ),
@@ -135,11 +143,12 @@ class _SingleAnnouncementViewState extends State<SingleAnnouncementView> {
                                   Expanded(
                                       flex: 0,
                                       child: MaterialButton(
+                                        color: Theme.of(context).primaryColor,
                                         onPressed: (){announcementApplyBloc.announcementApply(widget.announcementsDto);},
                                         child: Container(
                                           width: MediaQuery.of(context).size.width,
                                           height: 50,
-                                          child: Center(child: Text(Lang.of(context).translate("apply"))),
+                                          child: Center(child: Text(Lang.of(context).translate("apply"), style: TextStyle(color: Colors.white),)),
                                         ),
                                       )
                                   ),

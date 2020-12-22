@@ -27,7 +27,7 @@ class _AccountContentState extends State<AccountContent> {
       navigationKey: navigationKey,
       initialRoute: '/',
       routes: {
-        '/': (context) => Container(color: Colors.purple,
+        '/': (context) => Container(
           child: Column(
             children: [
               CardWidget(icon: Icon(Icons.account_box), cardTitle: Lang.of(context).translate("my_account"), onClick: onAccountClick,),

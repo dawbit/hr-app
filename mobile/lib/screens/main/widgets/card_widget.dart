@@ -15,9 +15,9 @@ class CardWidget extends StatelessWidget {
     return Container(
       height: Sizes.CardWidgetSize,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Theme.of(context).accentColor,
           //border: Border.symmetric(horizontal: BorderSide(width: 1, color: Colors.blue, style: BorderStyle.solid),),
-        border: Border(bottom: BorderSide(width: 1, color: Colors.blue))
+        border: Border(bottom: BorderSide(width: 1, color: Colors.black))
       ),
       child: onClick!= null ? InkWell(
         onTap: (){onClick();},

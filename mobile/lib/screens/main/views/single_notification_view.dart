@@ -12,7 +12,13 @@ class SingleNotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+            color: Color(0xaaffffff),
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+        ),
         child: Stack(
           children: [
             Column(
@@ -20,7 +26,7 @@ class SingleNotificationView extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    color: Colors.red,
+                    color: Theme.of(context).accentColor,
                     child: Column(
                       children: [
                         Expanded(
@@ -39,7 +45,10 @@ class SingleNotificationView extends StatelessWidget {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("${Lang.of(context).translate("company")}: ${userPanelListOfAnnoncementsDto.companyName}", textAlign: TextAlign.start,)
+                                    child: Text(
+                                      "${Lang.of(context).translate("company")}: ${userPanelListOfAnnoncementsDto.companyName}",
+                                      textAlign: TextAlign.start,
+                                    style: TextStyle(color: Colors.white),)
                                 ),
                               ]
                           ),
@@ -54,7 +63,8 @@ class SingleNotificationView extends StatelessWidget {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text("${Lang.of(context).translate("announcement")}: ${userPanelListOfAnnoncementsDto.announcementName}", textAlign: TextAlign.start,)
+                                    child: Text("${Lang.of(context).translate("announcement")}: "
+                                        "${userPanelListOfAnnoncementsDto.announcementName}", textAlign: TextAlign.start, style: TextStyle(color: Colors.white),)
                                 ),
                               ]
                           ),
@@ -105,8 +115,10 @@ class SingleNotificationView extends StatelessWidget {
                                     }
                                 );
                                 },
-                                child: Text(userPanelListOfAnnoncementsDto.quizCode),
-                                color: Colors.cyan,
+                                child: Text(userPanelListOfAnnoncementsDto.quizCode, style: TextStyle(
+                                  color: Colors.white
+                                ),),
+                                color: Theme.of(context).primaryColor
                               ),
                             ),
                           ),

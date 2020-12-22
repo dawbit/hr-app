@@ -55,6 +55,13 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Color(0xaaffffff),
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
       padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -79,10 +86,6 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: newPhoneNumberError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: Colors.black38,
                 contentPadding: EdgeInsets.all(5),
                 filled: true,
                 labelText: Lang.of(context).translate('new_phone_number'),
@@ -106,11 +109,7 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
               style: TextStyle(fontSize: 21,),
               decoration: InputDecoration(
                 errorText: passwordError,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
                 contentPadding: EdgeInsets.all(5),
-                fillColor: Colors.black38,
                 filled: true,
                 labelText: Lang.of(context).translate('password'),
               ),
@@ -127,7 +126,7 @@ class _ChangePhoneNumberViewState extends State<ChangePhoneNumberView> {
                 Text(Lang.of(context).translate("change_phone_number"), style: TextStyle(color: Colors.white),)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xfffa526c),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

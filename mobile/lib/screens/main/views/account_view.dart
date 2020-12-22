@@ -9,7 +9,13 @@ class AccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple,
+      decoration: BoxDecoration(
+          color: Color(0xaaffffff),
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
       child: Column(
         children: [
           Expanded(

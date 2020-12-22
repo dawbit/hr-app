@@ -8,6 +8,7 @@ import 'package:mobile/injections/login_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/register_command_dto.dart';
 import 'package:mobile/utils/toast_util.dart';
+import 'package:mobile/values/sizes.dart';
 import 'package:mobile/widgets/login_loading_screen.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -82,24 +83,32 @@ class _RegisterHolderState extends State<RegisterHolder> {
       curve: Curves.fastOutSlowIn,
       child: Stack(
         children: [
-          StreamBuilder<bool>(
-            stream: _registrationBloc.isLoadingObservable,
-            initialData: false,
-            builder: (context, snapshot) {
-              return Visibility(
-                visible: snapshot.data,
-                  child: LoginLoadingScreen()
-              );
-            }
-          ),
           Container(
+            color: Color(0xaaffffff),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom
+            ),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(20),
+                      color: Color(0xff33b5e6),
+                      child: Text(Lang.of(context).translate("register"),
+                        style: TextStyle(
+                            fontSize:
+                            Sizes.bigSize,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 100, bottom: 10, left: 10, right: 10),
+                    padding: const EdgeInsets.only(top: 50, bottom: 10, left: 10, right: 10),
                     child: TextFormField(
                       maxLines: 1,
                       onChanged: ((_) {setState(() {
@@ -109,11 +118,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       style: TextStyle(fontSize: 21,),
                       decoration: InputDecoration(
                         errorText: loginErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('login'),
                       ),
@@ -130,11 +135,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       style: TextStyle(fontSize: 21,),
                       decoration: InputDecoration(
                         errorText: emailErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('email'),
                       ),
@@ -152,11 +153,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       obscureText: true,
                       decoration: InputDecoration(
                         errorText: passwordErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('password'),
                       ),
@@ -173,11 +170,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       });}),
                       decoration: InputDecoration(
                         errorText: firstNameErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('firstname'),
                       ),
@@ -190,11 +183,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       controller: middleNameTextEditingController,
                       style: TextStyle(fontSize: 21,),
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('middlename'),
                       ),
@@ -211,11 +200,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       style: TextStyle(fontSize: 21,),
                       decoration: InputDecoration(
                         errorText: surNameErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('surname'),
                       ),
@@ -232,11 +217,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       style: TextStyle(fontSize: 21,),
                       decoration: InputDecoration(
                         errorText: phoneNumberErrorMessage,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Colors.black38,
                         filled: true,
                         labelText: Lang.of(context).translate('phone_number'),
                       ),
@@ -253,7 +234,7 @@ class _RegisterHolderState extends State<RegisterHolder> {
                         Text(Lang.of(context).translate("register"), style: TextStyle(color: Colors.white),)),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color(0xfffa526c),
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -267,10 +248,21 @@ class _RegisterHolderState extends State<RegisterHolder> {
                       },
                       child: Text("${Lang.of(context).translate("alreadyRegistered")} ${Lang.of(context).translate("login")}"),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 30,)
                 ],
               ),
             ),
+          ),
+          StreamBuilder<bool>(
+              stream: _registrationBloc.isLoadingObservable,
+              initialData: false,
+              builder: (context, snapshot) {
+                return Visibility(
+                    visible: snapshot.data,
+                    child: LoginLoadingScreen()
+                );
+              }
           ),
         ],
       ),

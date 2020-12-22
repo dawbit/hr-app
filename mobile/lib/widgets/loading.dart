@@ -5,11 +5,9 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 50,
-        height: 50,
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.yellow),
+            valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
             backgroundColor: Colors.transparent,
             strokeWidth: 4,),
         ),

@@ -42,7 +42,8 @@ class _TestCodeContentState extends State<TestCodeContent> {
                     },
                     controller: _textEditingController,
                     decoration: InputDecoration(
-                      errorText: errorMessage
+                      errorText: errorMessage,
+                      labelText: Lang.of(context).translate("test_code"),
                     ),
                   ),
                   Container(
@@ -67,9 +68,14 @@ class _TestCodeContentState extends State<TestCodeContent> {
                           }
                         },
                         child: Container(
-                          width: MediaQuery.of(context).size.width,
+                          height: 50,
                           child: Center(
-                              child: Text(Lang.of(context).translate("start_test"))
+                              child: Text(Lang.of(context).translate("start_test"), style: TextStyle(color: Colors.white)),
+
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).primaryColor,
                           ),
                         )
                     ),

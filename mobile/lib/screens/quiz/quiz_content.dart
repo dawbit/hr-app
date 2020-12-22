@@ -68,75 +68,91 @@ class _QuizContentState extends State<QuizContent> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: onWillPop,
-      child: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                TopClipPath(),
-                QuestionWidget(
-                  currentQuestionController: currentQuestionController,
-                  questionText:
-                      currentQuestion != null ? currentQuestion.text : "",
-                  getQuestionNumber: widget.quizInformationDto.backPossible
-                      ? getQuestionNumber
-                      : null,
-                ),
-              ],
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Stack(
+                children: [
+                  TopClipPath(),
+                  QuestionWidget(
+                    currentQuestionController: currentQuestionController,
+                    questionText:
+                        currentQuestion != null ? currentQuestion.text : "",
+                    getQuestionNumber: widget.quizInformationDto.backPossible
+                        ? getQuestionNumber
+                        : null,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: StreamBuilder<QuizSolverState>(
-                stream: quizSolverBloc.quizStateObservable,
-                initialData: QuizSolverState.LOADING,
-                builder: (context, snapshotState) {
-                  return Stack(
-                    children: [
-                      Visibility(
-                        child: ListOfAnswersWidget(
-                          answers: currentQuestion != null
-                              ? currentQuestion.answers
-                              : null,
-                          setAnswerForThisQuestion: setAnswerForThisQuestion,
+            Expanded(
+              flex: 3,
+              child: StreamBuilder<QuizSolverState>(
+                  stream: quizSolverBloc.quizStateObservable,
+                  initialData: QuizSolverState.LOADING,
+                  builder: (context, snapshotState) {
+                    return Stack(
+                      children: [
+                        Visibility(
+                          child: Container(
+                            color: Color(0x77ffffff),
+                            child: ListOfAnswersWidget(
+                              answers: currentQuestion != null
+                                  ? currentQuestion.answers
+                                  : null,
+                              setAnswerForThisQuestion: setAnswerForThisQuestion,
+                            ),
+                          ),
+                          visible: snapshotState.data == QuizSolverState.OK,
                         ),
-                        visible: snapshotState.data == QuizSolverState.OK,
-                      ),
-                      Visibility(
-                        child: LoadingWidget(),
-                        visible: snapshotState.data == QuizSolverState.LOADING,
-                      ),
-                    ],
-                  );
-                }),
-          ),
-          Expanded(
-            flex: 0,
-            child: Container(
-              margin: EdgeInsets.all(20),
-              child: MaterialButton(
-                  height: Sizes.hugeSize,
-                  onPressed: () {
-                    finishQuiz();
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          child: Center(child: Text("Zakoncz test")),
+                        Visibility(
+                          child: LoadingWidget(),
+                          visible: snapshotState.data == QuizSolverState.LOADING,
                         ),
+                      ],
+                    );
+                  }),
+            ),
+            Container(
+              color: Color(0x77ffffff),
+              child: Expanded(
+                flex: 0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        margin: EdgeInsets.all(20),
+                        child: MaterialButton(
+                            height: Sizes.hugeSize,
+                            color: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              finishQuiz();
+                            },
+                            child: Container(
+                              child: Text("Zakoncz test", style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,),
+                            )),
                       ),
-                      Expanded(
+                    ),
+                    Expanded(
                         flex: 2,
                         child: TimerWidget(widget.quizInformationDto.timeForTestInMilis)
-                      ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
