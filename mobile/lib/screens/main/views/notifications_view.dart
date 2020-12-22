@@ -36,7 +36,7 @@ class _NotificationsViewState extends State<NotificationsView> {
         children: [
           Expanded(
             flex: 0,
-              child: CardWidget(icon: Icon(Icons.notifications), cardTitle: Lang.of(context).translate("notifications"),)
+              child: CardWidget(icon: Icon(Icons.notifications, color: Colors.white), cardTitle: Lang.of(context).translate("notifications"),)
           ),
           Expanded(
             flex: 1,
@@ -107,7 +107,7 @@ class _NotificationsViewState extends State<NotificationsView> {
             padding: EdgeInsets.all(0),
             itemCount: snapshotData.data.length,
             itemBuilder: (_, index) =>
-                SubCardWidget(icon: Icon(Icons.notifications_none),
+                SubCardWidget(icon: Icon(Icons.notifications_none, color: Colors.white),
                   userPanelListOfAnnoncementsDto: snapshotData.data[index],),
           ),
         );

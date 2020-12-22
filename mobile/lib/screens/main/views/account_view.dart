@@ -20,17 +20,17 @@ class AccountView extends StatelessWidget {
         children: [
           Expanded(
               flex: 0,
-              child: CardWidget(icon: Icon(Icons.account_box), cardTitle: Lang.of(context).translate("my_account"),)
+              child: CardWidget(icon: Icon(Icons.account_box, color: Colors.white), cardTitle: Lang.of(context).translate("my_account"),)
           ),
           Expanded(
             flex: 1,
             child: Column(
               children: [
-                SubAccountCardWidget(icon: Icon(Icons.view_carousel_rounded), title: Lang.of(context).translate("my_data"), onTapFunction: onUserDataTap,),
-                SubAccountCardWidget(icon: Icon(Icons.email), title: Lang.of(context).translate("change_email"), onTapFunction: onEmailTap,),
-                SubAccountCardWidget(icon: Icon(Icons.lock), title: Lang.of(context).translate("change_password"), onTapFunction: onPasswordTap,),
-                SubAccountCardWidget(icon: Icon(Icons.phone), title: Lang.of(context).translate("change_phone_number"), onTapFunction: onPhoneNumberTap,),
-                SubAccountCardWidget(icon: Icon(Icons.upload_file), title: Lang.of(context).translate("upload_cv"), onTapFunction: onCvTap,),
+                SubAccountCardWidget(icon: Icon(Icons.view_carousel_rounded, color: Colors.white), title: Lang.of(context).translate("my_data"), onTapFunction: onUserDataTap,),
+                SubAccountCardWidget(icon: Icon(Icons.email, color: Colors.white), title: Lang.of(context).translate("change_email"), onTapFunction: onEmailTap,),
+                SubAccountCardWidget(icon: Icon(Icons.lock, color: Colors.white), title: Lang.of(context).translate("change_password"), onTapFunction: onPasswordTap,),
+                SubAccountCardWidget(icon: Icon(Icons.phone, color: Colors.white), title: Lang.of(context).translate("change_phone_number"), onTapFunction: onPhoneNumberTap,),
+                SubAccountCardWidget(icon: Icon(Icons.upload_file, color: Colors.white), title: Lang.of(context).translate("upload_cv"), onTapFunction: onCvTap,),
               ],
             ),
           ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/values/sizes.dart';
 
 class CardWidget extends StatelessWidget {
-
   final Icon icon;
   final String cardTitle;
   final Function onClick;
@@ -15,42 +14,48 @@ class CardWidget extends StatelessWidget {
     return Container(
       height: Sizes.CardWidgetSize,
       decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
+          color: Theme.of(context).accentColor,
           //border: Border.symmetric(horizontal: BorderSide(width: 1, color: Colors.blue, style: BorderStyle.solid),),
-        border: Border(bottom: BorderSide(width: 1, color: Colors.black))
-      ),
-      child: onClick!= null ? InkWell(
-        onTap: (){onClick();},
-        child: Row(
-          children: [
-            Expanded(
-                flex: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: Sizes.bigSpace),
-                  child: icon,
-                )
+          border: Border(bottom: BorderSide(width: 1, color: Colors.black))),
+      child: onClick != null
+          ? InkWell(
+              onTap: () {
+                onClick();
+              },
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 0,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizes.bigSpace),
+                        child: icon,
+                      )),
+                  Expanded(
+                      flex: 3,
+                      child: Text(
+                        cardTitle,
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ],
+              ),
+            )
+          : Row(
+              children: [
+                Expanded(
+                    flex: 0,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: Sizes.bigSpace),
+                      child: icon,
+                    )),
+                Expanded(
+                    flex: 3,
+                    child: Text(
+                      cardTitle,
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ],
             ),
-            Expanded(
-                flex: 3,
-                child: Text(cardTitle)
-            ),
-          ],
-        ),
-      ) : Row(
-        children: [
-          Expanded(
-              flex: 0,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: Sizes.bigSpace),
-                child: icon,
-              )
-          ),
-          Expanded(
-              flex: 3,
-              child: Text(cardTitle, style: TextStyle(color: Colors.white),)
-          ),
-        ],
-      ),
     );
   }
 }

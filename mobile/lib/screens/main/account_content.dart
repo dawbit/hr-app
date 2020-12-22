@@ -30,9 +30,9 @@ class _AccountContentState extends State<AccountContent> {
         '/': (context) => Container(
           child: Column(
             children: [
-              CardWidget(icon: Icon(Icons.account_box), cardTitle: Lang.of(context).translate("my_account"), onClick: onAccountClick,),
-              CardWidget(icon: Icon(Icons.notifications), cardTitle: Lang.of(context).translate("notifications"), onClick: onNotificationsClick,),
-              CardWidget(icon: Icon(Icons.logout), cardTitle: Lang.of(context).translate("log_out"), onClick: logoutCurrentUser),
+              CardWidget(icon: Icon(Icons.account_box, color: Colors.white), cardTitle: Lang.of(context).translate("my_account"), onClick: onAccountClick,),
+              CardWidget(icon: Icon(Icons.notifications, color: Colors.white), cardTitle: Lang.of(context).translate("notifications"), onClick: onNotificationsClick,),
+              CardWidget(icon: Icon(Icons.logout, color: Colors.white), cardTitle: Lang.of(context).translate("log_out"), onClick: logoutCurrentUser),
             ],
           ),
         ),
