@@ -3,6 +3,7 @@ import 'package:mobile/models/login_command_dto.dart';
 import 'package:mobile/models/register_command_dto.dart';
 import 'package:mobile/models/response_transfer.dart';
 import 'package:mobile/models/token.dart';
+import 'package:mobile/models/user_data_dto.dart';
 
 class LoginRepository {
 
@@ -16,5 +17,7 @@ class LoginRepository {
 
   Future<ResponseTransfer> attemptToRegister(RegisterCommandDto registerCommandDto) =>
       _authorizationSource.attemptToRegister(registerCommandDto);
+
+  Future<UserDataDto> getUserData(String token) => _authorizationSource.getUserData("Bearer $token");
 
 }

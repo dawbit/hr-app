@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:mobile/enums/error_login_type.dart';
 import 'package:mobile/models/login_command_dto.dart';
 import 'package:mobile/models/token.dart';
+import 'package:mobile/models/user_data_dto.dart';
 import 'package:mobile/repositories/login_repository.dart';
+import 'package:mobile/security/account_data_shared_pref.dart';
 import 'package:mobile/security/token_shared_pref.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,11 +34,17 @@ class LoginBloc extends BlocBase {
 
   void onSuccessLogin(Token token) async {
     await TokenSharedPref.setToken(token);
+    _loginRepository.getUserData(token.accessToken).then((value) => _onUserDataSuccess(value)).catchError(onLoginFailed);
+  }
+
+  void _onUserDataSuccess(UserDataDto userDataDto) async {
+    await AccountDataSharedPref.setAccountData(userDataDto);
     _isLoggedInSubject.add(null);
     _isLoadingSubject.add(false);
   }
 
-  void onLoginFailed(Object obj) {
+  void onLoginFailed(Object obj) async {
+    await TokenSharedPref.clearToken();
     _isLoadingSubject.add(false);
     final res = (obj as DioError).response;
     if((obj as DioError).error.toString().toLowerCase().contains("connection failed")) {
