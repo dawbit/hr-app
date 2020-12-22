@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/blocs/cvs_bloc.dart';
 import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
+import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 
 class UploadCvView extends StatefulWidget {
@@ -18,13 +21,25 @@ class _UploadCvViewState extends State<UploadCvView> {
 
   File file;
 
+  StreamSubscription uploadSuccessStream;
+  StreamSubscription uploadErrorStream;
+
   @override
   void initState() {
     super.initState();
     _cvsBloc =AppModule.injector.getBloc();
+    uploadSuccessStream = _cvsBloc.answerResponseObservable.listen((_) {
+      showToast(context, Lang.of(context).translate("successfully_uploaded_cv"));
+    });
+    uploadErrorStream = _cvsBloc.errorObservable.listen(((event) {_onError(event);}));
   }
 
-
+  @override
+  void dispose() {
+    uploadErrorStream.cancel();
+    uploadSuccessStream.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +103,26 @@ class _UploadCvViewState extends State<UploadCvView> {
         file = File(result.files.single.path);
       });
     } else {
+    }
+  }
+
+  void _onError(Object obj) {
+    final dioError = obj as DioError;
+    final res = dioError.response;
+    if((obj as DioError).error.toString().toLowerCase().contains("connection failed")) {
+      showToast(context, Lang.of(context).translate("connection_error"));
+    }
+    else if(res.statusCode >= 500) {
+      showToast(context, Lang.of(context).translate("server_error"));
+    }
+    else if(res.toString().contains("File is required")) {
+      showToast(context, Lang.of(context).translate("file_is_required"));
+    }
+    else if(res.toString().contains("File is not pdf")) {
+      showToast(context, Lang.of(context).translate("file_in_not_pdf"));
+    }
+    else if(res.toString().contains("File is too big")) {
+      showToast(context, Lang.of(context).translate("file_is_too_big"));
     }
   }
 }

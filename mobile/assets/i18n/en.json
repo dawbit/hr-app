@@ -51,7 +51,6 @@
   "wrong_current_password": "Your password is incorrect",
   "upload_cv": "Upload CV",
   "time_over": "The time is over",
-  "upload_cv": "Upload CV",
   "success_change_phone_number": "Successfully changed phone number",
   "success_change_password": "Successfully changed password",
   "success_change_email": "Successfully changed e-mail",
@@ -64,5 +63,9 @@
   "start_test": "Start test",
   "start": "Start",
   "are_you_sure_you_want_to_start_this_test": "Are you sure, you want to start this test?",
-  "test_code": "Test code"
+  "test_code": "Test code",
+  "successfully_uploaded_cv": "Cv has been uploaded successfully",
+  "file_is_required": "You can not send empty file",
+  "file_in_not_pdf": "File must have pdf extension",
+  "file_is_too_big": "File is too big"
 }
