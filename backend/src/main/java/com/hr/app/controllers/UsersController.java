@@ -126,6 +126,18 @@ public class UsersController {
         }
     }
 
+    @GetMapping(serviceUrlParam + "/getdata")
+    public Object getUserData(HttpServletResponse response){
+        try {
+            UsersModel user = getUsersModel();
+            CvsModel cv = cvsRepository.findByFKcvUserId(user.getId());
+            return new UserDataWithCvDto(user, cv.getFileName());
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+    }
+
     @PostMapping(serviceUrlParam + "/change-email")
     public Object changeEmail(@RequestBody ChangeEmailCommandDto changeEmailCommandDto, HttpServletResponse response) {
         try {
