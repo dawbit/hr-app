@@ -23,8 +23,8 @@ class AccountBloc extends BlocBase {
   PublishSubject<ResponseTransfer> _changePhoneNumberResponseSubject = PublishSubject();
   Stream<ResponseTransfer> get changePhoneNumberResponseObservable => _changePhoneNumberResponseSubject.stream;
 
-  PublishSubject<String> _errorBodySubject = PublishSubject();
-  Stream<String> get errorBodyObservable => _errorBodySubject.stream;
+  PublishSubject<Object> _errorBodySubject = PublishSubject();
+  Stream<Object> get errorBodyObservable => _errorBodySubject.stream;
 
   Future<void> changePassword(ChangePasswordCommandDto changePasswordCommandDto) async {
     _isLoadingSubject.add(true);
@@ -56,8 +56,8 @@ class AccountBloc extends BlocBase {
     _isLoadingSubject.add(false);
   }
 
-  void _onError(e) {
-    _errorBodySubject.add("sdgsd");
+  void _onError(Object obj) {
+    _errorBodySubject.add(obj);
     _isLoadingSubject.add(false);
   }
 

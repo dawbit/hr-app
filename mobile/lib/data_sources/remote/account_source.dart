@@ -8,7 +8,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'account_source.g.dart';
 
-@RestApi(baseUrl: "http://192.168.43.228:8080/alerts")
+@RestApi(baseUrl: "http://192.168.43.228:8080/user")
 abstract class AccountSource{
 
   factory AccountSource(Dio dio, {String baseUrl})= _AccountSource;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/screens/main/widgets/test_code_warning_dialog.dart';
 import 'package:mobile/values/sizes.dart';
-import 'package:mobile/values/styles.dart';
 
 class TestCodeContent extends StatefulWidget {
   @override
@@ -17,14 +16,14 @@ class _TestCodeContentState extends State<TestCodeContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Sizes.giantSpace),
+      padding: EdgeInsets.all(Sizes.bigSpace),
       height: MediaQuery.of(context).size.height,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
               flex: 0,
-              child: Text(Lang.of(context).translate("test_code"), style: Styles.textTitleStyle,)
+              child: Text(Lang.of(context).translate("test_code"), style: TextStyle(fontSize: Sizes.bigSize),)
           ),
           Expanded(
               flex: 1,

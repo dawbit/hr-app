@@ -9,7 +9,7 @@ part of 'account_source.dart';
 class _AccountSource implements AccountSource {
   _AccountSource(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://192.168.43.228:8080/alerts';
+    baseUrl ??= 'http://192.168.43.228:8080/user';
   }
 
   final Dio _dio;
