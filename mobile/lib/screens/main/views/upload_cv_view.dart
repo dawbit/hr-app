@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/blocs/cvs_bloc.dart';
 import 'package:mobile/injections/app_module.dart';
 import 'package:mobile/localizations/app_localization.dart';
+import 'package:mobile/security/account_data_shared_pref.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
 
@@ -28,7 +29,8 @@ class _UploadCvViewState extends State<UploadCvView> {
   void initState() {
     super.initState();
     _cvsBloc =AppModule.injector.getBloc();
-    uploadSuccessStream = _cvsBloc.answerResponseObservable.listen((_) {
+    uploadSuccessStream = _cvsBloc.answerResponseObservable.listen((event) async {
+      await AccountDataSharedPref.setCv(event.fileDownloadUri);
       showToast(context, Lang.of(context).translate("successfully_uploaded_cv"));
     });
     uploadErrorStream = _cvsBloc.errorObservable.listen(((event) {_onError(event);}));
