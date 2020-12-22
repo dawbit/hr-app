@@ -7,8 +7,15 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
-      body: SingleChildScrollView(
-          child: LoginContent()
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Image.asset('assets/images/background-01.jpg'),
+          ),
+          LoginContent(),
+        ],
       ),
     );
   }

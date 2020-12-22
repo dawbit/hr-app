@@ -47,7 +47,7 @@ class CardWidget extends StatelessWidget {
           ),
           Expanded(
               flex: 3,
-              child: Text(cardTitle)
+              child: Text(cardTitle, style: TextStyle(color: Colors.white),)
           ),
         ],
       ),

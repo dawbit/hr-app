@@ -32,7 +32,7 @@ class SubAccountCardWidget extends StatelessWidget {
               ),
               Expanded(
                   flex: 3,
-                  child: Text(title)
+                  child: Text(title, style: TextStyle(color: Colors.white),)
               ),
             ],
           ),

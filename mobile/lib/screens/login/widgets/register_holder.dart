@@ -90,10 +90,11 @@ class _RegisterHolderState extends State<RegisterHolder> {
             ),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 0,
+                  child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.all(20),
                       color: Color(0xff33b5e6),
@@ -107,151 +108,165 @@ class _RegisterHolderState extends State<RegisterHolder> {
                         textAlign: TextAlign.center,
                       )
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50, bottom: 10, left: 10, right: 10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      onChanged: ((_) {setState(() {
-                        loginErrorMessage = null;
-                      });}),
-                      controller: loginTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      decoration: InputDecoration(
-                        errorText: loginErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('login'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      onChanged: ((_) {setState(() {
-                        emailErrorMessage = null;
-                      });}),
-                      controller: emailTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      decoration: InputDecoration(
-                        errorText: emailErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('email'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      onChanged: ((_) {setState(() {
-                        passwordErrorMessage = null;
-                      });}),
-                      controller: passwordTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        errorText: passwordErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('password'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      controller: firstNameTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      onChanged: ((_) {setState(() {
-                        firstNameErrorMessage = null;
-                      });}),
-                      decoration: InputDecoration(
-                        errorText: firstNameErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('firstname'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      controller: middleNameTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('middlename'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      onChanged: ((_) {setState(() {
-                        surNameErrorMessage = null;
-                      });}),
-                      controller: surNameTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      decoration: InputDecoration(
-                        errorText: surNameErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('surname'),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      maxLines: 1,
-                      onChanged: ((_) {setState(() {
-                        phoneNumberErrorMessage = null;
-                      });}),
-                      controller: phoneNumberTextEditingController,
-                      style: TextStyle(fontSize: 21,),
-                      decoration: InputDecoration(
-                        errorText: phoneNumberErrorMessage,
-                        contentPadding: EdgeInsets.all(5),
-                        filled: true,
-                        labelText: Lang.of(context).translate('phone_number'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: () {_onRegisterClick();},
-                      child: Container(
-                        height: 50,
-                        child: Center(child:
-                        Text(Lang.of(context).translate("register"), style: TextStyle(color: Colors.white),)),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).primaryColor,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50, bottom: 10, left: 10, right: 10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          onChanged: ((_) {setState(() {
+                            loginErrorMessage = null;
+                          });}),
+                          controller: loginTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          decoration: InputDecoration(
+                            errorText: loginErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('login'),
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          onChanged: ((_) {setState(() {
+                            emailErrorMessage = null;
+                          });}),
+                          controller: emailTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          decoration: InputDecoration(
+                            errorText: emailErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('email'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          onChanged: ((_) {setState(() {
+                            passwordErrorMessage = null;
+                          });}),
+                          controller: passwordTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            errorText: passwordErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('password'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          controller: firstNameTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          onChanged: ((_) {setState(() {
+                            firstNameErrorMessage = null;
+                          });}),
+                          decoration: InputDecoration(
+                            errorText: firstNameErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('firstname'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          controller: middleNameTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('middlename'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          onChanged: ((_) {setState(() {
+                            surNameErrorMessage = null;
+                          });}),
+                          controller: surNameTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          decoration: InputDecoration(
+                            errorText: surNameErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('surname'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TextFormField(
+                          maxLines: 1,
+                          onChanged: ((_) {setState(() {
+                            phoneNumberErrorMessage = null;
+                          });}),
+                          controller: phoneNumberTextEditingController,
+                          style: TextStyle(fontSize: 21,),
+                          decoration: InputDecoration(
+                            errorText: phoneNumberErrorMessage,
+                            contentPadding: EdgeInsets.all(5),
+                            filled: true,
+                            labelText: Lang.of(context).translate('phone_number'),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: (){
-                        widget.changeLoginContentStateToLogin(LoginState.LOGIN);
-                      },
-                      child: Text("${Lang.of(context).translate("alreadyRegistered")} ${Lang.of(context).translate("login")}"),
-                    ),
+                ),
+                Expanded(
+                  flex: 0,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: InkWell(
+                          onTap: () {_onRegisterClick();},
+                          child: Container(
+                            height: 50,
+                            child: Center(child:
+                            Text(Lang.of(context).translate("register"), style: TextStyle(color: Colors.white),)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: (){
+                            widget.changeLoginContentStateToLogin(LoginState.LOGIN);
+                          },
+                          child: Text("${Lang.of(context).translate("alreadyRegistered")} ${Lang.of(context).translate("login")}"),
+                        ),
+                      ),
+                      SizedBox(height: 30,),
+                    ],
                   ),
-                  SizedBox(height: 30,)
-                ],
-              ),
+                )
+              ],
             ),
           ),
           StreamBuilder<bool>(

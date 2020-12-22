@@ -35,7 +35,7 @@ class SubCardWidget extends StatelessWidget {
               ),
               Expanded(
                   flex: 3,
-                  child: Text(userPanelListOfAnnoncementsDto.announcementName)
+                  child: Text(userPanelListOfAnnoncementsDto.announcementName, style: TextStyle(color: Colors.white),)
               ),
             ],
           ),

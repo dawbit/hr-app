@@ -56,81 +56,83 @@ class _LoginHolderState extends State<LoginHolder> {
       curve: Curves.fastOutSlowIn,
       child: Stack(
         children: [
-          Container(
-            color: Color(0xaaffffff),
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(20),
-                    color: Color(0xff33b5e6),
-                    child: Text(Lang.of(context).translate("login"),
-                      style: TextStyle(
-                          fontSize:
-                          Sizes.bigSize,
-                          color: Colors.white,
-                        fontWeight: FontWeight.w500
+          SingleChildScrollView(
+            child: Container(
+              color: Color(0xaaffffff),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.all(20),
+                      color: Color(0xff33b5e6),
+                      child: Text(Lang.of(context).translate("login"),
+                        style: TextStyle(
+                            fontSize:
+                            Sizes.bigSize,
+                            color: Colors.white,
+                          fontWeight: FontWeight.w500
+                        ),
+                      textAlign: TextAlign.center,
+                      )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50, bottom: 10, left: 10, right: 10),
+                    child: TextFormField(
+                      maxLines: 1,
+                      controller: loginTextEditingController,
+                      style: TextStyle(fontSize: 21,),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        filled: true,
+                        labelText: Lang.of(context).translate('login'),
                       ),
-                    textAlign: TextAlign.center,
-                    )
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50, bottom: 10, left: 10, right: 10),
-                  child: TextFormField(
-                    maxLines: 1,
-                    controller: loginTextEditingController,
-                    style: TextStyle(fontSize: 21,),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      filled: true,
-                      labelText: Lang.of(context).translate('login'),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    maxLines: 1,
-                    obscureText: true,
-                    controller: passwordTextEditingController,
-                    style: TextStyle(fontSize: 21,),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5),
-                      filled: true,
-                      labelText: Lang.of(context).translate('password'),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: InkWell(
-                    onTap: () {attemptToLogin();},
-                    child: Container(
-                      height: 50,
-                      child: Center(child:
-                      Text(Lang.of(context).translate("login"), style: TextStyle(color: Colors.white),)),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).primaryColor,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      maxLines: 1,
+                      obscureText: true,
+                      controller: passwordTextEditingController,
+                      style: TextStyle(fontSize: 21,),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(5),
+                        filled: true,
+                        labelText: Lang.of(context).translate('password'),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: GestureDetector(
-                    onTap: (){
-                      widget.changeLoginContentStateToRegister(LoginState.REGISTER);
-                    },
-                    child: Text( "${Lang.of(context).translate("noAccount")} ${Lang.of(context).translate("register")}"),
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: InkWell(
+                      onTap: () {attemptToLogin();},
+                      child: Container(
+                        height: 50,
+                        child: Center(child:
+                        Text(Lang.of(context).translate("login"), style: TextStyle(color: Colors.white),)),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: (){
+                        widget.changeLoginContentStateToRegister(LoginState.REGISTER);
+                      },
+                      child: Text( "${Lang.of(context).translate("noAccount")} ${Lang.of(context).translate("register")}"),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           StreamBuilder<bool>(
