@@ -23,7 +23,7 @@
 </div>
 
 <div *ngIf="quizStarted">
-  {{"quiz.timeLeft" | translate}} <countdown [config]="{leftTime: timeLeft}"></countdown>
+  <a>{{"quiz.timeLeft" | translate}}</a> <countdown [config]="{leftTime: timeLeft}"></countdown>
 
   <h4>{{currentQuestion.text | titlecase}}</h4>
 
