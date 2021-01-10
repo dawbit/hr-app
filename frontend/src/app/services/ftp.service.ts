@@ -1,7 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GlobalConstants } from '../common/global-constants';
+import { TokenStorageService } from './security/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,24 +10,24 @@ import { GlobalConstants } from '../common/global-constants';
 export class FtpService {
   private apiURL = GlobalConstants.apiURL;
   private baseUrl = GlobalConstants.apiURL + '/cvs';
-  private httpOptions = GlobalConstants.httpOptions;
-
+  private http: HttpClient;
 constructor(
-  private http: HttpClient,
-  private translate: TranslateService
-  ) { }
+  private translate: TranslateService,
+  private handler: HttpBackend,
+  private auth: TokenStorageService
+  ) { this.http = new HttpClient(handler) }
 
   // Config for sending cv
 getAfuConfig(){
   const afuConfig = {
     formatsAllowed: '.pdf',
-    maxSize: '5',
     theme: 'dragNDrop',
-
+    multiple: false,
+    fileNameIndex: false,
     uploadAPI: {
       url: this.baseUrl + '/uploadCv',
       headers: {
-        'content-Type': 'multipart/form-data',
+        Authorization: this.auth.getToken(),
         boundary: 'file'
       }
     },
