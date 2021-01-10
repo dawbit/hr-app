@@ -84,7 +84,16 @@
     "announcementTitle": "Announcement title",
     "userLogin": "User login",
     "titleTestCode": "Test Code",
-    "applicationsList": "List of applications"
+    "applicationsList": "List of applications",
+    "quizFinished": "Completed",
+    "userResults": "Results of user:",
+    "userPointsForTest": "General test result:",
+    "points": "points",
+    "details": "Details",
+    "results": "Result",
+    "question": "Question",
+    "answer": "Selected answer",
+    "no": "No"
   },
   "ceo": {
     "assign": "Assign to hr",

@@ -84,7 +84,16 @@
     "announcementTitle": "Tytuł ogłoszenia",
     "userLogin": "Login użytkownika",
     "titleTestCode": "Kod testu",
-    "applicationsList": "Lista aplikacji"
+    "applicationsList": "Lista aplikacji",
+    "quizFinished": "Ukończony",
+    "userResults": "Wyniki użytkownika:",
+    "userPointsForTest": "Ogólny wynik testu:",
+    "points": "punktów",
+    "details": "Szczegóły",
+    "results": "Wynik",
+    "question": "Pytanie",
+    "answer": "Zaznaczona odpowiedź",
+    "no": "Nie"
   },
   "ceo": {
     "assign": "Przypisz do hr",

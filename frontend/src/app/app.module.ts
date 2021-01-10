@@ -35,6 +35,7 @@ import { ContactTeamComponent } from './components/panels/contact-panel/contact-
 import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
 import { DeleteFromHrComponent } from './components/panels/ceo-panel/delete-from-hr/delete-from-hr.component';
 import { CvUploadComponent } from './components/panels/account-settings/cv-upload/cv-upload.component';
+import { QuizResultModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-result-modal/quiz-result-modal/quiz-result-modal.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
@@ -129,7 +130,8 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     CvUploadComponent,
     ChangeUserEmailComponent,
     ChangeUserPasswordComponent,
-    ChangeUserPhoneNumberComponent
+    ChangeUserPhoneNumberComponent,
+    QuizResultModalComponent
   ],
   imports: [
     BrowserModule,

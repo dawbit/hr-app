@@ -9,9 +9,9 @@
   </div>
 
   <div class="md-form mt-0">
-    <input mdbInput type="text" class="form-control" formControlName="newPhoneNumber">
-    <label for="newPhoneNumber">{{"my-account.newPhoneNumber" | translate}}</label>
-    <mdb-error *ngIf="form.newPhoneNumber.invalid && (form.newPhoneNumber.dirty || form.newPhoneNumber.touched)">
+    <input mdbInput type="text" class="form-control" formControlName="phoneNumber">
+    <label for="phoneNumber">{{"my-account.newPhoneNumber" | translate}}</label>
+    <mdb-error *ngIf="form.phoneNumber.invalid && (form.phoneNumber.dirty || form.phoneNumber.touched)">
       <span> {{'my-account.phoneNumberMinimumLength' | translate}} </span>
     </mdb-error>
   </div>

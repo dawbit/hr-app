@@ -21,10 +21,10 @@ export class ChangeUserPhoneNumberComponent implements OnInit {
   ngOnInit() {
     this.changePhoneNumberForm = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
-      newPhoneNumber: ['', [Validators.required, Validators.minLength(9),
+      phoneNumber: ['', [Validators.required, Validators.minLength(9),
       Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]],
       newPhoneNumberConfirmation: ['', [Validators.required]]
-    }, { validator: [MustMatch('newPhoneNumber', 'newPhoneNumberConfirmation')] });
+    }, { validator: [MustMatch('phoneNumber', 'newPhoneNumberConfirmation')] });
   }
 
   get form() { return this.changePhoneNumberForm.controls; }
@@ -34,7 +34,7 @@ export class ChangeUserPhoneNumberComponent implements OnInit {
       this.toast.showSuccess('message.success');
     },
     err => {
-      this.toast.showSuccess('message.error');
+      this.toast.showError('message.error');
     }
     );
   }

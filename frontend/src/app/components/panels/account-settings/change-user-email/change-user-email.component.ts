@@ -34,7 +34,7 @@ export class ChangeUserEmailComponent implements OnInit {
       this.toast.showSuccess('message.success');
     },
     err => {
-      this.toast.showSuccess('message.error');
+      this.toast.showError('message.error');
     }
     );
   }

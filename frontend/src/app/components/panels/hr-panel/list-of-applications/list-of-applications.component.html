@@ -32,11 +32,16 @@
                     [userId]="application.userId" [userLogin]="application.userLogin" [alertId]="application.alertId" [announcementId]="application.announcementId" (click)="setAsRead(application.alertId)"></app-quiz-assign-modal>
                     <a *ngIf="application.quizCode">{{application.quizCode}}</a>
                   </td>
+                  <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <p *ngIf="!application.quizFinished">{{ "hr.no" | translate}}</p>
+                    <app-quiz-result-modal *ngIf="application.quizFinished" [userId]="application.userId" [quizId]="application.quizId"></app-quiz-result-modal>
+                    <!-- <button *ngIf="application.quizFinished" (click)="getResults(application.userId, application.quizId)">Wynik</button> -->
+                  </td>
               </tr>
           </tbody>
           <tfoot class="primary lighten-5 w-100">
               <tr>
-                  <td colspan="6">
+                  <td colspan="7">
                       <mdb-table-pagination class="dark" [tableEl]="tableEl" paginationAlign="" [searchDataSource]="applications">
                       </mdb-table-pagination>
                   </td>
