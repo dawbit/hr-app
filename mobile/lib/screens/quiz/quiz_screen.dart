@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/quiz/quiz_content.dart';
-import 'package:mobile/widgets/status_bar_widget.dart';
 
 class QuizScreen extends StatelessWidget {
 
@@ -11,18 +10,17 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              flex: 0,
-              child: StatusBarWidget()
-          ),
-          Expanded(
-              flex: 1,
-              child: QuizContent(quizInformationDto)
-          ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fitHeight,
+            image: AssetImage('assets/images/background-01.jpg'),
+          )
+      ),
+      child: Scaffold(
+
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(child: QuizContent(quizInformationDto)),
       ),
     );
   }

@@ -10,9 +10,9 @@
   <div class="row text-center text-md-left">
 
     <!-- Grid column -->
-    <div class="col-md-4 mb-md-0 mb-5" *ngFor="let member of members">
+    <div class="col-md-4 mb-md-0 mb-5 text-center" *ngFor="let member of members">
       <div class="avatar mb-md-0 mb-4 mx-4">
-        <img src="{{member.photo}}" class="rounded-circle z-depth-4" alt="{{member.name}} photo">
+        <img src="{{member.photo}}" class="rounded-circle z-depth-4 mb-3" alt="{{member.name}} photo">
       </div>
       <div class="mx-4">
         <h4 class="font-weight-bold mb-3">{{member.name}}</h4>
@@ -31,7 +31,7 @@
         </a>
         <!-- YouTube -->
         <a *ngIf="member.socialMedia.youtube" class="p-2 fa-lg yt-ic"
-          href="https://www.youtube.com/user/{{member.socialMedia.youtube}}" target="_blank">
+          href="https://www.youtube.com/{{member.socialMedia.youtube}}" target="_blank">
           <mdb-icon fab icon="youtube"> </mdb-icon>
         </a>
         <!-- Instagram -->

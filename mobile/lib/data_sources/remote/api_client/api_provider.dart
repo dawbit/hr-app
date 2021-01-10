@@ -16,7 +16,7 @@ logoutCurrentUser() {
 
 Dio getApiClient() {
   if (_apiClient == null) {
-    _apiClient = Dio();
+    _apiClient = Dio()..options.connectTimeout=10000;
     _apiClient.interceptors.add(_interceptor);
   }
   return _apiClient;

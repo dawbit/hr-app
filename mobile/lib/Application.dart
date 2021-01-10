@@ -29,6 +29,11 @@ class Application extends StatelessWidget {
             return null;
           }
         },
+        theme: ThemeData(
+          primaryColor: Color(0xff33b5e6),
+          accentColor: Color.fromARGB(0xFF, 25, 118, 210),
+          backgroundColor: Color(0xfffafafc),
+        ),
         debugShowCheckedModeBanner: false,
         title: "Hr-App",
         supportedLocales: _supportedLocales,

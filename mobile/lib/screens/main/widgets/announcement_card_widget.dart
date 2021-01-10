@@ -17,7 +17,15 @@ class AnnouncementCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+        color: Color(0x55ffffff),
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       height: 120,

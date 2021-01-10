@@ -89,7 +89,8 @@ public class CeosController {
             List<String> canBecomeHrFlagList = Arrays.asList(canBecomeHrFlag);
 
             if (!ceoFlagsList.contains(usersModel.getFKuserAccountTypes().getRoleName()) ||
-                !canBecomeHrFlagList.contains(userToBecomeHr.getFKuserAccountTypes().getRoleName())) {
+                !canBecomeHrFlagList.contains(userToBecomeHr.getFKuserAccountTypes().getRoleName()) ||
+                 (ceosRepository.findByFKceoUserId(userToBecomeHr.getId()) != null)) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
                 return new ResponseTransfer("Forbidden command"); //można dodać tylko zwykłych userów na hr
             } else {

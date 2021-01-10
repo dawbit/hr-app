@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile/config/routes.dart';
 import 'package:mobile/data_sources/remote/api_client/api_provider.dart';
+import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/screens/main/account_content.dart';
 import 'package:mobile/screens/main/announcements_content.dart';
 import 'package:mobile/screens/main/test_code_content.dart';
 import 'package:mobile/utils/toast_util.dart';
-import 'package:mobile/widgets/status_bar_widget.dart';
 
 import '../../Application.dart';
 
@@ -42,35 +42,36 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              flex: 0,
-                child: StatusBarWidget()
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: AssetImage('assets/images/background-01.jpg'),
+                )
             ),
-            Expanded(
-              flex: 1,
-              child: _mainScreenContent(),
-            )
-          ],
-        ),
+            child: SafeArea(child: _mainScreenContent())),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Theme.of(context).tabBarTheme.labelColor,
+          backgroundColor: Theme.of(context).accentColor,
+          unselectedItemColor: Color(0xffaaaaaa),
+
+          selectedItemColor: Color(0xffffffff),
           currentIndex: bottomNavigationBarIndex,
           onTap: (index){changeView(index);},
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.info),
-              label: ""
+                label: Lang.of(context).translate("announcements")
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.code),
-                label: ""
+                label: Lang.of(context).translate("test")
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-                label: ""
+                label: Lang.of(context).translate("account")
             ),
           ],
         ),

@@ -39,24 +39,17 @@ class _LoginContentState extends State<LoginContent> {
       height: MediaQuery.of(context).size.height,
       child: SafeArea(
         child: SizedBox.expand(
-          child: Column(
+          child: Stack(
+            fit: StackFit.expand,
             children: <Widget>[
-              Expanded(
-                  flex: 3,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      LoginHolder(
-                        changeLoginContentStateToRegister: changeLoginContentState,
-                        isVisible: (_loginState == LoginState.LOGIN),
-                      ),
-                      RegisterHolder(
-                        changeLoginContentStateToLogin: changeLoginContentState,
-                        isVisible: _loginState == LoginState.REGISTER,
-                      ),
-                    ],
-                  )
-              )
+              LoginHolder(
+                changeLoginContentStateToRegister: changeLoginContentState,
+                isVisible: (_loginState == LoginState.LOGIN),
+              ),
+              RegisterHolder(
+                changeLoginContentStateToLogin: changeLoginContentState,
+                isVisible: _loginState == LoginState.REGISTER,
+              ),
             ],
           ),
         ),

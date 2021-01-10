@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/blocs/quiz_solver_bloc.dart';
 import 'package:mobile/enums/quiz_solver_state.dart';
 import 'package:mobile/injections/app_module.dart';
+import 'package:mobile/localizations/app_localization.dart';
 import 'package:mobile/models/answer_command_dto.dart';
 import 'package:mobile/models/answer_result_dto.dart';
 import 'package:mobile/models/current_question_controller.dart';
@@ -11,10 +13,11 @@ import 'package:mobile/models/question_result_dto.dart';
 import 'package:mobile/models/quiz_information_dto.dart';
 import 'package:mobile/screens/quiz/widgets/list_of_answers_widget.dart';
 import 'package:mobile/screens/quiz/widgets/question_widget.dart';
+import 'package:mobile/screens/quiz/widgets/timer_widget.dart';
 import 'package:mobile/screens/quiz/widgets/top_clip_path.dart';
+import 'package:mobile/utils/quiz_error_handlers.dart';
 import 'package:mobile/utils/toast_util.dart';
 import 'package:mobile/values/sizes.dart';
-import 'package:mobile/widgets/connection_error.dart';
 import 'package:mobile/widgets/loading.dart';
 
 class QuizContent extends StatefulWidget {
@@ -36,6 +39,8 @@ class _QuizContentState extends State<QuizContent> {
   CurrentQuestionController currentQuestionController;
 
   DateTime currentBackPressTime;
+
+  int timeLeft;
 
   @override
   void initState() {
@@ -63,69 +68,91 @@ class _QuizContentState extends State<QuizContent> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: onWillPop,
-      child: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                TopClipPath(),
-                QuestionWidget(
-                  currentQuestionController: currentQuestionController,
-                  questionText:
-                      currentQuestion != null ? currentQuestion.text : "",
-                  getQuestionNumber: widget.quizInformationDto.backPossible
-                      ? getQuestionNumber
-                      : null,
-                ),
-              ],
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/images/background-01.jpg'),
+            )
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Stack(
+                children: [
+                  TopClipPath(),
+                  QuestionWidget(
+                    currentQuestionController: currentQuestionController,
+                    questionText:
+                        currentQuestion != null ? currentQuestion.text : "",
+                    getQuestionNumber: widget.quizInformationDto.backPossible
+                        ? getQuestionNumber
+                        : null,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: StreamBuilder<QuizSolverState>(
-                stream: quizSolverBloc.quizStateObservable,
-                initialData: QuizSolverState.LOADING,
-                builder: (context, snapshotState) {
-                  return Stack(
-                    children: [
-                      Visibility(
-                        child: ListOfAnswersWidget(
-                          answers: currentQuestion != null
-                              ? currentQuestion.answers
-                              : null,
-                          setAnswerForThisQuestion: setAnswerForThisQuestion,
+            Expanded(
+              flex: 3,
+              child: StreamBuilder<QuizSolverState>(
+                  stream: quizSolverBloc.quizStateObservable,
+                  initialData: QuizSolverState.LOADING,
+                  builder: (context, snapshotState) {
+                    return Stack(
+                      children: [
+                        Visibility(
+                          child: Container(
+                            color: Color(0x77ffffff),
+                            child: ListOfAnswersWidget(
+                              answers: currentQuestion != null
+                                  ? currentQuestion.answers
+                                  : null,
+                              setAnswerForThisQuestion: setAnswerForThisQuestion,
+                            ),
+                          ),
+                          visible: snapshotState.data == QuizSolverState.OK,
                         ),
-                        visible: snapshotState.data == QuizSolverState.OK,
-                      ),
-                      Visibility(
-                        child: LoadingWidget(),
-                        visible: snapshotState.data == QuizSolverState.LOADING,
-                      ),
-                      Visibility(
-                        child: ConnectionError(),
-                        visible: snapshotState.data == QuizSolverState.ERROR,
-                      ),
-                    ],
-                  );
-                }),
-          ),
-          Expanded(
-            flex: 0,
-            child: Container(
-              margin: EdgeInsets.all(20),
-              child: MaterialButton(
-                  height: Sizes.hugeSize,
-                  onPressed: () {
-                    finishQuiz();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(child: Text("Zakoncz test")),
-                  )),
+                        Visibility(
+                          child: LoadingWidget(),
+                          visible: snapshotState.data == QuizSolverState.LOADING,
+                        ),
+                      ],
+                    );
+                  }),
             ),
-          ),
-        ],
+            Container(
+              color: Color(0x77ffffff),
+              child: Expanded(
+                flex: 0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        margin: EdgeInsets.all(20),
+                        child: MaterialButton(
+                            height: Sizes.hugeSize,
+                            color: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              finishQuiz();
+                            },
+                            child: Container(
+                              child: Text("Zakoncz test", style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,),
+                            )),
+                      ),
+                    ),
+                    Expanded(
+                        flex: 2,
+                        child: TimerWidget(widget.quizInformationDto.timeForTestInMilis)
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -146,8 +173,18 @@ class _QuizContentState extends State<QuizContent> {
     Navigator.of(context).pop();
   }
 
-  void _onAnswerErrorMessage(String message) {
-    showToast(context, message);
+  void _onAnswerErrorMessage(Object obj) {
+    final dioError = obj as DioError;
+    final res = dioError.response;
+    if((obj as DioError).error.toString().toLowerCase().contains("connection failed")) {
+      showToast(context, Lang.of(context).translate("connection_error"));
+    }
+    else if(res.statusCode >= 500) {
+      showToast(context, Lang.of(context).translate("server_error"));
+    } else {
+      Map errorData = dioError.response.data;
+      QuizErrorHander.handleError(errorData['responseCode'], context);
+    }
     Navigator.of(context).pop();
   }
 

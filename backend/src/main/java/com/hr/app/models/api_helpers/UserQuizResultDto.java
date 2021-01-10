@@ -7,6 +7,8 @@ public class UserQuizResultDto {
     private long userId;
     private String quizName;
     private String login;
+    private int quizMaxPoints;
+    private int userPoints;
 
     private List<UserQuestionResultDto> userQuestionResultDtoList;
 
@@ -16,6 +18,33 @@ public class UserQuizResultDto {
         this.quizName = quizName;
         this.login = login;
         this.userQuestionResultDtoList = userQuestionResultDtoList;
+    }
+
+    public void sumUpPoints() {
+        int quizP = 0;
+        int userP = 0;
+        for (UserQuestionResultDto element: userQuestionResultDtoList) {
+            quizP += element.getMaxPoints();
+            userP += element.getUserPoints();
+        }
+        this.userPoints = userP;
+        this.quizMaxPoints = quizP;
+    }
+
+    public int getQuizMaxPoints() {
+        return quizMaxPoints;
+    }
+
+    public void setQuizMaxPoints(int quizMaxPoints) {
+        this.quizMaxPoints = quizMaxPoints;
+    }
+
+    public int getUserPoints() {
+        return userPoints;
+    }
+
+    public void setUserPoints(int userPoints) {
+        this.userPoints = userPoints;
     }
 
     public long getQuizId() {

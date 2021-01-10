@@ -9,7 +9,7 @@ class TopClipPath extends StatelessWidget {
       clipper: RoundedBottomClipper(),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.blue,
+        color: Theme.of(context).accentColor
       ),
     );
   }

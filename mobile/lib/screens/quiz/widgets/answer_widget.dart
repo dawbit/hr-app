@@ -20,10 +20,8 @@ class AnswerWidget extends StatelessWidget {
         onTap: (){setAnswerForThisQuestion(answerResultDto);},
         child: Container(
             margin: EdgeInsets.all(15),
-            child: Center(
-                child: Text(answerResultDto.text,
-                  textAlign: TextAlign.center,
-                ),
+            child: Text(answerResultDto.text,
+              textAlign: TextAlign.left,
             )
         ),
       ),

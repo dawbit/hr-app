@@ -16,9 +16,9 @@ class SubCardWidget extends StatelessWidget {
     return Container(
       height: Sizes.CardWidgetSize,
       decoration: BoxDecoration(
-          color: Colors.red,
+          color: Theme.of(context).accentColor,
           //border: Border.symmetric(horizontal: BorderSide(width: 1, color: Colors.blue, style: BorderStyle.solid),),
-          border: Border(bottom: BorderSide(width: 1, color: Colors.blue))
+          border: Border(bottom: BorderSide(width: 1, color: Colors.black))
       ),
       child: InkWell(
         onTap: (){Navigator.of(navigationKey.currentContext).pushNamed('/notificationsDetails', arguments: userPanelListOfAnnoncementsDto);},
@@ -35,7 +35,7 @@ class SubCardWidget extends StatelessWidget {
               ),
               Expanded(
                   flex: 3,
-                  child: Text(userPanelListOfAnnoncementsDto.announcementName)
+                  child: Text(userPanelListOfAnnoncementsDto.announcementName, style: TextStyle(color: Colors.white),)
               ),
             ],
           ),

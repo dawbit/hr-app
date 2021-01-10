@@ -15,6 +15,9 @@ class QuizInformationBloc extends BlocBase {
   PublishSubject<QuizInformationDto> _quizInformationSubject = PublishSubject();
   Stream<QuizInformationDto> get quizInformationObservable => _quizInformationSubject.stream;
 
+  PublishSubject<Object> _errorSubject = PublishSubject();
+  Stream<Object> get errorObservable => _errorSubject.stream;
+
   Future getQuizInformation(String testCode) async {
     _isLoadingSubject.add(true);
     quizRepository.getQuizInformation(testCode).then(_onSuccess).catchError(_onError);
@@ -25,8 +28,8 @@ class QuizInformationBloc extends BlocBase {
     _isLoadingSubject.add(false);
   }
 
-  void _onError(e) {
+  void _onError(Object obj) {
     _isLoadingSubject.add(false);
-    print("Quiz information error: $e");
+    _errorSubject.add(obj);
   }
 }

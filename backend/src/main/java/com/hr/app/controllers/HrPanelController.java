@@ -1,9 +1,7 @@
 package com.hr.app.controllers;
 
 import com.hr.app.mails.CustomMailing;
-import com.hr.app.models.api_helpers.AssignQuizDto;
-import com.hr.app.models.api_helpers.UserQuestionResultDto;
-import com.hr.app.models.api_helpers.UserQuizResultDto;
+import com.hr.app.models.api_helpers.*;
 import com.hr.app.models.database.*;
 import com.hr.app.models.dto.HrAlertsDto;
 import com.hr.app.models.dto.ResponseTransfer;
@@ -104,8 +102,51 @@ public class HrPanelController {
                 UserQuestionResultDto userQuestionResultDto = new UserQuestionResultDto(question.getText(), questionMaxPoints, userAnswersModel.getFKanswerIduserAnswer().getPoints(), userAnswersModel.getFKanswerIduserAnswer().getText());
                 userQuestionResultDtoArrayList.add(userQuestionResultDto);
             }
+            UserQuizResultDto userQuizResultDto = new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+            userQuizResultDto.sumUpPoints();
 
-            return new UserQuizResultDto(testsModel.getId(), userId, testsModel.getName(), getUserLoginById(userId), userQuestionResultDtoArrayList);
+            return userQuizResultDto;
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return new ResponseTransfer("Internal server error");
+        }
+    }
+
+    @GetMapping(serviceUrlParam + "/quiz-stats/{quizId}")
+    public Object getQuizStatistics(HttpServletResponse response, @PathVariable long quizId) {
+        UsersModel currentUser = getUserModel();
+
+        try{
+            if(currentUser.getFKuserAccountTypes().getRoleId()==2) {
+                CeosModel ceosModel = ceosRepository.findByFKceoUserId(currentUser.getId());
+                if(ceosModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==3) {
+                HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(currentUser.getId());
+                if(hrUsersModel == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return new ResponseTransfer("FORBIDDEN");
+                }
+            }
+            else if(currentUser.getFKuserAccountTypes().getRoleId()==4) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                return new ResponseTransfer("FORBIDDEN");
+            }
+            TestsModel testsModel = testsRepository.findById(quizId);
+            if(testsModel==null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ResponseTransfer("QUIZ_NOT_FOUND");
+            }
+
+            List<QuestionsModel> questionsModelList = questionsRepository.findAllByFKquestionTestId(testsModel.getId());
+            ArrayList<SingleQuizQuestionResultsDto> singleQuizQuestionResultsDtoArrayList = new ArrayList<>();
+            for (QuestionsModel question: questionsModelList) {
+                singleQuizQuestionResultsDtoArrayList.add(getSingleQuizQuestionResult(question));
+            }
+            return new SingleQuizResultDto(testsModel.getName(), singleQuizQuestionResultsDtoArrayList);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");
@@ -221,6 +262,35 @@ public class HrPanelController {
             }
         }
         return maxPoints;
+    }
+
+    private SingleQuizQuestionResultsDto getSingleQuizQuestionResult(QuestionsModel questionsModel) {
+        List<AnswersModel> answersModelList = answersRepository.findAllByFKanswerQuestionId(questionsModel.getId());
+        SingleQuizQuestionResultsDto singleQuizQuestionResultsDto;
+        ArrayList<SingleAnswerQuizQuestionResultDto> singleQuizQuestionResultsDtoArrayList = new ArrayList<>();
+        int maxPoints = 0;
+        float allUserAllPoints= 0;
+        float amountOfAnswers = 0;
+        for (AnswersModel answer: answersModelList) {
+            SingleAnswerQuizQuestionResultDto singleAnswerQuizQuestionResultDto;
+            List<UserAnswersModel> userAnswersModelList = userAnswerRepository.findAllByFKanswerIduserAnswerId(answer.getId());
+            amountOfAnswers+= userAnswersModelList.size();
+            singleAnswerQuizQuestionResultDto = new SingleAnswerQuizQuestionResultDto(userAnswersModelList.size(), answer.getPoints(), answer.getText());
+            singleQuizQuestionResultsDtoArrayList.add(singleAnswerQuizQuestionResultDto);
+            if(answer.getPoints() > maxPoints) {
+                maxPoints = answer.getPoints();
+            }
+            allUserAllPoints += answer.getPoints();
+        }
+        float averageQuestionPoints = allUserAllPoints;
+        if(amountOfAnswers!=0) {
+            averageQuestionPoints = (allUserAllPoints / amountOfAnswers) ;
+        } else {
+            averageQuestionPoints = 0;
+        }
+        singleQuizQuestionResultsDto = new SingleQuizQuestionResultsDto(questionsModel.getText(),
+                maxPoints, singleQuizQuestionResultsDtoArrayList, averageQuestionPoints);
+        return singleQuizQuestionResultsDto;
     }
 
     private UsersModel getUserModel() {

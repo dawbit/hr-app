@@ -41,7 +41,7 @@ class QuestionWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 30),
               child: Center(child: Text("$questionText",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.center, style: TextStyle(color: Colors.white)
               )),
             )
         ),

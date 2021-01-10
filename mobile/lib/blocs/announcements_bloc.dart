@@ -1,4 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
+import 'package:mobile/enums/errorType.dart';
+import 'package:mobile/enums/request_state.dart';
 import 'package:mobile/models/announcements_dto.dart';
 import 'package:mobile/repositories/announcements_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,18 +12,25 @@ class AnnouncementsBloc extends BlocBase {
 
   PublishSubject<String> _searchSubject = PublishSubject();
 
-  PublishSubject<bool> _isLoadingSubject = PublishSubject();
-  Stream<bool> get isLoadingObservable => _isLoadingSubject.stream;
+  PublishSubject<RequestState> _isLoadingSubject = PublishSubject();
+  Stream<RequestState> get isLoadingObservable => _isLoadingSubject.stream;
 
   PublishSubject<List<AnnouncementsDto>> _announcementsResponseSubject = PublishSubject();
   Stream<List<AnnouncementsDto>> get announcementsResponseObservable => _announcementsResponseSubject.stream;
+
+  PublishSubject<ErrorType> _errorResponseSubject = PublishSubject();
+  Stream<ErrorType> get errorResponseObservable => _errorResponseSubject.stream;
+
+  PublishSubject _callSearchSubject = PublishSubject();
+  Stream get callSearchObservable => _callSearchSubject.stream;
 
   AnnouncementsBloc(this.announcementsRepository){
     _searchSubject
         .debounceTime(Duration(seconds: 1))
         ..listen((event) async {
           if(event.length >2) {
-            _isLoadingSubject.add(true);
+            _isLoadingSubject.add(RequestState.LOADING);
+            _errorResponseSubject.add(null);
             announcementsRepository.getAnnouncements(event).then(_onSuccess).catchError(_onError);
           } else {
             _announcementsResponseSubject.add(null);
@@ -30,13 +40,35 @@ class AnnouncementsBloc extends BlocBase {
 
   Function(String title) get getAnnouncements => _searchSubject.add;
 
-  void _onSuccess(List<AnnouncementsDto> announcementsDto) {
-    _announcementsResponseSubject.add(announcementsDto);
-    _isLoadingSubject.add(false);
+  Future<void> callSearch() {
+    _callSearchSubject.add(null);
   }
 
-  void _onError(e) {
-    _isLoadingSubject.add(false);
-    print("Answer error: ${e.toString()}");
+  Future<void> searchForAnnouncements(String title) async {
+    if(title.length >2) {
+      _isLoadingSubject.add(RequestState.LOADING);
+      _errorResponseSubject.add(null);
+      announcementsRepository.getAnnouncements(title).then(_onSuccess).catchError(_onError);
+    } else {
+      _announcementsResponseSubject.add(null);
+    }
+  }
+
+  void _onSuccess(List<AnnouncementsDto> announcementsDto) {
+    _isLoadingSubject.add(RequestState.OK);
+    _announcementsResponseSubject.add(announcementsDto);
+  }
+
+  void _onError(Object obj) {
+    final dioError = obj as DioError;
+    final res = dioError.response;
+    if((obj as DioError).error.toString().toLowerCase().contains("connection failed")) {
+      _errorResponseSubject.add(ErrorType.CONNECTION_ERROR);
+    }
+    else if(res.statusCode >= 500) {
+      _errorResponseSubject.add(ErrorType.SERVER_ERROR);
+    }
+    _isLoadingSubject.add(RequestState.ERROR);
+    print("Answer error: ${obj.toString()}");
   }
 }
