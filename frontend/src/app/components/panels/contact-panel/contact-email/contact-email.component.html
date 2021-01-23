@@ -23,7 +23,7 @@
       <div class="md-form">
         <input type="text" formControlName="subject" id="materialContactFormSubject" class="form-control" mdbInput
           mdbValidate />
-        <label for="materialContactFormSubject">{{'contact.subject | translate'}}</label>
+        <label for="materialContactFormSubject">{{'contact.subject' | translate}}</label>
         <mdb-error *ngIf="subject.invalid && (subject.dirty || subject.touched)">{{'contact.needSubject' | translate}}
         </mdb-error>
       </div>

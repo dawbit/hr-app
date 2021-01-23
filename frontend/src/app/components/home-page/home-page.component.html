@@ -1,11 +1,11 @@
 <div fxLayout="row" fxLayout.xs="column">
 
-  <div class="app-flex-2-columns">
-    <a>w tym miejscu będzie znajdował się komponent z
-      prezentacją losowej firmy</a>
+  <div class="app-flex-2-columns" [ngClass]="{'my-center' : loggedIn}">
+
+      <app-random-company-presentation></app-random-company-presentation>
   </div>
 
-  <div class="app-flex-2-columns">
+  <div *ngIf="!loggedIn" class="app-flex-2-columns">
     <app-login-register></app-login-register>
   </div>
 

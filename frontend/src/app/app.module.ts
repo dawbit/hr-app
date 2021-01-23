@@ -1,3 +1,6 @@
+import { ChangeUserPhoneNumberComponent } from './components/panels/account-settings/change-user-phone-number/change-user-phone-number.component';
+import { ChangeUserPasswordComponent } from './components/panels/account-settings/change-user-password/change-user-password.component';
+import { ChangeUserEmailComponent } from './components/panels/account-settings/change-user-email/change-user-email.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -22,15 +25,22 @@ import { QuizSolveComponent } from './components/panels/quiz-solve/quiz-solve.co
 import { JobOffersAddComponent } from './components/job-offers-add/job-offers-add.component';
 import { ListOfApplicationsComponent } from './components/panels/hr-panel/list-of-applications/list-of-applications.component';
 import { QuizAssignModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-assign-modal/quiz-assign-modal/quiz-assign-modal.component';
+import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
+import { UserListOfApplicationsComponent } from './components/panels/user-panel/user-list-of-applications/user-list-of-applications.component';
+import { RandomCompanyPresentationComponent } from './components/home-page/random-company-presentation/random-company-presentation.component';
+import { AssignToHrComponent } from './components/panels/ceo-panel/assign-to-hr/assign-to-hr.component';
 import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
 import { ContactEmailComponent } from './components/panels/contact-panel/contact-email/contact-email.component';
 import { ContactTeamComponent } from './components/panels/contact-panel/contact-team/contact-team.component';
-import { AccountSettingsComponent } from './components/panels/account-settings/account-settings.component';
 import { MailSubscriptionComponent } from './components/panels/account-settings/mail-subscription/mail-subscription.component';
-import { UserListOfApplicationsComponent } from './components/panels/user-panel/user-list-of-applications/user-list-of-applications.component';
+import { DeleteFromHrComponent } from './components/panels/ceo-panel/delete-from-hr/delete-from-hr.component';
+import { CvUploadComponent } from './components/panels/account-settings/cv-upload/cv-upload.component';
+import { QuizResultModalComponent } from './components/panels/hr-panel/list-of-applications/quiz-result-modal/quiz-result-modal/quiz-result-modal.component';
 
 // modules
 import { PipesModule } from './modules/pipes.module';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { CountdownModule } from 'ngx-countdown';
 
 // angular materials modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -81,6 +91,7 @@ import { JobOffersListComponent } from './components/job-offers-list/job-offers-
 // factories
 import { appInitializerFactory } from './factories/appInitializerFacotry';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,12 +117,21 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     JobOffersListComponent,
     ListOfApplicationsComponent,
     QuizAssignModalComponent,
+    UserListOfApplicationsComponent,
+    RandomCompanyPresentationComponent,
+    AssignToHrComponent,
     ContactPanelComponent,
     ContactEmailComponent,
     ContactTeamComponent,
     AccountSettingsComponent,
     MailSubscriptionComponent,
-    UserListOfApplicationsComponent
+    UserListOfApplicationsComponent,
+    DeleteFromHrComponent,
+    CvUploadComponent,
+    ChangeUserEmailComponent,
+    ChangeUserPasswordComponent,
+    ChangeUserPhoneNumberComponent,
+    QuizResultModalComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +158,9 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
       }
     }),
     AuthModule,
-    PipesModule
+    PipesModule,
+    AngularFileUploaderModule,
+    CountdownModule
   ],
   exports: [
     MatButtonModule,
@@ -163,6 +185,7 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
       deps: [TranslateService, Injector],
       multi: true
     },
+    TranslateService,
     JwtHelperService,
   ],
   bootstrap: [AppComponent],

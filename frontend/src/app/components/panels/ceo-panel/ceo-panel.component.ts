@@ -1,3 +1,4 @@
+import { CompanyService } from './../../../services/company.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CeoPanelComponent implements OnInit {
 
-  constructor() { }
+  selectedBookmark: string;
+  companyName = '';
+
+  constructor(
+    private companyService: CompanyService
+  ) { }
 
   ngOnInit(): void {
+    this.getCompanyName();
+  }
+
+  showBookmark(bookmark): string {
+    return this.selectedBookmark = bookmark;
+  }
+
+  getCompanyName(){
+    this.companyService.getCurrentCompany().subscribe(res => {
+      this.companyName = res;
+    });
   }
 
 }

@@ -46,7 +46,18 @@
     width: stretch;
 }
 
+label{
+  color:#424242;
+}
 // Zmiana koloru tekstu w wpisywaniu kodu, bo zbyt zlewa się z tłem
 #materialTestCode {
     color: rgba(0, 0, 0, 0.8);
+}
+
+h6{
+  color: #212121;
+}
+
+h4, h3, h5, a, label, countdown{
+  color: #212121 !important;
 }

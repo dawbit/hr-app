@@ -125,7 +125,7 @@ public class CeosController {
             HrUsersModel hrUsersModel = hrUsersRepository.findByFKhrUserUserId(userToDelete.getId());
 
             String[] ceoFlags = new String[]{"admin", "ceo"};
-            String[] canBecomeDeletedFromHr = new String[]{"hr"};
+            String[] canBecomeDeletedFromHr = new String[]{"hr_user"};
             List<String> ceoFlagsList = Arrays.asList(ceoFlags);
             List<String> canBecomeDeletedList = Arrays.asList(canBecomeDeletedFromHr);
 
