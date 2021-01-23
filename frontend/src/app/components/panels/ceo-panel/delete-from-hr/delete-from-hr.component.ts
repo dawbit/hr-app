@@ -32,7 +32,7 @@ export class DeleteFromHrComponent implements OnInit {
     this.mdbTablePagination.searchText = this.searchText;
   }
 
-  getHrUsers() {
+  async getHrUsers() {
     this.ceoService.getHrUsers().subscribe(data => {
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
@@ -76,7 +76,11 @@ export class DeleteFromHrComponent implements OnInit {
   deleteFromHr(userId) {
     this.ceoService.deleteUserFromHr(userId).subscribe(res => {
       this.toasts.showSuccess('ceo.assignSuccess');
-      this.mdbTable.removeRow(userId);
+      this.getHrUsers().then(() => {
+        this.mdbTable.setDataSource(this.hrUsers);
+        this.hrUsers = this.mdbTable.getDataSource();
+        this.previous = this.mdbTable.getDataSource();
+      })
     },
       err => {
         this.toasts.showError('ceo.assignError');
