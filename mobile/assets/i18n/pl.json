@@ -1,6 +1,6 @@
 {
   "email": "E-mail",
-  "password": "Haslo",
+  "password": "Hasło",
   "login": "Login",
   "register": "Zarejestruj",
   "noAccount": "Nie masz konta?",
@@ -62,8 +62,8 @@
   "nothing_found": "Nic nie znaleziono",
   "enter_your_test_code_below": "Wpisz kod testu poniżej",
   "start_test": "Rozpocznij test",
-  "start": "Start",
-  "are_you_sure_you_want_to_start_this_test": "Jesteś pewien że chcesz wystartować ten test?",
+  "start": "Rozpocznij",
+  "are_you_sure_you_want_to_start_this_test": "Czy jesteś pewien, że chcesz rozpocząć test?",
   "test_code": "Kod Testu",
   "successfully_uploaded_cv": "Cv zostało wysłane pomyślnie",
   "file_is_required": "Nie możesz wysłać pustego pliku",
@@ -71,5 +71,6 @@
   "file_is_too_big": "Plik jest zbyt duży",
   "account": "Konto",
   "test": "Test",
-  "announcements": "Ogłoszenia"
+  "announcements": "Ogłoszenia",
+  "finish_quiz": "Zakończ test"
 }

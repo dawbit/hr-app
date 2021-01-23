@@ -138,7 +138,7 @@ class _QuizContentState extends State<QuizContent> {
                               finishQuiz();
                             },
                             child: Container(
-                              child: Text("Zakoncz test", style: TextStyle(color: Colors.white),
+                              child: Text(Lang.of(context).translate("finish_quiz"), style: TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,),
                             )),
                       ),
