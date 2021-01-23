@@ -13,7 +13,6 @@ import { CeoPanelComponent } from './components/panels/ceo-panel/ceo-panel.compo
 import { CompanyPanelComponent } from './components/panels/company-panel/company-panel.component';
 import { UserPanelComponent } from './components/panels/user-panel/user-panel.component';
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
-import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
 import { UserListComponent } from './components/panels/admin-panel/user-list/user-list.component';
@@ -102,7 +101,6 @@ import { appInitializerFactory } from './factories/appInitializerFacotry';
     CompanyPanelComponent,
     UserPanelComponent,
     QuizCreatePanelComponent,
-    QuizPanelComponent,
     NavbarComponent,
     LoginRegisterComponent,
     CompanyAddComponent,

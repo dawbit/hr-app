@@ -10,7 +10,6 @@ import { CeoPanelComponent } from './components/panels/ceo-panel/ceo-panel.compo
 import { CompanyPanelComponent } from './components/panels/company-panel/company-panel.component';
 import { UserPanelComponent } from './components/panels/user-panel/user-panel.component';
 import { QuizCreatePanelComponent } from './components/panels/quiz-create-panel/quiz-create-panel.component';
-import { QuizPanelComponent } from './components/panels/quiz-panel/quiz-panel.component';
 import { CompanyAddComponent } from './components/company/add/company-add/company-add.component';
 import { UserDetailsComponent } from './components/panels/admin-panel/user-list/user/user-details/user-details.component';
 import { UserUpdateComponent } from './components/panels/admin-panel/user-list/user/user-update/user-update.component';
@@ -65,25 +64,19 @@ const routes: Routes = [
   {
     path: 'quiz-create-panel', component: QuizCreatePanelComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
-      expectedRole: ['HR', 'CEO', 'ADMIN']
+      expectedRole: ['HR', 'ADMIN']
     }
   },
   {
     path: 'quiz-solve', component: QuizSolveComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
-      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
-    }
-  },
-  {
-    path: 'quiz-panel', component: QuizPanelComponent, canActivate: [AuthGuard, RoleGuard],
-    data: {
-      expectedRole: ['HR', 'CEO', 'ADMIN']
+      expectedRole: ['USER', 'ADMIN']
     }
   },
   {
     path: 'company-add', component: CompanyAddComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
-      expectedRole: ['USER', 'HR', 'CEO', 'ADMIN']
+      expectedRole: ['USER', 'ADMIN']
     }
   },
   {
@@ -101,7 +94,7 @@ const routes: Routes = [
   {
     path: 'add-job-offer', component: JobOffersAddComponent, canActivate: [AuthGuard, RoleGuard],
     data: {
-      expectedRole: ['HR', 'CEO', 'ADMIN']
+      expectedRole: ['HR', 'ADMIN']
     }
   },
   {

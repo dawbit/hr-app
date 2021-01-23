@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMember } from './../../../../classes/team-member';
-import * as dawidBitnerJson from './../../../../../../../team/dawidBitner.json';
-import * as danielBroczkowskiJson from './../../../../../../../team/danielBroczkowski.json';
-import * as mateuszKowolJson from './../../../../../../../team/mateuszKowol.json';
+import * as dawidBitnerJson from '../../../../../assets/teamPhotos/json/dawidBitner.json';
+import * as danielBroczkowskiJson from '../../../../../assets/teamPhotos/json/danielBroczkowski.json';
+import * as mateuszKowolJson from '../../../../../assets/teamPhotos/json/mateuszKowol.json';
 
 @Component({
   selector: 'app-contact-team',
@@ -16,6 +16,8 @@ export class ContactTeamComponent implements OnInit {
   dawidBitner: TeamMember;
   danielBroczkowski: TeamMember;
   mateuszKowol: TeamMember;
+
+  photoPath: './../../../../../../../team/';
 
   ngOnInit(): void {
     this.dawidBitner = Object.assign(dawidBitnerJson).default;

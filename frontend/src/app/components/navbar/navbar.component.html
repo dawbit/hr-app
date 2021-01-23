@@ -12,21 +12,19 @@
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'companies.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.best' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'companies.industries' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect
-            routerLink="company-list">{{'companies.list' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="company-list">{{'companies.list' |
+            translate}}</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect
-            routerLink="company-add">{{'companies.add' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="company-add">{{'companies.add' |
+            translate}}</a>
         </div>
       </li>
       <li class="nav-item dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'jobs.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect
-            routerLink="job-offer-list">{{'jobs.list' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="job-offer-list">{{'jobs.list' |
+            translate}}</a>
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="add-job-offer">{{'jobs.add' | translate}}</a>
         </div>
@@ -35,13 +33,11 @@
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'recruitment.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light bold" mdbWavesEffect
-            routerLink="quiz-solve">{{'recruitment.solveTestB' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.pre' | translate}}</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'recruitment.open' | translate}}</a>
+          <a class="dropdown-item waves-light bold" mdbWavesEffect routerLink="quiz-solve">{{'recruitment.solveTestB' |
+            translate}}</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect
-            routerLink="quiz-create-panel">{{'recruitment.add' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="quiz-create-panel">{{'recruitment.add' |
+            translate}}</a>
         </div>
       </li>
     </ul>
@@ -110,7 +106,8 @@
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect>{{'my-account.hello' | translate}}{{userLogin}}</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="my-account">{{'my-account.basic' | translate}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="my-account">{{'my-account.basic' |
+            translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="settings-panel">{{'settings' | translate}}</a>
           <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{'log-out' | translate}}</a>
         </div>

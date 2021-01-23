@@ -1,0 +1,10 @@
+{
+  "name": "Daniel Broczkowski",
+  "mail": "broczkowski.dan@gmail.com",
+  "photo": "./assets/teamPhotos/undefined.png",
+  "position": "Frontend developer",
+  "description": "Cześć, jestem Daniel, interesuję się wszystkim po trochu i niczym do porządku. Odpowiadam za część webową tej aplikacji.",
+  "socialMedia": {
+    "github": "DanielBroczkowski"
+  }
+}
