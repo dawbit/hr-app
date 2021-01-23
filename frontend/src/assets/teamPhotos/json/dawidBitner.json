@@ -1,0 +1,12 @@
+{
+  "name": "Dawid Bitner",
+  "mail": "dawbitner@gmail.com",
+  "photo": "./assets/teamPhotos/dawidBitner.jpg",
+  "position": "Fullstack developer",
+  "description": "Hej, a aplikacji odpowiadam za część aplikacji webowej, oraz za aplikację serwerową. Na co dzień pracuję w WASKO.",
+  "socialMedia": {
+    "facebook": "dawid.bitner",
+    "linkedin": "dawid-bitner",
+    "github": "dawbitner"
+  }
+}

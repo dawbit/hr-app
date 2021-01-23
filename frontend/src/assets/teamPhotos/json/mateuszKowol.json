@@ -1,0 +1,13 @@
+{
+  "name": "Mateusz Kowol",
+  "mail": "nepathed@gmail.com",
+  "photo": "./assets/teamPhotos/mateuszKowol.jpg",
+  "position": "Mobile and Java developer",
+  "description": " Hej, jestem Mateusz, robiłem dla was tą świetną aplikację. Jestem pracownikiem firmy Euvic którą gorąco polecam każdemu początkującemu, jak i zaawansowanemu programiście.",
+  "socialMedia": {
+    "twitter": "rasoth_",
+    "instagram": "nepathed",
+    "youtube": "channel/UClSpt8TYZwM36ZcNlRkVB2w",
+    "github": "Nepath"
+  }
+}
