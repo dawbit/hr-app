@@ -14,9 +14,9 @@
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="company-list">{{'companies.list' |
             translate}}</a>
-          <div class="divider dropdown-divider" *ngIf="isLogged && (!userRole == 'HR' || !userRole == 'CEO')"></div>
+          <div class="divider dropdown-divider" *ngIf="isLogged && (userRole == 'ADMIN' || userRole == 'USER')"></div>
           <a class="dropdown-item waves-light" mdbWavesEffect
-            *ngIf="isLogged && (!userRole == 'HR' || !userRole == 'CEO')" routerLink="company-add">{{'companies.add' |
+            *ngIf="isLogged && (userRole == 'ADMIN' || userRole == 'USER')" routerLink="company-add">{{'companies.add' |
             translate}}</a>
         </div>
       </li>
@@ -32,7 +32,7 @@
             translate}}</a>
         </div>
       </li>
-      <li class="nav-item dropdown" dropdown *ngIf="isLogged && !userRole == 'CEO'">
+      <li class="nav-item dropdown" dropdown *ngIf="isLogged && userRole != 'CEO'">
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'recruitment.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
