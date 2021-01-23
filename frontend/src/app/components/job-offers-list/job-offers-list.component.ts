@@ -31,9 +31,9 @@ export class JobOffersListComponent implements OnInit {
     });
   }
 
-  floatingButtonAccess(){
+  floatingButtonAccess() {
     if (this.tokenStorageService.getRole() === 'ADMIN' || this.tokenStorageService.getRole() === 'HR'
-        || this.tokenStorageService.getRole() === 'CEO'){
+      || this.tokenStorageService.getRole() === 'CEO') {
       return true;
     } else {
       return false;
@@ -41,30 +41,10 @@ export class JobOffersListComponent implements OnInit {
 
   }
 
-  getAllJobOffers(){
+  getAllJobOffers() {
     this.jobOffersService.getAllOffers().subscribe(data => {
-        for (const key in data){
-          if (data.hasOwnProperty(key)){
-            this.jobOffers.push({
-              id: data[key].announcementId,
-              title: data[key].announcementTitle,
-              description: data[key].announcementDescription,
-              companyId: data[key].companyId,
-              companyName: data[key].companyName,
-              companyLocation: data[key].companyLocation,
-              image: data[key].image
-            });
-          }
-        }
-    });
-  }
-
-  SearchJobOffer(){
-    this.jobOffers = [];
-
-    this.jobOffersService.findOffer(this.jobOfferSearchForm.get('jobOfferToSearch').value).subscribe(data => {
-      for (const key in data){
-        if (data.hasOwnProperty(key)){
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
           this.jobOffers.push({
             id: data[key].announcementId,
             title: data[key].announcementTitle,
@@ -76,11 +56,30 @@ export class JobOffersListComponent implements OnInit {
           });
         }
       }
-  });
+    });
   }
 
-  Apply(offerId: number){
-    console.log(offerId);
+  SearchJobOffer() {
+    this.jobOffers = [];
+
+    this.jobOffersService.findOffer(this.jobOfferSearchForm.get('jobOfferToSearch').value).subscribe(data => {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          this.jobOffers.push({
+            id: data[key].announcementId,
+            title: data[key].announcementTitle,
+            description: data[key].announcementDescription,
+            companyId: data[key].companyId,
+            companyName: data[key].companyName,
+            companyLocation: data[key].companyLocation,
+            image: data[key].image
+          });
+        }
+      }
+    });
+  }
+
+  Apply(offerId: number) {
     this.jobOffersService.Apply(offerId).subscribe(
       res => {
         if (res && res.status === 200) {
@@ -90,7 +89,7 @@ export class JobOffersListComponent implements OnInit {
       err => {
         if (err && err.status === 409) {
           this.toast.showError('message.jobAlreadyApplied');
-        } else if (err && err.status === 403){
+        } else if (err && err.status === 403) {
           this.toast.showError('message.jobHrOrCeo');
         }
       }

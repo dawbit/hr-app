@@ -1,7 +1,7 @@
 import { CeoService } from './../../../../services/ceo.service';
-import { UserService } from './../../../../services/user.service';
-import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
+import { ToastService } from './../../../../services/toast.service';
 
 @Component({
   selector: 'app-assign-to-hr',
@@ -20,10 +20,11 @@ export class AssignToHrComponent implements OnInit {
   maxVisibleItems = 10;
 
   constructor(
-    private ceoService: CeoService
+    private ceoService: CeoService,
+    private toasts: ToastService
   ) { }
 
-  @HostListener('input') oninput(){
+  @HostListener('input') oninput() {
     this.mdbTablePagination.searchText = this.searchText;
   }
 
@@ -72,13 +73,13 @@ export class AssignToHrComponent implements OnInit {
     });
   }
 
-  assignToHr(userId){
+  assignToHr(userId) {
     this.ceoService.addUserToHr(userId).subscribe(res => {
-      console.log(res);
+      this.toasts.showSuccess('ceo.assignSuccess');
     },
-    err => {
-      console.log(err);
-    }
+      err => {
+        this.toasts.showError('ceo.assignError');
+      }
     );
   }
 

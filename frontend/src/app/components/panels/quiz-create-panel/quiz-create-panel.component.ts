@@ -55,7 +55,7 @@ export class QuizCreatePanelComponent implements OnInit, AfterViewInit {
     this.testsModel = new FormGroup({
       is_possible_to_back: new FormControl(true),
       name: new FormControl(''),
-      timeForTestInMilis: new FormControl(1000)
+      timeForTestInMilis: new FormControl(10)
     });
 
     // definicja obiektu - formularza odpowiedzialnego za listOfQuestionCommandDto

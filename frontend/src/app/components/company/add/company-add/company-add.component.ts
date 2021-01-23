@@ -46,29 +46,27 @@ export class CompanyAddComponent implements OnInit {
     );
   }
 
-  getUserLocation() {
-    // get Users current position
+  // getUserLocation() {
+  //   // get Users current position
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 16;
-        console.log('position', position);
-      });
-    }
-  }
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       this.lat = position.coords.latitude;
+  //       this.lng = position.coords.longitude;
+  //       this.zoom = 16;
+  //     });
+  //   }
+  // }
 
-  async getDirection() {
+  // async getDirection() {
 
-    if (typeof this.lat === 'undefined' || typeof this.lng === 'undefined' || typeof this.zoom === 'undefined') {
-      await this.getUserLocation();
-    }
-    this.origin = { lat: this.lat, lng: this.lng };
+  //   if (typeof this.lat === 'undefined' || typeof this.lng === 'undefined' || typeof this.zoom === 'undefined') {
+  //     await this.getUserLocation();
+  //   }
+  //   this.origin = { lat: this.lat, lng: this.lng };
 
-    this.destination = { lat: 24.799524, lng: 120.975017 };
-    console.log(this.origin);
+  //   this.destination = { lat: 24.799524, lng: 120.975017 };
 
-  }
+  // }
 
 }

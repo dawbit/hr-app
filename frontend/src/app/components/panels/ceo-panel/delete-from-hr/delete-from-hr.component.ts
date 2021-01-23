@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { CeoService } from 'src/app/services/ceo.service';
+import { ToastService } from './../../../../services/toast.service';
 
 @Component({
   selector: 'app-delete-from-hr',
@@ -19,14 +20,15 @@ export class DeleteFromHrComponent implements OnInit {
   maxVisibleItems = 10;
 
   constructor(
-    private ceoService: CeoService
+    private ceoService: CeoService,
+    private toasts: ToastService
   ) { }
 
   ngOnInit() {
     this.getHrUsers();
   }
 
-  @HostListener('input') oninput(){
+  @HostListener('input') oninput() {
     this.mdbTablePagination.searchText = this.searchText;
   }
 
@@ -71,13 +73,13 @@ export class DeleteFromHrComponent implements OnInit {
     });
   }
 
-  deleteFromHr(userId){
+  deleteFromHr(userId) {
     this.ceoService.deleteUserFromHr(userId).subscribe(res => {
-      console.log(res);
+      this.toasts.showSuccess('ceo.assignSuccess');
     },
-    err => {
-      console.log(err);
-    }
+      err => {
+        this.toasts.showError('ceo.assignError');
+      }
     );
   }
 }

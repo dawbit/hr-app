@@ -16,7 +16,7 @@ export class UserUpdateComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder
-    ) { }
+  ) { }
 
   id: number;
   user: User;
@@ -32,8 +32,8 @@ export class UserUpdateComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       middleName: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.minLength(9),
-        Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]
-        ],
+      Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]
+      ],
     });
 
     this.user = new User();
@@ -45,8 +45,8 @@ export class UserUpdateComponent implements OnInit {
       });
   }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.form.controls; }
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
 
   updateUser() {
     this.userService.updateUser(this.id, this.user).subscribe();
@@ -58,12 +58,11 @@ export class UserUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
-    if (this.form.invalid){
+    if (this.form.invalid) {
       this.error = true;
       return;
     }
-    else{
+    else {
       this.error = false;
       this.submitted = true;
       this.updateUser();

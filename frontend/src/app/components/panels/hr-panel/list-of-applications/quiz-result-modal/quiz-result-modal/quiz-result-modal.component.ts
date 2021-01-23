@@ -24,13 +24,12 @@ export class QuizResultModalComponent implements OnInit {
 
   }
 
-  getResults(userId, quizId){
+  getResults(userId, quizId) {
     this.jobOffersService.getResult(userId, quizId).subscribe(res => {
-      console.log(res);
       this.quizname = res.quizName,
-      this.quizResult = res.userPoints,
-      this.quizMaxPoints = res.quizMaxPoints,
-      this.userLogin = res.login
+        this.quizResult = res.userPoints,
+        this.quizMaxPoints = res.quizMaxPoints,
+        this.userLogin = res.login
 
       res.userQuestionResultDtoList.forEach(el => {
         this.userQuestions.push({
@@ -43,9 +42,7 @@ export class QuizResultModalComponent implements OnInit {
     })
   }
 
-  getInfo(){
-    console.log("xxx");
-    console.log(this.userId);
+  getInfo() {
     this.getResults(this.userId, this.quizId);
   }
 

@@ -6,7 +6,6 @@ import { ToastService } from './../../../services/toast.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { CollapseComponent } from 'angular-bootstrap-md';
 import { TranslateService } from '@ngx-translate/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-quiz-solve',
@@ -84,7 +83,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
       this.nextQuestion(testcode, testid, questionnumber, cangoback);
     },
       err => {
-        if (err.status === 403 && err.error.message === 'Time has been finished'){
+        if (err.status === 403 && err.error.message === 'Time has been finished') {
           Swal.fire(this.translate.instant('oops'), this.translate.instant('timeOver'), 'error');
           this.quizStarted = false;
           this.quizCompleted = true;
@@ -94,18 +93,18 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
     );
   }
 
-  nextQuestion(testcode, testid, questionnumber, cangoback) {
+  nextQuestion(testCode, testId, questionNumber, canGoBack) {
 
-    if (!(cangoback || this.currentQuestionNumber < questionnumber)) {
+    if (!(canGoBack || this.currentQuestionNumber < questionNumber)) {
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-go-back'), 'error');
-    } else if (questionnumber > this.numberOfQuestion) {
+    } else if (questionNumber > this.numberOfQuestion) {
       Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
       this.quizStarted = false;
       this.quizCompleted = true;
-    } else if (!cangoback && this.currentQuestionNumber + 1 < questionnumber) {
+    } else if (!canGoBack && this.currentQuestionNumber + 1 < questionNumber) {
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-skip'), 'error');
     } else {
-      this.startQuiz(testid, testcode, questionnumber);
+      this.startQuiz(testId, testCode, questionNumber);
     }
   }
 
@@ -144,7 +143,7 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
                 this.testCode = testCode;
                 this.backPossible = res.backPossible;
                 this.timeLeft = Math.trunc(res.timeForTestInMilis / 1000),
-                this.startQuiz(res.quizId, testCode, this.currentQuestionNumber);
+                  this.startQuiz(res.quizId, testCode, this.currentQuestionNumber);
 
               } else if (swalStartQuiz.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(this.translate.instant('quiz-cancelled'));
@@ -176,18 +175,16 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
     this.quizService.getQuestion(quizId, testCode, currentQuestionNumber).subscribe(
       res => {
         this.currentQuestion = res;
-        console.log(res);
-        console.log(this.currentQuestion);
         if (res) {
           this.quizStarted = true;
         }
       },
       err => {
-         if (err && err.status === 400) {
-           this.toast.showWarning('message.quizAlreadyFinished');
-         } else {
-           this.toast.showError('message.error');
-         }
+        if (err && err.status === 400) {
+          this.toast.showWarning('message.quizAlreadyFinished');
+        } else {
+          this.toast.showError('message.error');
+        }
       }
     );
   }

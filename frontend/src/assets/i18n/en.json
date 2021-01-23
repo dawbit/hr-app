@@ -97,9 +97,13 @@
   },
   "ceo": {
     "assign": "Assign to hr",
+    "assignError": "Error adding user to HR department",
+    "assignSuccess": "The user has been correctly assigned to the HR department",
     "assignList": "Assign new HR user",
     "hrList": "List of HR users",
     "delete": "Delete HR",
+    "deleteError": "HR user could not be removed",
+    "deleteSuccess": "User removed from HR",
     "pageTitle": "'s CEO panel"
   },
   "user": {

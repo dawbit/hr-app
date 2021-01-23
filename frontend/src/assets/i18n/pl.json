@@ -97,9 +97,13 @@
   },
   "ceo": {
     "assign": "Przypisz do hr",
+    "assignError": "Błąd podczas dodawania użytkownika do działu HR",
+    "assignSuccess": "Użytkownik został poprawnie przypisany do działu HR",
     "assignList": "Dodaj nowego HR",
     "hrList": "Lista użytkowników hr",
     "delete": "Usuń HR",
+    "deleteError": "Nie udało się usunąć użytkownika HR",
+    "deleteSuccess": "Usunięto użytkownika z działu HR",
     "pageTitle": " - panel CEO"
   },
   "user": {

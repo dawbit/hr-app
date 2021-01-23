@@ -24,7 +24,7 @@ export class QuizAssignModalComponent implements OnInit {
     private jobOffersService: JobOffersService,
     private quizService: QuizService,
     private toast: ToastService
-  ){}
+  ) { }
 
   ngOnInit() {
     this.listOfQuiz();
@@ -43,11 +43,11 @@ export class QuizAssignModalComponent implements OnInit {
     return this.validatingForm.get('testName');
   }
 
-  listOfQuiz(){
+  listOfQuiz() {
     this.quizService.getQuizList().subscribe(
       res => {
-        for (const key in res){
-          if (res.hasOwnProperty(key)){
+        for (const key in res) {
+          if (res.hasOwnProperty(key)) {
             this.quizList.push({
               responseCode: res[key].responseCode,
               quizId: res[key].quizId,
@@ -64,7 +64,7 @@ export class QuizAssignModalComponent implements OnInit {
     );
   }
 
-  assignQuiz(){
+  assignQuiz() {
     this.quizAssignment = {
       testName: this.validatingForm.get('testName').value.quizName,
       testCode: this.validatingForm.get('testCode').value,
@@ -73,8 +73,6 @@ export class QuizAssignModalComponent implements OnInit {
       read: true,
       announcementId: this.announcementId
     };
-
-    console.log(this.quizAssignment);
 
     this.jobOffersService.assignQuiz(this.alertId, this.quizAssignment).subscribe(
       res => {
