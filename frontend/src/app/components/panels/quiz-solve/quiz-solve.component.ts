@@ -94,13 +94,19 @@ export class QuizSolveComponent implements OnInit, AfterViewInit {
   }
 
   nextQuestion(testCode, testId, questionNumber, canGoBack) {
-
     if (!(canGoBack || this.currentQuestionNumber < questionNumber)) {
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-go-back'), 'error');
     } else if (questionNumber > this.numberOfQuestion) {
-      Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
-      this.quizStarted = false;
-      this.quizCompleted = true;
+      this.quizService.getQuestion(testId, testCode, 0).subscribe(
+        res => {
+          Swal.fire(this.translate.instant('nice'), this.translate.instant('quiz-end'), 'success');
+          this.quizStarted = false;
+          this.quizCompleted = true;
+        },
+        err => {
+          this.toast.showError('quiz.endError');
+        }
+      );
     } else if (!canGoBack && this.currentQuestionNumber + 1 < questionNumber) {
       Swal.fire(this.translate.instant('oops'), this.translate.instant('cant-skip'), 'error');
     } else {

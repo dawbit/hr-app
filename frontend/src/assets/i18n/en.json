@@ -228,6 +228,7 @@
     "answerIncorrect": "Incorrect",
     "answerNumber": "Answer: ",
     "creator": "Recruitment quiz creation wizard: ",
+    "endError": "The test could not be completed",
     "enterCode": "Enter access code to the quiz: ",
     "error": "Error adding a quiz",
     "exists": "A quiz with the given code exists!",
