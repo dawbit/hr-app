@@ -14,6 +14,10 @@ public class UserDataWithCvDto extends UserResultDto {
         this.fileName = fileName;
     }
 
+    public UserDataWithCvDto(UsersModel usersModel) {
+        super(usersModel);
+    }
+
     public UserDataWithCvDto(String fileName) {
         this.fileName = fileName;
     }

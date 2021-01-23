@@ -135,6 +135,9 @@ public class UsersController {
         try {
             UsersModel user = getUsersModel();
             CvsModel cv = cvsRepository.findByFKcvUserId(user.getId());
+            if(cv== null) {
+                return new UserDataWithCvDto(user);
+            }
             return new UserDataWithCvDto(user, cv.getFileName());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
