@@ -228,6 +228,7 @@
     "answerIncorrect": "Niepoprawna",
     "answerNumber": "Odpowiedź: ",
     "creator": "Kreator tworzenia quizu rekrutacyjnego: ",
+    "endError": "Nie udało się zakończyć testu",
     "enterCode": "Podaj kod dostępu do quizu: ",
     "error": "Błąd podczas dodawania quizu",
     "exists": "Quiz o podanym kodzie istnieje!",
