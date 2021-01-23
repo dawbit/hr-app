@@ -70,7 +70,7 @@
       <div class="btn-group" *ngIf="isLogged && (userRole=='HR' || userRole=='ADMIN')" mdbDropdown>
         <a mdbDropdownToggle gtm-id="Notifications" class="nav-link dropdown-toggle waves-effect" alt="Notifications"
           id="navbarNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          <span *ngIf="userAlerts != 0" id="navbarNotificationCounter" class="badge rounded red z-depth-1"
+          <span *ngIf="hrAlerts != 0" id="navbarNotificationCounter" class="badge rounded red z-depth-1"
             alt="Notifications">{{hrAlerts}}</span>
           <i class="fas fa-bell" alt="Notifications"></i>
         </a>
