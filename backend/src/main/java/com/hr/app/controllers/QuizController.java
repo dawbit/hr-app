@@ -97,6 +97,7 @@ public class QuizController {
 
         testsModel.setFKtestCompany(companiesModel);
         testsModel.setFKtestUserHr(usersModel);
+        testsModel.setActive(true);
 
         try {
             testsRepository.save(testsModel);
