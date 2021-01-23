@@ -78,6 +78,7 @@ export class DeleteFromHrComponent implements OnInit {
       this.toasts.showSuccess('ceo.assignSuccess');
       this.getHrUsers().then(() => {
         this.mdbTable.setDataSource(this.hrUsers);
+        this.hrUsers = [];
         this.hrUsers = this.mdbTable.getDataSource();
         this.previous = this.mdbTable.getDataSource();
       })
