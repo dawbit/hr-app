@@ -76,7 +76,7 @@ export class DeleteFromHrComponent implements OnInit {
   deleteFromHr(userId) {
     this.ceoService.deleteUserFromHr(userId).subscribe(res => {
       this.toasts.showSuccess('ceo.assignSuccess');
-      this.hrUsers = this.mdbTable.getDataSource();
+      this.mdbTable.removeRow(userId);
     },
       err => {
         this.toasts.showError('ceo.assignError');
