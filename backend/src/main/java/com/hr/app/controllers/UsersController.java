@@ -119,7 +119,11 @@ public class UsersController {
         try {
             UsersModel user = usersRepository.findById(userid);
             CvsModel cv = cvsRepository.findByFKcvUserId(user.getId());
-            return new UserDataWithCvDto(user, cv.getFileName());
+            if (cv != null){
+                return new UserDataWithCvDto(user, cv.getFileName());
+            } else {
+                return new UserDataWithCvDto(user, null);
+            }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return new ResponseTransfer("Internal server error");

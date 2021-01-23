@@ -59,6 +59,7 @@ public class UserPanelController {
             UsersModel userModel = getUserModel();
             if(Objects.isNull(userModel.getFKuserMailing())) {
                 userModel.setFKuserMailing(new MailingModel());
+                usersRepository.save(userModel);
             }
             mailingId = getUserModel().getFKuserMailing().getId();
             return mailingRepository.findById(mailingId);

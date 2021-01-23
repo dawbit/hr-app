@@ -33,7 +33,7 @@ export class TokenStorageService {
   }
 
   public getUser() {
-    return JSON.parse(localStorage.getItem(USER_KEY));
+    return localStorage.getItem(USER_KEY);
   }
 
   public saveRole(role: string) {

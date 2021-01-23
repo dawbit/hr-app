@@ -26,4 +26,9 @@ export class CompanyService {
   getCompany(name: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/find?q=${name}`, this.httpOptions);
   }
+
+  getCurrentCompany(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/current`, { responseType: 'text' }
+    );
+  }
 }

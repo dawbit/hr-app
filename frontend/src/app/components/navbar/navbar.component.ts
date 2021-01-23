@@ -1,3 +1,4 @@
+import { CompanyService } from './../../services/company.service';
 import { AlertsService } from './../../services/alerts.service';
 import { async } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
@@ -14,17 +15,27 @@ export class NavbarComponent implements OnInit {
   userAlerts = 0;
   hrAlerts = 0;
 
+  isLogged = false;
+  userRole = 'USER';
+  userLogin = '';
+
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private companyService: CompanyService
   ) { }
 
-  isLogged = this.tokenStorage.isAuthenticated();
-  userRole = this.tokenStorage.getRole();
+
 
   ngOnInit(): void {
-    this.checkForAlerts();
+    this.isLogged = this.tokenStorage.isAuthenticated();
+    this.userRole = this.tokenStorage.getRole();
+    this.userLogin = this.tokenStorage.getUser();
+
+    if (this.isLogged) {
+      this.checkForAlerts();
+    }
   }
 
   logout() {
@@ -33,14 +44,21 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  checkForAlerts(){
+  checkForAlerts() {
     this.alertsService.getUserAlerts().subscribe(res => {
       this.userAlerts = + res;
     });
 
-    this.alertsService.getHrAlerts().subscribe(res => {
-      this.hrAlerts = + res;
-    });
-  }
+    this.companyService.getCurrentCompany().subscribe(res => {
+      if (res && res.length && this.userRole !== 'CEO') {
+        this.alertsService.getHrAlerts().subscribe(res2 => {
+          this.hrAlerts = + res2;
+        });
+      }
+    }
 
+    );
+
+
+  }
 }

@@ -48,4 +48,16 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/list-of-applications`);
   }
 
+  changeUserPassword(passwordData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/change-password`, passwordData, { observe: 'response' });
+  }
+
+  changeUserEmail(emailData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/change-email`, emailData, { observe: 'response' });
+  }
+
+  changeUserPhone(phoneData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/change-phonenumber`, phoneData, { observe: 'response' });
+  }
+
 }

@@ -43,4 +43,8 @@ export class JobOffersService {
   assignQuiz(alertId: number, quizBody: QuizAssignment): Observable<any> {
     return this.http.post(this.apiURL + '/hr/alert/' + alertId + '/assign-quiz', quizBody, { observe: 'response' });
   }
+
+  getResult(userId: number, quizId: number): Observable<any> {
+    return this.http.get(this.apiURL + '/hr/user-result/' + userId + '/' + quizId, this.httpOptions);
+  }
 }

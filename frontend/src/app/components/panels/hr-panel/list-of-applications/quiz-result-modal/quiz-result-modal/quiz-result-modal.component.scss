@@ -1,0 +1,26 @@
+#questionList{
+  font-family:arial;
+  height:10rem;
+  width:auto;
+}
+ul{
+  list-style:none;
+  max-height:10rem;
+  margin:0;
+  overflow:auto;
+  padding:0;
+  text-indent:10px;
+}
+li{
+  line-height:25px;
+}
+li:nth-child(even){
+  background:#23232346;
+}
+p{
+  margin: 0;
+}
+h6,h5,h4{
+  margin: 0;
+  line-height: 1.2;
+}

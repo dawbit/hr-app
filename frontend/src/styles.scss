@@ -10,8 +10,10 @@ html, body {
 body {
   margin: 0;
   padding-top: 50px;
-  background-image: linear-gradient(45deg, rgba(42, 27, 161, 0.6), rgba(29, 210, 177, 0.6) 100%),
-                    url("./assets/backgrounds/background-01.jpg");
+  // background-image: linear-gradient(45deg, rgba(35, 47, 52, 0.4), rgba(35, 47, 52, 0.2) 100%),
+  //                   url("./assets/backgrounds/background-01.jpg");
+  background-image: url("./assets/backgrounds/background-01.jpg");
+  background-color: #232F34;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -82,11 +84,12 @@ tfoot, th {
 }
 
 .top-nav-collapse {
-  background-color: #3f51b5 !important;
+  background-color: #004ba0 !important;
 }
 
 .navbar:not(.top-nav-collapse) {
-  background: transparent !important;
+  background-color: rgba(25, 118, 210, 0.8);
+  // background: transparent !important;
 }
 
 .rgba-gradient .full-bg-img {

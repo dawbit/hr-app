@@ -3,7 +3,7 @@
 }
 
 form span.quiz-create-span {
-  color: #ffffff;
+  color: #212121;
   font-size: larger;
 }
 
@@ -85,4 +85,12 @@ textarea {
 .line{
   width: 40%;
   display: inline-block;
+}
+
+h6{
+  color: #212121;
+}
+
+label, label.active, input, select.value, .material-select{
+  color:#424242;
 }

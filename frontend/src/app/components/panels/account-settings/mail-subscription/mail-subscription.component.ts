@@ -34,8 +34,7 @@ export class MailSubscriptionComponent implements OnInit, AfterViewInit {
 
   getMailingList() {
     this.mailingService.mailingList().subscribe(res => {
-      console.log(res)
-      if (res.id && res.mailingNewQuiz.toString().length) {
+      if (res && res.id && res.mailingNewQuiz.toString().length) {
         this.mailingId = res.id;
         this.mailingForm.controls.mailingNewQuiz.setValue(res.mailingNewQuiz);
         this.isResponse = true;

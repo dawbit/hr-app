@@ -1,0 +1,16 @@
+<mdb-card>
+  <!--Card image-->
+  <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
+  <!--Card content-->
+  <mdb-card-body>
+
+      <!--Title-->
+      <mdb-card-title>
+          <h4>{{getCompanyName()}}</h4>
+      </mdb-card-title>
+
+      <!-- Text -->
+      <app-company-list-single-element [text]="getCompanyAbout()" [maxLength]="100"></app-company-list-single-element>
+
+  </mdb-card-body>
+</mdb-card>

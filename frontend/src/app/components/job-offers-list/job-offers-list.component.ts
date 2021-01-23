@@ -26,7 +26,6 @@ export class JobOffersListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllJobOffers();
-    // this.companyToSearch = this.route.snapshot.params.companyToSearch;
     this.jobOfferSearchForm = this.formBuilder.group({
       jobOfferToSearch: ['', [Validators.required, Validators.minLength(1)]]
     });

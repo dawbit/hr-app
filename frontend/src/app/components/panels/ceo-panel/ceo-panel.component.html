@@ -1,2 +1,16 @@
-<p>ceo-panel works!</p>
-<app-company-list></app-company-list>
+<h1>{{companyName}}{{"ceo.pageTitle" | translate}}</h1>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('assignToHr')" mdbWavesEffect>
+  {{"ceo.assignList" | translate | uppercase}}
+</button>
+<br>
+<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('hrList')" mdbWavesEffect>
+  {{"ceo.hrList" | translate | uppercase}}
+</button>
+
+<div class="slide-element" *ngIf="selectedBookmark === 'assignToHr'">
+  <app-assign-to-hr></app-assign-to-hr>
+</div>
+
+<div class="slide-element" *ngIf="selectedBookmark === 'hrList'">
+  <app-delete-from-hr></app-delete-from-hr>
+</div>

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: TokenStorageService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.getToken()) {
+    if (this.auth.getToken() && req.url && !req.url.endsWith('uploadCv')) {
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8',

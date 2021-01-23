@@ -1,20 +1,35 @@
-<!-- Collapse buttons -->
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.edit')"
-  mdbWavesEffect>
-  {{'my-account.edit' | translate | uppercase}}
-  TUTAJ EDYCJA KONTA
-</button>
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.editPassword')"
-  mdbWavesEffect>
-  {{'my-account.editPassword' | translate | uppercase}}
-  TUTAJ ZMIANA HASŁA
-</button>
-<button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.mailSubscription')"
-  mdbWavesEffect>
-  {{'my-account.mailSubscription' | translate | uppercase}}
-</button>
+<div>
+  <!-- Collapse buttons -->
+  <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.editPassword')"
+    mdbWavesEffect>
+    {{'my-account.editPassword' | translate | uppercase}}
+  </button>
+  <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.editPhone')"
+    mdbWavesEffect>
+    {{'my-account.editPhone' | translate | uppercase}}
+  </button>
+  <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.editEmail')"
+    mdbWavesEffect>
+    {{'my-account.editEmail' | translate | uppercase}}
+  </button>
+  <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.mailSubscription')"
+    mdbWavesEffect>
+    {{'my-account.mailSubscription' | translate | uppercase}}
+  </button>
+  <button mdbBtn color="primary" class="waves-light" type="button" (click)="showBookmark('my-account.cv')"
+    mdbWavesEffect>
+    {{'my-account.cv' | translate | uppercase}}
+  </button>
 
-<!-- EDYCJA KONTA -->
-<!-- ZMIANA HASŁA -->
-<app-mail-subscription class="slide-element" *ngIf="selectedBookmark === 'my-account.mailSubscription'">
-</app-mail-subscription>
+  <!-- Email Subscription -->
+  <app-mail-subscription class="slide-element" *ngIf="selectedBookmark === 'my-account.mailSubscription'">
+  </app-mail-subscription>
+  <!-- Password change -->
+  <app-change-user-password class="slide-element" *ngIf="selectedBookmark === 'my-account.editPassword'"></app-change-user-password>
+  <!-- Phone number change -->
+  <app-change-user-phone-number class="slide-element" *ngIf="selectedBookmark === 'my-account.editPhone'"></app-change-user-phone-number>
+  <!-- Email change -->
+  <app-change-user-email class="slide-element" *ngIf="selectedBookmark === 'my-account.editEmail'"></app-change-user-email>
+  <!-- Cv upload -->
+  <app-cv-upload class="slide-element" *ngIf="selectedBookmark === 'my-account.cv'"></app-cv-upload>
+</div>

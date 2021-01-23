@@ -16,14 +16,14 @@
     </div>
 
     <!-- Quiz start button -->
-    <button class="btn btn-info btn-block my-4" type="submit" (click)='startTimer()' mdbWavesEffect>
+    <button class="btn btn-info btn-block my-4" type="submit"  mdbWavesEffect>
       {{"quiz.start" | translate | uppercase}}
     </button>
   </form>
 </div>
 
 <div *ngIf="quizStarted">
-  <p>{{"quiz.timeLeft" | translate}}{{timeLeft}}</p>
+  <a>{{"quiz.timeLeft" | translate}}</a> <countdown [config]="{leftTime: timeLeft}"></countdown>
 
   <h4>{{currentQuestion.text | titlecase}}</h4>
 
@@ -39,7 +39,6 @@
     <button
       (click)='sendAnswer(radioSelected.valueOf(), this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)'
       type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button>
-    <!-- <button (click)='sendAnswer(radioSelected.valueOf())' (click)="nextQuestion(this.testCode, this.quizID, this.currentQuestionNumber+1, this.backPossible)" type="button" mdbBtn color="secondary">{{"save-and-go" | translate}}</button> -->
   </div>
 
   <!-- Przyciski z numerami pytań -->

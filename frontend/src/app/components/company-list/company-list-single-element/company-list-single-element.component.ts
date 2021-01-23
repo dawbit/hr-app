@@ -18,12 +18,15 @@ export class CompanyListSingleElementComponent implements OnInit {
    }
 
    ngOnInit() {
-       const textLength = this.text.length;
+     if (this.text){
+      const textLength = this.text.length;
       // collapsuje tylko, jeśli tekst z inputu przekroczy ustaloną długość
-       if (textLength > this.maxLength) {
+      if (textLength > this.maxLength) {
            this.isCollapsed = true;
            this.isCollapsable = true;
        }
+     }
+
    }
 
 }
