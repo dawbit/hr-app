@@ -242,7 +242,7 @@
     "save": "Zapisz quiz!",
     "start": "start!",
     "startConfirm": "Czy jesteś pewien że chcesz rozpocząć rozwiązywanie quizu? \n Tej decyzji nie można cofnąć!",
-    "timeForTestInMilis": "Czas (milisekundy)",
+    "timeForTestInMilis": "Czas (minuty)",
     "timeLeft": "Pozostały czas: ",
     "question": "Pytanie",
     "questionNumber": "Pytanie numer: ",

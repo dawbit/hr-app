@@ -36,6 +36,7 @@ export class CompanyAddComponent implements OnInit {
     this.companyService.add(this.companyForm.value).subscribe(
       res => {
         if (res && res.ok && res.status === 200) {
+          localStorage.setItem('auth-role', 'CEO');
           this.toast.showSuccess('message.companyAdded');
         }
       },
