@@ -8,24 +8,25 @@
   <!-- Left side links -->
   <links>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" *ngIf="isLogged" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'companies.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="company-list">{{'companies.list' |
             translate}}</a>
-          <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="company-add">{{'companies.add' |
+          <div class="divider dropdown-divider" *ngIf="isLogged && (!userRole == 'HR' || !userRole == 'CEO')"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect
+            *ngIf="isLogged && (!userRole == 'HR' || !userRole == 'CEO')" routerLink="company-add">{{'companies.add' |
             translate}}</a>
         </div>
       </li>
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" *ngIf="isLogged" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           {{'jobs.basic' | translate}}<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="job-offer-list">{{'jobs.list' |
             translate}}</a>
-          <div class="divider dropdown-divider"></div>
+          <div class="divider dropdown-divider" *ngIf="isLogged && (userRole == 'HR' || userRole == 'ADMIN')"></div>
           <a class="dropdown-item waves-light" mdbWavesEffect
             *ngIf="isLogged && (userRole == 'HR' || userRole == 'ADMIN')" routerLink="add-job-offer">{{'jobs.add' |
             translate}}</a>
@@ -49,7 +50,7 @@
     <!-- Left side links -->
 
     <!-- Right side links -->
-    <ul class="navbar-nav ml-auto" *ngIf="isLogged">
+    <ul class="navbar-nav ml-auto">
       <!-- User notifications -->
       <div class="btn-group" *ngIf="isLogged && (userRole=='USER' || userRole=='ADMIN')" mdbDropdown>
         <a mdbDropdownToggle gtm-id="Notifications" class="nav-link dropdown-toggle waves-effect" alt="Notifications"
@@ -103,7 +104,7 @@
         </a>
       </li>
       <!-- Dropdown -->
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" *ngIf="isLogged" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           <!-- TODO currentUser and currentUserAvatar -->
           <mdb-icon fas icon="user"></mdb-icon>{{'profile' | translate}}<span class="caret"></span>
