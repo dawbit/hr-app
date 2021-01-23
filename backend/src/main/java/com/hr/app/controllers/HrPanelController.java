@@ -181,7 +181,7 @@ public class HrPanelController {
             // sprawdzenie, czy dla konkretnego alertu nie został przypisany już wcześniej quiz (test_participant)
             if (!Objects.isNull(hrAlertsRepository.findById(alertId)) &&
                     Objects.isNull(hrAlertsRepository.findById(alertId).getFKhrAlertTestParticipant())) {
-                long currentQuestionNumber = 0;
+                long currentQuestionNumber = 1;
                 long startQuizTimeInMilis = 0;
                 long testId = assignQuizDto.getTestId();
                 String testCodeBasic = assignQuizDto.getTestCode();
